@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Cloud Arcade</title>
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Scanline Overlay (Toggled via JS) -->
+    <div id="scanlines" class="scanlines" aria-hidden="true"></div>
+
+    <!-- Starfield Animation Background (aria-hidden for screen readers) -->
+    <div id="starfield" aria-hidden="true"></div>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <a href="#home" class="nav-brand flicker-text" aria-label="Marketing Cloud Arcade Home">MC_ARCADE</a>
+
+        <!-- UI Toggles Group -->
+        <div class="nav-controls">
+            <!-- Scanline Toggle -->
+            <label class="toggle-switch" aria-label="Toggle CRT Scanlines">
+                <input type="checkbox" id="crt-toggle">
+                <span class="slider"></span>
+                <span class="toggle-label">CRT</span>
+            </label>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-controls="nav-links" aria-expanded="false"
+                aria-label="Open navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav id="nav-links" class="nav-links">
+            <button id="global-search-btn" class="nav-link retro-btn-small" aria-label="Open Global Search"
+                style="background:none;border:none;cursor:pointer;">&#128269; Search</button>
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#docs" class="nav-link">Docs</a>
+            <a href="#blog" class="nav-link">Blog</a>
+            <a href="#about" class="nav-link">About</a>
+        </nav>
+    </header>
+    <div class="marketing-arcade-scene">
+
+        <div class="pixel-potion" id="arcade-potion"></div>
+
+        <div class="loader-character" id="arcade-loader">
+            <div class="pixel-einstein-detailed"></div>
+
+            <div class="pixel-pacman"></div>
+        </div>
+
+    </div>
+    <main id="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section hero">
+            <h1 class="pixel-text flicker-text">Marketing Cloud Arcade</h1>
+            <p class="subtitle">Level up your Salesforce Marketing Cloud development skills</p>
+            <p class="description">Your retro-fueled hub for advanced SFMC knowledge, architecture, and coding best
+                practices.</p>
+            <div class="cta-group">
+                <a href="#docs" class="btn btn-primary">Start Learning</a>
+                <a href="#blog" class="btn btn-secondary">Latest Articles</a>
+            </div>
+        </section>
+
+        <!-- Docs Section -->
+        <section id="docs" class="section docs-section">
+            <div class="section-header-row">
+                <h2 class="pixel-text section-title flicker-text">Documentation Levels</h2>
+                <div class="progress-container" aria-label="Documentation Completion Progress">
+                    <span class="progress-text" id="progress-text">Progress: 0%</span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="docs-layout">
+                <!-- Sidebar -->
+                <aside class="docs-sidebar" aria-label="Documentation Categories">
+
+                    <!-- Search & Filter Controls -->
+                    <div class="docs-filters">
+                        <input type="text" id="docs-search" class="retro-input" placeholder="Search levels..."
+                            aria-label="Search documentation">
+                        <div class="docs-tags" id="docs-tags">
+                            <button class="tag-btn" data-tag="all" aria-pressed="true">All</button>
+                            <button class="tag-btn" data-tag="script">Script</button>
+                            <button class="tag-btn" data-tag="api">API</button>
+                            <button class="tag-btn" data-tag="data">Data</button>
+                        </div>
+                    </div>
+
+                    <ul id="docs-nav" role="tablist">
+                        <!-- Initializing System fallback -->
+                        <li class="loading-module retro-blink">Initializing System...</li>
+                    </ul>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="docs-content" id="docs-content-area" role="region" aria-live="polite">
+                    <!-- Dynamic content injected here -->
+                    <p class="doc-desc loading-txt">Initializing module...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="section blog-section">
+            <h2 class="pixel-text section-title flicker-text">Transmission Logs (Blog)</h2>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Blog cards injected via JS for centralized ID management -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <h2 class="pixel-text section-title flicker-text">Player Info</h2>
+            <div class="about-card" tabindex="0">
+                <p>I focus on providing practical, developer-centric knowledge for Salesforce Marketing Cloud. Forget
+                    the fluff—this is about real-world architecture, scalable automations, and overcoming platform
+                    quirks.</p>
+                <p>Level up your engineering skills.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Blog posts -->
+    <div id="blog-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-content blog-modal-layout">
+            <button class="close-modal" aria-label="Close modal window">&times;</button>
+            <div class="modal-header">
+                <div id="modal-meta" class="card-meta"></div>
+                <h2 id="modal-title" class="pixel-text">Loading...</h2>
+            </div>
+
+            <div id="modal-body" class="modal-body-content">
+                <p>Module data corrupted or not yet transmitted. Complete access will be restored shortly.</p>
+            </div>
+
+            <!-- Enhanced Pagination Controls -->
+            <div class="modal-controls">
+                <button id="modal-prev" class="btn-outline btn-sm" aria-label="Previous article">&laquo; Prev
+                    Record</button>
+                <button id="modal-next" class="btn-outline btn-sm" aria-label="Next article">Next Record
+                    &raquo;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top" title="Scroll back to top">
+        &#8679;
+    </button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+{
+  "blogData": [
+    {
+      "id": "nam-conv",
+      "slug": "nam-conv",
+      "title": "The Cartridge Format: Naming Conventions & Folder Structure",
+      "seoTitle": "Salesforce Marketing Cloud Naming Conventions",
+      "date": "2026-03-01",
+      "summary": "Una estrategia estandarizada para organizar Assets, Data Extensions y automaciones en múltiples Business Units para dominar el caos gubernamental de SFMC.",
+      "content": "<h3>El Caos Inicial</h3><p>Una cuenta antigua sin control genera Data Extensions llamadas <strong>Campaña_Test_FINAL_v2</strong>. Esto rompe la escalabilidad. Necesitas jerarquía clara para tus assets y data.</p><h3>La Solución: Jerarquías Estrictas</h3><p>Usa convenciones como <code>[Entity]_[ProjectName]_[Type]_[Frequency]</code>. Documenta esto centralmente y asigna permisos por carpetas en lugar de administradores generales.</p>",
+      "tags": [
+        "Governance",
+        "Architecture"
+      ],
+      "series": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "10",
+      "takeaways": [
+        "Naming convention = supervivencia",
+        "Folders por permisos",
+        "Archiva lo viejo en zArchive"
+      ],
+      "checklist": [
+        "¿Hay convención estricta?",
+        "¿Mueves lo obsoleto a zArchive?",
+        "¿Los permisos están a nivel folder?"
+      ],
+      "officialAlignment": "Setup > Account Administration & Folder Management"
+    },
+    {
+      "id": "sql-sarg",
+      "slug": "sql-sarg",
+      "title": "Data Matrix Optimization: SQL Query Mastery",
+      "seoTitle": "SFMC SQL Optimization & SARGability",
+      "date": "2026-03-02",
+      "summary": "Vence el timeout de 30 minutos de Automation Studio estructurando tus queries con SARGability y desduplicaciones eficientes.",
+      "content": "<h3>El temido Timeout</h3><p>Un error común es que un query alcance el límite estricto de 30 minutos. Generalmente ocurre por falta de SARGability y el uso no indexable de campos.</p><h3>Evita las funciones en el WHERE</h3><p>Evita <code>LEFT(a,1)='1'</code>; prefiere <code>LIKE '1%'</code>. Siempre incluye la Primary Key en tus UPDATEs y usa ROW_NUMBER para evitar dupes.</p>",
+      "tags": [
+        "SQL",
+        "Performance",
+        "Data"
+      ],
+      "series": "World 1",
+      "difficulty": "Lv3",
+      "estTime": "20",
+      "takeaways": [
+        "LIKE 'A%' es SARGable, '%A' no",
+        "Evita DISTINCT y usa ROW_NUMBER",
+        "Filtra siempre antes de un JOIN"
+      ],
+      "checklist": [
+        "¿USAS SELECT *?",
+        "¿Hay funciones envolviendo variables de tu WHERE clause?",
+        "¿Estás usando Primary Keys destino?"
+      ],
+      "officialAlignment": "Automation Studio > SQL Query Activity"
+    },
+    {
+      "id": "dev-deliv",
+      "slug": "dev-deliv",
+      "title": "Guardian of the Inbox: Dev-Level Deliverability",
+      "seoTitle": "SFMC Email Deliverability for Developers",
+      "date": "2026-03-03",
+      "summary": "Sender Authentication Package, IP Warmup y validación técnica de dominios. Lo mínimo viable que cualquier Developer debe saber para que su código no sea catalogado como spam.",
+      "content": "<h3>HTML perfecto, entrega en Spam</h3><p>Los developers ignoran que la infraestructura de red pesa más que un HTML bien estructurado. Si no tienes DMARC alineado o el Sender Authentication Package correctamente delegado, no vas a llegar a Inbox.</p><h3>IP Warming</h3><p>El envío de volumen incremental ayuda a calentar las IPs dedicadas. Si envías 1 Millón el día 1, estás perdido. Extrae logs de _Bounce para analizar mitigaciones de rebotes duros.</p>",
+      "tags": [
+        "Deliverability",
+        "Architecture"
+      ],
+      "series": "World 1",
+      "difficulty": "Lv2",
+      "estTime": "15",
+      "takeaways": [
+        "IP Warming toma de 4 a 6 semanas",
+        "SPF y DKIM deben estar alineados con DMARC",
+        "Filtra los hard bounces rápidamente"
+      ],
+      "checklist": [
+        "¿Ejecutaste IP Warming?",
+        "¿Consultaste al soporte por SAP enablement?",
+        "¿Monitoreas Data Views de quejas?"
+      ],
+      "officialAlignment": "Email Studio > Deliverability > Sender Authentication Package"
+    },
+    {
+      "id": "amp-eval",
+      "slug": "amp-eval",
+      "title": "Render Engine Limits: AMPscript Pre-Evaluation",
+      "seoTitle": "AMPscript Pre-Evaluation & Render Timeouts",
+      "date": "2026-03-05",
+      "summary": "El comportamiento de evaluación pre-vuelo de AMPscript en las líneas de asunto y cómo evitar que tu correo desencadene timeouts masivos en el Outbound Mail Manager.",
+      "content": "<h3>Orden de Operaciones</h3><p>SFMC Outbound Mail Manager interpreta tu email en este orden: Preheader > Subject Line > Body. Si llamas una variable en el asunto antes de definirla en el body, fallará.</p><h3>Init Blocks</h3><p>Reúne todo el procesamiento pesado en un Init Block invisible (LookupRooms, asignaciones) en el Body, y usa las variables precalculadas de manera limpia en Subject y Preheader (no en HTML attributes).</p>",
+      "tags": [
+        "AMPscript",
+        "Performance"
+      ],
+      "series": "World 2",
+      "difficulty": "Lv3",
+      "estTime": "15",
+      "takeaways": [
+        "Preheader evalúa antes que Subject",
+        "Consolida lógicas en Init Blocks",
+        "Limita HTTPGet sincrónicos en loops"
+      ],
+      "checklist": [
+        "¿Hay data rendering lenta en loops?",
+        "¿Están las variables listas antes del output?",
+        "¿Envuelves errores con TreatAsContent?"
+      ],
+      "officialAlignment": "AMPscript Syntax Guide"
+    },
+    {
+      "id": "ssjs-api",
+      "slug": "ssjs-api",
+      "title": "The Shadow Backend: SSJS Rest Endpoint Patterns",
+      "seoTitle": "Building Secure JSON API Endpoints with SSJS",
+      "date": "2026-03-08",
+      "summary": "Abandona Smart Capture. Arquitectura un endpoint JSON robusto y seguro usando Code Resources en CloudPages.",
+      "content": "<h3>Más allá de Formularios Nativos</h3><p>Para interacciones dinámicas de React/Vue con SFMC, necesitas Endpoints JSON. Los Code Resources de CloudPages no se facturan como Page Views (salvo condiciones contractuales particulares). Usan <code>Platform.Request.GetPostData()</code> para recibir carga útil.</p><h3>Manejo de CORS y Errores</h3><p>Nunca olvides añadir tu <code>SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\")</code> o las peticiones de navegadores tronarán. Agrega Try/Catch forzados.</p>",
+      "tags": [
+        "SSJS",
+        "API",
+        "Security",
+        "CloudPages"
+      ],
+      "series": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "30",
+      "takeaways": [
+        "Usa JSON Code Resources, no Landing Pages",
+        "Envuelve SSJS en trycatch estricto",
+        "Establece explícitamente headers de CORS"
+      ],
+      "checklist": [
+        "¿Está el header Access-Control-Allow puesto?",
+        "¿Devuelves JSON stringificado en catch()?",
+        "¿Sanitizas parámetros de entrada?"
+      ],
+      "officialAlignment": "Developer Docs > SSJS > Platform Functions"
+    },
+    {
+      "id": "telemetry",
+      "slug": "telemetry",
+      "title": "Telemetry Modules: Observability with DEs",
+      "seoTitle": "Building Logging Systems in Marketing Cloud",
+      "date": "2026-03-11",
+      "summary": "Si no hay logs, no pasó. Estrategia de módulos SSJS reusables para capturar intentos API, fallos y latencias en Data Extensions.",
+      "content": "<h3>Monitoreo Invisible</h3><p>Cuando un Script interactúa asíncronamente con un CRM externo, si falla silenciosamente no hay nadie que te notifique. Usa Content Blocks compartidos para inyectar Logging functions nativas mediante <code>InsertData</code>.</p><h3>Retención de Datos Vital</h3><p>Las tablas de telemetría pueden alcanzar 10 Millones de rows en un mes. Aplicar Data Retention Settings a 30 días es innegociable antes de productizar.</p>",
+      "tags": [
+        "Troubleshooting",
+        "Governance",
+        "SSJS"
+      ],
+      "series": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "15",
+      "takeaways": [
+        "Siempre aplica Data Retention de 30 días a Logs",
+        "Crea logging Content Blocks y usa TreatAsContent",
+        "Ofusca PII de los payloads antes de guardar"
+      ],
+      "checklist": [
+        "¿Data Retention está a On?",
+        "¿No hay datos PII legibles?",
+        "¿Se registra ComponentName y Timestamp UTC?"
+      ],
+      "officialAlignment": "Automation Studio Script Activities"
+    },
+    {
+      "id": "token-cache",
+      "slug": "token-cache",
+      "title": "The Vault: Token Caching & Auth Management",
+      "seoTitle": "SFMC REST API OAuth Token Caching Best Practices",
+      "date": "2026-03-15",
+      "summary": "Evita generar Rate Limit Errors por culpa de pedir un Auth Token nuevo por cada iteración. Almacena en la bóveda, recicla inteligentemente.",
+      "content": "<h3>El error 429 inevitable</h3><p>Muchas plataformas integradas piden `v2/token` cada vez que insertan un lead. Las IPs terminarán baneadas localmente por SFMC (Strict Authentication Rate limits). Implementa Singleton Token Manager.</p><h3>Clock Skew Margin</h3><p>Guarda la variable en DE, pero redúcele ~60s al tiempo de vencimiento real para que no expire entre que extrae el token de la bóveda y despacha el API payload.</p>",
+      "tags": [
+        "API",
+        "Security",
+        "Performance"
+      ],
+      "series": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "20",
+      "takeaways": [
+        "Jamás pidas token por request",
+        "Usa un Database (DE) cache con margen de skew",
+        "Deniega permisos de UI sobre credenciales DE"
+      ],
+      "checklist": [
+        "¿El script usa Skew Time (-60s)?",
+        "¿Hay fallback a pedir si es vacío?",
+        "¿Las clientIDs provienen de variables de entorno (lookups)?"
+      ],
+      "officialAlignment": "REST API > Authentication (v2/token)"
+    },
+    {
+      "id": "async-api",
+      "slug": "async-api",
+      "title": "Mass Injection: Payload Pagination & Entry Limits",
+      "seoTitle": "SFMC Bulk REST API & Journey Builder Async Ingestion",
+      "date": "2026-03-18",
+      "summary": "Inyectar millones de contactos a un Journey no escala con APIs síncronas. Usa el Bulk Async endpoint y la arquitectura híbrida.",
+      "content": "<h3>API Asíncrona (Async)</h3><p>Si envías miles de registros al endpoint síncrono de interacciones, fallará. Usa <code>/interaction/v1/events/async</code>. SFMC solo retornará 202 Accepted, almacenando tu payload en cola.</p><h3>Silencio mortal</h3><p>Dado que es asíncrono, si envías un schema erróneo para el Event Data Extension, fallará internamente sin que tu middleware sepa. Debes prevalidar schemas rígidamente o leer NotSent views.</p>",
+      "tags": [
+        "Journey",
+        "API",
+        "Performance"
+      ],
+      "series": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "25",
+      "takeaways": [
+        "Sync = Tiempo real & Bajo Volumen (< 1,000 req/hr)",
+        "Async = Volumen masivo Fire and Forget",
+        "202 Accepted no garantiza entrada al journey"
+      ],
+      "checklist": [
+        "¿Validaste claves primaria en Origen?",
+        "¿Tus payload JSON match con los Event definitions?",
+        "¿Entiendes que 202 != Success?"
+      ],
+      "officialAlignment": "Journey Builder > REST API > Fire Event Asynchronously"
+    },
+    {
+      "id": "wsproxy-adv",
+      "slug": "wsproxy-adv",
+      "title": "The Puppet Master: WSProxy para SOAP object Model",
+      "seoTitle": "Advanced WSProxy Automation Scripting",
+      "date": "2026-03-22",
+      "summary": "La forma moderna y estricta de manipular el core de plataforma usando WSProxy en lugar de librerías nativas pasadas o raw SOAP.",
+      "content": "<h3>La abstracción definitiva</h3><p>Tratar de detener o correr un programa en SFMC con Platform.Functions es difícil; WSProxy simplifica las llamadas a las API estáticas y SOAP complejas bajo un wrapper JSON-like amigable.</p><h3>Action 'PerformItem'</h3><p>Llenar Data Extensions masivas por lotes con WSProxy es entre 2 y 5 veces más rápido que Script.Util debido a la vectorización (batches de 100). Maneja la propiedad 'HasMoreRows' para crear paginadores transparentes.</p>",
+      "tags": [
+        "SSJS",
+        "API",
+        "Automation"
+      ],
+      "series": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "20",
+      "takeaways": [
+        "WSProxy es más veloz que Platform Core functions",
+        "PerformItem es vital para Automation Objects",
+        "Paginar con HasMoreRows"
+      ],
+      "checklist": [
+        "¿Capturas el RequestID del res?",
+        "¿Validaste el ObjectType en WSDL?",
+        "¿Haces batches lógicos en array list?"
+      ],
+      "officialAlignment": "Developer Docs > SSJS > WSProxy"
+    },
+    {
+      "id": "asset-api",
+      "slug": "asset-api",
+      "title": "Content Engine API: Folder & Asset Versioning",
+      "seoTitle": "SFMC Content Builder APIs Asset Operations",
+      "date": "2026-03-25",
+      "summary": "CI/CD approach básico. Actualiza templates programáticamente y empuja código masivamente vía API al Content Builder.",
+      "content": "<h3>No Code Manual</h3><p>El API de Content Builder (<code>/asset/v1/assets</code>) nos deja actualizar bloques HTML con código guardado en Gitlab/Github (Post-merge scripts). Actualizas el asset base por su UUID o External ID (CustomerKey).</p><h3>Cuidado con los Clones</h3><p>Si llamas al método POST sin un ID estricto, la plataforma generará Asset copies infinitos, rompiendo búsquedas y referenciados. Ejecuta GET Search primero o asegura método PUT/PATCH con el ID persistente.</p>",
+      "tags": [
+        "API",
+        "Architecture",
+        "Governance"
+      ],
+      "series": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "20",
+      "takeaways": [
+        "Ata un ID CustomerKey persistente a tus bloques fijos",
+        "PATCH actualiza, POST clona",
+        "El API soporta anidación en carpetas vía CategoryId"
+      ],
+      "checklist": [
+        "¿Usas Scope Limits estrictos? (Content Writer)",
+        "¿Tu script revisa si existe el Asset primero?",
+        "¿La CategoryID de destino es válida en PROD?"
+      ],
+      "officialAlignment": "Content Builder > REST API"
+    },
+    {
+      "id": "pii-defense",
+      "slug": "pii-defense",
+      "title": "PII Defense Matrix: Minimization & Governance",
+      "seoTitle": "SFMC PII Minimization & Encryption Architecture",
+      "date": "2026-03-28",
+      "summary": "Evita filtraciones y cumple auditorías ofuscando la Personally Identifiable Information en tus flujos de Marketing Cloud.",
+      "content": "<h3>Pattern Claim-Check</h3><p>Mejor que cifrar datos, es no almacenarlos en repositorios calientes. Manda UUIDs y extrae PII en caliente durante rendeo (desde un vault externo o tabla de retención 1-día).</p><h3>Limites de Field Level Encryption</h3><p>FLE (Encripción de campo a nivel plataforma) suena bien, hasta que descubres que rompe SARGability (ya no funciona = o LIKE). Úsala inteligentemente y prefiere Transparent Data Encryption si requieres operatividad SQL.</p>",
+      "tags": [
+        "Security",
+        "Data",
+        "Governance"
+      ],
+      "series": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "25",
+      "takeaways": [
+        "Claim-Check pattern reduce riesgo",
+        "FLE destruye operadores condicionales",
+        "Mantener PII mínimo viable fuera de Logs"
+      ],
+      "checklist": [
+        "¿Manejas retención de datos PII estricta (7-14 días)?",
+        "¿Limpiaste SSN ocultos en DE _Log?",
+        "¿Tienes TDE habilitado a nivel servidor de BDD?"
+      ],
+      "officialAlignment": "Security > Marketing Cloud Data Privacy"
+    },
+    {
+      "id": "tx-api",
+      "slug": "tx-api",
+      "title": "The Final Boss: Transactional Messaging API",
+      "seoTitle": "Mastering SFMC Transactional Messaging APIs",
+      "date": "2026-03-30",
+      "summary": "De los viejos Triggered Sends SOAP al increíble rendimiento decoupled asíncrono de Transactional Message REST APIs.",
+      "content": "<h3>Resetea la latencia (1 seg delivery)</h3><p>Transactional Message REST evita las colas de procesamiento clásicas. Su latencia de envío a inbox es brutal, pero carece de fallos evidentes y no debe combinarse con pesados lookups en AMPscript.</p><h3>La Arquitectura del Evento</h3><p>Inyecta absolutamente TODAS las variables necesarias en el <code>payload</code> del requester (ej: Name, RecoveryLink, Lang), así evitas que Marketing Cloud pierda milisegundos consultando bases de datos que pueden estar bloqueadas.</p>",
+      "tags": [
+        "API",
+        "Performance",
+        "Email"
+      ],
+      "series": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "30",
+      "takeaways": [
+        "Mueve personalización en Tránsito vía Payload",
+        "Incompatible con Send Throttling volumétrico",
+        "Activa el ENS (Event Notification Service) para fallos"
+      ],
+      "checklist": [
+        "¿Minimizaste lookups de bases de datos internas en render?",
+        "¿Configuraste el Fallback webhook ENS?",
+        "¿Es la Message Definition activa en 'Transactional'?"
+      ],
+      "officialAlignment": "Messaging Data > Transactional Messaging API"
+    }
+  ]
+}
