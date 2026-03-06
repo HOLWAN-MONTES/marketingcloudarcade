@@ -1,0 +1,314 @@
+{
+  "docsData": {
+    "nam-conv": {
+      "slug": "nam-conv",
+      "world": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "10 mins",
+      "officialAlignment": "Setup > Account Administration & Folder Management",
+      "title": "Level 1-1: Naming Conventions",
+      "seoTitle": "Salesforce Marketing Cloud Naming Conventions",
+      "desc": "Domina el caos. Una estrategia estandarizada para organizar Assets, Data Extensions y automaciones en múltiples Business Units.",
+      "filename": "sys_governance.exe",
+      "code": "// Convención estandarizada:\n[Entity]_[ProjectName]_[Type]_[Frequency]\n\n// Ejemplo Data Extension:\nNA_WelcomeJourney_SendLog_Daily",
+      "best": [
+        "Usar estructura jerárquica por tipo de activo.",
+        "Asignar permisos por carpeta, evitar admin global."
+      ],
+      "mistakes": [
+        "Nombres inconsistentes como 'Campaña_Final_v2_TEST'.",
+        "Falta de un folder zArchive para lo obsoleto."
+      ],
+      "tags": [
+        "Governance",
+        "Architecture"
+      ],
+      "tabTitle": "W1: Naming"
+    },
+    "sql-sarg": {
+      "slug": "sql-sarg",
+      "world": "World 1",
+      "difficulty": "Lv3",
+      "estTime": "20 mins",
+      "officialAlignment": "Automation Studio > SQL Query Activity",
+      "title": "Level 1-2: SARGable SQL",
+      "seoTitle": "SFMC SQL Optimization & SARGability",
+      "desc": "Vence el timeout de 30 minutos. Escribe consultas SQL escalables y 'SARGables' para Data Extensions.",
+      "filename": "query_optimizer.sql",
+      "code": "/* Pobre SARGability: */\nSELECT * FROM MyDE WHERE LEFT(Email, 1) = 'A'\n\n/* Buena SARGability con CTEs: */\nSELECT Email FROM MyDE WHERE Email LIKE 'A%'",
+      "best": [
+        "Evitar comodines iniciales en LIKE.",
+        "Desduplicar con ROW_NUMBER() OVER(PARTITION BY...)."
+      ],
+      "mistakes": [
+        "Uso de SELECT * en lugar de campos explícitos.",
+        "Filtros que anulan índices (no-SARGables)."
+      ],
+      "tags": [
+        "SQL",
+        "Performance",
+        "Data"
+      ],
+      "tabTitle": "W1: SQL"
+    },
+    "dev-deliv": {
+      "slug": "dev-deliv",
+      "world": "World 1",
+      "difficulty": "Lv2",
+      "estTime": "15 mins",
+      "officialAlignment": "Email Studio > Deliverability > Sender Authentication Package",
+      "title": "Level 1-3: Deliverability",
+      "seoTitle": "SFMC Email Deliverability for Developers",
+      "desc": "Sender Authentication Package, IP Warmup y validación técnica de dominios.",
+      "filename": "network_layer.config",
+      "code": "v=spf1 include:cust-spf.exacttarget.com ~all\n// Check DMARC and DKIM alignment constantly.",
+      "best": [
+        "Monitorear _Bounce Data View asíncronamente.",
+        "Ejecutar IP Warming volumétrico seguro."
+      ],
+      "mistakes": [
+        "Enviar masivamente sin reputación base.",
+        "Ignorar rebotes duros repetidos."
+      ],
+      "tags": [
+        "Deliverability",
+        "Architecture"
+      ],
+      "tabTitle": "W1: Deliverability"
+    },
+    "amp-eval": {
+      "slug": "amp-eval",
+      "world": "World 2",
+      "difficulty": "Lv3",
+      "estTime": "15 mins",
+      "officialAlignment": "AMPscript Syntax Guide",
+      "title": "Level 2-1: AMPscript Limits",
+      "seoTitle": "SFMC AMPscript Pre-Evaluation & Render Timeouts",
+      "desc": "Cómo SFMC procesa AMPscript en Asuntos y Preheaders vs cuerpo del correo, previniendo timeouts.",
+      "filename": "omm_pipeline.amp",
+      "code": "<!-- Subject: %%=v(@Subj)=%% -->\n%%[ /* Body Init */\nSET @Subj = Lookup(\"SubjCopy\", \"Text\", \"ID\", 1)\n]%%",
+      "best": [
+        "Consolidar lookups en Init Blocks.",
+        "Tratar HTTPGet con cautela o asíncronamente."
+      ],
+      "mistakes": [
+        "HTTPGet sincrónico por cada iterador en listas de 10k+.",
+        "Esperar que el Subject procese variables antes de inicializarlas en el Body."
+      ],
+      "tags": [
+        "AMPscript",
+        "Performance"
+      ],
+      "tabTitle": "W2: AMP Limits"
+    },
+    "ssjs-api": {
+      "slug": "ssjs-api",
+      "world": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "30 mins",
+      "officialAlignment": "Developer Docs > SSJS > Platform Functions",
+      "title": "Level 2-2: SSJS Endpoints",
+      "seoTitle": "Building Secure JSON APIs with SFMC SSJS",
+      "desc": "Crea Endpoints REST nativos robustos utilizando Server-Side JavaScript en CloudPages.",
+      "filename": "backend_api.js",
+      "code": "Platform.Response.SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\");\ntry {\n  var payload = Platform.Request.GetPostData();\n  // ... process JSON ...\n  Write('{\"status\":\"success\"}');\n} catch(err) {\n  Write('{\"status\":\"error\",\"message\":'+Stringify(err)+'}');\n}",
+      "best": [
+        "Validar PII y sanitizar inputs.",
+        "Envolver en bloque try/catch para evitar genéricos 500."
+      ],
+      "mistakes": [
+        "Olvidar SetResponseHeader causa fallos CORS.",
+        "Falla silenciosa por no devolver JSON de error."
+      ],
+      "tags": [
+        "SSJS",
+        "API",
+        "Security",
+        "CloudPages"
+      ],
+      "tabTitle": "W2: Endpoints"
+    },
+    "telemetry": {
+      "slug": "telemetry",
+      "world": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "15 mins",
+      "officialAlignment": "Automation Studio Script Activities",
+      "title": "Level 2-3: Built-in Telemetry",
+      "seoTitle": "SFMC Telemetry and Logging Framework",
+      "desc": "Implementa un framework para rastrear Run Logs, Intentos API y Errores globalmente.",
+      "filename": "log_daemon.ssjs",
+      "code": "var res = Platform.Function.InsertData(\"System_Logs\", \n  [\"Level\",\"Message\",\"Time\"], \n  [\"ERROR\", Stringify(ex), Now()]);",
+      "best": [
+        "Políticas de retención de 30 días obligatorias.",
+        "Ofuscar emails (ej. te***@domain.com)."
+      ],
+      "mistakes": [
+        "Data Extensions de telemetría inmanejables por no auto-borrado.",
+        "Registrar JSON PII sensible explícitamente."
+      ],
+      "tags": [
+        "Troubleshooting",
+        "Governance",
+        "SSJS"
+      ],
+      "tabTitle": "W2: Telemetry"
+    },
+    "token-cache": {
+      "slug": "token-cache",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "20 mins",
+      "officialAlignment": "REST API > Authentication (v2/token)",
+      "title": "Level 3-1: Token Caching",
+      "seoTitle": "SFMC REST API OAuth Token Caching",
+      "desc": "Arquitectura de expiración y almacenamiento seguro en SSJS para evitar rate limiting.",
+      "filename": "vault_auth.js",
+      "code": "// Pseudo SSJS para cacheo:\nvar cached = Lookup(\"Sys_Tokens\", \"Token\", \"App\", \"MyApp\");\nvar exp = Lookup(\"Sys_Tokens\", \"Exp\", \"App\", \"MyApp\");\nif(exp < new Date().getTime()) {\n  // fetch token, add 60s skew margin, UpdateData DE\n}",
+      "best": [
+        "Margen de seguridad (skew buffer) de 60s.",
+        "Bloquear DE de credenciales en permisos UI."
+      ],
+      "mistakes": [
+        "Solicitar token por cada llamada a REST (429 Too Many Requests).",
+        "Guardar secret expuesto en templates de texto plano."
+      ],
+      "tags": [
+        "API",
+        "Security",
+        "Performance"
+      ],
+      "tabTitle": "W3: Tokens"
+    },
+    "async-api": {
+      "slug": "async-api",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "25 mins",
+      "officialAlignment": "Journey Builder > REST API > Fire Event Asynchronously",
+      "title": "Level 3-2: Async Injection",
+      "seoTitle": "SFMC Bulk REST API & Journey Builder Async Events",
+      "desc": "Ingresar miles de contactos a JB sin reventar Rate Limits usando endpoint asíncrono y paginado.",
+      "filename": "bulk_inject.sh",
+      "code": "POST /interaction/v1/events/async\n{\n  // Array de objetos de contacto permitidos\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { ... }\n}",
+      "best": [
+        "Usar batch asíncrono sobre loops síncronos.",
+        "Validar DEs destino antes de disparar el burst."
+      ],
+      "mistakes": [
+        "El endpoint asíncrono enmascara fallos de schema (retorna 202).",
+        "Olvidar configurar Data Extension de entrada correctamente."
+      ],
+      "tags": [
+        "Journey",
+        "API",
+        "Performance"
+      ],
+      "tabTitle": "W3: Async Inject"
+    },
+    "wsproxy-adv": {
+      "slug": "wsproxy-adv",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "20 mins",
+      "officialAlignment": "Developer Docs > SSJS > WSProxy",
+      "title": "Level 3-3: WSProxy Master",
+      "seoTitle": "Advanced Automation Scripting with WSProxy",
+      "desc": "Manipular configuraciones profundas usando WSProxy en lugar de llamadas SOAP a mano.",
+      "filename": "wsproxy_execute.js",
+      "code": "var prox = new Script.Util.WSProxy();\nvar action = \"Start\";\nvar props = { ObjectID: \"auth-uuid-here\" };\nvar res = prox.performItem(\"Automation\", props, action);",
+      "best": [
+        "Parsear res.Status y loggearlo.",
+        "Validar ObjectTypes con el WSDL."
+      ],
+      "mistakes": [
+        "Propiedad incorrecta causa 'Property not found'.",
+        "Olvidar que 'performItem' requiere contexto exacto."
+      ],
+      "tags": [
+        "SSJS",
+        "API",
+        "Automation"
+      ],
+      "tabTitle": "W3: WSProxy"
+    },
+    "asset-api": {
+      "slug": "asset-api",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "20 mins",
+      "officialAlignment": "Content Builder > REST API",
+      "title": "Level 4-1: Asset Versioning",
+      "seoTitle": "SFMC Content Builder APIs Asset Versioning",
+      "desc": "Generar y versionar activos dinámicamente o gestionar permisos usando CB API.",
+      "filename": "asset_ops.json",
+      "code": "PATCH /asset/v1/assets/{id}\n{\n  \"name\": \"Hero_Template_v2\",\n  \"content\": \"<div>...</div>\"\n}",
+      "best": [
+        "Mantener CustomerKey fijos para actualizaciones in-place.",
+        "Sandbox Business Units para testing de CI."
+      ],
+      "mistakes": [
+        "Llamar a POST en lugar de PUT/PATCH genera clones infinitos.",
+        "Falta de scope limit en paquetes integrados."
+      ],
+      "tags": [
+        "API",
+        "Architecture",
+        "Governance"
+      ],
+      "tabTitle": "W4: Assets"
+    },
+    "pii-defense": {
+      "slug": "pii-defense",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "25 mins",
+      "officialAlignment": "Security > Marketing Cloud Data Privacy",
+      "title": "Level 4-2: PII Defense Matrix",
+      "seoTitle": "SFMC PII Minimization & Encryption Architecture",
+      "desc": "Técnicas para ofuscar (PII) en Data Extensions operativas y mantener compliance.",
+      "filename": "crypto_vault.js",
+      "code": "/* Minimización Claim-check */\n// Evitar persistir SSN en DEs. Solo inyectar Token UUID\nvar emailBody = Platform.Function.Lookup(\"SecureSource\", \"SSN\", \"UUID\", @id);",
+      "best": [
+        "Definir retención automática a 7 días en DEs calientes.",
+        "Utilizar Claim-check pattern en Journeys."
+      ],
+      "mistakes": [
+        "Activar FLE (Field Level Encryption) destruye sargability de campos relacionales.",
+        "Enviar queries en texto plano con PII visible a usuarios comunes."
+      ],
+      "tags": [
+        "Security",
+        "Data",
+        "Governance"
+      ],
+      "tabTitle": "W4: Defense"
+    },
+    "tx-api": {
+      "slug": "tx-api",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "30 mins",
+      "officialAlignment": "Messaging Data > Transactional Messaging API",
+      "title": "Level 4-3: Transactional Architecture",
+      "seoTitle": "Mastering SFMC Transactional Messaging APIs",
+      "desc": "Velocidad extrema. Transición de Triggered Sends a Transactional Messaging API.",
+      "filename": "tx_blast.json",
+      "code": "POST /messaging/v1/email/messages\n{\n  \"definitionKey\": \"tx-welcome\",\n  \"recipient\": {\n    \"contactKey\": \"user123\"\n  }\n}",
+      "best": [
+        "Pasar personalización en el payload, no hacer DB lookups.",
+        "Usar ENS (Event Notification Service) para fallos."
+      ],
+      "mistakes": [
+        "Missing attributes causing send failures.",
+        "Tratar emails transaccionales como campañas batch de 1M."
+      ],
+      "tags": [
+        "API",
+        "Performance",
+        "Email"
+      ],
+      "tabTitle": "W4: Transactional"
+    }
+  }
+}
