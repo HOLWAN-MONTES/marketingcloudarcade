@@ -8,16 +8,16 @@
       "officialAlignment": "Setup > Account Administration & Folder Management",
       "title": "Level 1-1: Naming Conventions",
       "seoTitle": "Salesforce Marketing Cloud Naming Conventions",
-      "desc": "Domina el caos. Una estrategia estandarizada para organizar Assets, Data Extensions y automaciones en múltiples Business Units.",
+      "desc": "Master the chaos. A standardized strategy to organize Assets, Data Extensions, and automations across multiple Business Units.",
       "filename": "sys_governance.exe",
-      "code": "// Convención estandarizada:\n[Entity]_[ProjectName]_[Type]_[Frequency]\n\n// Ejemplo Data Extension:\nNA_WelcomeJourney_SendLog_Daily",
+      "code": "// Standardized convention:\n[Entity]_[ProjectName]_[Type]_[Frequency]\n\n// Data Extension Example:\nNA_WelcomeJourney_SendLog_Daily",
       "best": [
-        "Usar estructura jerárquica por tipo de activo.",
-        "Asignar permisos por carpeta, evitar admin global."
+        "Use a hierarchical structure by asset type.",
+        "Assign permissions by folder, avoid global admin."
       ],
       "mistakes": [
-        "Nombres inconsistentes como 'Campaña_Final_v2_TEST'.",
-        "Falta de un folder zArchive para lo obsoleto."
+        "Inconsistent names like 'Campaign_Final_v2_TEST'.",
+        "Lack of a zArchive folder for obsolete items."
       ],
       "tags": [
         "Governance",
@@ -33,16 +33,16 @@
       "officialAlignment": "Automation Studio > SQL Query Activity",
       "title": "Level 1-2: SARGable SQL",
       "seoTitle": "SFMC SQL Optimization & SARGability",
-      "desc": "Vence el timeout de 30 minutos. Escribe consultas SQL escalables y 'SARGables' para Data Extensions.",
+      "desc": "Beat the 30-minute timeout. Write scalable and 'SARGable' SQL queries for Data Extensions.",
       "filename": "query_optimizer.sql",
-      "code": "/* Pobre SARGability: */\nSELECT * FROM MyDE WHERE LEFT(Email, 1) = 'A'\n\n/* Buena SARGability con CTEs: */\nSELECT Email FROM MyDE WHERE Email LIKE 'A%'",
+      "code": "/* Poor SARGability: */\nSELECT * FROM MyDE WHERE LEFT(Email, 1) = 'A'\n\n/* Good SARGability with CTEs: */\nSELECT Email FROM MyDE WHERE Email LIKE 'A%'",
       "best": [
-        "Evitar comodines iniciales en LIKE.",
-        "Desduplicar con ROW_NUMBER() OVER(PARTITION BY...)."
+        "Avoid initial wildcards in LIKE.",
+        "Deduplicate with ROW_NUMBER() OVER(PARTITION BY...)."
       ],
       "mistakes": [
-        "Uso de SELECT * en lugar de campos explícitos.",
-        "Filtros que anulan índices (no-SARGables)."
+        "Using SELECT * instead of explicit fields.",
+        "Filters that negate indexes (non-SARGable)."
       ],
       "tags": [
         "SQL",
@@ -59,16 +59,16 @@
       "officialAlignment": "Email Studio > Deliverability > Sender Authentication Package",
       "title": "Level 1-3: Deliverability",
       "seoTitle": "SFMC Email Deliverability for Developers",
-      "desc": "Sender Authentication Package, IP Warmup y validación técnica de dominios.",
+      "desc": "Sender Authentication Package, IP Warmup, and technical domain validation.",
       "filename": "network_layer.config",
       "code": "v=spf1 include:cust-spf.exacttarget.com ~all\n// Check DMARC and DKIM alignment constantly.",
       "best": [
-        "Monitorear _Bounce Data View asíncronamente.",
-        "Ejecutar IP Warming volumétrico seguro."
+        "Monitor _Bounce Data View asynchronously.",
+        "Execute safe volumetric IP Warming."
       ],
       "mistakes": [
-        "Enviar masivamente sin reputación base.",
-        "Ignorar rebotes duros repetidos."
+        "Sending massively without a baseline reputation.",
+        "Ignoring repeated hard bounces."
       ],
       "tags": [
         "Deliverability",
@@ -84,16 +84,16 @@
       "officialAlignment": "AMPscript Syntax Guide",
       "title": "Level 2-1: AMPscript Limits",
       "seoTitle": "SFMC AMPscript Pre-Evaluation & Render Timeouts",
-      "desc": "Cómo SFMC procesa AMPscript en Asuntos y Preheaders vs cuerpo del correo, previniendo timeouts.",
+      "desc": "How SFMC processes AMPscript in Subjects and Preheaders vs body, preventing timeouts.",
       "filename": "omm_pipeline.amp",
       "code": "<!-- Subject: %%=v(@Subj)=%% -->\n%%[ /* Body Init */\nSET @Subj = Lookup(\"SubjCopy\", \"Text\", \"ID\", 1)\n]%%",
       "best": [
-        "Consolidar lookups en Init Blocks.",
-        "Tratar HTTPGet con cautela o asíncronamente."
+        "Consolidate lookups in Init Blocks.",
+        "Treat HTTPGet with caution or asynchronously."
       ],
       "mistakes": [
-        "HTTPGet sincrónico por cada iterador en listas de 10k+.",
-        "Esperar que el Subject procese variables antes de inicializarlas en el Body."
+        "Synchronous HTTPGet for each iterator in lists of 10k+.",
+        "Expecting the Subject to process variables before initializing them in the Body."
       ],
       "tags": [
         "AMPscript",
@@ -109,16 +109,16 @@
       "officialAlignment": "Developer Docs > SSJS > Platform Functions",
       "title": "Level 2-2: SSJS Endpoints",
       "seoTitle": "Building Secure JSON APIs with SFMC SSJS",
-      "desc": "Crea Endpoints REST nativos robustos utilizando Server-Side JavaScript en CloudPages.",
+      "desc": "Create robust native REST Endpoints using Server-Side JavaScript in CloudPages.",
       "filename": "backend_api.js",
       "code": "Platform.Response.SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\");\ntry {\n  var payload = Platform.Request.GetPostData();\n  // ... process JSON ...\n  Write('{\"status\":\"success\"}');\n} catch(err) {\n  Write('{\"status\":\"error\",\"message\":'+Stringify(err)+'}');\n}",
       "best": [
-        "Validar PII y sanitizar inputs.",
-        "Envolver en bloque try/catch para evitar genéricos 500."
+        "Validate PII and sanitize inputs.",
+        "Wrap in a try/catch block to avoid generic 500s."
       ],
       "mistakes": [
-        "Olvidar SetResponseHeader causa fallos CORS.",
-        "Falla silenciosa por no devolver JSON de error."
+        "Forgetting SetResponseHeader causes CORS failures.",
+        "Silent failure by not returning error JSON."
       ],
       "tags": [
         "SSJS",
@@ -136,16 +136,16 @@
       "officialAlignment": "Automation Studio Script Activities",
       "title": "Level 2-3: Built-in Telemetry",
       "seoTitle": "SFMC Telemetry and Logging Framework",
-      "desc": "Implementa un framework para rastrear Run Logs, Intentos API y Errores globalmente.",
+      "desc": "Implement a framework to track Run Logs, API Attempts, and Errors globally.",
       "filename": "log_daemon.ssjs",
       "code": "var res = Platform.Function.InsertData(\"System_Logs\", \n  [\"Level\",\"Message\",\"Time\"], \n  [\"ERROR\", Stringify(ex), Now()]);",
       "best": [
-        "Políticas de retención de 30 días obligatorias.",
-        "Ofuscar emails (ej. te***@domain.com)."
+        "Mandatory 30-day retention policies.",
+        "Obfuscate emails (e.g. te***@domain.com)."
       ],
       "mistakes": [
-        "Data Extensions de telemetría inmanejables por no auto-borrado.",
-        "Registrar JSON PII sensible explícitamente."
+        "Unmanageable telemetry Data Extensions due to no auto-deletion.",
+        "Logging sensitive PII JSON explicitly."
       ],
       "tags": [
         "Troubleshooting",
@@ -162,16 +162,16 @@
       "officialAlignment": "REST API > Authentication (v2/token)",
       "title": "Level 3-1: Token Caching",
       "seoTitle": "SFMC REST API OAuth Token Caching",
-      "desc": "Arquitectura de expiración y almacenamiento seguro en SSJS para evitar rate limiting.",
+      "desc": "Expiration architecture and secure storage in SSJS to avoid rate limiting.",
       "filename": "vault_auth.js",
-      "code": "// Pseudo SSJS para cacheo:\nvar cached = Lookup(\"Sys_Tokens\", \"Token\", \"App\", \"MyApp\");\nvar exp = Lookup(\"Sys_Tokens\", \"Exp\", \"App\", \"MyApp\");\nif(exp < new Date().getTime()) {\n  // fetch token, add 60s skew margin, UpdateData DE\n}",
+      "code": "// Pseudo SSJS for caching:\nvar cached = Lookup(\"Sys_Tokens\", \"Token\", \"App\", \"MyApp\");\nvar exp = Lookup(\"Sys_Tokens\", \"Exp\", \"App\", \"MyApp\");\nif(exp < new Date().getTime()) {\n  // fetch token, add 60s skew margin, UpdateData DE\n}",
       "best": [
-        "Margen de seguridad (skew buffer) de 60s.",
-        "Bloquear DE de credenciales en permisos UI."
+        "60s skew buffer.",
+        "Lock credentials DE in UI permissions."
       ],
       "mistakes": [
-        "Solicitar token por cada llamada a REST (429 Too Many Requests).",
-        "Guardar secret expuesto en templates de texto plano."
+        "Requesting token for each REST call (429 Too Many Requests).",
+        "Saving exposed secret in plain text templates."
       ],
       "tags": [
         "API",
@@ -188,16 +188,16 @@
       "officialAlignment": "Journey Builder > REST API > Fire Event Asynchronously",
       "title": "Level 3-2: Async Injection",
       "seoTitle": "SFMC Bulk REST API & Journey Builder Async Events",
-      "desc": "Ingresar miles de contactos a JB sin reventar Rate Limits usando endpoint asíncrono y paginado.",
+      "desc": "Inject thousands of contacts into JB without busting Rate Limits using an asynchronous and paginated endpoint.",
       "filename": "bulk_inject.sh",
-      "code": "POST /interaction/v1/events/async\n{\n  // Array de objetos de contacto permitidos\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { ... }\n}",
+      "code": "POST /interaction/v1/events/async\n{\n  // Array of allowed contact objects\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { ... }\n}",
       "best": [
-        "Usar batch asíncrono sobre loops síncronos.",
-        "Validar DEs destino antes de disparar el burst."
+        "Use asynchronous batch over synchronous loops.",
+        "Validate destination DEs before triggering the burst."
       ],
       "mistakes": [
-        "El endpoint asíncrono enmascara fallos de schema (retorna 202).",
-        "Olvidar configurar Data Extension de entrada correctamente."
+        "The asynchronous endpoint masks schema failures (returns 202).",
+        "Forgetting to configure the input Data Extension correctly."
       ],
       "tags": [
         "Journey",
@@ -214,16 +214,16 @@
       "officialAlignment": "Developer Docs > SSJS > WSProxy",
       "title": "Level 3-3: WSProxy Master",
       "seoTitle": "Advanced Automation Scripting with WSProxy",
-      "desc": "Manipular configuraciones profundas usando WSProxy en lugar de llamadas SOAP a mano.",
+      "desc": "Manipulate deep configurations using WSProxy instead of manual SOAP calls.",
       "filename": "wsproxy_execute.js",
       "code": "var prox = new Script.Util.WSProxy();\nvar action = \"Start\";\nvar props = { ObjectID: \"auth-uuid-here\" };\nvar res = prox.performItem(\"Automation\", props, action);",
       "best": [
-        "Parsear res.Status y loggearlo.",
-        "Validar ObjectTypes con el WSDL."
+        "Parse res.Status and log it.",
+        "Validate ObjectTypes with the WSDL."
       ],
       "mistakes": [
-        "Propiedad incorrecta causa 'Property not found'.",
-        "Olvidar que 'performItem' requiere contexto exacto."
+        "Incorrect property causes 'Property not found'.",
+        "Forgetting that 'performItem' requires an exact context."
       ],
       "tags": [
         "SSJS",
@@ -240,16 +240,16 @@
       "officialAlignment": "Content Builder > REST API",
       "title": "Level 4-1: Asset Versioning",
       "seoTitle": "SFMC Content Builder APIs Asset Versioning",
-      "desc": "Generar y versionar activos dinámicamente o gestionar permisos usando CB API.",
+      "desc": "Dynamically generate and version assets or manage permissions using CB API.",
       "filename": "asset_ops.json",
       "code": "PATCH /asset/v1/assets/{id}\n{\n  \"name\": \"Hero_Template_v2\",\n  \"content\": \"<div>...</div>\"\n}",
       "best": [
-        "Mantener CustomerKey fijos para actualizaciones in-place.",
-        "Sandbox Business Units para testing de CI."
+        "Maintain fixed CustomerKeys for in-place updates.",
+        "Sandbox Business Units for CI testing."
       ],
       "mistakes": [
-        "Llamar a POST en lugar de PUT/PATCH genera clones infinitos.",
-        "Falta de scope limit en paquetes integrados."
+        "Calling POST instead of PUT/PATCH generates infinite clones.",
+        "Lack of scope limit in integrated packages."
       ],
       "tags": [
         "API",
@@ -266,16 +266,16 @@
       "officialAlignment": "Security > Marketing Cloud Data Privacy",
       "title": "Level 4-2: PII Defense Matrix",
       "seoTitle": "SFMC PII Minimization & Encryption Architecture",
-      "desc": "Técnicas para ofuscar (PII) en Data Extensions operativas y mantener compliance.",
+      "desc": "Techniques to obfuscate PII in operational Data Extensions and maintain compliance.",
       "filename": "crypto_vault.js",
-      "code": "/* Minimización Claim-check */\n// Evitar persistir SSN en DEs. Solo inyectar Token UUID\nvar emailBody = Platform.Function.Lookup(\"SecureSource\", \"SSN\", \"UUID\", @id);",
+      "code": "/* Claim-check minimization */\n// Avoid persisting SSN in DEs. Only inject Token UUID\nvar emailBody = Platform.Function.Lookup(\"SecureSource\", \"SSN\", \"UUID\", @id);",
       "best": [
-        "Definir retención automática a 7 días en DEs calientes.",
-        "Utilizar Claim-check pattern en Journeys."
+        "Define automatic 7-day retention in hot DEs.",
+        "Use Claim-check pattern in Journeys."
       ],
       "mistakes": [
-        "Activar FLE (Field Level Encryption) destruye sargability de campos relacionales.",
-        "Enviar queries en texto plano con PII visible a usuarios comunes."
+        "Activating FLE (Field Level Encryption) destroys sargability of relational fields.",
+        "Sending queries in plain text with PII visible to common users."
       ],
       "tags": [
         "Security",
@@ -292,16 +292,16 @@
       "officialAlignment": "Messaging Data > Transactional Messaging API",
       "title": "Level 4-3: Transactional Architecture",
       "seoTitle": "Mastering SFMC Transactional Messaging APIs",
-      "desc": "Velocidad extrema. Transición de Triggered Sends a Transactional Messaging API.",
+      "desc": "Extreme speed. Transition from Triggered Sends to Transactional Messaging API.",
       "filename": "tx_blast.json",
       "code": "POST /messaging/v1/email/messages\n{\n  \"definitionKey\": \"tx-welcome\",\n  \"recipient\": {\n    \"contactKey\": \"user123\"\n  }\n}",
       "best": [
-        "Pasar personalización en el payload, no hacer DB lookups.",
-        "Usar ENS (Event Notification Service) para fallos."
+        "Pass personalization in the payload, do not do DB lookups.",
+        "Use ENS (Event Notification Service) for failures."
       ],
       "mistakes": [
         "Missing attributes causing send failures.",
-        "Tratar emails transaccionales como campañas batch de 1M."
+        "Treating transactional emails as 1M batch campaigns."
       ],
       "tags": [
         "API",
