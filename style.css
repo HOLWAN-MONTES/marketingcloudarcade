@@ -8,9 +8,16 @@
     --text-main: #e0e0f0;
     --text-muted: #8b8bad;
     
+    --bg-gradient-mid: #0a0a14;
+    --bg-gradient-bot: #020205;
+    --flicker-glow: rgba(0, 243, 255, 0.3);
+    --nav-glow: rgba(0, 243, 255, 0.5);
+    --dither-color: rgba(0, 243, 255, 0.03);
+    
     --font-heading: 'VT323', monospace;
     --font-body: 'Inter', sans-serif;
 }
+
 
 /* Reset */
 * {
@@ -55,7 +62,7 @@ body {
 @keyframes textFlicker {
     0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
         opacity: 1;
-        text-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
+        text-shadow: 0 0 5px var(--flicker-glow);
     }
     20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
         opacity: 0.8;
@@ -191,7 +198,16 @@ body {
     font-size: 1.8rem;
     color: var(--neon-blue);
     text-decoration: none;
-    text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+    text-shadow: 0 0 5px var(--nav-glow);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo {
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated; /* Keeps the retro pixel feel sharp */
 }
 
 .nav-links {
@@ -452,6 +468,124 @@ main {
 .hero {
     text-align: center;
     align-items: center;
+    padding-top: 8rem;
+}
+
+/* Hero Art Styles */
+.hero-art-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    pointer-events: none;
+}
+
+.cloud-container {
+    position: relative;
+    width: 320px;
+    height: 200px;
+}
+
+.sf-cloud {
+    width: 100%;
+    height: 100%;
+    fill: #00f3ff;
+    filter: drop-shadow(0 0 25px rgba(0, 243, 255, 0.6));
+    animation: floatingCloud 5s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes floatingCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.invader {
+    position: absolute;
+    width: 50px;
+    height: 38px;
+    z-index: 1;
+    animation: dropIn 4s infinite ease-out;
+    opacity: 0;
+}
+
+.invader.i-1 { color: #00f3ff; left: 10px; animation-duration: 4.5s; animation-delay: 0s; }
+.invader.i-2 { color: #39ff14; left: 80px; animation-duration: 5s; animation-delay: 1.5s; }
+.invader.i-3 { color: #ffeb3b; left: 150px; animation-duration: 4s; animation-delay: 0.5s; }
+.invader.i-4 { color: #ff00ff; left: 220px; animation-duration: 4.2s; animation-delay: 2.2s; }
+.invader.i-5 { color: #b026ff; left: 280px; animation-duration: 4.8s; animation-delay: 1s; }
+
+.invader svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.monster-trail {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 4px;
+    height: 80px;
+    background: linear-gradient(to top, currentColor, transparent);
+    transform: translateX(-50%);
+    opacity: 0.8;
+    box-shadow: 0 0 5px currentColor;
+}
+
+@keyframes dropIn {
+    0% { transform: translateY(50px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(200px); opacity: 0; }
+}
+
+/* Background Grid Overlay */
+#grid-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -2;
+    pointer-events: none;
+    background-position: center;
+}
+
+/* Background Floating Ships */
+.bg-ship-container {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    z-index: -1;
+    opacity: 0.4;
+    animation: floatingShip 8s ease-in-out infinite alternate;
+}
+
+.bg-ship-container svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.bg-ship-container.s-1 svg { transform: rotate(45deg); }
+.bg-ship-container.s-2 svg { transform: rotate(-30deg); }
+.bg-ship-container.s-3 svg { transform: rotate(15deg); }
+.bg-ship-container.s-4 svg { transform: rotate(-60deg); }
+
+.s-1 { top: 15%; left: 10%; animation-delay: 0s; }
+.s-2 { top: 40%; right: 15%; animation-delay: 2s; }
+.s-3 { bottom: 20%; left: 20%; animation-delay: 4s; }
+.s-4 { top: 25%; right: 10%; animation-delay: 1s; }
+
+@keyframes floatingShip {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(15px, -15px); }
 }
 
 .hero h1 {
@@ -1146,86 +1280,110 @@ body {
     background: rgba(170, 170, 170, 0.1);
 }
 
-/* Global Search Overlay */
-#global-search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(8, 8, 17, 0.95);
-    z-index: 9999; /* Ensure top level */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 10vh;
-    backdrop-filter: blur(10px);
-}
-
-#global-search-overlay.hidden {
-    display: none;
-}
-
-.search-overlay-content {
-    background: var(--bg-dark);
-    border: 2px solid var(--neon-purple);
-    box-shadow: 0 0 20px var(--neon-purple);
-    width: 600px;
-    max-width: 90%;
-    padding: 2rem;
+/* Integrated Navbar Search */
+.search-container {
     position: relative;
-    border-radius: 4px;
+    display: flex;
+    align-items: center;
 }
 
-.search-overlay-content h2 {
-    color: var(--neon-cyan);
-    margin-bottom: 1rem;
-    text-align: center;
+.search-bar {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    background: var(--bg-darker);
+    border: 1px solid var(--neon-blue);
+    border-radius: 4px;
+    padding: 0 0.5rem;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    width: 280px; /* Fixed width for better alignment control */
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+.search-bar.hidden {
+    display: none;
+    pointer-events: none;
 }
 
 #global-search-input {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    padding: 0.4rem;
     width: 100%;
-    padding: 1rem;
-    background: #111;
-    border: 1px solid var(--neon-cyan);
-    color: var(--text-light);
-    font-family: 'VT323', monospace;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-#global-search-input:focus {
     outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
 }
 
-.search-results-list {
-    list-style: none;
-    padding: 0;
-    max-height: 50vh;
-    overflow-y: auto;
-}
-
-.search-results-list li {
-    padding: 1rem;
-    border-bottom: 1px dashed var(--text-muted);
-    cursor: pointer;
-}
-
-.search-results-list li:hover {
-    background: rgba(0, 255, 204, 0.1);
-}
-
-.search-results-list li h4 {
-    margin: 0;
-    color: var(--neon-cyan);
-    font-size: 1.2rem;
-}
-
-.search-results-list li p {
-    margin: 0.5rem 0 0 0;
-    font-size: 0.9rem;
+#global-search-input::placeholder {
     color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 5px); /* Small gap for a cleaner floating look or 100% for connected */
+    right: 0;
+    width: 100%; /* Match search-bar width */
+    max-height: 400px;
+    overflow-y: auto;
+    background: var(--bg-darker);
+    border: 1px solid var(--neon-purple);
+    border-radius: 4px;
+    list-style: none;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 10px rgba(176, 38, 255, 0.2);
+    display: none; /* Hide by default */
+}
+
+/* Show only when it has content */
+.search-results-dropdown:not(:empty) {
+    display: block;
+}
+
+.search-results-dropdown li {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-results-dropdown li:hover {
+    background: rgba(176, 38, 255, 0.1);
+}
+
+.search-results-dropdown li h4 {
+    color: var(--neon-blue);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    font-family: var(--font-heading);
+}
+
+.search-results-dropdown li p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+.search-results-dropdown li:last-child {
+    border-bottom: none;
+}
+
+/* Custom Scrollbar for results */
+.search-results-dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+.search-results-dropdown::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+}
+.search-results-dropdown::-webkit-scrollbar-thumb {
+    background: var(--neon-purple);
+    border-radius: 2px;
 }
 
 /* Ensure Arcade Scene Overlay Doesn't Block Clicks */
@@ -1249,4 +1407,136 @@ body {
     .flicker-text {
         animation: none !important;
     }
+}
+
+
+
+
+
+
+/* ========================================= */
+/* --- FONDO DITHERING OSCURO (Retro/Neon) --- */
+/* ========================================= */
+
+/* 1. Capa Base: Degradado oscuro sutil */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -5; /* Lo mandamos bien al fondo */
+    pointer-events: none;
+    /* Degradado: del azul oscuro de tu variable a un negro casi total */
+    background: linear-gradient(
+        to bottom,
+        var(--bg-dark) 0%, 
+        var(--bg-gradient-mid) 50%, 
+        var(--bg-gradient-bot) 100%
+    );
+}
+
+/* 2. Capa de Textura: El patrón pixelado (Dithering) */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -4; /* Por encima del degradado, pero debajo de tu #starfield (-1) */
+    pointer-events: none;
+    
+    /* Patrón de ajedrez semitransparente usando un tono cyan muy tenue */
+    background-image:
+        linear-gradient(45deg, var(--dither-color) 25%, transparent 25%, transparent 75%, var(--dither-color) 75%, var(--dither-color)),
+        linear-gradient(45deg, var(--dither-color) 25%, transparent 25%, transparent 75%, var(--dither-color) 75%, var(--dither-color));
+    
+    /* Píxeles de 4px: Suficiente para dar textura sin distraer la lectura */
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+}
+
+
+/* ========================================= */
+/* --- LIGHT MODE VARIABLES --- */
+/* ========================================= */
+body.light-mode {
+    --bg-dark: #f0f0f5; /* Fondo claro */
+    --bg-darker: #e0e0e8; /* Contenedores claros */
+    --text-main: #1a1a24; /* Texto oscuro */
+    --text-muted: #666677; /* Texto secundario */
+    
+    /* Oscurecemos los neones para que se lean sobre fondo blanco */
+    --neon-blue: #0055cc;
+    --neon-purple: #8800cc;
+    --neon-green: #008800;
+    
+    --bg-gradient-mid: #e8e8f0;
+    --bg-gradient-bot: #d0d0dc;
+    --flicker-glow: rgba(0, 85, 204, 0.2);
+    --nav-glow: rgba(0, 85, 204, 0.2);
+    --dither-color: rgba(0, 0, 0, 0.03); /* Subtle dark dithering for light mode */
+}
+
+body.light-mode #starfield {
+    opacity: 0;
+}
+
+/* Modificaciones específicas para Light Mode para no perder el estilo */
+body.light-mode .navbar {
+    background: rgba(240, 240, 245, 0.95);
+    border-bottom: 1px solid rgba(0, 85, 204, 0.2);
+}
+
+body.light-mode .retro-terminal {
+    background: #eaeaef;
+    border-color: #ccc;
+}
+
+body.light-mode .docs-layout, 
+body.light-mode .modal-content {
+    background: rgba(240, 240, 245, 0.9);
+    border-color: #ccc;
+}
+
+/* Botón del Toggle */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--text-main);
+    font-size: 1.2rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+/* ========================================= */
+/* --- LA CUADRÍCULA DE PÍXELES (TRANSICIÓN) --- */
+/* ========================================= */
+#pixel-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    pointer-events: none; /* Para que no bloquee clics */
+    z-index: 999999; /* Por encima de TODO */
+}
+
+.pixel {
+    /* El color base lo asignará JS dependiendo de si venimos de Dark o Light */
+    background-color: var(--pixel-color, var(--bg-dark));
+    opacity: 1;
+    /* La transición de opacidad hace que desaparezcan suavemente */
+    transition: opacity 0.3s ease; 
+}
+
+/* Clase que JS agregará para hacerlos desaparecer */
+.pixel.hidden {
+    opacity: 0;
 }
