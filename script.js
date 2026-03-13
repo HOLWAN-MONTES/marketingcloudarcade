@@ -317,6 +317,89 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+  // --- LÓGICA DE DARK / LIGHT MODE (Píxeles Orgánicos) ---
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  const grid = document.getElementById("pixel-grid");
+  let isAnimatingTheme = false;
+
+  // Tamaño de cada "píxel" en pantalla.
+  // 30px es un buen balance entre el look retro y rendimiento.
+  const PIXEL_SIZE = 30;
+
+  if (themeToggleBtn && grid) {
+    themeToggleBtn.addEventListener('click', () => {
+        if (isAnimatingTheme) return;
+        isAnimatingTheme = true;
+
+        const isLightMode = document.body.classList.contains('light-mode');
+        
+        // 1. Saber de qué color es el fondo actual antes de cambiarlo
+        const currentColor = isLightMode ? '#f0f0f5' : '#0f0f1b';
+        
+        // Le decimos a la cuadrícula que use ese color
+        grid.style.setProperty('--pixel-color', currentColor);
+
+        // 2. Calcular cuántos píxeles caben en la pantalla
+        const cols = Math.ceil(window.innerWidth / PIXEL_SIZE);
+        const rows = Math.ceil(window.innerHeight / PIXEL_SIZE);
+        const totalPixels = cols * rows;
+
+        // Limpiamos la cuadrícula por si acaso
+        grid.innerHTML = '';
+
+        // 3. Crear los bloques (píxeles)
+        const pixels = [];
+        for (let i = 0; i < totalPixels; i++) {
+            const p = document.createElement('div');
+            p.classList.add('pixel');
+            p.style.width = `${PIXEL_SIZE}px`;
+            p.style.height = `${PIXEL_SIZE}px`;
+            grid.appendChild(p);
+            pixels.push(p);
+        }
+
+        // 4. Cambiamos el tema real por debajo ¡INSTANTÁNEAMENTE!
+        // (El usuario no lo verá porque la pantalla está cubierta de píxeles del color anterior)
+        if (isLightMode) {
+            document.body.classList.remove('light-mode');
+            themeToggleBtn.innerText = '☀️';
+        } else {
+            document.body.classList.add('light-mode');
+            themeToggleBtn.innerText = '🌙';
+        }
+
+        // 5. La magia: Hacer desaparecer los píxeles con retrasos aleatorios
+        // Para dar el efecto de "cascada degradada", sumamos la fila actual + un número aleatorio
+        
+        // Timeout para asegurar que el navegador renderice la cuadrícula antes de ocultarla
+        setTimeout(() => {
+            pixels.forEach((pixel, index) => {
+                const currentRow = Math.floor(index / cols);
+                
+                // baseDelay: Hace que los de arriba empiecen a desaparecer antes que los de abajo
+                const baseDelay = (currentRow / rows) * 400; // 400ms de cascada
+                
+                // randomDelay: Le da ese aspecto caótico de la imagen que me pasaste
+                const randomDelay = Math.random() * 500; // 500ms de caos puro
+                
+                const totalDelay = baseDelay + randomDelay;
+
+                setTimeout(() => {
+                    pixel.classList.add('hidden');
+                }, totalDelay);
+            });
+        }, 50); // Mínimo reflow delay
+
+        // 6. Limpiar el DOM después de que termine la animación
+        // 400 (base) + 500 (random) + 300 (transición css) + 50 (reflow) = 1250ms aprox.
+        setTimeout(() => {
+            grid.innerHTML = '';
+            isAnimatingTheme = false;
+        }, 1300);
+    });
+  }
+
   const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
   const navLinksContainer = document.getElementById("nav-links");
 
@@ -527,27 +610,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Global Search Overlay Logic
+  // Integrated Global Search Logic
   const globalSearchBtn = document.getElementById("global-search-btn");
-  const globalSearchOverlay = document.getElementById("global-search-overlay");
+  const searchBar = document.getElementById("search-bar");
   const globalSearchInput = document.getElementById("global-search-input");
   const globalSearchResults = document.getElementById("global-search-results");
-  const closeSearchBtn = document.getElementById("close-search-btn");
 
-  if (globalSearchBtn && globalSearchOverlay) {
-    globalSearchBtn.addEventListener("click", () => {
-      globalSearchOverlay.classList.remove("hidden");
-      globalSearchInput.focus();
+  if (globalSearchBtn && searchBar) {
+    globalSearchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = searchBar.classList.contains("hidden");
+      if (isHidden) {
+        searchBar.classList.remove("hidden");
+        globalSearchInput.focus();
+      } else {
+        searchBar.classList.add("hidden");
+      }
     });
 
-    closeSearchBtn.addEventListener("click", () =>
-      globalSearchOverlay.classList.add("hidden"),
-    );
-
     // Close on click outside
-    globalSearchOverlay.addEventListener("click", (e) => {
-      if (e.target === globalSearchOverlay)
-        globalSearchOverlay.classList.add("hidden");
+    document.addEventListener("click", (e) => {
+      if (!searchBar.contains(e.target) && e.target !== globalSearchBtn) {
+        searchBar.classList.add("hidden");
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        searchBar.classList.add("hidden");
+      }
     });
 
     // Global filter logic
@@ -588,15 +680,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (results.length === 0) {
         globalSearchResults.innerHTML =
-          "<li><p>No records found in database...</p></li>";
+          '<li><p style="color: var(--text-muted); text-align: center;">No records found...</p></li>';
         return;
       }
 
-      results.forEach((res) => {
+      results.slice(0, 5).forEach((res) => { // Limit to 5 results for cleaner UI
         const li = document.createElement("li");
-        li.innerHTML = `<h4>[${res.type}] ${res.title}</h4><p>${res.desc.substring(0, 60)}...</p>`;
+        li.innerHTML = `<h4>[${res.type}] ${res.title}</h4><p>${res.desc.substring(0, 50)}...</p>`;
         li.addEventListener("click", () => {
-          globalSearchOverlay.classList.add("hidden");
+          searchBar.classList.add("hidden");
           if (res.type === "DOC") {
             const navLink = document.querySelector('a[href="#docs"]');
             if (navLink) navLink.click();
