@@ -527,27 +527,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Global Search Overlay Logic
+  // Integrated Global Search Logic
   const globalSearchBtn = document.getElementById("global-search-btn");
-  const globalSearchOverlay = document.getElementById("global-search-overlay");
+  const searchBar = document.getElementById("search-bar");
   const globalSearchInput = document.getElementById("global-search-input");
   const globalSearchResults = document.getElementById("global-search-results");
-  const closeSearchBtn = document.getElementById("close-search-btn");
 
-  if (globalSearchBtn && globalSearchOverlay) {
-    globalSearchBtn.addEventListener("click", () => {
-      globalSearchOverlay.classList.remove("hidden");
-      globalSearchInput.focus();
+  if (globalSearchBtn && searchBar) {
+    globalSearchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = searchBar.classList.contains("hidden");
+      if (isHidden) {
+        searchBar.classList.remove("hidden");
+        globalSearchInput.focus();
+      } else {
+        searchBar.classList.add("hidden");
+      }
     });
 
-    closeSearchBtn.addEventListener("click", () =>
-      globalSearchOverlay.classList.add("hidden"),
-    );
-
     // Close on click outside
-    globalSearchOverlay.addEventListener("click", (e) => {
-      if (e.target === globalSearchOverlay)
-        globalSearchOverlay.classList.add("hidden");
+    document.addEventListener("click", (e) => {
+      if (!searchBar.contains(e.target) && e.target !== globalSearchBtn) {
+        searchBar.classList.add("hidden");
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        searchBar.classList.add("hidden");
+      }
     });
 
     // Global filter logic
@@ -588,15 +597,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (results.length === 0) {
         globalSearchResults.innerHTML =
-          "<li><p>No records found in database...</p></li>";
+          '<li><p style="color: var(--text-muted); text-align: center;">No records found...</p></li>';
         return;
       }
 
-      results.forEach((res) => {
+      results.slice(0, 5).forEach((res) => { // Limit to 5 results for cleaner UI
         const li = document.createElement("li");
-        li.innerHTML = `<h4>[${res.type}] ${res.title}</h4><p>${res.desc.substring(0, 60)}...</p>`;
+        li.innerHTML = `<h4>[${res.type}] ${res.title}</h4><p>${res.desc.substring(0, 50)}...</p>`;
         li.addEventListener("click", () => {
-          globalSearchOverlay.classList.add("hidden");
+          searchBar.classList.add("hidden");
           if (res.type === "DOC") {
             const navLink = document.querySelector('a[href="#docs"]');
             if (navLink) navLink.click();
