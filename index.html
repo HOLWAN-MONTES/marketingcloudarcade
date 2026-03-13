@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketing Cloud Arcade</title>
+    <link rel="icon" type="image/png" href="Images/Favicon.png">
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +20,14 @@
     <!-- Starfield Animation Background (aria-hidden for screen readers) -->
     <div id="starfield" aria-hidden="true"></div>
 
+    <div id="pixel-grid"></div>
+
     <!-- Header & Navigation -->
     <header class="navbar">
-        <a href="#home" class="nav-brand flicker-text" aria-label="Marketing Cloud Arcade Home">MC_ARCADE</a>
+        <a href="#home" class="nav-brand flicker-text" aria-label="Marketing Cloud Arcade Home">
+            <img src="Images/Favicon.png" alt="MC Arcade Logo" class="nav-logo">
+            MC_ARCADE
+        </a>
 
         <!-- UI Toggles Group -->
         <div class="nav-controls">
@@ -41,10 +47,20 @@
             </button>
         </div>
 
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Mode">
+            ☀️
+        </button>
+
         <!-- Navigation Links -->
         <nav id="nav-links" class="nav-links">
-            <button id="global-search-btn" class="nav-link retro-btn-small" aria-label="Open Global Search"
-                style="background:none;border:none;cursor:pointer;">&#128269; Search</button>
+            <div class="search-container" id="search-container">
+                <button id="global-search-btn" class="nav-link retro-btn-small" aria-label="Open Search"
+                    style="background:none;border:none;cursor:pointer;">&#128269; Search</button>
+                <div id="search-bar" class="search-bar hidden">
+                    <input type="text" id="global-search-input" placeholder="Scanning..." aria-label="Search archives">
+                    <ul id="global-search-results" class="search-results-dropdown"></ul>
+                </div>
+            </div>
             <a href="#home" class="nav-link active">Home</a>
             <a href="#docs" class="nav-link">Docs</a>
             <a href="#blog" class="nav-link">Blog</a>
@@ -165,6 +181,8 @@
     <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top" title="Scroll back to top">
         &#8679;
     </button>
+
+    <!-- Global Search Overlay REMOVED -->
 
     <script src="script.js"></script>
 </body>
