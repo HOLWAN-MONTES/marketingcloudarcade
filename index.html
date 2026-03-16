@@ -20,6 +20,8 @@
     <!-- Starfield Animation Background (aria-hidden for screen readers) -->
     <div id="starfield" aria-hidden="true"></div>
 
+    <div id="pixel-grid"></div>
+
     <!-- Header & Navigation -->
     <header class="navbar">
         <a href="#home" class="nav-brand flicker-text" aria-label="Marketing Cloud Arcade Home">
@@ -44,6 +46,10 @@
                 <span class="hamburger-line"></span>
             </button>
         </div>
+
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Mode">
+            ☀️
+        </button>
 
         <!-- Navigation Links -->
         <nav id="nav-links" class="nav-links">
@@ -107,7 +113,8 @@
                             aria-label="Search documentation">
                         <div class="docs-tags" id="docs-tags">
                             <button class="tag-btn" data-tag="all" aria-pressed="true">All</button>
-                            <button class="tag-btn" data-tag="script">Script</button>
+                            <button class="tag-btn" data-tag="foundations">Foundations</button>
+                            <button class="tag-btn" data-tag="development">Development</button>
                             <button class="tag-btn" data-tag="api">API</button>
                             <button class="tag-btn" data-tag="data">Data</button>
                         </div>
@@ -178,7 +185,7 @@
 
     <!-- Global Search Overlay REMOVED -->
 
-    <script src="script.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 
 </html>

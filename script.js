@@ -12,16 +12,22 @@ function toggleDocCompletion(levelId) {
 }
 
 function updateProgressUI() {
-  document.querySelectorAll("#docs-nav li").forEach((li) => {
+  const docItems = document.querySelectorAll("#docs-nav li.doc-level-item");
+  let validCompletedCount = 0;
+
+  docItems.forEach((li) => {
     const id = li.getAttribute("data-level");
-    if (completedDocs.includes(id)) li.classList.add("completed");
-    else li.classList.remove("completed");
+    if (completedDocs.includes(id)) {
+      li.classList.add("completed");
+      validCompletedCount++;
+    } else {
+      li.classList.remove("completed");
+    }
   });
 
-  const total = document.querySelectorAll("#docs-nav li").length;
-  const completed = completedDocs.length;
+  const total = docItems.length;
   let percentage = 0;
-  if (total > 0) percentage = Math.round((completed / total) * 100);
+  if (total > 0) percentage = Math.round((validCompletedCount / total) * 100);
 
   const progressBar = document.getElementById("progress-bar");
   const progressText = document.getElementById("progress-text");
@@ -32,7 +38,7 @@ function updateProgressUI() {
   }
 
   const currentActiveLevel = document
-    .querySelector("#docs-nav li.active")
+    .querySelector("#docs-nav .doc-level-item.active")
     ?.getAttribute("data-level");
   updateDocPaneButtonState(currentActiveLevel);
 }
@@ -103,6 +109,13 @@ async function fetchSystemData() {
         estTime: d[k].estTime || "-- mins",
         world: d[k].world || "World ?",
         officialAlignment: d[k].officialAlignment || "",
+        learningGroup: d[k].learningGroup || "Uncategorized",
+        overview: d[k].overview || null,
+        whyItMatters: d[k].whyItMatters || null,
+        howItWorks: d[k].howItWorks || null,
+        whenToUse: d[k].whenToUse || null,
+        references: d[k].references || null,
+        images: d[k].images || null
       };
     });
     blogData = b
@@ -142,38 +155,101 @@ function renderDocsSidebar() {
       activeTag = bt.getAttribute("data-tag");
   });
 
+  const categories = {};
+  const order = [
+    "Foundations", "Data & SQL", "Content & Personalization", 
+    "Development", "Automation & Journeys", "Integrations / API", 
+    "Deliverability", "Security & Governance", "Troubleshooting"
+  ];
+
+  // Initialize ordered categories to keep the render order exact
+  order.forEach(cat => categories[cat] = []);
+
   Object.entries(docsData).forEach(([levelKey, levelObj]) => {
-    const li = document.createElement("li");
-    li.setAttribute("data-level", levelKey);
-    li.setAttribute("data-tags", (levelObj.tags || []).join(","));
-    li.setAttribute("role", "tab");
-    li.tabIndex = 0;
+    const mainCategory = levelObj.learningGroup || "Uncategorized";
+    if (!categories[mainCategory]) categories[mainCategory] = [];
+    categories[mainCategory].push({ levelKey, levelObj });
+  });
 
-    // Check filter on render to avoid flash of content
-    const tags = levelObj.tags || [];
-    const matchesTag = activeTag === "all" || tags.includes(activeTag);
-    if (!matchesTag) li.classList.add("hidden");
+  Object.entries(categories).forEach(([catName, items]) => {
+    if (items.length === 0) return; // Skip empty groups
+    
+    const catLi = document.createElement("li");
+    catLi.className = "category-group";
 
-    li.innerHTML = `<span class="status-dot"></span> ${levelObj.tabTitle}`;
+    const catHeader = document.createElement("div");
+    catHeader.className = "category-header collapsed-header";
+    catHeader.innerHTML = `<span>${catName}</span> <span class="chevron">▼</span>`;
+    
+    const nestedUl = document.createElement("ul");
+    nestedUl.className = "nested-list collapsed";
 
-    li.addEventListener("click", () => selectDocCategory(li, levelKey));
-    li.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        selectDocCategory(li, levelKey);
-      }
+    catHeader.addEventListener("click", () => {
+      // Accordion logic: close all others first
+      document.querySelectorAll(".nested-list").forEach(list => {
+        if (list !== nestedUl) list.classList.add("collapsed");
+      });
+      document.querySelectorAll(".category-header").forEach(header => {
+        if (header !== catHeader) header.classList.add("collapsed-header");
+      });
+      
+      // Then toggle the clicked one
+      nestedUl.classList.toggle("collapsed");
+      catHeader.classList.toggle("collapsed-header");
+    });
+    
+    catLi.appendChild(catHeader);
+
+    let hasVisibleItems = false;
+
+    items.forEach(({ levelKey, levelObj }) => {
+      const li = document.createElement("li");
+      li.className = "doc-level-item";
+      li.setAttribute("data-level", levelKey);
+      li.setAttribute("data-tags", (levelObj.tags || []).join(","));
+      li.setAttribute("data-group", (levelObj.learningGroup || "Uncategorized").toLowerCase());
+      li.setAttribute("role", "tab");
+      li.tabIndex = 0;
+
+      // Check filter on render to avoid flash of content
+      const tags = levelObj.tags || [];
+      const group = (levelObj.learningGroup || "Uncategorized").toLowerCase();
+      const matchesTag = activeTag === "all" || 
+                         tags.some(t => t.toLowerCase() === activeTag.toLowerCase()) ||
+                         group.includes(activeTag.toLowerCase());
+                         
+      if (!matchesTag) li.classList.add("hidden");
+      else hasVisibleItems = true;
+
+      li.innerHTML = `<span class="status-dot"></span> ${levelObj.tabTitle}`;
+
+      li.addEventListener("click", (e) => { e.stopPropagation(); selectDocCategory(li, levelKey); });
+      li.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectDocCategory(li, levelKey);
+        }
+      });
+
+      nestedUl.appendChild(li);
     });
 
-    navContainer.appendChild(li);
+    if (!hasVisibleItems) catLi.classList.add("hidden");
+
+    catLi.appendChild(nestedUl);
+    navContainer.appendChild(catLi);
   });
 
   updateProgressUI();
 
-  // Select default category
-  const firstVisible = navContainer.querySelector("li:not(.hidden)");
-  if (firstVisible) {
-    const levelKey = firstVisible.getAttribute("data-level");
-    selectDocCategory(firstVisible, levelKey);
+  // Select default category only if not directly deeper linking to docs
+  const hash = window.location.hash;
+  if (!hash.startsWith("#docs/")) {
+      const firstVisible = navContainer.querySelector(".doc-level-item:not(.hidden)");
+      if (firstVisible) {
+        const levelKey = firstVisible.getAttribute("data-level");
+        selectDocCategory(firstVisible, levelKey, false);
+      }
   }
 }
 
@@ -215,12 +291,12 @@ function renderBlogGrid() {
 }
 
 // Move variables to global scope for module access
-function selectDocCategory(item, levelId) {
-  const activeLi = document.querySelector("#docs-nav li.active");
+function selectDocCategory(item, levelId, pushHistory = true) {
+  const activeLi = document.querySelector("#docs-nav .doc-level-item.active");
   if (activeLi) activeLi.classList.remove("active");
 
   const ariaSelected = document.querySelector(
-    '#docs-nav li[aria-selected="true"]',
+    '#docs-nav .doc-level-item[aria-selected="true"]',
   );
   if (ariaSelected) ariaSelected.setAttribute("aria-selected", "false");
 
@@ -228,6 +304,13 @@ function selectDocCategory(item, levelId) {
   item.setAttribute("aria-selected", "true");
 
   const data = docsData[levelId];
+  if (pushHistory && data && data.slug) {
+      const targetHash = `#docs/${data.slug}`;
+      if (window.location.hash !== targetHash) {
+          window.history.pushState(null, null, targetHash);
+      }
+  }
+  
   renderDocPane(data, levelId);
 }
 
@@ -253,6 +336,16 @@ function renderDocPane(data, levelId) {
         <span class="badge badge-time">${data.estTime}</span>
       </div>
       <p class="doc-desc">${data.desc}</p>
+      
+      ${data.overview ? `<h4>Overview</h4><p class="doc-section-text">${data.overview}</p>` : ''}
+      
+      ${data.whyItMatters ? `<h4>Why it matters in SFMC</h4><p class="doc-section-text">${data.whyItMatters}</p>` : ''}
+      
+      ${data.howItWorks ? `<h4>How it works</h4><p class="doc-section-text">${data.howItWorks}</p>` : ''}
+
+      ${data.whenToUse ? `<h4>When to use this approach</h4><p class="doc-section-text">${data.whenToUse}</p>` : ''}
+
+      ${data.code ? `<h4>Example Implementation</h4>
       <div class="retro-terminal">
         <div class="terminal-header">
           <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
@@ -260,17 +353,28 @@ function renderDocPane(data, levelId) {
           <button class="copy-btn" aria-label="Copy code block">Copy</button>
         </div>
         <pre><code id="current-code-block">${escapedCode}</code></pre>
-      </div>
-      <h4>When to use this approach</h4>
-      <p class="doc-when-to-use" style="color: var(--text-muted); margin-bottom: 2rem;">
-        ${whenToUse}
-      </p>
-      <h4>Best Practices</h4><ul>
-        ${bestLists}
+      </div>` : ''}
+      
+      ${data.images && data.images.length > 0 ? `
+      <h4>Visual Reference</h4>
+      ${data.images.map(img => `
+        <figure class="doc-image-figure">
+          <img src="${img.src}" alt="${img.alt || 'Documentation visual'}" class="doc-image" />
+          ${img.caption ? `<figcaption class="doc-image-caption">${img.caption}</figcaption>` : ''}
+        </figure>
+      `).join('')}
+      ` : ''}
+      
+      ${bestLists ? `<h4>Best Practices</h4><ul>${bestLists}</ul>` : ''}
+      
+      ${mistakeLists ? `<h4>Common Mistakes</h4><ul>${mistakeLists}</ul>` : ''}
+      
+      ${data.references && data.references.length > 0 ? `
+      <h4>Official Documentation & References</h4>
+      <ul class="doc-references">
+        ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="retro-link">${ref.label} ↗</a></li>`).join('')}
       </ul>
-      <h4>Common Mistakes</h4><ul>
-        ${mistakeLists}
-      </ul>
+      ` : ''}
     </div>
   `;
 
@@ -314,6 +418,89 @@ document.addEventListener("DOMContentLoaded", () => {
     crtToggle.addEventListener("change", (e) => {
       if (e.target.checked) scanlines.classList.add("active");
       else scanlines.classList.remove("active");
+    });
+  }
+
+
+  // --- LÓGICA DE DARK / LIGHT MODE (Píxeles Orgánicos) ---
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  const grid = document.getElementById("pixel-grid");
+  let isAnimatingTheme = false;
+
+  // Tamaño de cada "píxel" en pantalla.
+  // 30px es un buen balance entre el look retro y rendimiento.
+  const PIXEL_SIZE = 30;
+
+  if (themeToggleBtn && grid) {
+    themeToggleBtn.addEventListener('click', () => {
+        if (isAnimatingTheme) return;
+        isAnimatingTheme = true;
+
+        const isLightMode = document.body.classList.contains('light-mode');
+        
+        // 1. Saber de qué color es el fondo actual antes de cambiarlo
+        const currentColor = isLightMode ? '#f0f0f5' : '#0f0f1b';
+        
+        // Le decimos a la cuadrícula que use ese color
+        grid.style.setProperty('--pixel-color', currentColor);
+
+        // 2. Calcular cuántos píxeles caben en la pantalla
+        const cols = Math.ceil(window.innerWidth / PIXEL_SIZE);
+        const rows = Math.ceil(window.innerHeight / PIXEL_SIZE);
+        const totalPixels = cols * rows;
+
+        // Limpiamos la cuadrícula por si acaso
+        grid.innerHTML = '';
+
+        // 3. Crear los bloques (píxeles)
+        const pixels = [];
+        for (let i = 0; i < totalPixels; i++) {
+            const p = document.createElement('div');
+            p.classList.add('pixel');
+            p.style.width = `${PIXEL_SIZE}px`;
+            p.style.height = `${PIXEL_SIZE}px`;
+            grid.appendChild(p);
+            pixels.push(p);
+        }
+
+        // 4. Cambiamos el tema real por debajo ¡INSTANTÁNEAMENTE!
+        // (El usuario no lo verá porque la pantalla está cubierta de píxeles del color anterior)
+        if (isLightMode) {
+            document.body.classList.remove('light-mode');
+            themeToggleBtn.innerText = '☀️';
+        } else {
+            document.body.classList.add('light-mode');
+            themeToggleBtn.innerText = '🌙';
+        }
+
+        // 5. La magia: Hacer desaparecer los píxeles con retrasos aleatorios
+        // Para dar el efecto de "cascada degradada", sumamos la fila actual + un número aleatorio
+        
+        // Timeout para asegurar que el navegador renderice la cuadrícula antes de ocultarla
+        setTimeout(() => {
+            pixels.forEach((pixel, index) => {
+                const currentRow = Math.floor(index / cols);
+                
+                // baseDelay: Hace que los de arriba empiecen a desaparecer antes que los de abajo
+                const baseDelay = (currentRow / rows) * 400; // 400ms de cascada
+                
+                // randomDelay: Le da ese aspecto caótico de la imagen que me pasaste
+                const randomDelay = Math.random() * 500; // 500ms de caos puro
+                
+                const totalDelay = baseDelay + randomDelay;
+
+                setTimeout(() => {
+                    pixel.classList.add('hidden');
+                }, totalDelay);
+            });
+        }, 50); // Mínimo reflow delay
+
+        // 6. Limpiar el DOM después de que termine la animación
+        // 400 (base) + 500 (random) + 300 (transición css) + 50 (reflow) = 1250ms aprox.
+        setTimeout(() => {
+            grid.innerHTML = '';
+            isAnimatingTheme = false;
+        }, 1300);
     });
   }
 
@@ -390,7 +577,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  const docsNavItems = document.querySelectorAll("#docs-nav li");
+  const docsNavItems = document.querySelectorAll("#docs-nav .doc-level-item");
   const docsContentArea = document.getElementById("docs-content-area");
   const docsSearch = document.getElementById("docs-search");
   const docsTags = document.querySelectorAll(".tag-btn");
@@ -406,16 +593,41 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTag = bt.getAttribute("data-tag");
     });
 
-    const docsNavItems = document.querySelectorAll("#docs-nav li");
-    docsNavItems.forEach((li) => {
-      const text = li.innerText.toLowerCase();
-      const tags = li.getAttribute("data-tags") || "";
+    const categories = document.querySelectorAll(".category-group");
+    categories.forEach(cat => {
+      let hasVisibleChild = false;
+      const items = cat.querySelectorAll(".doc-level-item");
+      
+      items.forEach((li) => {
+        const text = li.innerText.toLowerCase();
+        const tagsStr = li.getAttribute("data-tags") || "";
+        const tags = tagsStr.toLowerCase().split(",");
+        const group = li.getAttribute("data-group") || "";
 
-      const matchesSearch = text.includes(searchTerm);
-      const matchesTag = activeTag === "all" || tags.includes(activeTag);
+        const matchesSearch = text.includes(searchTerm);
+        const matchesTag = activeTag === "all" || 
+                           tags.some(t => t === activeTag.toLowerCase()) ||
+                           group.includes(activeTag.toLowerCase());
 
-      if (matchesSearch && matchesTag) li.classList.remove("hidden");
-      else li.classList.add("hidden");
+        if (matchesSearch && matchesTag) {
+          li.classList.remove("hidden");
+          hasVisibleChild = true;
+        } else {
+          li.classList.add("hidden");
+        }
+      });
+
+      if (hasVisibleChild) {
+        cat.classList.remove("hidden");
+        if (searchTerm.length > 0) {
+            const nestedList = cat.querySelector(".nested-list");
+            const header = cat.querySelector(".category-header");
+            if (nestedList) nestedList.classList.remove("collapsed");
+            if (header) header.classList.remove("collapsed-header");
+        }
+      } else {
+        cat.classList.add("hidden");
+      }
     });
   }
 
@@ -486,18 +698,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Deep linking helper
   window.checkHashUrlForDeepLink = function () {
-    if (window.location.hash.startsWith("#blog/")) {
-      const slug = window.location.hash.replace("#blog/", "");
+    const hash = window.location.hash;
+    
+    // Blog routing
+    if (hash.startsWith("#blog/")) {
+      const slug = hash.replace("#blog/", "");
       const index = blogData.findIndex(
         (p) => p.slug === slug || `post-${blogData.indexOf(p)}` === slug,
       );
       if (index !== -1) openBlogModal(index);
     }
+    
+    // Docs routing
+    else if (hash.startsWith("#docs/")) {
+      const slug = hash.replace("#docs/", "");
+      let targetLevelId = null;
+      for (const [key, doc] of Object.entries(docsData)) {
+        if (doc.slug === slug || key === slug) {
+            targetLevelId = key;
+            break;
+        }
+      }
+      
+      if (targetLevelId) {
+          const docItem = document.querySelector(`#docs-nav .doc-level-item[data-level="${targetLevelId}"]`);
+          if (docItem) {
+              // Expand its parent category securely
+              const parentCat = docItem.closest('.category-group');
+              if (parentCat) {
+                // Mimic the manual accordion closing
+                document.querySelectorAll(".nested-list").forEach(list => list.classList.add("collapsed"));
+                document.querySelectorAll(".category-header").forEach(header => header.classList.add("collapsed-header"));
+                
+                const nestedList = parentCat.querySelector('.nested-list');
+                const header = parentCat.querySelector('.category-header');
+                if (nestedList) nestedList.classList.remove('collapsed');
+                if (header) header.classList.remove('collapsed-header');
+              }
+              
+              // Select the document visually without re-pushing history
+              selectDocCategory(docItem, targetLevelId, false);
+              
+              // Direct the page focus to the docs section container cleanly
+              const section = document.getElementById("docs");
+              if (section) section.scrollIntoView({ behavior: "smooth" });
+          }
+      }
+    }
   };
 
   // Listen for browser back/forward buttons
   window.addEventListener("hashchange", () => {
-    if (window.location.hash.startsWith("#blog/")) {
+    if (window.location.hash.startsWith("#blog/") || window.location.hash.startsWith("#docs/")) {
       checkHashUrlForDeepLink();
     } else if (modal && modal.classList.contains("show")) {
       closeModal();
@@ -610,9 +862,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const navLink = document.querySelector('a[href="#docs"]');
             if (navLink) navLink.click();
             const docsNavLI = document.querySelector(
-              `#docs-nav li[data-level="${res.id}"]`,
+              `#docs-nav .doc-level-item[data-level="${res.id}"]`,
             );
-            if (docsNavLI) selectDocCategory(docsNavLI, res.id);
+            if (docsNavLI) {
+              const parentCat = docsNavLI.closest('.category-group');
+              if (parentCat) {
+                const nestedList = parentCat.querySelector('.nested-list');
+                const header = parentCat.querySelector('.category-header');
+                if (nestedList) nestedList.classList.remove('collapsed');
+                if (header) header.classList.remove('collapsed-header');
+              }
+              selectDocCategory(docsNavLI, res.id);
+            }
           } else {
             const navLink = document.querySelector('a[href="#blog"]');
             if (navLink) navLink.click();

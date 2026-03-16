@@ -1,124 +1,210 @@
 {
   "docsData": {
+    "sfmc-foundations": {
+      "slug": "sfmc-foundations",
+      "world": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "25 mins",
+      "officialAlignment": "Getting Started",
+      "title": "Level 1-0: Platform Foundations",
+      "seoTitle": "Salesforce Marketing Cloud Foundations",
+      "desc": "Understand the core architecture of SFMC: Business Units, roles, permissions, and the basic data model.",
+      "overview": "Salesforce Marketing Cloud (SFMC) is a robust enterprise platform designed to manage 1-to-1 customer journeys across multiple channels. At its core, it relies on an Enterprise 2.0 (ENT 2.0) architecture using Business Units (BUs) for hierarchical separation of data, assets, and branding. The data model is purely relational, prioritizing Data Extensions over legacy flat lists.",
+      "whyItMatters": "A poor foundational setup inevitably leads to data leakage between brands, overly broad permissions that risk data security, and systemic inefficiencies. Architecting roles and BUs correctly from day one is critical for enterprise scale, as changing BU structures later requires massive migration efforts and potential downtime.",
+      "howItWorks": "The Top-Level (Parent) BU acts as a global administrative node, holding shared Data Extensions and centralized Sender Profiles. Child BUs operate as distinct working environments. Users are granted specific roles (e.g., Administrator, Content Creator, Data Manager) which dictate their read/write capabilities exactly. Data is passed from parent to child via Shared Data Extensions.",
+      "whenToUse": "Whenever onboarding a new brand, geography, or distinct operational team onto the SFMC ecosystem. Keep BU counts minimal; only create a new BU if there is a strict legal, branding, or data-isolation requirement.",
+      "filename": "sys_core.txt",
+      "code": "BU_ID: 1234567\nRole: MC Administrator\nMode: Enterprise 2.0",
+      "best": [
+        "Map out your Business Unit hierarchy deeply before implementation.",
+        "Apply the principle of least privilege for custom roles.",
+        "Use Shared Data Extensions for master opt-out and global suppression."
+      ],
+      "mistakes": [
+        "Giving everyone Administrator access to bypass permission errors.",
+        "Creating a new BU for every single marketing campaign.",
+        "Confusing Lists with Data Extensions for datasets over 500,000 subscribers."
+      ],
+      "tags": [
+        "Foundations",
+        "Architecture",
+        "Setup"
+      ],
+      "learningGroup": "Foundations",
+      "tabTitle": "W1: Basics",
+      "references": [
+        { "label": "Enterprise 2.0 Overview (Official)", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_enterprise_2_0.htm&type=5" },
+        { "label": "Marketing Cloud Roles and Permissions", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_roles.htm&type=5" }
+      ]
+    },
     "nam-conv": {
       "slug": "nam-conv",
       "world": "World 1",
       "difficulty": "Lv1",
-      "estTime": "10 mins",
+      "estTime": "20 mins",
       "officialAlignment": "Setup > Account Administration & Folder Management",
       "title": "Level 1-1: Naming Conventions",
       "seoTitle": "Salesforce Marketing Cloud Naming Conventions",
       "desc": "Master the chaos. A standardized strategy to organize Assets, Data Extensions, and automations across multiple Business Units.",
+      "overview": "A naming convention is a standardized, predictable system for titling all objects (Data Extensions, Emails, Automations, Journeys) inside SFMC. It transforms a chaotic, unsearchable instance into a structured, highly maintainable database.",
+      "whyItMatters": "SFMC's global search functionality is extremely literal and folder navigation can be slow in massive accounts. Without a strict convention, environments become massive graveyards of 'Test_1_Final_v3' files, creating technical debt, breaking dependency links, and severely increasing the risk of sending the wrong email to the wrong audience.",
+      "howItWorks": "A strong convention heavily relies on standard prefixes and suffixes reflecting the object's purpose and location. The structure is usually [Region]_[Brand]_[Campaign_Name]_[Asset_Type]. For example, a Data Extension for a US Nike Summer Sale Send Log becomes `US_Nike_SummerSale_SendLog`.",
+      "whenToUse": "From the very first day of implementation. It must be documented and enforced strictly by the SFMC Administrator before any end-users are granted Creator access. It applies to Folders, Data Extensions, Emails, automations, and Journey names.",
       "filename": "sys_governance.exe",
-      "code": "// Standardized convention:\n[Entity]_[ProjectName]_[Type]_[Frequency]\n\n// Data Extension Example:\nNA_WelcomeJourney_SendLog_Daily",
+      "code": "// Standardized convention:\n[Region]_[Brand]_[Project]_[Type]_[Frequency]\n\n// Data Extension Example:\nNA_WelcomeJourney_SendLog_Daily\n\n// Email Example:\nUK_Newsletter_April2026_Promo",
       "best": [
         "Use a hierarchical structure by asset type.",
-        "Assign permissions by folder, avoid global admin."
+        "Use clear, universally agreed abbreviations (e.g., DE for Data Extension, AS for Automation).",
+        "Maintain a Z_Archive folder at the bottom of hierarchies to hide obsolete items safely."
       ],
       "mistakes": [
         "Inconsistent names like 'Campaign_Final_v2_TEST'.",
-        "Lack of a zArchive folder for obsolete items."
+        "Changing a primary DE's name without updating the SQL Queries that reference it.",
+        "Using spaces and special characters which can break AMPscript or API calls."
       ],
       "tags": [
         "Governance",
         "Architecture"
       ],
-      "tabTitle": "W1: Naming"
+      "learningGroup": "Security & Governance",
+      "tabTitle": "W1: Naming",
+      "references": [
+        { "label": "Best Practices for SFMC Folder Structures", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_best_practices_for_folder_structures.htm" }
+      ]
     },
     "sql-sarg": {
       "slug": "sql-sarg",
       "world": "World 1",
       "difficulty": "Lv3",
-      "estTime": "20 mins",
+      "estTime": "30 mins",
       "officialAlignment": "Automation Studio > SQL Query Activity",
       "title": "Level 1-2: SARGable SQL",
       "seoTitle": "SFMC SQL Optimization & SARGability",
       "desc": "Beat the 30-minute timeout. Write scalable and 'SARGable' SQL queries for Data Extensions.",
+      "overview": "SQL Activities drive the core segmentation and data transformation in SFMC, relying on a backend SQL Server. 'SARGability' (Search Argument Able) refers to writing predicates in the `WHERE` or `JOIN` clauses that allow the SQL optimizer to utilize clustered and non-clustered indexes effectively.",
+      "whyItMatters": "Query Activities enforce a hard 30-minute execution timeout. Non-sargable queries trigger full table scans on millions of rows. As lists grow, a query that worked in month 1 will violently time out in month 6, stalling automated Journeys and data flows.",
+      "howItWorks": "When executing `SELECT` statements, using wildcard characters at the beginning of a `LIKE '%string'` filter, or wrapping indexed columns in functions (like `ISNULL(Email, '') = ''` or `LEFT(Email, 1) = 'A'`) forces the database engine to ignore indexes and examine every row linearly. SARGable queries format the logic so the column itself is evaluated nakedly against a value.",
+      "whenToUse": "Always. Regardless of data size, writing explicitly SARGable queries is a fundamental requirement for SFMC architecture to ensure infinite scalability and stability for Automation Studio.",
       "filename": "query_optimizer.sql",
-      "code": "/* Poor SARGability: */\nSELECT * FROM MyDE WHERE LEFT(Email, 1) = 'A'\n\n/* Good SARGability with CTEs: */\nSELECT Email FROM MyDE WHERE Email LIKE 'A%'",
+      "code": "/* Poor SARGability (Full Table Scan): */\nSELECT SubscriberKey, EmailAddress \nFROM _Subscribers \nWHERE LEFT(EmailAddress, 1) = 'A'\n\n/* Good SARGability (Index Seek): */\nSELECT SubscriberKey, EmailAddress \nFROM _Subscribers \nWHERE EmailAddress LIKE 'A%'",
       "best": [
-        "Avoid initial wildcards in LIKE.",
-        "Deduplicate with ROW_NUMBER() OVER(PARTITION BY...)."
+        "Avoid initial wildcards in LIKE statements.",
+        "Deduplicate with ROW_NUMBER() OVER(PARTITION BY...) instead of expensive DISTINCT scans.",
+        "Target the primary key directly when performing UPSERT operations."
       ],
       "mistakes": [
-        "Using SELECT * instead of explicit fields.",
-        "Filters that negate indexes (non-SARGable)."
+        "Using SELECT * instead of explicit fields, overloading the data transfer layer.",
+        "Using NOT IN against a large subquery instead of a LEFT JOIN with a NULL check.",
+        "Joining on unindexed columns, specifically long text fields."
       ],
       "tags": [
         "SQL",
         "Performance",
         "Data"
       ],
-      "tabTitle": "W1: SQL"
+      "learningGroup": "Data & SQL",
+      "tabTitle": "W1: SQL",
+      "references": [
+        { "label": "Optimize SQL Query Activities (Official)", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_as_optimize_the_query_activity.htm&type=5" },
+        { "label": "SARGable operations in SQL Server", "url": "https://en.wikipedia.org/wiki/Sargable" }
+      ]
     },
     "dev-deliv": {
       "slug": "dev-deliv",
       "world": "World 1",
       "difficulty": "Lv2",
-      "estTime": "15 mins",
+      "estTime": "25 mins",
       "officialAlignment": "Email Studio > Deliverability > Sender Authentication Package",
       "title": "Level 1-3: Deliverability",
       "seoTitle": "SFMC Email Deliverability for Developers",
       "desc": "Sender Authentication Package, IP Warmup, and technical domain validation.",
+      "overview": "Deliverability is the highly technical practice of ensuring emails sent from Marketing Cloud actually land in the recipient's Inbox rather than the Spam folder or being rejected entirely (bounced) by the ISP (Internet Service Provider).",
+      "whyItMatters": "Even the most brilliantly coded dynamic AMPscript email is utterly useless if Gmail or Outlook blocks it. Deliverability directly dictates marketing ROI, corporate domain reputation, and the actual visibility of critical transactional messages.",
+      "howItWorks": "Marketing Cloud uses Sender Authentication Packages (SAP) to align DNS records. This utilizes SPF (authorization showing SFMC is allowed to send for you), DKIM (an encryption signature verifying the email was not tampered with mid-transit), and DMARC (alignment rules to prevent spoofing).",
+      "whenToUse": "Critical during the initial SFMC implementation phase (via an IP Warmup strategy) and requires continuous, proactive monitoring using Data Views or third-party reputation tracking to handle blocklists.",
       "filename": "network_layer.config",
-      "code": "v=spf1 include:cust-spf.exacttarget.com ~all\n// Check DMARC and DKIM alignment constantly.",
+      "code": "/* Example of an SPF TXT Record for SFMC */\nv=spf1 include:cust-spf.exacttarget.com ~all\n\n// Ensure all From Addresses match the SAP domain exactly\n// e.g., if SAP is email.brand.com, From must be info@email.brand.com",
       "best": [
-        "Monitor _Bounce Data View asynchronously.",
-        "Execute safe volumetric IP Warming."
+        "Monitor the `_Bounce` and `_Complaint` Data Views asynchronously via Automation Studio.",
+        "Execute a safe, volumetric IP Warming schedule over 30-45 days for new dedicated IPs.",
+        "Implement a dedicated sunset policy: stop mailing subscribers who haven't opened in 6-12 months."
       ],
       "mistakes": [
-        "Sending massively without a baseline reputation.",
-        "Ignoring repeated hard bounces."
+        "Sending massively without a baseline domain/IP reputation.",
+        "Ignoring repeated hard bounces and continuing to mail them.",
+        "Using a shared IP address when your send volume exceeds 2M a month (ruining your reputation via bad neighbors)."
       ],
       "tags": [
         "Deliverability",
         "Architecture"
       ],
-      "tabTitle": "W1: Deliverability"
+      "learningGroup": "Deliverability",
+      "tabTitle": "W1: Deliverability",
+      "references": [
+        { "label": "Sender Authentication Package (SAP) Overview", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_es_sender_authentication_package.htm&type=5" },
+        { "label": "IP Warming Best Practices", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_es_ip_address_warming.htm&type=5" }
+      ]
     },
     "amp-eval": {
       "slug": "amp-eval",
       "world": "World 2",
       "difficulty": "Lv3",
-      "estTime": "15 mins",
+      "estTime": "25 mins",
       "officialAlignment": "AMPscript Syntax Guide",
       "title": "Level 2-1: AMPscript Limits",
       "seoTitle": "SFMC AMPscript Pre-Evaluation & Render Timeouts",
       "desc": "How SFMC processes AMPscript in Subjects and Preheaders vs body, preventing timeouts.",
+      "overview": "AMPscript is SFMC's proprietary, server-side scripting language used heavily for email personalization and complex landing pages. Understanding how the Outbound Mail Manager (OMM) evaluates this code sequentially is paramount for enterprise send performance.",
+      "whyItMatters": "Code evaluated linearly per email sent determines whether an audience of two million receives the campaign in 30 minutes or 12 hours. Placing heavy lookup processing in the Subject Line instead of the Body causes catastrophic rendering delays and system timeouts.",
+      "howItWorks": "SFMC evaluates AMPscript in a specific structural order: Preheader -> Subject Line -> Body. Therefore, variable initialization blocks placed down in the Body cannot pass variables 'upward' to the Subject Line safely unless the architecture intercepts it first, or unless you structure all data gathering in a top master block.",
+      "whenToUse": "Apply initialization blocks `%%[ ... ]%%` strictly at the very top of the Email HTML code (before the `<html>` tag begins) to immediately process all relational data lookups simultaneously before any actual HTML or Header content attempts to render.",
       "filename": "omm_pipeline.amp",
-      "code": "<!-- Subject: %%=v(@Subj)=%% -->\n%%[ /* Body Init */\nSET @Subj = Lookup(\"SubjCopy\", \"Text\", \"ID\", 1)\n]%%",
+      "code": "<!-- Subject: %%=v(@Subj)=%% -->\n%%[ \n/* Master Initialization Block */\nSET @SubscriberKey = _subscriberkey\nSET @Subj = Lookup(\"Subject_DE\", \"Text\", \"ID\", @SubscriberKey)\nSET @HeroImage = Lookup(\"Image_DE\", \"URL\", \"ID\", @SubscriberKey)\n]%%\n<html>...</html>",
       "best": [
-        "Consolidate lookups in Init Blocks.",
-        "Treat HTTPGet with caution or asynchronously."
+        "Consolidate all `Lookup()` and `LookupRows()` functions in a single Init Block at the top.",
+        "Use `ClaimRow()` cautiously as it locks records and slows sending immensely.",
+        "Treat HTTPGet with extreme prejudice in emails; prefer pulling from a pre-calculated Data Extension instead."
       ],
       "mistakes": [
-        "Synchronous HTTPGet for each iterator in lists of 10k+.",
-        "Expecting the Subject to process variables before initializing them in the Body."
+        "Using synchronous HTTPGet for each iterator in a send list of 100k+ subscribers.",
+        "Expecting the Subject Line to organically process an inline AMPscript calculation before the email fully renders.",
+        "Nesting multiple `FOR` loops with lookups inside them."
       ],
       "tags": [
         "AMPscript",
         "Performance"
       ],
-      "tabTitle": "W2: AMP Limits"
+      "learningGroup": "Content & Personalization",
+      "tabTitle": "W2: AMP Limits",
+      "references": [
+        { "label": "AMPscript Evaluation Order", "url": "https://developer.salesforce.com/docs/marketing/ampscript/guide/ampscript-processing.html" },
+        { "label": "AMPscript Best Practices", "url": "https://developer.salesforce.com/docs/marketing/ampscript/guide/best-practices.html" }
+      ]
     },
     "ssjs-api": {
       "slug": "ssjs-api",
       "world": "World 2",
       "difficulty": "Lv4",
-      "estTime": "30 mins",
+      "estTime": "35 mins",
       "officialAlignment": "Developer Docs > SSJS > Platform Functions",
       "title": "Level 2-2: SSJS Endpoints",
       "seoTitle": "Building Secure JSON APIs with SFMC SSJS",
-      "desc": "Create robust native REST Endpoints using Server-Side JavaScript in CloudPages.",
+      "desc": "Create robust native REST Endpoints inside SFMC using Server-Side JavaScript in CloudPages.",
+      "overview": "In SFMC, a custom JSON Endpoint is typically a CloudPage executing Server-Side JavaScript (SSJS) that accepts an incoming HTTP payload, processes it internally, and explicitly returns a JSON string as a response. It effectively turns SFMC into a responsive microservice.",
+      "whyItMatters": "Standard SFMC REST APIs don't always cover complex, multi-step orchestration tasks efficiently (e.g., dynamically decrypting a payload, checking a Data Extension, triggering an email, and updating a counter all in one atomic transaction). Custom endpoints act as flexible middleware to handle these tasks natively within the platform, shielding external apps from SFMC's internal complexity.",
+      "howItWorks": "A CloudPage is created using a Code Resource block (to prevent the platform from injecting heavy surrounding HTML and click-tracking wrappers). It reads incoming properties with `Platform.Request.GetPostData()`, processes the logic securely via Try/Catch statements, and explicitly sets the Content-Type while defining standard CORS Headers using `Platform.Response`.",
+      "whenToUse": "When you need to create a secured webhook for an external system (like a CMS), build an API layer for a decoupled front-end React/Vue application, or process immediate real-time transactional logic.",
       "filename": "backend_api.js",
-      "code": "Platform.Response.SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\");\ntry {\n  var payload = Platform.Request.GetPostData();\n  // ... process JSON ...\n  Write('{\"status\":\"success\"}');\n} catch(err) {\n  Write('{\"status\":\"error\",\"message\":'+Stringify(err)+'}');\n}",
+      "code": "Platform.Load(\"Core\", \"1.1.1\");\nPlatform.Response.SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\");\nPlatform.Response.SetResponseHeader(\"Content-Type\", \"application/json\");\n\ntry {\n  var rawPayload = Platform.Request.GetPostData();\n  var parsed = Platform.Function.ParseJSON(rawPayload);\n  \n  // ... process JSON natively into a DE ...\n  \n  Write('{\"status\": 200, \"message\": \"Data accepted\"}');\n} catch(err) {\n  Platform.Response.SetStatusCode(500);\n  Write('{\"status\": 500, \"message\":\"'+ Stringify(err.message) +'\"}');\n}",
       "best": [
-        "Validate PII and sanitize inputs.",
-        "Wrap in a try/catch block to avoid generic 500s."
+        "Always use Code Resources instead of standard Landing Pages to avoid unwanted HTML injections overhead.",
+        "Validate PII and severely sanitize inputs before pushing to Data Extensions.",
+        "Wrap the entire payload handling in a Try/Catch block to avoid generic 500 Server Errors that hide root causes."
       ],
       "mistakes": [
-        "Forgetting SetResponseHeader causes CORS failures.",
-        "Silent failure by not returning error JSON."
+        "Forgetting `SetResponseHeader` causes catastrophic CORS failures on the front-end.",
+        "Silent failure by not returning an explicit error JSON string in the catch block.",
+        "Leaving the Code Resource publicly unauthenticated, exposing the SFMC instance to open POST attacks."
       ],
       "tags": [
         "SSJS",
@@ -126,111 +212,159 @@
         "Security",
         "CloudPages"
       ],
-      "tabTitle": "W2: Endpoints"
+      "learningGroup": "Development",
+      "tabTitle": "W2: Endpoints",
+      "references": [
+        { "label": "SSJS Core HTTP Functions", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/ssjs_http.html" },
+        { "label": "CloudPages Code Resources", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_cp_code_resource.htm" }
+      ]
     },
     "telemetry": {
       "slug": "telemetry",
       "world": "World 2",
       "difficulty": "Lv4",
-      "estTime": "15 mins",
+      "estTime": "20 mins",
       "officialAlignment": "Automation Studio Script Activities",
       "title": "Level 2-3: Built-in Telemetry",
       "seoTitle": "SFMC Telemetry and Logging Framework",
       "desc": "Implement a framework to track Run Logs, API Attempts, and Errors globally.",
+      "overview": "SFMC inherently lacks a centralized, easily searchable diagnostic error log for custom scripting (SSJS/AMPscript). Built-in Telemetry refers to architecting your own custom Data Extension logging framework for SSJS executions and API transaction auditing.",
+      "whyItMatters": "When a complex Automation Script Activity fails silently, or a CloudPage JSON endpoint crashes under pressure, developers are entirely blind to the root cause. Without custom telemetry capturing execution stack traces, debugging mission-critical SFMC issues relies entirely on aggressive guesswork.",
+      "howItWorks": "By consistently wrapping all modular SSJS logic within `try { ... } catch (ex) { ... }` blocks, developers can intercept the specific `ex` exception variable. This variable, containing the line number and exact error message, is piped explicitly into a persistent relational Data Extension using `Platform.Function.InsertData()` before proceeding or failing.",
+      "whenToUse": "Should be standardized for all SSJS Activities in Automation Studio, all custom JSON Code Resources, and highly complex AMPscript HTTPGet procedures.",
       "filename": "log_daemon.ssjs",
-      "code": "var res = Platform.Function.InsertData(\"System_Logs\", \n  [\"Level\",\"Message\",\"Time\"], \n  [\"ERROR\", Stringify(ex), Now()]);",
+      "code": "Platform.Load(\"Core\",\"1.1.1\");\nfunction logToTelemetry(level, processName, payload, errorBlock) {\n  try {\n    Platform.Function.InsertData(\"System_Telemetry_Log\", \n      [\"Timestamp\", \"Level\", \"Process\", \"Payload\", \"ErrorDetails\"], \n      [Now(), level, processName, Stringify(payload), Stringify(errorBlock)]\n    );\n  } catch (e) { /* Fallback */ }\n}\n\ntry {\n  // Major logic here\n} catch(ex) {\n  logToTelemetry(\"CRITICAL\", \"ProcessOrders\", null, ex);\n}",
       "best": [
-        "Mandatory 30-day retention policies.",
-        "Obfuscate emails (e.g. te***@domain.com)."
+        "Mandatory 30-day retention policies on the Log Data Extension to prevent infinite scaling issues.",
+        "Obfuscate critical PII immediately before inserting into the log (e.g. te***@domain.com) to maintain compliance.",
+        "Write a secondary automation that alerts Admins immediately if CRITICAL level errors detect over a threshold."
       ],
       "mistakes": [
-        "Unmanageable telemetry Data Extensions due to no auto-deletion.",
-        "Logging sensitive PII JSON explicitly."
+        "Unmanageable telemetry Data Extensions ballooning to millions of rows due to no auto-deletion.",
+        "Logging sensitive PII JSON payload explicitly in plain text.",
+        "Throwing exceptions inside the telemetry catch block, crashing the tracker itself."
       ],
       "tags": [
         "Troubleshooting",
         "Governance",
         "SSJS"
       ],
-      "tabTitle": "W2: Telemetry"
+      "learningGroup": "Troubleshooting",
+      "tabTitle": "W2: Telemetry",
+      "references": [
+        { "label": "SSJS Exception Handling", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/ssjs_syntaxTryCatch.html" },
+        { "label": "Platform.Function.InsertData", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/ssjs_platformDataExtensionInsertData.html" }
+      ]
     },
     "token-cache": {
       "slug": "token-cache",
       "world": "World 3",
       "difficulty": "Lv4",
-      "estTime": "20 mins",
+      "estTime": "25 mins",
       "officialAlignment": "REST API > Authentication (v2/token)",
       "title": "Level 3-1: Token Caching",
       "seoTitle": "SFMC REST API OAuth Token Caching",
       "desc": "Expiration architecture and secure storage in SSJS to avoid rate limiting.",
+      "overview": "Token caching is the advanced practice of securely requesting, saving, and reusing OAuth 2.0 Access Tokens for the SFMC REST API, rather than blindly requesting a brand new token for every single API interaction.",
+      "whyItMatters": "The SFMC `/v2/token` authentication endpoint enforces aggressive rate limits. Hitting it excessively in a loop (e.g., inside an SSJS file touching 2,000 rows) leads directly to `429 Too Many Requests` errors, immediately breaking all dependent integrations or SSJS-driven REST capabilities.",
+      "howItWorks": "When SSJS requires a REST call, it first looks up a stored Token in a secured configuration Data Extension. If the token is valid and unexpired (checking against a recorded Expiration Timestamp minus a 60-second skew), it is reused. If expired, it triggers a POST to the Token endpoint, saves the new returned Token and Expiration to the DB, and then proceeds with the actual REST route.",
+      "whenToUse": "Absolutely required for any batch script utilizing REST API loops in SFMC, and for any external integration authenticating heavily into the Marketing Cloud instance.",
       "filename": "vault_auth.js",
-      "code": "// Pseudo SSJS for caching:\nvar cached = Lookup(\"Sys_Tokens\", \"Token\", \"App\", \"MyApp\");\nvar exp = Lookup(\"Sys_Tokens\", \"Exp\", \"App\", \"MyApp\");\nif(exp < new Date().getTime()) {\n  // fetch token, add 60s skew margin, UpdateData DE\n}",
+      "code": "function getValidToken() {\n  var cached = Lookup(\"Sys_Vault\", \"AccessToken\", \"App\", \"PrimaryApp\");\n  var exp = Lookup(\"Sys_Vault\", \"Exp\", \"App\", \"PrimaryApp\");\n  var skewTime = new Date().getTime() + 60000; // 60s skew\n  \n  if (exp && exp > skewTime) {\n    return cached;\n  }\n  \n  // Need new token\n  var resp = fetchNewTokenFromAPI();\n  // UpdateData Sys_Vault with resp.token and new expiration time\n  return resp.token;\n}",
       "best": [
-        "60s skew buffer.",
-        "Lock credentials DE in UI permissions."
+        "Always implement a 60-second skew buffer. Tokens technically expire in 20 minutes, treat it as 19.",
+        "Lock the Vault credentials Data Extension in the UI using strictly governed permissions.",
+        "Use WSProxy if possible to bypass REST limits entirely instead of building a heavy token caching layer for simple tasks."
       ],
       "mistakes": [
-        "Requesting token for each REST call (429 Too Many Requests).",
-        "Saving exposed secret in plain text templates."
+        "Requesting a token for each REST call in a 500-item iteration loop.",
+        "Saving the ClientID and ClientSecret exposed in plain text inside easily readable CloudPage templates.",
+        "Failing to account for the server-time offsets when comparing JavaScript `new Date()` vs SFMC system time."
       ],
       "tags": [
         "API",
         "Security",
         "Performance"
       ],
-      "tabTitle": "W3: Tokens"
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W3: Tokens",
+      "references": [
+        { "label": "Authentication v2/Token API", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/getting-started-apis.html" },
+        { "label": "Marketing Cloud Rate Limits", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/rate-limiting.html" }
+      ]
     },
     "async-api": {
       "slug": "async-api",
       "world": "World 3",
       "difficulty": "Lv4",
-      "estTime": "25 mins",
+      "estTime": "30 mins",
       "officialAlignment": "Journey Builder > REST API > Fire Event Asynchronously",
       "title": "Level 3-2: Async Injection",
       "seoTitle": "SFMC Bulk REST API & Journey Builder Async Events",
       "desc": "Inject thousands of contacts into JB without busting Rate Limits using an asynchronous and paginated endpoint.",
+      "overview": "The Asynchronous Event Injection API (`/interaction/v1/events/async`) is a specialized REST execution path designed to pump high volumes of contacts directly into SFMC Journey Builder without triggering instant database processing constraints.",
+      "whyItMatters": "Attempting to inject millions of contacts dynamically through the synchronous API will violently collide with database transaction blocks and HTTP timeout limits. Synchronous API makes the sender wait for SFMC to confirm the database write; the Async API returns instantly.",
+      "howItWorks": "Instead of executing the entry event data-handling instantly, the Async API queues the JSON payloads in a massively scalable buffer and returns an immediate `202 Accepted` HTTP response to the sender. SFMC then securely drains this queue, writing to the Entry Data Extension and evaluating the Journey filter logic in batch optimizations behind the scenes.",
+      "whenToUse": "Mandatory whenever pushing more than 50-100 contacts per second from external systems (like AWS Lambda or an external CRM) directly into an active, running Journey.",
       "filename": "bulk_inject.sh",
-      "code": "POST /interaction/v1/events/async\n{\n  // Array of allowed contact objects\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { ... }\n}",
+      "code": "POST /interaction/v1/events/async\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  // Array of multiple contacts for bulk processing\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { \n    \"EmailAddress\": \"dev@example.com\",\n    \"Tier\": \"Gold\" \n  }\n}",
       "best": [
-        "Use asynchronous batch over synchronous loops.",
-        "Validate destination DEs before triggering the burst."
+        "Send contacts in heavy batches within the Async array over firing single synchronous loops.",
+        "Always validate destination Data Extension schemas explicitly before triggering the burst.",
+        "Implement a webhook on the external server to consume SFMC's Event Notification Service (ENS) callbacks for async failures."
       ],
       "mistakes": [
-        "The asynchronous endpoint masks schema failures (returns 202).",
-        "Forgetting to configure the input Data Extension correctly."
+        "Believing a `202 Accepted` means the contact successfully entered the Journey. (It only means it entered the queue; a bad schema will still reject it 5 seconds later silently).",
+        "Forgetting to configure the Journey Builder Entry Data Extension payload exactly as specified in the API call.",
+        "Using synchronous methods for eCommerce order confirmation bursts on Black Friday."
       ],
       "tags": [
         "Journey",
         "API",
         "Performance"
       ],
-      "tabTitle": "W3: Async Inject"
+      "learningGroup": "Automation & Journeys",
+      "tabTitle": "W3: Async Inject",
+      "references": [
+        { "label": "Fire an Event Asynchronously (API)", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/fireAsyncEvent.html" }
+      ]
     },
     "wsproxy-adv": {
       "slug": "wsproxy-adv",
       "world": "World 3",
       "difficulty": "Lv4",
-      "estTime": "20 mins",
+      "estTime": "25 mins",
       "officialAlignment": "Developer Docs > SSJS > WSProxy",
       "title": "Level 3-3: WSProxy Master",
       "seoTitle": "Advanced Automation Scripting with WSProxy",
-      "desc": "Manipulate deep configurations using WSProxy instead of manual SOAP calls.",
+      "desc": "Manipulate deep configurations and retrieve large datasets using WSProxy instead of manual SOAP calls.",
+      "overview": "WSProxy is an incredibly powerful, native Server-Side JavaScript (SSJS) wrapper object that enables developers to interact directly with the heavy SOAP API from within SFMC operations, without having to build verbose, heavy XML envelopes.",
+      "whyItMatters": "Raw SOAP executes slowly in SSJS and its manual string building is prone to severe syntax errors. Conversely, standard SSJS Core functions (`DataExtension.Rows.Retrieve()`) impose aggressive performance and row limitations (max 2500 lines). WSProxy beautifully mitigates both issues, acting as the ultimate development bridge.",
+      "howItWorks": "Developers instantiate the `Script.Util.WSProxy()` object once. Calling methods like `.retrieve()`, `.create()`, or `.performItem()` translates JavaScript arrays seamlessly into optimized SOAP calls on the backend, returning easy-to-parse JSON payloads natively. It natively handles batching via Pagination pointers.",
+      "whenToUse": "Whenever interacting extensively with system configuration, triggering specific Automations programmatically, stopping Journeys, retrieving Data Extension payloads exceeding 2500 rows, or managing complex User permissions.",
       "filename": "wsproxy_execute.js",
-      "code": "var prox = new Script.Util.WSProxy();\nvar action = \"Start\";\nvar props = { ObjectID: \"auth-uuid-here\" };\nvar res = prox.performItem(\"Automation\", props, action);",
+      "code": "var prox = new Script.Util.WSProxy();\nvar action = \"Start\";\nvar props = { \n   ObjectID: \"auth-uuid-here\" \n};\nvar opts = {};\n// Executes the Start command on an automation securely\nvar res = prox.performItem(\"Automation\", props, action, opts);\n\n// Check response\nif (res.Status === \"OK\") {\n  Write(\"Trigger deployed successfully.\");\n}",
       "best": [
-        "Parse res.Status and log it.",
-        "Validate ObjectTypes with the WSDL."
+        "Always parse `res.Status` and `res.Results[0].Object.Status` comprehensively for error handling.",
+        "Rely strictly on the official SOAP wsdl definitions when structuring `props` objects.",
+        "Use the `getNextBatch()` function when retrieving objects over 2500 limits in a tight `do/while` loop."
       ],
       "mistakes": [
-        "Incorrect property causes 'Property not found'.",
-        "Forgetting that 'performItem' requires an exact context."
+        "Providing an Incorrect property casing (e.g., `objectId` instead of `ObjectID`), causing a silent 'Property not found' error.",
+        "Forgetting to wrap complex perform interactions in try/catch telemetry wrappers.",
+        "Attempting to use WSProxy for REST-only entities like Journeys endpoints, which it cannot touch."
       ],
       "tags": [
         "SSJS",
         "API",
         "Automation"
       ],
-      "tabTitle": "W3: WSProxy"
+      "learningGroup": "Development",
+      "tabTitle": "W3: WSProxy",
+      "references": [
+        { "label": "WSProxy Syntax Guide", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/wsproxy.html" },
+        { "label": "WSProxy Retrieve Operations", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/wsproxy-retrieve.html" }
+      ]
     },
     "asset-api": {
       "slug": "asset-api",
@@ -240,23 +374,34 @@
       "officialAlignment": "Content Builder > REST API",
       "title": "Level 4-1: Asset Versioning",
       "seoTitle": "SFMC Content Builder APIs Asset Versioning",
-      "desc": "Dynamically generate and version assets or manage permissions using CB API.",
+      "desc": "Dynamically generate and version assets or manage permissions using the CB REST API.",
+      "overview": "The Content Builder REST Asset API provides dense programmatic access to virtually all HTML fragments, image references, and structural email templates inside SFMC entirely outside of the Marketing Cloud UI.",
+      "whyItMatters": "Modern CI/CD (Continuous Integration / Continuous Deployment) pipelines for enterprise marketing require explicit governance. Code needs to be version-controlled in Git, tested locally, and deployed transparently. The Asset API bridges your repository (like GitHub) and the platform perfectly.",
+      "howItWorks": "By targeting endpoints (like `PATCH /asset/v1/assets/{id}`) with explicitly defined `CustomerKeys` acting as immutable IDs, developers can overwrite existing blocks, query specific code content dynamically, and trigger massive asset duplication processes from systems like GitHub Actions or Jenkins.",
+      "whenToUse": "When deploying global brand updates (like header/footer HTML changes) to multiple distinct Business Units simultaneously, or when maintaining strict source-of-truth architectures for AMPscript components hosted in GitHub.",
       "filename": "asset_ops.json",
-      "code": "PATCH /asset/v1/assets/{id}\n{\n  \"name\": \"Hero_Template_v2\",\n  \"content\": \"<div>...</div>\"\n}",
+      "code": "/* Example of updating an existing HTML block */\nPATCH /asset/v1/assets/6543210\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  \"name\": \"Hero_Template_v2\",\n  \"customerKey\": \"hero_master_prod\",\n  \"assetType\": {\n    \"name\": \"htmlblock\",\n    \"id\": 197\n  },\n  \"content\": \"<div><h1>Updated Promo</h1></div>\"\n}",
       "best": [
-        "Maintain fixed CustomerKeys for in-place updates.",
-        "Sandbox Business Units for CI testing."
+        "Maintain rigorously fixed `CustomerKeys` across environments to ensure in-place updates rather than accidental duplicates.",
+        "Dedicate a sandbox Business Unit explicitly for CI testing workflows before hitting Production nodes.",
+        "Save all raw AMPscript logic within external code fragments rather than inline in email templates."
       ],
       "mistakes": [
-        "Calling POST instead of PUT/PATCH generates infinite clones.",
-        "Lack of scope limit in integrated packages."
+        "Calling HTTP `POST` instead of `PUT/PATCH` during an update, which generates infinite clones with incrementally appended filenames.",
+        "Lacking scope limits in the Installed Packages configuration, allowing dangerous widespread deletion access.",
+        "Overwriting content while a Journey is currently active and referencing the older CustomerKey structure."
       ],
       "tags": [
         "API",
         "Architecture",
         "Governance"
       ],
-      "tabTitle": "W4: Assets"
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W4: Assets",
+      "references": [
+        { "label": "Content Builder Assets API", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/assets.html" },
+        { "label": "Supported Asset Types", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/assetTypes.html" }
+      ]
     },
     "pii-defense": {
       "slug": "pii-defense",
@@ -266,49 +411,71 @@
       "officialAlignment": "Security > Marketing Cloud Data Privacy",
       "title": "Level 4-2: PII Defense Matrix",
       "seoTitle": "SFMC PII Minimization & Encryption Architecture",
-      "desc": "Techniques to obfuscate PII in operational Data Extensions and maintain compliance.",
+      "desc": "Techniques to obfuscate PII in operational Data Extensions and maintain explicit compliance.",
+      "overview": "The PII Defense Matrix involves specific architectural patterns (predominantly the Tokenized Sending or Claim-Check patterns) that aggressively minimize the persistence of Personally Identifiable Information (PII) within operational Data Extensions inside SFMC.",
+      "whyItMatters": "Persisting raw SSNs, medical records, or extreme financial data at rest in SFMC drastically violates international compliance policies (HIPAA, GDPR) and turns the SFMC instance into a highly toxic target in the event of a credential breach.",
+      "howItWorks": "Instead of sending sensitive payload data explicitly to a Journey Data Extension, the external system sends only an opaque `Token_UUID`. At the exact millisecond the email renders, AMPscript reaches out via secured REST or secure Lookups to internal Vaults to decrypt or inject the sensitive info purely into the outbound email envelope, never writing it to disk.",
+      "whenToUse": "Whenever dealing with Highly Restricted Data classifications (Financial, Medical, Legal) within a marketing automation environment that operates globally.",
       "filename": "crypto_vault.js",
-      "code": "/* Claim-check minimization */\n// Avoid persisting SSN in DEs. Only inject Token UUID\nvar emailBody = Platform.Function.Lookup(\"SecureSource\", \"SSN\", \"UUID\", @id);",
+      "code": "<!-- Claim-check minimization within an Email Template -->\n%%[\n  /* Avoid persisting SSN in DEs. Only inject Token UUID */\n  SET @UUID = AttributeValue(\"Token_UUID\")\n  \n  /* Lookup highly-secured secondary vault right at render time */\n  /* This DE runs an auto-deletion script every 24 hours */\n  SET @emailBody = Lookup(\"SecureVault_Temp\", \"ClaimedPayload\", \"UUID\", @UUID)\n]%%\n<div>\n  %%=v(@emailBody)=%%\n</div>",
       "best": [
-        "Define automatic 7-day retention in hot DEs.",
-        "Use Claim-check pattern in Journeys."
+        "Define strict, automatic 7-day or 24-hour retention policies in hot Journey DEs.",
+        "Use external Claim-check REST API patterns in Journeys for maximum obfuscation.",
+        "Run an overarching automation that scans environments for mistakenly imported sensitive data headers."
       ],
       "mistakes": [
-        "Activating FLE (Field Level Encryption) destroys sargability of relational fields.",
-        "Sending queries in plain text with PII visible to common users."
+        "Activating SFMC FLE (Field Level Encryption) without realizing it destroys the SARGability and filterability of relational fields.",
+        "Sending sensitive diagnostic queries in plain text to Teams channels with PII completely visible to common users.",
+        "Saving the Claim-check decrypted values into persistent variables inside the Email Send Logging mechanism."
       ],
       "tags": [
         "Security",
         "Data",
         "Governance"
       ],
-      "tabTitle": "W4: Defense"
+      "learningGroup": "Security & Governance",
+      "tabTitle": "W4: Defense",
+      "references": [
+        { "label": "Tokenized Sending Framework", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_tokenized_sending.htm&type=5" },
+        { "label": "Field-Level Encryption Overview", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_field_level_encryption.htm&type=5" }
+      ]
     },
     "tx-api": {
       "slug": "tx-api",
       "world": "World 4",
       "difficulty": "Lv5",
-      "estTime": "30 mins",
+      "estTime": "35 mins",
       "officialAlignment": "Messaging Data > Transactional Messaging API",
       "title": "Level 4-3: Transactional Architecture",
       "seoTitle": "Mastering SFMC Transactional Messaging APIs",
-      "desc": "Extreme speed. Transition from Triggered Sends to Transactional Messaging API.",
+      "desc": "Extreme speed operations. Transition from legacy Triggered Sends to the specialized Transactional Messaging API.",
+      "overview": "The Transactional Messaging API is SFMC's ultra-fast framework dedicated specifically to 1-to-1 operational emails, SMS, and Push messages. It completely revolutionizes and supersedes the legacy 'Triggered Sends' infrastructure with hyper-scalable payload handling.",
+      "whyItMatters": "When a customer resets a password or processes a payment, latency is unacceptable. Legacy Triggered Sends can queue for minutes during high platform traffic load. The Transactional API operates on isolated, specialized servers that guarantee sub-second rendering and deployment reliability.",
+      "howItWorks": "Developers construct an asynchronous `POST /messaging/v1/email/messages` containing the Recipient Key and all relevant Dynamic Personalization variables directly in the JSON payload framework. By attaching data strictly to the payload, you bypass the need for SFMC to stop and query relational databases via AMPscript before sending the message.",
+      "whenToUse": "Password Resets, OTPs (One Time Passwords), Purchase Confirmations, multi-factor authentications, and critical system alerts.",
       "filename": "tx_blast.json",
-      "code": "POST /messaging/v1/email/messages\n{\n  \"definitionKey\": \"tx-welcome\",\n  \"recipient\": {\n    \"contactKey\": \"user123\"\n  }\n}",
+      "code": "POST /messaging/v1/email/messages\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  \"definitionKey\": \"tx-welcome\",\n  \"recipient\": {\n    \"contactKey\": \"user123\",\n    \"to\": \"user@example.com\",\n    \"attributes\": {\n      \"FirstName\": \"John\",\n      \"ResetLink\": \"https://reset.com/xyz123\"\n    }\n  }\n}",
       "best": [
-        "Pass personalization in the payload, do not do DB lookups.",
-        "Use ENS (Event Notification Service) for failures."
+        "Pass all required personalization data in the payload `attributes` object, completely bypassing backend AMPscript DB lookups.",
+        "Implement ENS (Event Notification Service) Webhooks to capture the immediate hard bounce or delivery failures securely.",
+        "Use the multiple-recipient endpoint to process batch transactional messaging explicitly."
       ],
       "mistakes": [
-        "Missing attributes causing send failures.",
-        "Treating transactional emails as 1M batch campaigns."
+        "Missing explicitly required attributes causing immediate send failures and 400 status codes.",
+        "Treating Transactional Messaging endpoints as a loophole for sending 5 million batch marketing campaigns, which violates TOS and degrades priority routing.",
+        "Failing to suspend the definition properly when replacing underlying Email content."
       ],
       "tags": [
         "API",
         "Performance",
         "Email"
       ],
-      "tabTitle": "W4: Transactional"
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W4: Transactional",
+      "references": [
+        { "label": "Transactional Messaging API Docs", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/transactional-messaging-api.html" },
+        { "label": "Event Notification Service (ENS)", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/ens.html" }
+      ]
     }
   }
 }
