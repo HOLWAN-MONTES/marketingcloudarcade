@@ -19,61 +19,89 @@ export function initUI() {
     });
   }
 
-  // --- LÓGICA DE DARK / LIGHT MODE (Píxeles Orgánicos) ---
-  const themeToggleBtn = document.getElementById("theme-toggle");
-  const grid = document.getElementById("pixel-grid");
+  // --- LÓGICA DE DARK / LIGHT MODE (Canvas Dithering Rápido) ---
+  const themeToggleInput = document.getElementById("theme-toggle");
+  const canvas = document.getElementById("pixel-canvas");
   let isAnimatingTheme = false;
-  const PIXEL_SIZE = 30;
+  const PIXEL_SIZE = 8;
 
-  if (themeToggleBtn && grid) {
-    themeToggleBtn.addEventListener("click", () => {
-      if (isAnimatingTheme) return;
+  if (themeToggleInput && canvas) {
+    const ctx = canvas.getContext("2d");
+
+    // Sync initial state: checked == light mode
+    themeToggleInput.checked = document.body.classList.contains("light-mode");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    themeToggleInput.addEventListener("click", (e) => {
+      if (isAnimatingTheme) {
+        e.preventDefault();
+        return;
+      }
       isAnimatingTheme = true;
 
       const isLightMode = document.body.classList.contains("light-mode");
-      const currentColor = isLightMode ? "#f0f0f5" : "#0f0f1b";
-      grid.style.setProperty("--pixel-color", currentColor);
+      const oldColor = isLightMode ? "#f0f0f5" : "#0f0f1b";
 
-      const cols = Math.ceil(window.innerWidth / PIXEL_SIZE);
-      const rows = Math.ceil(window.innerHeight / PIXEL_SIZE);
-      const totalPixels = cols * rows;
-
-      grid.innerHTML = "";
-      const pixels = [];
-      for (let i = 0; i < totalPixels; i++) {
-        const p = document.createElement("div");
-        p.classList.add("pixel");
-        p.style.width = `${PIXEL_SIZE}px`;
-        p.style.height = `${PIXEL_SIZE}px`;
-        grid.appendChild(p);
-        pixels.push(p);
-      }
+      ctx.fillStyle = oldColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       if (isLightMode) {
         document.body.classList.remove("light-mode");
-        themeToggleBtn.innerText = "☀️";
       } else {
         document.body.classList.add("light-mode");
-        themeToggleBtn.innerText = "🌙";
       }
 
-      setTimeout(() => {
-        pixels.forEach((pixel, index) => {
-          const currentRow = Math.floor(index / cols);
-          const baseDelay = (currentRow / rows) * 400;
-          const randomDelay = Math.random() * 500;
-          const totalDelay = baseDelay + randomDelay;
+      const cols = Math.ceil(canvas.width / PIXEL_SIZE);
+      const rows = Math.ceil(canvas.height / PIXEL_SIZE);
+      const blocks = [];
 
-          setTimeout(() => {
-            pixel.classList.add("hidden");
-          }, totalDelay);
-        });
-      }, 50);
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          blocks.push({ x: x * PIXEL_SIZE, y: y * PIXEL_SIZE });
+        }
+      }
 
-      setTimeout(() => {
-        grid.innerHTML = "";
-        isAnimatingTheme = false;
-      }, 1300);
+      shuffleArray(blocks);
+
+      const duration = 500;
+      const totalBlocks = blocks.length;
+      let currentIndex = 0;
+      let startTime = null;
+
+      function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const targetIndex = Math.floor(progress * totalBlocks);
+
+        while (currentIndex < targetIndex && currentIndex < totalBlocks) {
+          const b = blocks[currentIndex];
+          ctx.clearRect(b.x, b.y, PIXEL_SIZE, PIXEL_SIZE);
+          currentIndex++;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          isAnimatingTheme = false;
+        }
+      }
+
+      requestAnimationFrame(animate);
     });
   }
 

@@ -1627,31 +1627,14 @@ body.light-mode .modal-content {
 }
 
 /* ========================================= */
-/* --- LA CUADRÍCULA DE PÍXELES (TRANSICIÓN) --- */
+/* --- EL CANVAS DE TRANSICIÓN --- */
 /* ========================================= */
-#pixel-grid {
+#pixel-canvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-wrap: wrap;
-    pointer-events: none; /* Para que no bloquee clics */
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none; /* No bloquea clics */
     z-index: 999999; /* Por encima de TODO */
-}
-
-.pixel {
-    /* El color base lo asignará JS dependiendo de si venimos de Dark o Light */
-    background-color: var(--pixel-color, var(--bg-dark));
-    opacity: 1;
-    /* La transición de opacidad hace que desaparezcan suavemente */
-    transition: opacity 0.3s ease; 
-}
-
-/* Clase que JS agregará para hacerlos desaparecer */
-.pixel.hidden {
-    opacity: 0;
 }
 
 /* ========================================= */
@@ -1722,3 +1705,254 @@ body.light-mode .modal-content {
     100% { width: 0%; height: 0%; opacity: 0; }
 }
 .retro-tv-wrapper.is-on .tv-screen { box-shadow: 0 0 30px rgba(0, 243, 255, 0.4); }
+
+/* ========================================= */
+/* --- SKULL LIGHT/DARK TOGGLE --- */
+/* ========================================= */
+.theme-toggle-scaler {
+  transform: scale(0.12); /* Reduces the 500x300 container to 60x36 */
+  width: 60px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-skull {
+  --sz: 100px; /* Base scale for all internal math */
+  --ttf: ease-in-out;
+  --bone: #888;
+  position: relative;
+  width: calc(var(--sz) * 5);
+  height: calc(var(--sz) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-skull input {
+  display: none;
+}
+
+.skull-label {
+  position: absolute;
+  width: calc(var(--sz) * 4);
+  height: calc(var(--sz) * 2);
+  background: #141414;
+  border-radius: var(--sz);
+  overflow: hidden;
+  box-shadow: 0 0 calc(var(--sz) * 0.2) calc(var(--sz) * 0.2) #000000, 0 0 calc(var(--sz) * 0.5) calc(var(--sz) * 0.2) #0b0b10 inset;
+  cursor: pointer;
+}
+
+.toggle-skull .thumb {
+  position: absolute;
+  width: calc((var(--sz) * 2) - (var(--sz) * 0.25));
+  height: calc((var(--sz) * 2) - (var(--sz) * 0.25));
+  top: calc((var(--sz) * 0.1) + (var(--sz) * 0.02));
+  left: calc(100% - ((var(--sz) * 2) - (var(--sz) * 0.33)) - ((var(--sz) * 0.1) + (var(--sz) * 0.1)));
+  border-radius: var(--sz);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; 
+  animation: move-skull-left 0.5s var(--ttf) 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.toggle-skull input:checked + label .thumb {
+  left: calc((var(--sz) * 0.1) + (var(--sz) * 0.02));
+  animation: move-skull-right 0.5s var(--ttf) 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes move-skull-right {
+  0% { left: calc((var(--sz) * 0.1) + (var(--sz) * 0.02)); }
+  100% { left: calc(100% - ((var(--sz) * 2) - (var(--sz) * 0.33)) - ((var(--sz) * 0.1) + (var(--sz) * 0.1))); }
+}
+
+@keyframes move-skull-left {
+  0% { left: calc(100% - ((var(--sz) * 2) - (var(--sz) * 0.33)) - ((var(--sz) * 0.1) + (var(--sz) * 0.1))); }
+  100% { left: calc((var(--sz) * 0.1) + (var(--sz) * 0.02)); }
+}
+
+.toggle-skull .thumb > * {
+  position: absolute;
+  animation: unselected 1.5s var(--ttf) 0s reverse;
+  animation-fill-mode: forwards;
+  filter: drop-shadow(0px 20px 20px #000); /* Scaled from 2px */
+}
+
+.toggle-skull input:checked + label .thumb * {
+  animation: selected 1.5s var(--ttf) 0s;
+  animation-fill-mode: forwards; 
+}
+
+@keyframes selected {
+  0%, 50% {--bone: #888;}
+  50%, 100% {--bone: #fff;}
+}
+
+@keyframes unselected {
+  0%, 50% {--bone: #888;}
+  50%, 100% {--bone: #fff;}
+}
+
+@supports (-moz-appearance:none) {
+  .toggle-skull .thumb > * {
+    --bone: #888;
+  } 
+  .toggle-skull input:checked + label .thumb * {
+    --bone: #fff;
+  }
+}
+
+.pixel-skull {
+  width: 100%;
+  height: 100%;
+  image-rendering: auto; /* Scaled cleanly with SVG, avoiding subpixel tearing */
+}
+
+@keyframes check-on {
+  0% { right: -65%;}
+  25%, 33% { right: 0%; }
+  66%, 80% { right: -50%;  }
+  100% { right: -65%;  }
+}
+
+@keyframes check-off {
+  0% { right: -65%;}
+  25%, 33% { right: 0%; }
+  66%, 80% { right: -50%;  }
+  100% { right: -65%;  }
+}
+
+.toggle-skull .arm-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  right: -65%;
+  animation: check-off 1.5s var(--ttf) 0s reverse;
+  --bone: #fff;
+}
+
+.toggle-skull input:checked + label .arm-wrapper {
+  animation: check-on 1.5s var(--ttf) 0s;
+}
+
+.toggle-skull .arm {
+  position: absolute;
+  width: calc(var(--sz) * 1.6);
+  height: calc(var(--sz) * 0.5);
+  right: 2%;
+  top: calc(50% - calc(var(--sz) * 0.25));
+}
+
+.toggle-skull .bone {
+  background: var(--bone);
+  width: calc(var(--sz) * 0.8);
+  height: calc(var(--sz) * 0.2);
+  position: absolute;
+  transform: rotate(0deg);
+  top: calc(var(--sz) * 0.15);
+  right: calc(var(--sz) * -0.4);
+}
+
+.toggle-skull .bone:before, .toggle-skull .bone:after,
+.toggle-skull .big:before, .toggle-skull .big:after  {
+  content: "";
+  background: var(--bone);
+  width: calc(var(--sz) * 0.15);
+  height: calc(var(--sz) * 0.15);
+  position: absolute;
+  left: calc(var(--sz) * -0.05);
+  top: calc(var(--sz) * -0.05);
+  box-shadow: calc(var(--sz) * 0.8) 0 0 0 var(--bone);
+}
+
+.toggle-skull .bone:after {
+  top: calc(100% - calc(var(--sz) * 0.1));
+}
+
+.toggle-skull .arm > .bone + .bone {
+  top: calc(var(--sz) * 0.15);
+  left: calc(var(--sz) * 0.05);
+  height: calc(var(--sz) * 0.085);
+  width: calc(var(--sz) * 1.05);
+  box-shadow: 0 calc(var(--sz) * 0.115) 0 0 var(--bone);
+}
+.toggle-skull .arm > .bone + .bone:before, .toggle-skull .arm > .bone + .bone:after {
+  box-shadow: calc(var(--sz) * 1.015) 0 0 0 var(--bone);
+}
+
+.toggle-skull .arm > .bone + .bone:after {
+  top: 100%;
+}
+
+.toggle-skull .hand {
+  position: absolute;
+  --balls: var(--bone) calc(var(--sz) * 0.05), #fff0 calc(calc(var(--sz) * 0.05) + 1px) 100%;
+  background: 
+    radial-gradient(circle at 91% 29%, var(--balls)), 
+    radial-gradient(circle at 92% 49%, var(--balls)), 
+    radial-gradient(circle at 91% 69%, var(--balls)), 
+    radial-gradient(circle at 76% 21%, var(--balls)), 
+    radial-gradient(circle at 78% 39%, var(--balls)), 
+    radial-gradient(circle at 79% 58%, var(--balls)), 
+    radial-gradient(circle at 78% 78%, var(--balls));
+  width: calc(var(--sz) * 0.7);
+  height: calc(var(--sz) * 0.5);
+  left: calc(var(--sz) * -0.7);
+  z-index: 0;
+}
+
+.toggle-skull .hand .bone, .toggle-skull .big {
+  width: calc(var(--sz) * 0.3);
+  left: calc(var(--sz) * 0.135);
+  height: calc(var(--sz) * 0.075);
+}
+
+.toggle-skull .hand .bone:before, .toggle-skull .hand .bone:after,
+.toggle-skull .big:before, .toggle-skull .big:after {
+  width: calc(var(--sz) * 0.08);
+  height: calc(var(--sz) * 0.08);
+  top: calc(var(--sz) * -0.025);
+  left: calc(var(--sz) * 0.225);
+  box-shadow: none;
+}
+.toggle-skull .hand .bone:after,
+.toggle-skull .big:after {
+  top: calc(var(--sz) * 0.0125);
+}
+
+.toggle-skull .hand .bone:nth-child(1) {
+  transform: rotate(5deg) translateY(calc(var(--sz) * -0.1)) translateX(calc(var(--sz) * 0.015));
+  filter: drop-shadow(calc(var(--sz) * -0.3) 0px 0px var(--bone));
+}
+
+.toggle-skull .hand .bone:nth-child(2) {
+  transform: rotate(0deg) translateX(calc(var(--sz) * 0.05));
+  filter: drop-shadow(calc(var(--sz) * -0.3) 0px 0px var(--bone));
+}
+
+.toggle-skull .hand .bone:nth-child(3) {
+  transform: rotate(-2deg) translateY(calc(var(--sz) * 0.115)) translateX(calc(var(--sz) * 0.05));
+  filter: drop-shadow(calc(var(--sz) * -0.3) 0px 0px var(--bone));
+}
+
+.toggle-skull .hand .bone:nth-child(4) {
+  transform: rotate(-5deg) translateY(calc(var(--sz) * 0.23)) translateX(calc(var(--sz) * 0.05));
+  filter: drop-shadow(calc(var(--sz) * -0.3) 0px 0px var(--bone));
+}
+
+.toggle-skull .big {
+  background: var(--bone);
+  height: calc(var(--sz) * 0.1) !important;
+  position: absolute;
+  left: calc(var(--sz) * -0.425) !important;
+  top: calc(var(--sz) * 0.115);
+  z-index: 1;
+  filter: drop-shadow(calc(var(--sz) * -0.25) 0px 0px var(--bone)) drop-shadow(0 0 10px #000);
+}

@@ -429,7 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tamaño de cada "píxel" en pantalla.
   // 30px es un buen balance entre el look retro y rendimiento.
-  const PIXEL_SIZE = 30;
+  const PIXEL_SIZE = 8;
 
   if (themeToggleBtn && grid) {
     themeToggleBtn.addEventListener('click', () => {
