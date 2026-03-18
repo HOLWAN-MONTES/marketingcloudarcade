@@ -32,11 +32,30 @@
         <!-- UI Toggles Group -->
         <div class="nav-controls">
             <!-- Scanline Toggle -->
-            <label class="toggle-switch" aria-label="Toggle CRT Scanlines">
-                <input type="checkbox" id="crt-toggle">
-                <span class="slider"></span>
-                <span class="toggle-label">CRT</span>
-            </label>
+            <button class="tv-icon-btn" id="tv-toggle-btn" aria-label="Toggle CRT Scanlines">
+                <div class="retro-tv-wrapper" id="my-retro-tv">
+                    <div class="tv-antennas">
+                        <div class="antenna left"></div>
+                        <div class="antenna right"></div>
+                    </div>
+                    <div class="tv-body">
+                        <div class="tv-screen-bezel">
+                            <div class="tv-screen">
+                                <div class="screen-content"></div>
+                            </div>
+                        </div>
+                        <div class="tv-panel">
+                            <div class="dial"></div>
+                            <div class="dial" style="transform: rotate(45deg);"></div>
+                            <div class="speaker"></div>
+                        </div>
+                    </div>
+                    <div class="tv-legs">
+                        <div class="leg"></div>
+                        <div class="leg"></div>
+                    </div>
+                </div>
+            </button>
 
             <!-- Mobile Menu Toggle -->
             <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-controls="nav-links" aria-expanded="false"

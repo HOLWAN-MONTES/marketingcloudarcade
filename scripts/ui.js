@@ -1,13 +1,21 @@
 // scripts/ui.js
 
 export function initUI() {
-  const crtToggle = document.getElementById("crt-toggle");
+  const tvToggleBtn = document.getElementById("tv-toggle-btn");
+  const tvWrapper = document.getElementById("my-retro-tv");
   const scanlines = document.getElementById("scanlines");
 
-  if (crtToggle && scanlines) {
-    crtToggle.addEventListener("change", (e) => {
-      if (e.target.checked) scanlines.classList.add("active");
-      else scanlines.classList.remove("active");
+  if (tvToggleBtn && tvWrapper && scanlines) {
+    tvToggleBtn.addEventListener("click", () => {
+      if (tvWrapper.classList.contains("is-on")) {
+        tvWrapper.classList.remove("is-on");
+        tvWrapper.classList.add("is-off");
+        scanlines.classList.remove("active");
+      } else {
+        tvWrapper.classList.remove("is-off");
+        tvWrapper.classList.add("is-on");
+        scanlines.classList.add("active");
+      }
     });
   }
 
@@ -18,54 +26,54 @@ export function initUI() {
   const PIXEL_SIZE = 30;
 
   if (themeToggleBtn && grid) {
-    themeToggleBtn.addEventListener('click', () => {
-        if (isAnimatingTheme) return;
-        isAnimatingTheme = true;
+    themeToggleBtn.addEventListener("click", () => {
+      if (isAnimatingTheme) return;
+      isAnimatingTheme = true;
 
-        const isLightMode = document.body.classList.contains('light-mode');
-        const currentColor = isLightMode ? '#f0f0f5' : '#0f0f1b';
-        grid.style.setProperty('--pixel-color', currentColor);
+      const isLightMode = document.body.classList.contains("light-mode");
+      const currentColor = isLightMode ? "#f0f0f5" : "#0f0f1b";
+      grid.style.setProperty("--pixel-color", currentColor);
 
-        const cols = Math.ceil(window.innerWidth / PIXEL_SIZE);
-        const rows = Math.ceil(window.innerHeight / PIXEL_SIZE);
-        const totalPixels = cols * rows;
+      const cols = Math.ceil(window.innerWidth / PIXEL_SIZE);
+      const rows = Math.ceil(window.innerHeight / PIXEL_SIZE);
+      const totalPixels = cols * rows;
 
-        grid.innerHTML = '';
-        const pixels = [];
-        for (let i = 0; i < totalPixels; i++) {
-            const p = document.createElement('div');
-            p.classList.add('pixel');
-            p.style.width = `${PIXEL_SIZE}px`;
-            p.style.height = `${PIXEL_SIZE}px`;
-            grid.appendChild(p);
-            pixels.push(p);
-        }
+      grid.innerHTML = "";
+      const pixels = [];
+      for (let i = 0; i < totalPixels; i++) {
+        const p = document.createElement("div");
+        p.classList.add("pixel");
+        p.style.width = `${PIXEL_SIZE}px`;
+        p.style.height = `${PIXEL_SIZE}px`;
+        grid.appendChild(p);
+        pixels.push(p);
+      }
 
-        if (isLightMode) {
-            document.body.classList.remove('light-mode');
-            themeToggleBtn.innerText = '☀️';
-        } else {
-            document.body.classList.add('light-mode');
-            themeToggleBtn.innerText = '🌙';
-        }
+      if (isLightMode) {
+        document.body.classList.remove("light-mode");
+        themeToggleBtn.innerText = "☀️";
+      } else {
+        document.body.classList.add("light-mode");
+        themeToggleBtn.innerText = "🌙";
+      }
 
-        setTimeout(() => {
-            pixels.forEach((pixel, index) => {
-                const currentRow = Math.floor(index / cols);
-                const baseDelay = (currentRow / rows) * 400; 
-                const randomDelay = Math.random() * 500; 
-                const totalDelay = baseDelay + randomDelay;
+      setTimeout(() => {
+        pixels.forEach((pixel, index) => {
+          const currentRow = Math.floor(index / cols);
+          const baseDelay = (currentRow / rows) * 400;
+          const randomDelay = Math.random() * 500;
+          const totalDelay = baseDelay + randomDelay;
 
-                setTimeout(() => {
-                    pixel.classList.add('hidden');
-                }, totalDelay);
-            });
-        }, 50);
+          setTimeout(() => {
+            pixel.classList.add("hidden");
+          }, totalDelay);
+        });
+      }, 50);
 
-        setTimeout(() => {
-            grid.innerHTML = '';
-            isAnimatingTheme = false;
-        }, 1300);
+      setTimeout(() => {
+        grid.innerHTML = "";
+        isAnimatingTheme = false;
+      }, 1300);
     });
   }
 
@@ -74,7 +82,8 @@ export function initUI() {
 
   if (mobileMenuToggle && navLinksContainer) {
     mobileMenuToggle.addEventListener("click", () => {
-      const isExpanded = mobileMenuToggle.getAttribute("aria-expanded") === "true";
+      const isExpanded =
+        mobileMenuToggle.getAttribute("aria-expanded") === "true";
       mobileMenuToggle.setAttribute("aria-expanded", !isExpanded);
       navLinksContainer.classList.toggle("open");
     });
@@ -89,7 +98,7 @@ export function initUI() {
         if (targetSec) {
           targetSec.scrollIntoView({ behavior: "smooth" });
           if (window.location.hash !== href) {
-             window.history.pushState(null, null, href);
+            window.history.pushState(null, null, href);
           }
           if (
             navLinksContainer &&
@@ -111,7 +120,9 @@ export function initUI() {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
           navItems.forEach((nav) => nav.classList.remove("active"));
-          const activeNav = document.querySelector('.nav-links a[href="#' + id + '"]');
+          const activeNav = document.querySelector(
+            '.nav-links a[href="#' + id + '"]',
+          );
           if (activeNav) activeNav.classList.add("active");
         }
       });
