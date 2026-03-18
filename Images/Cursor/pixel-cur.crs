@@ -1,0 +1,42 @@
+﻿[Arrow]
+Path=pixel.cur
+
+[AppStarting]
+Path=pixel wait.ani
+
+[Wait]
+Path=pixel busy.ani
+
+[Crosshair]
+Path=pixel cross.cur
+
+[IBeam]
+Path=pixel text here.ani
+
+[NWPen]
+Path=pixel pencil select.cur
+
+[No]
+Path=pixel no.cur
+
+[SizeNS]
+Path=pixel vertical.ani
+
+[SizeWE]
+Path=pixel horizontal.ani
+
+[SizeNWSE]
+Path=pixel diagonal 1.ani
+
+[SizeNESW]
+Path=pixel diagonal 2.ani
+
+[SizeAll]
+Path=pixel move.ani
+
+[UpArrow]
+Path=pixel alternate.cur
+
+[Hand]
+Path=pixel link.cur
+

@@ -1956,3 +1956,29 @@ body.light-mode .modal-content {
   z-index: 1;
   filter: drop-shadow(calc(var(--sz) * -0.25) 0px 0px var(--bone)) drop-shadow(0 0 10px #000);
 }
+
+/* --- CUSTOM RETRO CURSORS --- */
+body, html {
+    cursor: url('Images/Cursor/pixel.cur'), auto;
+}
+
+/* Links and Interactive Elements */
+a, button, [role="button"], input[type="button"], input[type="submit"], 
+.btn, .tag-btn, .category-header, .doc-level-item, .toggle-switch, .retro-btn-small, .nav-link, label, .slider {
+    cursor: url('Images/Cursor/pixel link.cur'), pointer !important;
+}
+
+/* Text Inputs */
+input[type="text"], input[type="search"], textarea, .retro-input {
+    cursor: url('Images/Cursor/pixel text here.ani'), text !important;
+}
+
+/* Disabled/Not-Allowed state */
+:disabled, .disabled {
+    cursor: url('Images/Cursor/pixel no.cur'), not-allowed !important;
+}
+
+/* Wait State */
+.loading, .loading-module, .loading-txt {
+    cursor: url('Images/Cursor/pixel wait.ani'), wait !important;
+}
