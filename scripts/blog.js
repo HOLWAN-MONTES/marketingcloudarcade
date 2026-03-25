@@ -3,14 +3,17 @@
 import { getBlogData } from "./data-provider.js";
 
 let currentBlogIndex = 0;
+let currentLimit = 6;
 
 export function renderBlogGrid() {
   const blogData = getBlogData();
   const blogGrid = document.getElementById("blog-grid");
+  const loadMoreContainer = document.getElementById("blog-load-more-container");
   if (!blogGrid) return;
   blogGrid.innerHTML = "";
 
-  blogData.forEach((post, i) => {
+  const itemsToShow = blogData.slice(0, currentLimit);
+  itemsToShow.forEach((post, i) => {
     const article = document.createElement("article");
     article.className = "blog-card";
     article.tabIndex = 0;
@@ -39,6 +42,25 @@ export function renderBlogGrid() {
     `;
     blogGrid.appendChild(article);
   });
+
+  const loadMoreBtn = document.getElementById("blog-load-more-btn");
+  const showLessBtn = document.getElementById("blog-show-less-btn");
+
+  if (loadMoreContainer) {
+    if (currentLimit > 6 || currentLimit < blogData.length) {
+      loadMoreContainer.style.display = "block";
+    } else {
+      loadMoreContainer.style.display = "none";
+    }
+  }
+
+  if (loadMoreBtn) {
+    loadMoreBtn.style.display = currentLimit < blogData.length ? "flex" : "none";
+  }
+
+  if (showLessBtn) {
+    showLessBtn.style.display = currentLimit > 6 ? "flex" : "none";
+  }
 }
 
 export function openBlogModal(index) {
@@ -134,6 +156,67 @@ export function initBlogEvents() {
   }
 
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  
+  const loadMoreBtn = document.getElementById("blog-load-more-btn");
+  const showLessBtn = document.getElementById("blog-show-less-btn");
+  
+  if (showLessBtn) {
+    showLessBtn.addEventListener("click", () => {
+      currentLimit = Math.max(6, currentLimit - 6);
+      renderBlogGrid();
+      
+      const blogGrid = document.getElementById("blog-grid");
+      if (blogGrid) {
+        blogGrid.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    });
+  }
+
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      currentLimit += 6;
+      renderBlogGrid();
+    });
+
+    const THRESHOLD_RADIUS = 350;
+    const MAX_MOVE_X = 14;
+    const MAX_MOVE_Y = 18;
+
+    document.addEventListener('mousemove', (e) => {
+      const interactionAreas = document.querySelectorAll('.ghost-interaction-area');
+      
+      interactionAreas.forEach(area => {
+        if (!area.offsetParent) return; // ensure element is visible
+
+        const btnRect = area.getBoundingClientRect();
+        const btnCenterX = btnRect.left + btnRect.width / 2;
+        const btnCenterY = btnRect.top + btnRect.height / 2;
+
+        const dx = e.clientX - btnCenterX;
+        const dy = e.clientY - btnCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const pupils = area.querySelectorAll('.js-pupil');
+
+        if (distance < THRESHOLD_RADIUS) {
+          area.classList.add('tracking-active');
+          pupils.forEach(pupil => {
+            const rect = pupil.getBoundingClientRect();
+            const pupilCenterX = rect.left + rect.width / 2;
+            const pupilCenterY = rect.top + rect.height / 2;
+            const angle = Math.atan2(e.clientY - pupilCenterY, e.clientX - pupilCenterX);
+            const px = Math.cos(angle) * MAX_MOVE_X;
+            const py = Math.sin(angle) * MAX_MOVE_Y;
+            pupil.style.transform = `translate(${px}px, ${py}px)`;
+          });
+        } else {
+          area.classList.remove('tracking-active');
+          pupils.forEach(pupil => pupil.style.transform = '');
+        }
+      });
+    });
+  }
+
   window.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
   });
