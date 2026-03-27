@@ -739,6 +739,7 @@ main {
 /* Doc Content Areas */
 .docs-content {
     min-height: 400px;
+    min-width: 0;
 }
 
 .doc-pane {
@@ -759,6 +760,8 @@ main {
     color: var(--text-muted);
     margin-bottom: 2rem;
     font-size: 1.05rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .doc-pane h4 {
@@ -773,6 +776,8 @@ main {
     margin-bottom: 2rem;
     line-height: 1.7;
     font-size: 1.05rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .doc-pane ul {

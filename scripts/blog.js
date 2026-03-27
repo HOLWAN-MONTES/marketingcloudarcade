@@ -37,7 +37,7 @@ export function renderBlogGrid() {
       </div>
       <p>${post.summary}</p>
       <div style="text-align: left">
-        <button class="btn btn-sm btn-outline read-btn" aria-label="Read ${post.title}" data-index="${i}" data-slug="${post.slug}">Read Record</button>
+        <button class="btn btn-sm btn-outline read-btn" aria-label="Read ${post.title}" data-index="${i}" data-slug="${post.slug}">${window.i18nManager.t('readRecord')}</button>
       </div>
     `;
     blogGrid.appendChild(article);
@@ -162,12 +162,12 @@ export function initBlogEvents() {
   
   if (showLessBtn) {
     showLessBtn.addEventListener("click", () => {
-      currentLimit = Math.max(6, currentLimit - 6);
+      currentLimit = 6;
       renderBlogGrid();
       
-      const blogGrid = document.getElementById("blog-grid");
-      if (blogGrid) {
-        blogGrid.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      const blogSection = document.getElementById("blog");
+      if (blogSection) {
+        blogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }

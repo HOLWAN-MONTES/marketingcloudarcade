@@ -22,6 +22,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGlobalSearch();
 });
 
+document.addEventListener('languageChanged', async () => {
+  try {
+    await fetchSystemData();
+    // Clear out existing before re-render
+    const docsNav = document.getElementById("docs-nav");
+    if (docsNav) docsNav.innerHTML = "";
+    
+    renderDocsSidebar();
+    renderBlogGrid();
+    checkHashUrlForDeepLink();
+  } catch (e) {
+    console.warn("Failed to update content on language change");
+  }
+});
+
 window.addEventListener("load", () => {
   setTimeout(runEinsteinLoader, 1000);
 });

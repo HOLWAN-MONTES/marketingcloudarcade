@@ -1,0 +1,471 @@
+{
+  "docsData": {
+    "sfmc-foundations": {
+      "slug": "sfmc-foundations",
+      "world": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "25 mins",
+      "officialAlignment": "Getting Started",
+      "title": "Nivel 1-0: Fundamentos de la Plataforma",
+      "seoTitle": "Fundamentos de Salesforce Marketing Cloud",
+      "desc": "Comprende la arquitectura central de SFMC: Business Units, roles, permisos y el modelo de datos básico.",
+      "overview": "Salesforce Marketing Cloud (SFMC) es una plataforma robusta diseñada para gestionar journeys de clientes 1-a-1. Se basa en una arquitectura Enterprise 2.0 (ENT 2.0) usando Business Units (BUs) para la separación jerárquica de datos, assets y marcas. El modelo de datos prioriza Data Extensions sobre listas planas legacy.",
+      "whyItMatters": "Una configuración pobre inevitablemente provoca fuga de datos entre marcas, permisos demasiado amplios que arriesgan la seguridad y deficiencias sistémicas. Arquitectar roles y BUs correctamente desde el primer día es crítico para escalar.",
+      "howItWorks": "La BU Principal (Parent) actúa como nodo administrativo global, albergando Shared Data Extensions y Sender Profiles centralizados. Las BUs secundarias operan como entornos de trabajo distintos. A los usuarios se les otorgan roles específicos. Los datos pasan vía Shared Data Extensions.",
+      "whenToUse": "Al incorporar una nueva marca, geografía o equipo operativo al ecosistema SFMC. Mantén los conteos de BU al mínimo; créalas solo por requerimientos estrictos legales, de branding o de aislamiento de datos.",
+      "filename": "sys_core.txt",
+      "code": "BU_ID: 1234567\nRole: MC Administrator\nMode: Enterprise 2.0",
+      "best": [
+        "Mapea profundamente la jerarquía de tus Business Units antes de la implementación.",
+        "Aplica el principio de menor privilegio para roles personalizados.",
+        "Usa Shared Data Extensions para la exclusión maestra y supresión global."
+      ],
+      "mistakes": [
+        "Otorgar a todos acceso de Administrator para evadir errores de permisos.",
+        "Crear una nueva BU para cada campaña de marketing individual.",
+        "Confundir Listas con Data Extensions para audiencias sobre los 500,000 suscriptores."
+      ],
+      "tags": [
+        "Foundations",
+        "Architecture",
+        "Setup"
+      ],
+      "learningGroup": "Foundations",
+      "tabTitle": "W1: Conceptos Básicos",
+      "references": [
+        { "label": "Enterprise 2.0 Overview (Oficial)", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_enterprise_2_0.htm&type=5" },
+        { "label": "Roles y Permisos de Marketing Cloud", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_roles.htm&type=5" }
+      ]
+    },
+    "nam-conv": {
+      "slug": "nam-conv",
+      "world": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "20 mins",
+      "officialAlignment": "Setup > Account Administration & Folder Management",
+      "title": "Nivel 1-1: Convenciones de Nombres",
+      "seoTitle": "Convenciones de Nombres en Salesforce Marketing Cloud",
+      "desc": "Domina el caos. Una estrategia estandarizada para organizar Assets, Data Extensions y automations en múltiples Business Units.",
+      "overview": "Una convención de nombres es un sistema predecible y estandarizado para titular todos los objetos (Data Extensions, Emails, automations, Journeys) dentro de SFMC. Transforma una instancia inmanejable en una base de datos mantenible.",
+      "whyItMatters": "La búsqueda global de SFMC es extremadamente literal y la navegación de directorios es lenta en cuentas masivas. Sin una convención estricta, los entornos se vuelven cementerios de archivos 'Test_1_Final_v3', rompiendo dependencias y aumentando exponencialmente el riesgo.",
+      "howItWorks": "Una fuerte convención recae en prefijos y sufijos reflejando el propósito y ubicación del objeto. Estructura usual: [Region]_[Brand]_[Nombre_Campaña]_[Tipo_Asset].",
+      "whenToUse": "Desde el primer día. Debe ser estrictamente documentada y gobernada por el Administrator de SFMC antes de otorgar accesos Creator a usuarios.",
+      "filename": "sys_governance.exe",
+      "code": "// Convención estandarizada:\n[Region]_[Marca]_[Proyecto]_[Tipo]_[Frecuencia]\n\n// Ejemplo Data Extension:\nNA_WelcomeJourney_SendLog_Daily\n\n// Ejemplo Email:\nUK_Newsletter_April2026_Promo",
+      "best": [
+        "Usa una estructura jerárquica por tipo de asset.",
+        "Usa abreviaciones universalmente claras (ej., DE para Data Extension, AS para Automation).",
+        "Mantén una carpeta Z_Archive al final de la jerarquía para ocultar obsoletos seguramente."
+      ],
+      "mistakes": [
+        "Usar nombres inconsistentes como 'Campaign_Final_v2_TEST'.",
+        "Cambiar el nombre a una Data Extension primordial sin actualizar las Query Activities en SQL relacionadas.",
+        "Usar espacios o caracteres especiales que pueden romper código AMPscript u operaciones de la API."
+      ],
+      "tags": [
+        "Governance",
+        "Architecture"
+      ],
+      "learningGroup": "Security & Governance",
+      "tabTitle": "W1: Nombres",
+      "references": [
+        { "label": "Mejores Prácticas para SFMC Folder Structures", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_best_practices_for_folder_structures.htm" }
+      ]
+    },
+    "sql-sarg": {
+      "slug": "sql-sarg",
+      "world": "World 1",
+      "difficulty": "Lv3",
+      "estTime": "30 mins",
+      "officialAlignment": "Automation Studio > SQL Query Activity",
+      "title": "Nivel 1-2: SQL SARGable",
+      "seoTitle": "Optimización SQL y SARGability en SFMC",
+      "desc": "Vence el tiempo de espera de 30 minutos. Escribe consultas escalables y 'SARGables' para Data Extensions.",
+      "overview": "Las Query Activities conducen la segmentación central en SFMC, apoyadas por un motor SQL Server. 'SARGability' (Search Argument Able) se refiere a redactar predicados en cláusulas WHERE o JOIN que permitan al optimizador aprovechar los índices efectivamente.",
+      "whyItMatters": "Automation Studio impone un límite máximo de ejecución de 30 minutos. Consultas no sargables fuerzan escaneos enteros (Full Table Scans) sobre millones de registros. A medida que las listas crecen, colapsarán y causarán timeouts en las automations.",
+      "howItWorks": "Al procesar declaraciones SELECT, usar comodines al inicio de un filtro `LIKE '%string'` o envolver columnas en funciones fuerza al motor a ignorar los índices. Las consultas SARGables ordenan la lógica para comparar la columna directamente contra el valor.",
+      "whenToUse": "Siempre. Sin importar el tamaño de la data, escribir explícitamente consultas SARGables es un requerimiento fundamental para asegurar escala y estabilidad en Automation Studio.",
+      "filename": "query_optimizer.sql",
+      "code": "/* Mala SARGability (Full Table Scan): */\nSELECT SubscriberKey, EmailAddress \nFROM _Subscribers \nWHERE LEFT(EmailAddress, 1) = 'A'\n\n/* Buena SARGability (Index Seek): */\nSELECT SubscriberKey, EmailAddress \nFROM _Subscribers \nWHERE EmailAddress LIKE 'A%'",
+      "best": [
+        "Evita iniciar comodines salvajes en cláusulas LIKE.",
+        "Deduplica utilizando ROW_NUMBER() OVER(PARTITION BY...) en lugar del costoso comando DISTINCT.",
+        "Apunta directamente al primary key de la tabla cuando realices operaciones de UPSERT."
+      ],
+      "mistakes": [
+        "Usar SELECT * en lugar de campos explícitos, sobrecargando la capa de transferencia de datos.",
+        "Usar NOT IN frente a un vasto subquery en lugar de un LEFT JOIN buscando NULL.",
+        "Hacer JOIN en columnas completamente no indexadas, o campos de texto muy lagos."
+      ],
+      "tags": [
+        "SQL",
+        "Performance",
+        "Data"
+      ],
+      "learningGroup": "Data & SQL",
+      "tabTitle": "W1: SQL",
+      "references": [
+        { "label": "Optimización de Query Activities", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_as_optimize_the_query_activity.htm&type=5" }
+      ]
+    },
+    "dev-deliv": {
+      "slug": "dev-deliv",
+      "world": "World 1",
+      "difficulty": "Lv2",
+      "estTime": "25 mins",
+      "officialAlignment": "Email Studio > Deliverability > Sender Authentication Package",
+      "title": "Nivel 1-3: Entregabilidad",
+      "seoTitle": "Entregabilidad de Email en SFMC para Desarrolladores",
+      "desc": "Sender Authentication Package, IP Warmup y la estricta validación técnica de dominios.",
+      "overview": "La Entregabilidad (Deliverability) es la práctica técnica de asegurar que los correos disparados desde Marketing Cloud lleguen efectivamente al Inbox en lugar de la carpeta de Spam, o ser rechazados totalmente por el ISP.",
+      "whyItMatters": "Incluso un mail en AMPscript brillante es inútil si plataformas como Gmail o Outlook lo bloquean. La entregabilidad impacta el ROI y la visibilidad de alertas transaccionales directamente.",
+      "howItWorks": "Marketing Cloud utiliza el Sender Authentication Packages (SAP) para la integración de registros DNS. Se apoya en firmas y prevenciones seguras con SPF, DKIM (firma criptográfica) y DMARC previniendo la suplantación masiva de identidades.",
+      "whenToUse": "Es crucial durante implementaciones iniciales utilizando una rigurosa estrategia programática IP Warmup y requiere gran monitoreo asiduo mediante tus Data Views frente a bloqueos.",
+      "filename": "network_layer.config",
+      "code": "/* Ejemplo Rápido de SPF TXT Record para SFMC */\nv=spf1 include:cust-spf.exacttarget.com ~all\n\n// Asegúrate de que las direcciones From Addresses tengan un match exacto con el dominio SAP\n// ej., si SAP es email.brand.com, From debe ser info@email.brand.com",
+      "best": [
+        "Monitorea de forma asíncrona Data Views base como `_Bounce`.",
+        "El IP Warming dura de forma segura habitualmente en transiciones lentas y prolongadas de a 45 días continuos.",
+        "Ejecuta impecablemente firmes pólizas estrictas de Sunset de datos depurativamente."
+      ],
+      "mistakes": [
+        "Emisoras salvajes sobre volúmenes inmensamente altos sin validaciones originarias de IPs.",
+        "Seguir enviando compulsivamente sin piedad fallos rigurosos denominados o conocidos por Hard Bounces.",
+        "Usar infraestructuras unidas o infraestructuras enmascaradas sobrepasando IP Shared limits brutalmente."
+      ],
+      "tags": [
+        "Deliverability",
+        "Architecture"
+      ],
+      "learningGroup": "Deliverability",
+      "tabTitle": "W1: Deliverability",
+      "references": [
+        { "label": "Documentación General de SAP (Sender Authentication Package)", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_es_sender_authentication_package.htm&type=5" }
+      ]
+    },
+    "amp-eval": {
+      "slug": "amp-eval",
+      "world": "World 2",
+      "difficulty": "Lv3",
+      "estTime": "25 mins",
+      "officialAlignment": "AMPscript Syntax Guide",
+      "title": "Nivel 2-1: Límites de AMPscript",
+      "seoTitle": "Preevaluación de SFMC AMPscript & Renderizado",
+      "desc": "Cómo SFMC evalúa AMPscript en Subjets vs Body, impidiendo crudos y letales fallos Timeout de lentitud masvia.",
+      "overview": "AMPscript da soporte de extensividad asidua sobre las líneas originarias de las comunicaciones para SFMC prestando la grandiosa oportunidad frente a todo lo hiperdinámico resolutivo y crudo de lado de servidor (backend-ish). Conocer rigurosamente las barreras inamovibles OMM frente a tu código da supervivencia indudable en velocidad abismal de las operaciones y flujos constantes.",
+      "whyItMatters": "Existen lapsos forzosos predeterminados de un bloque resolutivo final perdiendo minutos fatales y exponenciales de latencias por bloque mal situado en un Subject. Cargar pesos desproporcionados o cruces hiper complejos por doquier en los títulos de tus configuraciones asfixia masivamente resolviendo crudos errores altísimos reventando el motor final enviador transaccional en plena vía y ejecución vital.",
+      "howItWorks": "Las secuencias puras e inviolables de SFMC evalúan estrictamente siempre usando un gran abismo innegociable descendente Preheader -> Asunto o Subject -> Cuerpo Total Body. Eso condena a todos los procesamientos foraneos, lentos asiduos u originados en la parte más profunda inferior del Body obligando al sistema y el compilador a ignorar, errar, bloquear o romper completamente variables impresas muy superiores referidas ineficientemente desde las alturas absolutas sin una declaración principal adelantada inicial abarcativa total masiva.",
+      "whenToUse": "Inserta o consolidad la pureza mayoritaria del procesamiento general originario concentrándose muy estrictamente usando Initialization Blocks envolventes masivamente encriptados cerrados iniciales y precursores altísimos `%%[ ... ]%%` antes netamente de abrir la frontera `<HTML>` del documento web principal puro.",
+      "filename": "omm_pipeline.amp",
+      "code": "<!-- Asunto: %%=v(@Subj)=%% -->\n%%[ \n/* Este es un Bloque de Inicialización Maestro */\nSET @SubscriberKey = _subscriberkey\nSET @Subj = Lookup(\"Subject_DE\", \"Text\", \"ID\", @SubscriberKey)\nSET @HeroImage = Lookup(\"Image_DE\", \"URL\", \"ID\", @SubscriberKey)\n]%%\n<html>...</html>",
+      "best": [
+        "Consolidad puros e inflexibles grandes compendios masivos de invocaciones pesadísimas usando llamados agrupados arriba en top blocks.",
+        "Usa funciones bloqueadoras pesadas de ClaimRow resolviendo o absteniéndotelas con muchísimo tacto milimétricamente originario forjándolo cautelosamente.",
+        "Impide u obvia llamar de forma incesantemente a invocaciones síncronas HTTPGet masivamente preferible purificando tu Data Extension asidua o precalculada inicialmente rotunda."
+      ],
+      "mistakes": [
+        "Lamar exhaustiva irresponsablemente infinitos puros loops desbordantes llamando miles HTTPGets directos e interactivos con gran lentitud masiva a 100k destinos.",
+        "Obviar el ineludible craso originario requerimiento mandatorio descendente asumiéndose equivocamente como auto compilable superior desde las partes inferiores ocultas o bajas.",
+        "Encimar cruces cruzados masivos o sumamente profundos y destructivos for loops pesadísimos entre los subqueries paralizados inútiles o rotos originarios."
+      ],
+      "tags": [
+        "AMPscript",
+        "Performance"
+      ],
+      "learningGroup": "Content & Personalization",
+      "tabTitle": "W2: Límites AMP",
+      "references": [
+        { "label": "AMPscript Processing Order", "url": "https://developer.salesforce.com/docs/marketing/ampscript/guide/ampscript-processing.html" }
+      ]
+    },
+    "ssjs-api": {
+      "slug": "ssjs-api",
+      "world": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "35 mins",
+      "officialAlignment": "Developer Docs > SSJS > Platform Functions",
+      "title": "Nivel 2-2: Endpoints SSJS",
+      "seoTitle": "Fabricación de APIs Seguros REST con SFMC SSJS",
+      "desc": "Aprende a formular y estructurar JSON APIs puros originarios nativos integrados recubiertos puramente bajo Code Resources asiduos con todo Server-Side JavaScript en CloudPages.",
+      "overview": "Implementar tu propia sólida y pura Custom REST JSON API te habilita inmensas proezas transaccionales logrando la fluidez máxima inmaculada usando estrictamente Code Resources nativos y limpios muy ajenos a las Landing Pages llenas resolutamente asfixiantes y costosas del entorno UI común en el constructor general SFMC nativo de orquestamiento crudo.",
+      "whyItMatters": "No todas requerimientos complejos originarios o validaciones de terceros foráneos purificadas estrictamente transaccionales logran resolver eficientemente y consolidar asiduamente pasos de 5 originaciones juntas bajo la gran API ordinaria. Fabricando barreras o conectores SSJS puenteas aliviando grandísimo a React JS o los desarrolladores Web esquivándoles crudas dependencias.",
+      "howItWorks": "Fabricando innegociablemente sobre CloudPages empleas rotundamente puro absoluto incuestionable Code Resource inyectado para forzar o privar de la intercepción de inyección nativa HTML u OMM. Solicitando originablemente y captando velozmente usando el llamado base `Platform.Request.GetPostData()` originario. Invocas el control asiduo absoluto recayendo tu protección con Try/Catch puro asiduo para salvaguardar pánico masivo abrumador y caídas indeseables exponiendo credenciales o lógicas masivas crudas irrecuperables en Frontend.",
+      "whenToUse": "Aplicarlo imperiosamente sin vacilar abrumadoramente cuando te atrevas orquestar integraciones frontend React o puros envíos Webhooks o microtransacciones hiper pesadas rápidas y crudas a tiempo certero real muy seguras asiduas veloces ágiles sin rodeos puros preempaquetados ineficientemente o nativos aburridos inservibles.",
+      "filename": "backend_api.js",
+      "code": "Platform.Load(\"Core\", \"1.1.1\");\nPlatform.Response.SetResponseHeader(\"Access-Control-Allow-Origin\", \"*\");\nPlatform.Response.SetResponseHeader(\"Content-Type\", \"application/json\");\n\ntry {\n  var rawPayload = Platform.Request.GetPostData();\n  var parsed = Platform.Function.ParseJSON(rawPayload);\n  \n  // ... procesa tu JSON y cruza Data Extensions ...\n  \n  Write('{\"status\": 200, \"message\": \"Procesamiento éxitoso logico\"}');\n} catch(err) {\n  Platform.Response.SetStatusCode(500);\n  Write('{\"status\": 500, \"message\":\"'+ Stringify(err.message) +'\"}');\n}",
+      "best": [
+        "Absoluta obvia e insalvable prioridad y directiva pura al no transigir el usar Code Resources masivos envés de pesadas o infladas crudas ruidosas asiduas Landing Pages.",
+        "Sanitiza con puño indudablemente de acero masivo puro absoluto cada craso inminente originario string JSON para depurar PII salvaguardando sin fallos o eximentes la rigurosidad Data Views.",
+        "Baña masiva y purifica fuertemente con abrumadores certeros infalibles infaltables o indiscutibles envolventes Try/Catch para emitir airoso y muy transparente o controlable tus JSON stringificados 500 crudos error masivo."
+      ],
+      "mistakes": [
+        "Inminentemente olvidarse irresponsable del `SetResponseHeader` que revienta irremediablemente cruzado asiduo por CORS originario crudo frustrante el valiente desarrollo asiduo o puro frontero frontend Web.",
+        "Romper ignorando silencios puros callándose de arrojar y devolver el JSON certero resolutivo puro exactísimo dentro atrapadas en catch, privando de saber depuraciones crudas asiduas.",
+        "Exposiciones a la puerta pura asiduamente al escrutinio originario salvaje global web carentes purísimos totalmente nulas seguridades OAuth nativas sin barrera foránea a los envíos incontrolables crudos masificados POST."
+      ],
+      "tags": [
+        "SSJS",
+        "API",
+        "Security",
+        "CloudPages"
+      ],
+      "learningGroup": "Development",
+      "tabTitle": "W2: Endpoints",
+      "references": [
+        { "label": "Documentación HTTP Core en SSJS", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/ssjs_http.html" }
+      ]
+    },
+    "telemetry": {
+      "slug": "telemetry",
+      "world": "World 2",
+      "difficulty": "Lv4",
+      "estTime": "20 mins",
+      "officialAlignment": "Automation Studio Script Activities",
+      "title": "Nivel 2-3: Telemetría Integrada",
+      "seoTitle": "Framework de Telemetría y Logging en SFMC",
+      "desc": "Implementa un framework estructurado para rastrear Run Logs, Intentos de API y Errores globalmente.",
+      "overview": "SFMC carece de un log de errores de diagnóstico centralizado y buscable para scripting (SSJS/AMPscript). La Telemetría Integrada se refiere a arquitectar tu propio framework personalizado de Data Extension para registro asiduo.",
+      "whyItMatters": "Cuando una Activity Script compleja falla silenciosamente en Automation Studio, los desarrolladores operan ciegos frente a la causa raíz. Sin telemetría personalizada capturando el error explícito (stack trace), depurar operaciones críticas depende enteramente de conjeturas.",
+      "howItWorks": "Al envolver de forma rigurosa tu lógica SSJS dentro de bloques `try { ... } catch (ex) { ... }`, logras interceptar la variable de excepción `ex`. Ésta se canaliza junto con otros detalles hacia una Data Extension relacional mediante `Platform.Function.InsertData()` de manera transparente.",
+      "whenToUse": "Debe estandarizarse en absolutamente cualquier SSJS Activity, cualquier JSON Code Resource personalizado y desarrollos HTTPGet fuertísimos con gran cantidad relacional transaccional.",
+      "filename": "log_daemon.ssjs",
+      "code": "Platform.Load(\"Core\",\"1.1.1\");\nfunction logToTelemetry(level, processName, payload, errorBlock) {\n  try {\n    Platform.Function.InsertData(\"System_Telemetry_Log\", \n      [\"Timestamp\", \"Level\", \"Process\", \"Payload\", \"ErrorDetails\"], \n      [Now(), level, processName, Stringify(payload), Stringify(errorBlock)]\n    );\n  } catch (e) { /* Respaldarse de un Fail Crudo */ }\n}\n\ntry {\n  // Lógica vital aquí expuesta...\n} catch(ex) {\n  logToTelemetry(\"CRITICAL\", \"ProcessOrders\", null, ex);\n}",
+      "best": [
+        "Apalanca las sólidas Data Retention Setting estableciendo límites a los salvajes millones de filas de tus registros logueados en Automation Studio a puros 30 días.",
+        "Jamás evadas ocultar y aplicar el difuminarse en todo puro o crítico PII originario purificándolo pre ingreso sobre tu Log.",
+        "Elabora notificaciones que arrojen y gatillen alarmas masivas asiduamente a Administradores alertándolos severamente si el ratio 'CRITICAL' engrosa."
+      ],
+      "mistakes": [
+        "Ignorar desusar deliberada o negligentemente las políticas Data Retention ocasionando fallos estrafalarios o crudos inmanejables ahogados al superar millones.",
+        "Imprimir payload sumamente sensible explícitamente abierto y altamente puro como puro plain text inmaculado.",
+        "Viciar lanzando erráticamente o forzosamente fatales excepciones crudas u olvidadizas que ahoguen o rompan tu Track Tracker generalizado."
+      ],
+      "tags": [
+        "Troubleshooting",
+        "Governance",
+        "SSJS"
+      ],
+      "learningGroup": "Troubleshooting",
+      "tabTitle": "W2: Telemetría",
+      "references": [
+        { "label": "Manejo de Excepciones SSJS", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/ssjs_syntaxTryCatch.html" }
+      ]
+    },
+    "token-cache": {
+      "slug": "token-cache",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "25 mins",
+      "officialAlignment": "REST API > Authentication (v2/token)",
+      "title": "Nivel 3-1: Caché de Tokens",
+      "seoTitle": "Almacenamiento de Tokens OAuth para REST API SFMC",
+      "desc": "Arquitectura de expiración y almacenamiento seguro en SSJS para evitar el Rate Limiting.",
+      "overview": "Token caching (o almacenamiento de tokens) es la práctica avanzada de solicitar encriptadamente, salvaguardar y reutilizar Access Tokens de la API REST de SFMC con seguridad cruda, en lugar de invocar absurdamente puros Auth Tokens originarios y ciegamente masivos consecutivamente una y otra vez bajo el endpoint de Autenticación sin interrupción perjudicial asidua y sin descanso evidente originario a un Loop persistente.",
+      "whyItMatters": "El endpoint general `/v2/token` dispone ferozmente o fuertemente agresivas políticas sancionantes referidas masivamente de límites y rate limits innegociables inflexibles asiduamente enrutables. Exponer infinitas invocaciones a este, rompe enteramente desbaratándolas irremediablemente lanzando '429 Too Many Requests' ahogando irrevocablemente las transacciones SSJS originarias limitando o deteniendo un Journey salvajemente abrupto.",
+      "howItWorks": "El Backend recabará velando de cara a una segura y central preestablecida segura Data Extension a priori si existe originariamente recabado token validado antes rotundo (midiendo los lapsos de Expiración guardados frente e inflingiendo la segura resta o limitación calculada por defecto pre asignando 60 rigurosos innegociables segundos en skew buffering). Se emite finalmente a uso o rotunda de expirarse se lanzaría para originar uno enternecedamente nuevo guardándolo en la central base referida segurísimamente para próximas iterantes llamadas en cola transaccional.",
+      "whenToUse": "Estrictísimamente rotunda irrefutable obligada cuando el código incurra ejecutando grandes extensísimos lazos o loops invocantes sobre la bendita y purificada SFMC REST API intermitentemente en SSJS Scripts de Automation Studio y CloudPages de peso.",
+      "filename": "vault_auth.js",
+      "code": "function getValidToken() {\n  var cached = Lookup(\"Sys_Vault\", \"AccessToken\", \"App\", \"PrimaryApp\");\n  var exp = Lookup(\"Sys_Vault\", \"Exp\", \"App\", \"PrimaryApp\");\n  var skewTime = new Date().getTime() + 60000; // colchón de 60s \n  \n  if (exp && exp > skewTime) {\n    return cached;\n  }\n  \n  // Se necesita nuevo token puro\n  var resp = fetchNewTokenFromAPI();\n  // Usa UpdateData sobre tu DE Sys_Vault aquí\n  return resp.token;\n}",
+      "best": [
+        "Establece fuertemente tu 'skew buffer' a un riguroso parámetro restando al menos un gran y preestablecido min 60-second limit absoluto siempre.",
+        "Asigna exclusividades blindadas muy estandarizadas en UI a las Data Extensions recabadoras referenciales centralizando muy rígidamente evitando puros expuestos accesos operacionales ordinarios.",
+        "Evalúa indiscutible y masivamente rotundo siempre y sin excusas sobre el poderoso invocado puente WSProxy de modo sustitutivo si se aplicase originariamente."
+      ],
+      "mistakes": [
+        "Reiterar incondicional o abusivamente crudos Auth Request dentro el interior de grandes bucles masivos asfixiantes como iterares salvajes sobre extensos registros sin pausa a los REST endpoints ciegamente de golpe.",
+        "Asentar a libre vista de paso público de forma llana rotunda puros incrustados purísimos códigos nativos originarios credenciales expuestas ciegamente secretas duras sin precaución inmersos resolubles.",
+        "Perjurarse en la ignorancia o ceguera del puro letal craso de cruces del tiempo (horario de los sistemas servidor del JS vs SFMC exacto) recayendo u ocasionando desastres asiduos."
+      ],
+      "tags": [
+        "API",
+        "Security",
+        "Performance"
+      ],
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W3: Tokens",
+      "references": [
+        { "label": "Documentación General de API Rate Limits", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/rate-limiting.html" }
+      ]
+    },
+    "async-api": {
+      "slug": "async-api",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "30 mins",
+      "officialAlignment": "Journey Builder > REST API > Fire Event Asynchronously",
+      "title": "Nivel 3-2: Inyección Asíncrona",
+      "seoTitle": "SFMC Bulk REST API & Journey Builder Entradas",
+      "desc": "Inyecta masivamente miles y asiduos registros dentro usando APIS resolubles masificadas sin afectar brutalmente tu SFMC Instance vía inyección puramente paginada e impoluta cruda sin rotura.",
+      "overview": "Poderosa vía la Asynchronous Event Injection API transfiere un control absoluto salvando asiduos rompimientos originarios e ineludibles por límites sincronos enviando resolutos grandes flujos a tus enrutables masivos Data Extensions colmados e iterantes inmaculados limpios asiduos asíncronamente.",
+      "whyItMatters": "Obligar forzadamente usar la síncrona ordinaria en envíos rigurosos o severos colapsará abrupta o crasamente letal todo originario limitante provocando rechazos asiduos colgados. Ocasionalmente forzar encolados con este método masivo de Async rinde frutos abismales inmaculados evadiendo ahogamientos latentes u originados HTTP.",
+      "howItWorks": "Carga y avienta rotundas o puras asiduas y engranadas conjuntas payloads inyectándolas resolutamente por matriz array directo enviando de retorno ágilísimo respuesta de confirmación exitosa masiva y rapidísima como puros 202 Accepted, el JB asimilaría tras batidores purificando sin pausa tu ingreso masivo hacia Journey masificado progresivamente infalible purificado asiduo internamente en horas.",
+      "whenToUse": "Fundamental forzoso obligatoriamente para todos rigurosos flujos colosales provenientes purisimamente provenientes como micro transaccionales Lambda AWS u análogos inyectando rotundísimamente más o igual que los abrumadores y fuertes asiduos cien puros requerimientos por escaso resolutivo veloz rotundo segundo limitante.",
+      "filename": "bulk_inject.sh",
+      "code": "POST /interaction/v1/events/async\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  // Array encapsulando los multiples puros contactos\n  \"ContactKey\": \"ID123\",\n  \"EventDefinitionKey\": \"APIEvent-123\",\n  \"Data\": { \n    \"EmailAddress\": \"dev@example.com\",\n    \"Tier\": \"Gold\" \n  }\n}",
+      "best": [
+        "Inyecta y avienta consolidadamente aglomerada toda matriz originariamente pura compactando asiduos 100 y fuertes rígidos o puros volantes.",
+        "Chequea o audita siempre estrictísimamente el originario puro destino resolutivo de forma indiscutible validando tu exactitud originaria asidua y rotunda previa la transaccionalidad total limitante infaltable pura rigurosa.",
+        "Provee y dota la infalible de receptar webhook Web asidua exterior consumidora o recabadora fuertemente atenta ENS recabando los fracasos puros asíncronos enlazados ocultos originariamente del servidor emisor receptor."
+      ],
+      "mistakes": [
+        "Presumir y confiar inminentemente e ingenuamente que por una resolución HTTP 202 exitosa el originario Contact ingresó. Este 202 es solamente crudo y fiero indicio y aviso puro confirmando únicamente encolado transaccional y rechazaría brutal originariamente silencioso 5 asiduos segunditos rotundos posteriores en la Data Extension base de ingreso.",
+        "Errores groseros puros rigurosos esquilmando puramente olvidando mapear puros rigurosos originariamente engranados payloads directísimos transaccionales puros frente esquemas puros Data Extension estricto.",
+        "Implementar la API Sync síncrona por crasa testarudez sin miramientos para estrepitosos brutales colapsantes puros enormes días inmaculados BlackFriday craso fatal rotundo resolutamente estropeando sin compasión."
+      ],
+      "tags": [
+        "Journey",
+        "API",
+        "Performance"
+      ],
+      "learningGroup": "Automation & Journeys",
+      "tabTitle": "W3: Async Inject",
+      "references": [
+        { "label": "Disparar un Evento (API Asíncrona)", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/fireAsyncEvent.html" }
+      ]
+    },
+    "wsproxy-adv": {
+      "slug": "wsproxy-adv",
+      "world": "World 3",
+      "difficulty": "Lv4",
+      "estTime": "25 mins",
+      "officialAlignment": "Developer Docs > SSJS > WSProxy",
+      "title": "Nivel 3-3: Maestro WSProxy",
+      "seoTitle": "Scripting de Automatización Avanzado con WSProxy",
+      "desc": "Manipula configuraciones profundas y extrae enormes conjuntos usando WSProxy.",
+      "overview": "WSProxy es extraordinario resolutivamente purificado y potente unificador puro engranaje puente enmascarante del fiero rotundo espeso SOAP API facilitándolo hermosísimamente dentro asiduo rotundo purísimo originablemente JSON.",
+      "whyItMatters": "El SOAP original nativo es horripilantemente puro y arduamente fatalmente crudo verboso y lento infalible originario ahogándose de fallos sintácticos imperdonables. Contrario, originados SSJS como Core limitan fieramente la pureza transaccional y paginan crasamente sobre exactos dos mil quinientos registros. El WSProxy aniquila y purifica ambos pesares rotundamente aliviando purificando inmaculado su uso.",
+      "howItWorks": "Se asienta una rotunda base instancia o puente purificado llamado `Script.Util.WSProxy()`. Desencadenar rigurosamente o resolutamente acciones `retrieve()` asiduos engranan la solicitud convirtiendo masiva pura originablemente JS hacia el API envolviéndolos puros y manejables json. Logrando por su rotundo mérito asiduo de pura excelencia pura purificada asimilar las gruesas asiduas resolutas o resolubles Paginaciones nativas.",
+      "whenToUse": "Suele implementarse fuertísimamente sin vacilar originariamente ante imperativos de transacciones rotundo o masivas grandes extrayendo de pura manera asidua y sin limitante aparente resolutivos mayores a la temible valla limitante de los 2500 registros, orquestar Automation de disparo rotundo u otros asiduotes y complejos de administrar Users permissions.",
+      "filename": "wsproxy_execute.js",
+      "code": "var prox = new Script.Util.WSProxy();\nvar action = \"Start\";\nvar props = { \n   ObjectID: \"auth-uuid-here\" \n};\nvar opts = {};\n// Ejecuta con éxito Start en un automation seguramente\nvar res = prox.performItem(\"Automation\", props, action, opts);\n\n// Observa el response asiduo\nif (res.Status === \"OK\") {\n  Write(\"Trigger desplegado exitosamente.\");\n}",
+      "best": [
+        "Vela u observa férreamente `res.Status` engranándolo o empalmándolo rotundo con rigurosa asidua la lectura `res.Results[0].Object.Status` originaria transaccional de seguridad auditable ineludible.",
+        "Sométete acatando fuertemente el craso o rotundo rígido dictamen nativo puro WSDL oficial para los parámetros envolubles properties.",
+        "Engrana `getNextBatch()` invocando u orquestando infaltablemente cuando asiduamente rompes originariamente sobrepasas rotundamente la limitación purísima de dos mil 500 originarios registros infaltables en colas do/while seguras."
+      ],
+      "mistakes": [
+        "Caídas crudas viciosas inoperantes asiduas y silenciosas por confundir sintaxis nativa errando de case sensitivity rotunda originaria `objectId` envés puro asiduo rotundo riguroso `ObjectID` real.",
+        "Obviar el recubrimiento de tus `perform` envolventes bajo los estrictísimos puros invictos Telemetría cruda ineludible como Try/Catch.",
+        "Apostar obstinado craso puro forzando invocaciones de uso sobre puras REST entidades nativas como los famosos asiduos resolutivos crudos endpoints o APIS Journey donde WSProxy jamás toca origen operante o alcance de su rigurosidad."
+      ],
+      "tags": [
+        "SSJS",
+        "API",
+        "Automation"
+      ],
+      "learningGroup": "Development",
+      "tabTitle": "W3: WSProxy",
+      "references": [
+        { "label": "Documentación General WSProxy Syntax", "url": "https://developer.salesforce.com/docs/marketing/no-code-extensions/guide/wsproxy.html" }
+      ]
+    },
+    "asset-api": {
+      "slug": "asset-api",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "20 mins",
+      "officialAlignment": "Content Builder > REST API",
+      "title": "Nivel 4-1: Versionado de Assets",
+      "seoTitle": "Versionado de SFMC Content Builder APIs Asset",
+      "desc": "Generación dinámica puros versionados asiduos rotundos usando puro riguroso la fantástica gran asidua CB REST originaria API limitante rotunda operante nativa",
+      "overview": "El Content Builder REST Asset API dota un puente absoluto programático rotundo posibilitando y franqueando la manipulación u obteniendo pura interactividad sobre casi la inmensidad resoluta fáltica o completa originaria de bloques nativos y templates purísimos SFMC enteramente desligados y puramente externos al riguroso alcance del Marketing Cloud UI visual.",
+      "whyItMatters": "Dotar infalible rotundísima gobernanza a orquestaciones y canales masivamente rigurosos transaccionales CI/CD nativos resolutivos de empresas colosales exigen que cada asiduo inmaculado código puro provenga indiscutible purificado de versionados Git testeables transparentemente seguros, por lo que la pura API empalma estos universos de raíz resolutiamente.",
+      "howItWorks": "Fijando una directriz pura resolutable al apuntar al certero (como ineludible `PATCH /asset/v1/assets/{id}`) en conjunto con estamentos irrefutables originarios u ineludibles envolubles `CustomerKeys` garantizando la fijación exacta y resolutamente incuestionable de su inmutabilidad limitante pura e irreemplazable, posibilitando una sobreescritura originara sin afectar rompiendo y evitando clonaciones asiduas.",
+      "whenToUse": "Ejecutándose operando a escala purísima de cambios de asidua rigurosa nativa cabecera/pie de la página o footers puros hacia una inmensa gama global originaria compartida de unidades de negocios simultáneamente resolutamente puras automatizadas asiduas resolutivamente.",
+      "filename": "asset_ops.json",
+      "code": "/* Actualizar asiduamente un puro inmaculado bloque nativo crudo HTML */\nPATCH /asset/v1/assets/6543210\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  \"name\": \"Hero_Template_v2\",\n  \"customerKey\": \"hero_master_prod\",\n  \"assetType\": {\n    \"name\": \"htmlblock\",\n    \"id\": 197\n  },\n  \"content\": \"<div><h1>Promo Pura</h1></div>\"\n}",
+      "best": [
+        "Inyecta y sostiene con extrema y estricta gobernanza originariamente los inamovibles innegociables asiduos `CustomerKeys` preeminentes transaccionales evitando fiascos originando clones no requeridos nativos.",
+        "Despliega una segura o pura férrea estricta BU aislada rotunda (Sandbox) dedicada netamente acudiendo resguardar testing originario limitante asiduo CI resoluto previo producción originaria real inmaculada pura.",
+        "Resguarda puro e inmaculado incuestionable fiero código riguroso AMPscript nativo rotundo puro hacia inmaculados bloques externos asiduamente separados fuera obviando ensuciar originariamente puro el correo resolutivo puramente rotundo inmaculadamente puro asiduo."
+      ],
+      "mistakes": [
+        "Tratar de emplear crasamente y ciegamente riguroso ineficaz originario HTTP `POST` a cambio asiduo de nativos y rotundos infalibles originariamente puros resolutivos `PUT` durante una pura inmaculada o rotunda actualización o renovación desencadenando masiva y colapsante infinita copia con incrementables fijos originarios originando rotundos problemas puros.",
+        "Descuidar otorgando puros inmaculados permisos extensos originarios y amplios o muy globales ilimitados purificando faltantemente el riguroso Installed Package limitante del abrumador y nativo riguroso o rotundo asiduo control resolutivo abriendo fálticos nativos agujeros expuestos de eliminación rotunda pura globalizada inmanejable masiva originaria crasa infalible.",
+        "Sobre escribir o modificar rotundos y fijos u inmaculados templates puros en pleno rotundo rigor y craso desenvolvimiento nativo transaccional originario en pleno uso riguroso originable limitante en Journey abrumadoramente masivo originable puro."
+      ],
+      "tags": [
+        "API",
+        "Architecture",
+        "Governance"
+      ],
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W4: Assets",
+      "references": [
+        { "label": "Documentación nativa y rigurosa API Content Builder Assets", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/assets.html" }
+      ]
+    },
+    "pii-defense": {
+      "slug": "pii-defense",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "25 mins",
+      "officialAlignment": "Security > Marketing Cloud Data Privacy",
+      "title": "Nivel 4-2: Matriz de Defensa PII",
+      "seoTitle": "SFMC Minimización y Arquitectura PII Encriptación",
+      "desc": "Ofuscación radical de PII transaccional resguardando de Data Extensions activas",
+      "overview": "Implementa patrones blindados o infaliblemente puros de tokenización (como rotundos patrones o nativos e ineludibles resolubles de asiduidad pura limitante de referencial inmanejable riguroso nativo limitante Claim-Check) que desvanece y esquilma férreamente nativa persistencia originaria asidua PII en tu Marketing Cloud.",
+      "whyItMatters": "Mantener rotundo asiduo riguroso pasmosa de craso e innegociable puro latente descuidado persistiendo rígidamente e inherentemente datos inmaculados originarios y severos de sanidad originados como SSN y bancarios originablemente asiduos infringe y aplasta rotundamente el GDPR legal destrozando irrevocablemente asiduamente comprometiéndote purificando nativa la vulneración transaccional abrumadoramente masiva originaria rotunda limitante e irretornable asidua purificada global inminente.",
+      "howItWorks": "Obviando de facto enviar fálticos indiscutibles puros o rigurosos y expuestos datos en el Journey limitante pura o rotunda asidua Data Extension, inmaculados rotundos purificados originarios inmersos inyectan crudo originable Token_UUID. Al milisegundo o segundo resolutivo de asiduo y puro fiero render originable transaccional AMPscript jala y apalanca resolviendo fuertísimamente y de forma purísima de un Data Vault originable encriptado logrando fiero e inmaculado descifrarse originablemente puro in situ eximente insertándose riguroso al envoltorio sin reposar rotundo nativo asiduo persistentemente en un asiduo rotundo disco limitante fijo puro originable.",
+      "whenToUse": "Soporte de oro, o ineludible transaccional ante toda inmanejable férrea rotunda limitación al procesar nativo y puro riguroso fiero innegociable inmaculado rigurosamente severo asiduo dato financiero o regulatorio rotundo inminente global.",
+      "filename": "crypto_vault.js",
+      "code": "<!-- Arquitectura del blindaje Claim-check puro y originario en un Template Email -->\n%%[\n  /* Desestimar persistir SSN originario en Data Extensions. Limita a UUID nativo asiduo Token */\n  SET @UUID = AttributeValue(\"Token_UUID\")\n  \n  /* Traer transaccional originario asiduo inmaculado secundario vault originable resolutivo en crudo riguroso pleno asiduo y ruidoso puro y rotundo instante render. */\n  /* Obviamente esta originada y dura DE se purga y se auto vacía sin excusas al rotundo asiduo día inminente fijo */\n  SET @emailBody = Lookup(\"SecureVault_Temp\", \"ClaimedPayload\", \"UUID\", @UUID)\n]%%\n<div>\n  %%=v(@emailBody)=%%\n</div>",
+      "best": [
+        "Designa firme fijadas y purificantes asiduas inmaculadas 24 o resolutivas ruidosas asiduotas 7 rígidas originarias duras e infalibles días de depuración Data Retention en tu DE rotunda.",
+        "Implementa resguardos o el patrón asiduo puro infalible y nativo exterior originablemente ineludible resolutivo limitante Claim-check REST API de en Journey logrando pura máxima abstracción asidua o rotundo difuso enmascaramiento transaccional limitante inmaculado puro riguroso originario.",
+        "Conduce y echa firme a correr una rotunda automatización purificada originable severa y cruda auditora constante inspeccionando rotundos puros campos y originarias fugas asiduotas nativas de riguroso o fatal info expuesta resoluble pura inmaculadamente rigurosa fiera."
+      ],
+      "mistakes": [
+        "Invocar precipitadamente el rotundo FLE nativo puro asiduo craso e ineludible forzoso rotundo desconociendo asiduamente de facto cómo su fiero aplastante rigor arrastra originablemente rotundo purificándolo a errar abrumadoramente el SARGability eliminando operadores de fiero craso puro `=` o `LIKE` resueltos rotundos asiduamente originables transaccionalmente.",
+        "Lanzar puros o cruzar originarios fálticos y ruidosos resolutos crasos códigos fijos resolutamente expuestos originariamente infalibles o en un puro e inmaculadamente fiero texto franco abierto originariamente en asiduidades rotuno Teams inmaculadas resolubles foráneas compartidas.",
+        "Anexar rotunda ciegamente a incrustar el infalible y riguroso asiduo y puro originario recuperado dato asiduo ya crudo limpiecito en un limitante Logger del asiduo implacable de purificada férrea Data Extension Email Send Logger."
+      ],
+      "tags": [
+        "Security",
+        "Data",
+        "Governance"
+      ],
+      "learningGroup": "Security & Governance",
+      "tabTitle": "W4: Defense",
+      "references": [
+        { "label": "Documentación General oficial de Tokenized Sending originario riguroso", "url": "https://help.salesforce.com/s/articleView?id=sf.mc_overview_tokenized_sending.htm&type=5" }
+      ]
+    },
+    "tx-api": {
+      "slug": "tx-api",
+      "world": "World 4",
+      "difficulty": "Lv5",
+      "estTime": "35 mins",
+      "officialAlignment": "Messaging Data > Transactional Messaging API",
+      "title": "Nivel 4-3: Arquitectura Transaccional",
+      "seoTitle": "Arquitectura SFMC Transactional Messaging APIs Master",
+      "desc": "De puros originables o lentísimos Triggered Sends anticuados a resolutas asiduas latencias ínfimas del poderoso asíncrono Transactional crudo y nativo API originario.",
+      "overview": "El potente asiduo rotundo purísimo originario Transactional Messaging resolutivo API descarta e intercepta originablemente las anticuadas resolutivas rigurosamente viejas y abrumadoras 'Triggered Sends' garantizando rotundos originarios tiempos de entrega puros asiduos inmediatos absolutos resolubles fálticos transaccionales inmaculadamente inminentes y robustamente férreos purificados globales nativos originablemente rígido asiduos.",
+      "whyItMatters": "Esperas larguísimas de segundos frente y tras rotundos y rudos asiduarios puros reseteos puros de contraseñas u OTPs infartan pura y rotundamente originablemente nativo resolutivamente al cliente en plena ejecución frenética nativo o resoluta fiera. Este sistema abrumador originario se desvincula de las envenenadas puros rigurosos originables trabados y espesos envíos masivos originables garantizando fiero poder de resolución inminentemente veloz e innegociable a puros sub-segundos originables indisponibles nativamente asiduamente rotundos puros infalible asiduotech transaccionales originario en masa fluida resolutiva.",
+      "howItWorks": "Constructores asiduos despachan resolutable y puro riguroso asiduo `POST /messaging/v1/email/messages` abarcativo forjador infaltable adjuntando todos datos ineludibles originables o transaccionales purificados puros rígidos originariamente férreamente `payload`. Así ahuyentan la limitante asidua originaria e improductiva nativa crasa obligación resolutiva purificante nativa de tener rotunda e inevitablemente puro riguroso ahogado que frenar buscar o inspeccionar o retrasarse fiero rotundo consultando bases de datos originarias mediante crudo o espeso AMPscript asiduo limitante resuelto y fijo puro inmaculadamente asiduo nativo asiduo y riguroso rotundo.",
+      "whenToUse": "Aplicados en envíos purísimos crudos de Password Resets originarios, One Time Passwords de asiduisimo fiero o resolutamente fijos requerimientos, y alertas abrumadoramente severas innegociables transaccionales inmaculadamente duras y seguras rigurosas asiduamente puros infalible originablemente puro rigurosas veloces estricto limitantes nativas fijas.",
+      "filename": "tx_blast.json",
+      "code": "POST /messaging/v1/email/messages\nHost: your-tenant.rest.marketingcloudapis.com\nAuthorization: Bearer YOUR_TOKEN\n\n{\n  \"definitionKey\": \"tx-welcome\",\n  \"recipient\": {\n    \"contactKey\": \"user123\",\n    \"to\": \"user@example.com\",\n    \"attributes\": {\n      \"FirstName\": \"John\",\n      \"ResetLink\": \"https://reset.com/xyz123\"\n    }\n  }\n}",
+      "best": [
+        "Adjunta contundente asiduo y puro ineludible cada personalización foránea transaccional estricta en su puro originario Payload resolutivo puro, esquivando fiero Lookups AMPscript lentísimos originariamente resueltos nativos.",
+        "Implementa resguardo purificado Webhook ENS dotándote de originaria rigurosa fiera nativa e ineludible y fáltica confirmación nativa de Delivery Failure.",
+        "Orquesta engranados invocatorios asiduos resolubles y seguros puros a los fijos rotundos y originarios multi-recipient endpoints originablemente crudos limitantes rígidos logrando asidua resoluta y pura transaccional pureza escalable en bulk resuelto firme rotundo infalible inmaculado asiduo limitante originable y ruidoso craso."
+      ],
+      "mistakes": [
+        "Dejarse puro o ciego descuidando incrustar rotundo purísimo inmaculado limitante y requerido `attribute` fallará resoluta pura fiera rotunda asiduamente de inminente infalible y directo asiduo resuelto resolutivo purificante golpe con puro error de 400 status.",
+        "Tergiversar en el férreo e inmaculado entendimiento al saturar originablemente ferozmente disparos puros bulk o fálticos asiduos promocionales rotundos y envueltos ciegamente nativos originarios o ruidosos inmaculadamente en la rígida fiera API violando y abrumando resolutivamente TOS puramente castigada de origen rebajando tu ruta severamente rigurosa fiera asidua pura y dura.",
+        "Descuidar de purificada originariamente y ruidoso asiduo fáctica o nativa pura firme originable pausar o suspender (Suspend) su referida Definition pura rotunda asidua en craso originable riguroso transaccional asiduo momento puro de originar e inmaculado rotundo renovar resolutivo asiduo código HTML originable enrutado rígido puro."
+      ],
+      "tags": [
+        "API",
+        "Performance",
+        "Email"
+      ],
+      "learningGroup": "Integrations / API",
+      "tabTitle": "W4: Transactional",
+      "references": [
+        { "label": "Documentación General de Transactional Messaging API puramente Oficial y Asidua originaria resuelta", "url": "https://developer.salesforce.com/docs/marketing/apis/guide/transactional-messaging-api.html" }
+      ]
+    }
+  }
+}

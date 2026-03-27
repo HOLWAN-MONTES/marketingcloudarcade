@@ -333,6 +333,33 @@
         "Is the Message Definition active as 'Transactional'?"
       ],
       "officialAlignment": "Messaging Data > Transactional Messaging API"
+    },
+    {
+      "id": "dataviews",
+      "slug": "dataviews",
+      "title": "Mastering System Tables with dataviews.io",
+      "seoTitle": "dataviews.io Explorer",
+      "date": "2026-03-26",
+      "summary": "Explore SFMC Data Views, table fields, and relationships easily. Generate SQL queries automatically with dataviews.io to save time and effort.",
+      "content": "<h3>Data Views Insights</h3><p>Data Views in Salesforce Marketing Cloud are system-generated tables providing insights into marketing efforts. They enable access to essential information about subscribers and tracking data to create targeted segments, monitor campaign performance, and optimize strategies.</p><h3>Exploring with dataviews.io</h3><p><a href=\"https://dataviews.io/\" target=\"_blank\" rel=\"noopener noreferrer\">dataviews.io</a> makes it easy to explore all Data Views, table fields, and relationships. It helps you quickly copy and paste names for SQL queries. You can zoom out to see more tables, display field datatypes, hover over fields to see shared tables, and automatically generate SQL queries (with JOINs) to run in Automation Studio!</p>",
+      "tags": [
+        "SQL",
+        "Data"
+      ],
+      "series": "World 1",
+      "difficulty": "Lv1",
+      "estTime": "10",
+      "takeaways": [
+        "Hover over fields to see relationships across tables",
+        "Auto-generate SQL queries with necessary JOINs",
+        "Zoom and toggle datatypes for a clear data model"
+      ],
+      "checklist": [
+        "Did you limit the date range to avoid query timeouts?",
+        "Have you tested the generated query in Query Studio?",
+        "Did you check table fields using the search box?"
+      ],
+      "officialAlignment": "Data Management > Data Views"
     }
   ]
 }

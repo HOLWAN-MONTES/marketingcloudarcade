@@ -52,10 +52,10 @@ function updateDocPaneButtonState(levelId) {
   if (!btn || !levelId) return;
 
   if (completedDocs.includes(levelId)) {
-    btn.innerText = "✓ COMPLETED";
+    btn.innerText = window.i18nManager.t('markCompleteBtnDone');
     btn.classList.add("completed-state");
   } else {
-    btn.innerText = "MARK AS COMPLETED";
+    btn.innerText = window.i18nManager.t('markCompleteBtn');
     btn.classList.remove("completed-state");
   }
 }
@@ -97,7 +97,7 @@ export function renderDocsSidebar() {
 
     const catHeader = document.createElement("div");
     catHeader.className = "category-header collapsed-header";
-    catHeader.innerHTML = `<span>${catName}</span> <span class="chevron">▼</span>`;
+    catHeader.innerHTML = `<span>${window.i18nManager.t(catName)}</span> <span class="chevron">▼</span>`;
     
     const nestedUl = document.createElement("ul");
     nestedUl.className = "nested-list collapsed";
@@ -204,7 +204,7 @@ export function renderDocPane(data, levelId) {
     <div class="doc-pane active">
       <div class="doc-header">
         <h3>${data.title}</h3>
-        <button id="mark-complete-btn" class="btn-complete" aria-label="Mark level completed">MARK AS COMPLETED</button>
+        <button id="mark-complete-btn" class="btn-complete" aria-label="Mark level completed">${completedDocs.includes(levelId) ? window.i18nManager.t('markCompleteBtnDone') : window.i18nManager.t('markCompleteBtn')}</button>
       </div>
       <div class="badge-group">
         <span class="badge badge-world">${data.world}</span>
@@ -213,15 +213,15 @@ export function renderDocPane(data, levelId) {
       </div>
       <p class="doc-desc">${data.desc}</p>
       
-      ${data.overview ? `<h4>Overview</h4><p class="doc-section-text">${data.overview}</p>` : ''}
+      ${data.overview ? `<h4>${window.i18nManager.t('overview')}</h4><p class="doc-section-text">${data.overview}</p>` : ''}
       
-      ${data.whyItMatters ? `<h4>Why it matters in SFMC</h4><p class="doc-section-text">${data.whyItMatters}</p>` : ''}
+      ${data.whyItMatters ? `<h4>${window.i18nManager.t('whyItMatters')}</h4><p class="doc-section-text">${data.whyItMatters}</p>` : ''}
       
-      ${data.howItWorks ? `<h4>How it works</h4><p class="doc-section-text">${data.howItWorks}</p>` : ''}
+      ${data.howItWorks ? `<h4>${window.i18nManager.t('howItWorks')}</h4><p class="doc-section-text">${data.howItWorks}</p>` : ''}
 
-      ${data.whenToUse ? `<h4>When to use this approach</h4><p class="doc-section-text">${data.whenToUse}</p>` : ''}
+      ${data.whenToUse ? `<h4>${window.i18nManager.t('whenToUse')}</h4><p class="doc-section-text">${data.whenToUse}</p>` : ''}
 
-      ${data.code ? `<h4>Example Implementation</h4>
+      ${data.code ? `<h4>${window.i18nManager.t('exImpl')}</h4>
       <div class="retro-terminal">
         <div class="terminal-header">
           <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
@@ -232,7 +232,7 @@ export function renderDocPane(data, levelId) {
       </div>` : ''}
       
       ${data.images && data.images.length > 0 ? `
-      <h4>Visual Reference</h4>
+      <h4>${window.i18nManager.t('visRef')}</h4>
       ${data.images.map(img => `
         <figure class="doc-image-figure">
           <img src="${img.src}" alt="${img.alt || 'Documentation visual'}" class="doc-image" />
@@ -241,12 +241,12 @@ export function renderDocPane(data, levelId) {
       `).join('')}
       ` : ''}
       
-      ${bestLists ? `<h4>Best Practices</h4><ul>${bestLists}</ul>` : ''}
+      ${bestLists ? `<h4>${window.i18nManager.t('bestPrac')}</h4><ul>${bestLists}</ul>` : ''}
       
-      ${mistakeLists ? `<h4>Common Mistakes</h4><ul>${mistakeLists}</ul>` : ''}
+      ${mistakeLists ? `<h4>${window.i18nManager.t('commonMistakes')}</h4><ul>${mistakeLists}</ul>` : ''}
       
       ${data.references && data.references.length > 0 ? `
-      <h4>Official Documentation & References</h4>
+      <h4>${window.i18nManager.t('offDocs')}</h4>
       <ul class="doc-references">
         ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="retro-link">${ref.label} ↗</a></li>`).join('')}
       </ul>

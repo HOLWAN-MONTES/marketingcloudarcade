@@ -66,15 +66,27 @@
             </button>
         </div>
 
+        <div class="lang-toggle-container" style="display:flex; align-items:center; margin-right: 15px;">
+            <label class="toggle-switch" title="Toggle Language">
+                <span class="toggle-label" id="lang-label"
+                    style="min-width: 60px; text-align: right; font-size: 1rem; color: var(--text-main);">English</span>
+                <input type="checkbox" id="lang-toggle-checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
         <div class="theme-toggle-scaler">
             <div class="toggle-skull">
                 <input type="checkbox" id="theme-toggle" aria-label="Toggle Light/Dark Mode">
                 <label for="theme-toggle" class="skull-label">
                     <span class="thumb">
-                        <svg class="pixel-skull" viewBox="0 0 16 16" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="var(--bone)" d="M5,1 h6 v1 h-6 z M3,2 h2 v1 h-2 z M6,2 h7 v1 h-7 z M2,3 h4 v1 h-4 z M7,3 h7 v1 h-7 z M1,4 h4 v1 h-4 z M6,4 h9 v1 h-9 z M1,5 h14 v1 h-14 z M1,6 h2 v1 h-2 z M5,6 h6 v1 h-6 z M13,6 h2 v1 h-2 z M1,7 h2 v1 h-2 z M6,7 h4 v1 h-4 z M13,7 h2 v1 h-2 z M1,8 h2 v1 h-2 z M6,8 h1 v1 h-1 z M9,8 h1 v1 h-1 z M13,8 h2 v1 h-2 z M1,9 h6 v1 h-6 z M9,9 h6 v1 h-6 z M2,10 h12 v1 h-12 z M4,11 h8 v1 h-8 z M4,12 h1 v1 h-1 z M6,12 h1 v1 h-1 z M8,12 h1 v1 h-1 z M10,12 h2 v1 h-2 z M4,13 h8 v1 h-8 z"/>
-                            <path fill="#000" opacity="0.3" d="M5,1 h1 v1 h-1 z M10,1 h1 v1 h-1 z M3,2 h1 v1 h-1 z M12,2 h1 v1 h-1 z M2,3 h1 v1 h-1 z M13,3 h1 v1 h-1 z M1,4 h1 v1 h-1 z M14,4 h1 v1 h-1 z M3,5 h3 v1 h-3 z M10,5 h3 v1 h-3 z M1,5 h1 v1 h-1 z M14,5 h1 v1 h-1 z M1,6 h1 v1 h-1 z M14,6 h1 v1 h-1 z M1,7 h1 v1 h-1 z M14,7 h1 v1 h-1 z M1,8 h1 v1 h-1 z M14,8 h1 v1 h-1 z M2,9 h2 v1 h-2 z M12,9 h2 v1 h-2 z M2,10 h2 v1 h-2 z M12,10 h2 v1 h-2 z M4,11 h1 v1 h-1 z M11,11 h1 v1 h-1 z M4,12 h1 v1 h-1 z M11,12 h1 v1 h-1 z M4,13 h8 v1 h-8 z"/>
-                            <path fill="#fff" opacity="0.4" d="M6,1 h4 v1 h-4 z M4,2 h1 v1 h-1 z M3,3 h1 v1 h-1 z M2,4 h1 v1 h-1 z"/>
+                        <svg class="pixel-skull" viewBox="0 0 16 16" shape-rendering="crispEdges"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill="var(--bone)"
+                                d="M5,1 h6 v1 h-6 z M3,2 h2 v1 h-2 z M6,2 h7 v1 h-7 z M2,3 h4 v1 h-4 z M7,3 h7 v1 h-7 z M1,4 h4 v1 h-4 z M6,4 h9 v1 h-9 z M1,5 h14 v1 h-14 z M1,6 h2 v1 h-2 z M5,6 h6 v1 h-6 z M13,6 h2 v1 h-2 z M1,7 h2 v1 h-2 z M6,7 h4 v1 h-4 z M13,7 h2 v1 h-2 z M1,8 h2 v1 h-2 z M6,8 h1 v1 h-1 z M9,8 h1 v1 h-1 z M13,8 h2 v1 h-2 z M1,9 h6 v1 h-6 z M9,9 h6 v1 h-6 z M2,10 h12 v1 h-12 z M4,11 h8 v1 h-8 z M4,12 h1 v1 h-1 z M6,12 h1 v1 h-1 z M8,12 h1 v1 h-1 z M10,12 h2 v1 h-2 z M4,13 h8 v1 h-8 z" />
+                            <path fill="#000" opacity="0.3"
+                                d="M5,1 h1 v1 h-1 z M10,1 h1 v1 h-1 z M3,2 h1 v1 h-1 z M12,2 h1 v1 h-1 z M2,3 h1 v1 h-1 z M13,3 h1 v1 h-1 z M1,4 h1 v1 h-1 z M14,4 h1 v1 h-1 z M3,5 h3 v1 h-3 z M10,5 h3 v1 h-3 z M1,5 h1 v1 h-1 z M14,5 h1 v1 h-1 z M1,6 h1 v1 h-1 z M14,6 h1 v1 h-1 z M1,7 h1 v1 h-1 z M14,7 h1 v1 h-1 z M1,8 h1 v1 h-1 z M14,8 h1 v1 h-1 z M2,9 h2 v1 h-2 z M12,9 h2 v1 h-2 z M2,10 h2 v1 h-2 z M12,10 h2 v1 h-2 z M4,11 h1 v1 h-1 z M11,11 h1 v1 h-1 z M4,12 h1 v1 h-1 z M11,12 h1 v1 h-1 z M4,13 h8 v1 h-8 z" />
+                            <path fill="#fff" opacity="0.4"
+                                d="M6,1 h4 v1 h-4 z M4,2 h1 v1 h-1 z M3,3 h1 v1 h-1 z M2,4 h1 v1 h-1 z" />
                         </svg>
                     </span>
                     <span class="arm-wrapper">
@@ -98,16 +110,17 @@
         <nav id="nav-links" class="nav-links">
             <div class="search-container" id="search-container">
                 <button id="global-search-btn" class="nav-link retro-btn-small" aria-label="Open Search"
-                    style="background:none;border:none;cursor:pointer;">&#128269; Search</button>
+                    style="background:none;border:none;cursor:pointer;" data-i18n="navSearch">&#128269; Search</button>
                 <div id="search-bar" class="search-bar hidden">
-                    <input type="text" id="global-search-input" placeholder="Scanning..." aria-label="Search archives" autocomplete="off">
+                    <input type="text" id="global-search-input" placeholder="Scanning..." aria-label="Search archives"
+                        autocomplete="off" data-i18n="searchPlaceholder">
                     <ul id="global-search-results" class="search-results-dropdown"></ul>
                 </div>
             </div>
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#docs" class="nav-link">Docs</a>
-            <a href="#blog" class="nav-link">Blog</a>
-            <a href="#about" class="nav-link">About</a>
+            <a href="#home" class="nav-link active" data-i18n="navHome">Home</a>
+            <a href="#docs" class="nav-link" data-i18n="navDocs">Docs</a>
+            <a href="#blog" class="nav-link" data-i18n="navBlog">Blog</a>
+            <a href="#about" class="nav-link" data-i18n="navAbout">About</a>
         </nav>
     </header>
     <div class="marketing-arcade-scene">
@@ -124,20 +137,21 @@
     <main id="main-content">
         <!-- Home Section -->
         <section id="home" class="section hero">
-            <h1 class="pixel-text flicker-text">Marketing Cloud Arcade</h1>
-            <p class="subtitle">Level up your Salesforce Marketing Cloud development skills</p>
-            <p class="description">Your retro-fueled hub for advanced SFMC knowledge, architecture, and coding best
+            <h1 class="pixel-text flicker-text" data-i18n="heroTitle">Marketing Cloud Arcade</h1>
+            <p class="subtitle" data-i18n="heroSubtitle">Level up your Salesforce Marketing Cloud development skills</p>
+            <p class="description" data-i18n="heroDesc">Your retro-fueled hub for advanced SFMC knowledge, architecture,
+                and coding best
                 practices.</p>
             <div class="cta-group">
-                <a href="#docs" class="btn btn-primary">Start Learning</a>
-                <a href="#blog" class="btn btn-secondary">Latest Articles</a>
+                <a href="#docs" class="btn btn-primary" data-i18n="ctaDocs">Start Learning</a>
+                <a href="#blog" class="btn btn-secondary" data-i18n="ctaBlog">Latest Articles</a>
             </div>
         </section>
 
         <!-- Docs Section -->
         <section id="docs" class="section docs-section">
             <div class="section-header-row">
-                <h2 class="pixel-text section-title flicker-text">Documentation Levels</h2>
+                <h2 class="pixel-text section-title flicker-text" data-i18n="docsTitle">Documentation Levels</h2>
                 <div class="progress-container" aria-label="Documentation Completion Progress">
                     <span class="progress-text" id="progress-text">Progress: 0%</span>
                     <div class="progress-bar-bg">
@@ -155,11 +169,11 @@
                         <input type="text" id="docs-search" class="retro-input" placeholder="Search levels..."
                             aria-label="Search documentation">
                         <div class="docs-tags" id="docs-tags">
-                            <button class="tag-btn" data-tag="all" aria-pressed="true">All</button>
-                            <button class="tag-btn" data-tag="foundations">Foundations</button>
-                            <button class="tag-btn" data-tag="development">Development</button>
-                            <button class="tag-btn" data-tag="api">API</button>
-                            <button class="tag-btn" data-tag="data">Data</button>
+                            <button class="tag-btn" data-tag="all" aria-pressed="true" data-i18n="tagAll">All</button>
+                            <button class="tag-btn" data-tag="foundations" data-i18n="tagFound">Foundations</button>
+                            <button class="tag-btn" data-tag="development" data-i18n="tagDev">Development</button>
+                            <button class="tag-btn" data-tag="api" data-i18n="tagApi">API</button>
+                            <button class="tag-btn" data-tag="data" data-i18n="tagData">Data</button>
                         </div>
                     </div>
 
@@ -179,29 +193,56 @@
 
         <!-- Blog Section -->
         <section id="blog" class="section blog-section">
-            <h2 class="pixel-text section-title flicker-text">Transmission Logs (Blog)</h2>
+            <h2 class="pixel-text section-title flicker-text" data-i18n="blogTitle">Transmission Logs (Blog)</h2>
             <div class="blog-grid" id="blog-grid">
                 <!-- Blog cards injected via JS for centralized ID management -->
             </div>
-            <div class="load-more-container" id="blog-load-more-container" style="text-align: center; margin-top: 3rem; display: none;">
-                <div id="blog-load-more-btn" class="load-more-btn ghost-interaction-area" role="button" tabindex="0" aria-label="Load more logs">
+            <div class="load-more-container" id="blog-load-more-container"
+                style="text-align: center; margin-top: 3rem; display: none;">
+                <div id="blog-load-more-btn" class="load-more-btn ghost-interaction-area" role="button" tabindex="0"
+                    aria-label="Load more logs">
                     <div class="ghost-wrapper">
                         <div class="ghost red">
                             <div class="ghost-body">
                                 <div class="pupil-element js-pupil idle-eyes" style="left: 15px;"></div>
                                 <div class="pupil-element js-pupil idle-eyes" style="right: 45px;"></div>
-                                <div id="eye"></div><div id="eye1"></div>
-                                <div id="top0"></div><div id="top1"></div><div id="top2"></div><div id="top3"></div><div id="top4"></div>
-                                <div id="st0"></div><div id="st1"></div><div id="st2"></div><div id="st3"></div><div id="st4"></div><div id="st5"></div>
-                                <div id="an1"></div><div id="an2"></div><div id="an3"></div><div id="an4"></div><div id="an5"></div><div id="an6"></div>
-                                <div id="an7"></div><div id="an8"></div><div id="an9"></div><div id="an10"></div><div id="an11"></div><div id="an12"></div>
-                                <div id="an13"></div><div id="an14"></div><div id="an15"></div><div id="an16"></div><div id="an17"></div><div id="an18"></div>
+                                <div id="eye"></div>
+                                <div id="eye1"></div>
+                                <div id="top0"></div>
+                                <div id="top1"></div>
+                                <div id="top2"></div>
+                                <div id="top3"></div>
+                                <div id="top4"></div>
+                                <div id="st0"></div>
+                                <div id="st1"></div>
+                                <div id="st2"></div>
+                                <div id="st3"></div>
+                                <div id="st4"></div>
+                                <div id="st5"></div>
+                                <div id="an1"></div>
+                                <div id="an2"></div>
+                                <div id="an3"></div>
+                                <div id="an4"></div>
+                                <div id="an5"></div>
+                                <div id="an6"></div>
+                                <div id="an7"></div>
+                                <div id="an8"></div>
+                                <div id="an9"></div>
+                                <div id="an10"></div>
+                                <div id="an11"></div>
+                                <div id="an12"></div>
+                                <div id="an13"></div>
+                                <div id="an14"></div>
+                                <div id="an15"></div>
+                                <div id="an16"></div>
+                                <div id="an17"></div>
+                                <div id="an18"></div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="terminal-text pixel-text">
-                        LOAD MORE PIXELS <span class="blink-cursor">>_</span>
+                        <span data-i18n="showMore">LOAD MORE PIXELS</span> <span class="blink-cursor">>_</span>
                     </div>
 
                     <div class="ghost-wrapper">
@@ -209,34 +250,85 @@
                             <div class="ghost-body">
                                 <div class="pupil-element js-pupil idle-eyes" style="left: 15px;"></div>
                                 <div class="pupil-element js-pupil idle-eyes" style="right: 45px;"></div>
-                                <div id="eye"></div><div id="eye1"></div>
-                                <div id="top0"></div><div id="top1"></div><div id="top2"></div><div id="top3"></div><div id="top4"></div>
-                                <div id="st0"></div><div id="st1"></div><div id="st2"></div><div id="st3"></div><div id="st4"></div><div id="st5"></div>
-                                <div id="an1"></div><div id="an2"></div><div id="an3"></div><div id="an4"></div><div id="an5"></div><div id="an6"></div>
-                                <div id="an7"></div><div id="an8"></div><div id="an9"></div><div id="an10"></div><div id="an11"></div><div id="an12"></div>
-                                <div id="an13"></div><div id="an14"></div><div id="an15"></div><div id="an16"></div><div id="an17"></div><div id="an18"></div>
+                                <div id="eye"></div>
+                                <div id="eye1"></div>
+                                <div id="top0"></div>
+                                <div id="top1"></div>
+                                <div id="top2"></div>
+                                <div id="top3"></div>
+                                <div id="top4"></div>
+                                <div id="st0"></div>
+                                <div id="st1"></div>
+                                <div id="st2"></div>
+                                <div id="st3"></div>
+                                <div id="st4"></div>
+                                <div id="st5"></div>
+                                <div id="an1"></div>
+                                <div id="an2"></div>
+                                <div id="an3"></div>
+                                <div id="an4"></div>
+                                <div id="an5"></div>
+                                <div id="an6"></div>
+                                <div id="an7"></div>
+                                <div id="an8"></div>
+                                <div id="an9"></div>
+                                <div id="an10"></div>
+                                <div id="an11"></div>
+                                <div id="an12"></div>
+                                <div id="an13"></div>
+                                <div id="an14"></div>
+                                <div id="an15"></div>
+                                <div id="an16"></div>
+                                <div id="an17"></div>
+                                <div id="an18"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="blog-show-less-btn" class="load-more-btn ghost-interaction-area" role="button" tabindex="0" aria-label="Show less logs" style="display: none; margin-top: 2rem;">
+                <div id="blog-show-less-btn" class="load-more-btn ghost-interaction-area" role="button" tabindex="0"
+                    aria-label="Show less logs" style="display: none; margin-top: 2rem;">
                     <div class="ghost-wrapper">
                         <div class="ghost pink">
                             <div class="ghost-body">
                                 <div class="pupil-element js-pupil idle-eyes" style="left: 15px;"></div>
                                 <div class="pupil-element js-pupil idle-eyes" style="right: 45px;"></div>
-                                <div id="eye"></div><div id="eye1"></div>
-                                <div id="top0"></div><div id="top1"></div><div id="top2"></div><div id="top3"></div><div id="top4"></div>
-                                <div id="st0"></div><div id="st1"></div><div id="st2"></div><div id="st3"></div><div id="st4"></div><div id="st5"></div>
-                                <div id="an1"></div><div id="an2"></div><div id="an3"></div><div id="an4"></div><div id="an5"></div><div id="an6"></div>
-                                <div id="an7"></div><div id="an8"></div><div id="an9"></div><div id="an10"></div><div id="an11"></div><div id="an12"></div>
-                                <div id="an13"></div><div id="an14"></div><div id="an15"></div><div id="an16"></div><div id="an17"></div><div id="an18"></div>
+                                <div id="eye"></div>
+                                <div id="eye1"></div>
+                                <div id="top0"></div>
+                                <div id="top1"></div>
+                                <div id="top2"></div>
+                                <div id="top3"></div>
+                                <div id="top4"></div>
+                                <div id="st0"></div>
+                                <div id="st1"></div>
+                                <div id="st2"></div>
+                                <div id="st3"></div>
+                                <div id="st4"></div>
+                                <div id="st5"></div>
+                                <div id="an1"></div>
+                                <div id="an2"></div>
+                                <div id="an3"></div>
+                                <div id="an4"></div>
+                                <div id="an5"></div>
+                                <div id="an6"></div>
+                                <div id="an7"></div>
+                                <div id="an8"></div>
+                                <div id="an9"></div>
+                                <div id="an10"></div>
+                                <div id="an11"></div>
+                                <div id="an12"></div>
+                                <div id="an13"></div>
+                                <div id="an14"></div>
+                                <div id="an15"></div>
+                                <div id="an16"></div>
+                                <div id="an17"></div>
+                                <div id="an18"></div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="terminal-text pixel-text">
-                        &lt; SHOW LESS PIXELS <span class="blink-cursor">_</span>
+                        <span data-i18n="showLess">SHOW LESS PIXELS</span> <span class="blink-cursor">>_</span>
                     </div>
 
                     <div class="ghost-wrapper">
@@ -244,12 +336,37 @@
                             <div class="ghost-body">
                                 <div class="pupil-element js-pupil idle-eyes" style="left: 15px;"></div>
                                 <div class="pupil-element js-pupil idle-eyes" style="right: 45px;"></div>
-                                <div id="eye"></div><div id="eye1"></div>
-                                <div id="top0"></div><div id="top1"></div><div id="top2"></div><div id="top3"></div><div id="top4"></div>
-                                <div id="st0"></div><div id="st1"></div><div id="st2"></div><div id="st3"></div><div id="st4"></div><div id="st5"></div>
-                                <div id="an1"></div><div id="an2"></div><div id="an3"></div><div id="an4"></div><div id="an5"></div><div id="an6"></div>
-                                <div id="an7"></div><div id="an8"></div><div id="an9"></div><div id="an10"></div><div id="an11"></div><div id="an12"></div>
-                                <div id="an13"></div><div id="an14"></div><div id="an15"></div><div id="an16"></div><div id="an17"></div><div id="an18"></div>
+                                <div id="eye"></div>
+                                <div id="eye1"></div>
+                                <div id="top0"></div>
+                                <div id="top1"></div>
+                                <div id="top2"></div>
+                                <div id="top3"></div>
+                                <div id="top4"></div>
+                                <div id="st0"></div>
+                                <div id="st1"></div>
+                                <div id="st2"></div>
+                                <div id="st3"></div>
+                                <div id="st4"></div>
+                                <div id="st5"></div>
+                                <div id="an1"></div>
+                                <div id="an2"></div>
+                                <div id="an3"></div>
+                                <div id="an4"></div>
+                                <div id="an5"></div>
+                                <div id="an6"></div>
+                                <div id="an7"></div>
+                                <div id="an8"></div>
+                                <div id="an9"></div>
+                                <div id="an10"></div>
+                                <div id="an11"></div>
+                                <div id="an12"></div>
+                                <div id="an13"></div>
+                                <div id="an14"></div>
+                                <div id="an15"></div>
+                                <div id="an16"></div>
+                                <div id="an17"></div>
+                                <div id="an18"></div>
                             </div>
                         </div>
                     </div>
@@ -259,12 +376,13 @@
 
         <!-- About Section -->
         <section id="about" class="section about-section">
-            <h2 class="pixel-text section-title flicker-text">Player Info</h2>
+            <h2 class="pixel-text section-title flicker-text" data-i18n="navAbout">Player Info</h2>
             <div class="about-card" tabindex="0">
-                <p>I focus on providing practical, developer-centric knowledge for Salesforce Marketing Cloud. Forget
+                <p data-i18n="aboutP1">I focus on providing practical, developer-centric knowledge for Salesforce
+                    Marketing Cloud. Forget
                     the fluff—this is about real-world architecture, scalable automations, and overcoming platform
                     quirks.</p>
-                <p>Level up your engineering skills.</p>
+                <p data-i18n="aboutP2">Level up your engineering skills.</p>
             </div>
         </section>
     </main>
@@ -300,6 +418,7 @@
 
     <!-- Global Search Overlay REMOVED -->
 
+    <script src="scripts/i18n.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </body>
 

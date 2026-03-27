@@ -28,6 +28,13 @@ export function initUI() {
   if (themeToggleInput && canvas) {
     const ctx = canvas.getContext("2d");
 
+    const savedTheme = localStorage.getItem("arcade-theme");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-mode");
+    } else if (savedTheme === "dark") {
+      document.body.classList.remove("light-mode");
+    }
+
     // Sync initial state: checked == light mode
     themeToggleInput.checked = document.body.classList.contains("light-mode");
 
@@ -60,8 +67,10 @@ export function initUI() {
 
       if (isLightMode) {
         document.body.classList.remove("light-mode");
+        localStorage.setItem("arcade-theme", "dark");
       } else {
         document.body.classList.add("light-mode");
+        localStorage.setItem("arcade-theme", "light");
       }
 
       const cols = Math.ceil(canvas.width / PIXEL_SIZE);

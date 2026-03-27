@@ -14,9 +14,10 @@ export function sanitizeHTML(str) {
 // DataProvider Pattern for Wix-readiness
 const DataProvider = {
   async local() {
+    const lang = localStorage.getItem('arcade-lang') || 'en';
     const [dRes, bRes] = await Promise.all([
-      fetch("./data/docs.json"),
-      fetch("./data/blog.json"),
+      fetch(`./data/${lang}/docs.json`),
+      fetch(`./data/${lang}/blog.json`),
     ]);
     if (!dRes.ok || !bRes.ok) throw new Error("File not found");
     const dJson = await dRes.json();
