@@ -179,9 +179,32 @@ export function initUI() {
         backToTopBtn.setAttribute("hidden", "true");
       }
     });
-    backToTopBtn.addEventListener("click", () =>
-      window.scrollTo({ top: 0, behavior: "smooth" }),
-    );
+    backToTopBtn.addEventListener("click", () => {
+      const bloque = document.getElementById('mario-block');
+      if (bloque) {
+        bloque.classList.remove('is-active');
+        void bloque.offsetWidth; 
+        bloque.classList.add('is-active');
+      }
+      const startPosition = window.pageYOffset;
+      const startTime = performance.now();
+      const duration = 1500; // Un poco más lento para que la animación fluya con el salto de Mario
+
+      function scrollAnimation(currentTime) {
+          const timeElapsed = currentTime - startTime;
+          const progress = Math.min(timeElapsed / duration, 1);
+          
+          const ease = 1 - Math.pow(1 - progress, 3);
+          
+          window.scrollTo(0, startPosition * (1 - ease));
+
+          if (timeElapsed < duration) {
+              requestAnimationFrame(scrollAnimation);
+          }
+      }
+
+      requestAnimationFrame(scrollAnimation);
+    });
   }
 }
 
