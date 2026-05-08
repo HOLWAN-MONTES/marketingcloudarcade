@@ -1600,7 +1600,7 @@ pre {
 
 /* ── Arcade Custom Cursors ── */
 html, body, * {
-  cursor: url('../img/Cursor/pixel.cur'), auto;
+  cursor: url('../img/cursor/pixel.cur'), auto;
 }
 
 a, a *, button, button *, [role="button"], [role="button"] *, 
@@ -1608,18 +1608,18 @@ input[type="submit"], input[type="button"],
 .sidebar-nav-item, .category-card, .article-card, 
 .btn, .filter-btn, .search-result-item, .lang-btn, 
 .btn-icon, .code-copy-btn, label, summary {
-  cursor: url('../img/Cursor/pixel-link.cur'), pointer !important;
+  cursor: url('../img/cursor/pixel-link.cur'), pointer !important;
 }
 
 input, textarea, [data-open-search], .search-modal-input {
-  cursor: url('../img/Cursor/pixel pencil select.cur'), text !important;
+  cursor: url('../img/cursor/pixel-pencil-select.cur'), text !important;
 }
 
 [disabled], .disabled {
-  cursor: url('../img/Cursor/pixel no.cur'), not-allowed !important;
+  cursor: url('../img/cursor/pixel-no.cur'), not-allowed !important;
 }
 
 [title] {
-  cursor: url('../img/Cursor/pixel help.cur'), help !important;
+  cursor: url('../img/cursor/pixel-help.cur'), help !important;
 }
 
