@@ -1,0 +1,404 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Automation Studio: File Drop Pattern  Marketing Cloud Arcade">
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-breadcrumb">
+      <a href="/" data-lang="es">Inicio</a>
+      <a href="/" data-lang="en">Home</a>
+      <span class="sep">/</span>
+      <a href="/catalog?cat=automation">AUTOMATION</a>
+      <span class="sep">/</span>
+      <span data-lang="es">Artículo</span>
+      <span data-lang="en">Article</span>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <span class="tag green">Automation</span>
+          <span class="tag">#filedrop</span>
+          <span class="level-badge intermediate">🟡 Intermediate</span>
+    </div>
+
+    <h1 data-lang="es">Automation Studio: Patrón File Drop</h1>
+    <h1 data-lang="en">Automation Studio: File Drop Pattern</h1>
+
+    <div class="article-meta">
+      <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: Apr 2025</span>
+      <span class="article-meta-item">⏱️ 8 min read</span>
+      <span class="article-meta-item">👁️ <span data-random-views data-article-id="auto-filedrop">0</span> views</span>
+      <span class="article-meta-item" style="margin-left:auto;">
+        <a href="https://github.com/" target="_blank" style="color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;" data-lang="es">📝 Editar en GitHub</a>
+        <a href="https://github.com/" target="_blank" style="color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;" data-lang="en">📝 Edit on GitHub</a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- """""""""""""""" ARTICLE BODY """""""""""""""" -->
+<div class="article-layout">
+
+  <!-- CONTENT -->
+  <article class="article-content" is:raw>
+
+    <!-- SPANISH CONTENT -->
+    <div data-lang="es">
+      <p>SSJS (Server-Side JavaScript) en Salesforce Marketing Cloud te permite hacer peticiones HTTP a APIs externas directamente desde tus Cloud Pages o scripts de Automation Studio. Esta guía cubre los patrones más importantes: GET, POST, manejo de errores y autenticación.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 PREREQUISITO</div>
+        Para ejecutar SSJS necesitas una Cloud Page o un Script Activity en Automation Studio. SSJS corre en el servidor de SFMC, no en el cliente.
+      </div>
+
+      <h2 id="get-request">01 · PETICIÓN HTTP GET</h2>
+      <p>Usa <code>HTTP.Get()</code> para obtener datos de una API externa. Ideal para consumir endpoints que devuelven información sin necesidad de enviar body.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Cloud Page</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">//  SSJS: HTTP GET Request </span>
+<span class="kw">var</span> <span class="vr">url</span> = <span class="st">"https://api.example.com/users?active=true"</span>;
+
+<span class="cm">// Headers opcionales</span>
+<span class="kw">var</span> <span class="vr">headerNames</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">headerValues</span> = [<span class="st">"Bearer TOKEN_AQUI"</span>, <span class="st">"application/json"</span>];
+
+<span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Get</span>(<span class="vr">url</span>, <span class="vr">headerNames</span>, <span class="vr">headerValues</span>);
+
+<span class="cm">// response.StatusCode = 200, response.Content = JSON string</span>
+<span class="kw">if</span> (<span class="vr">response</span>.StatusCode == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">data</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>.Content);
+  <span class="fn">Write</span>(<span class="st">"Total usuarios: "</span> + <span class="vr">data</span>.total);
+} <span class="kw">else</span> {
+  <span class="fn">Write</span>(<span class="st">"Error: "</span> + <span class="vr">response</span>.StatusCode);
+}</pre>
+      </div>
+
+      <h2 id="post-request">02 · PETICIÓN HTTP POST</h2>
+      <p>Usa <code>HTTP.Post()</code> cuando necesitas enviar datos a una API. El body debe ser un string (típicamente JSON serializado).</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Cloud Page</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">//  SSJS: HTTP POST Request </span>
+<span class="kw">var</span> <span class="vr">url</span> = <span class="st">"https://api.example.com/contacts"</span>;
+
+<span class="kw">var</span> <span class="vr">payload</span> = {
+  firstName: <span class="st">"Juan"</span>,
+  lastName:  <span class="st">"Pérez"</span>,
+  email:     <span class="st">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68c938788a6839e878b968a83c885898b">[email&#160;protected]</a>"</span>
+};
+
+<span class="kw">var</span> <span class="vr">body</span>         = <span class="fn">Stringify</span>(<span class="vr">payload</span>);
+<span class="kw">var</span> <span class="vr">headerNames</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">headerValues</span> = [<span class="st">"Bearer TOKEN_AQUI"</span>, <span class="st">"application/json"</span>];
+<span class="kw">var</span> <span class="vr">statusCode</span>   = [<span class="nb">0</span>]; <span class="cm">// Array para recibir status</span>
+
+<span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">url</span>, <span class="st">"application/json"</span>, <span class="vr">body</span>, <span class="vr">headerNames</span>, <span class="vr">headerValues</span>, <span class="vr">statusCode</span>);
+
+<span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">201</span> || <span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">result</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+  <span class="fn">Write</span>(<span class="st">"Contacto creado con ID: "</span> + <span class="vr">result</span>.id);
+} <span class="kw">else</span> {
+  <span class="fn">Write</span>(<span class="st">"Error "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>] + <span class="st">": "</span> + <span class="vr">response</span>);
+}</pre>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ IMPORTANTE</div>
+        <code>HTTP.Post()</code> devuelve el <strong>body</strong> como string directamente, no un objeto. El status code se recibe en el array que pasas como último argumento.
+      </div>
+
+      <h2 id="error-handling">03 · MANEJO DE ERRORES</h2>
+      <p>Envuelve tus llamadas en <code>try/catch</code> para capturar errores de red o de parsing. Loguea los errores en una Data Extension para debugging.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Manejo de Errores</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="kw">try</span> {
+  <span class="kw">var</span> <span class="vr">statusCode</span> = [<span class="nb">0</span>];
+  <span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">url</span>, <span class="st">"application/json"</span>, <span class="vr">body</span>,
+                           <span class="vr">headerNames</span>, <span class="vr">headerValues</span>, <span class="vr">statusCode</span>);
+
+  <span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] &gt;= <span class="nb">400</span>) {
+    <span class="kw">throw</span> <span class="st">"HTTP Error: "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>] + <span class="st">" - "</span> + <span class="vr">response</span>;
+  }
+
+  <span class="cm">// Proceso exitoso...</span>
+  <span class="kw">var</span> <span class="vr">data</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+
+} <span class="kw">catch</span>(<span class="vr">e</span>) {
+  <span class="cm">// Loguear error en DE</span>
+  <span class="fn">Platform.Function.InsertDE</span>(<span class="st">"ErrorLog"</span>,
+    [<span class="st">"ErrorMsg"</span>, <span class="st">"Timestamp"</span>],
+    [<span class="vr">e</span>.message || <span class="fn">Stringify</span>(<span class="vr">e</span>), <span class="fn">Now</span>()]
+  );
+  <span class="fn">Write</span>(<span class="st">"Algo salió mal. Por favor intenta más tarde."</span>);
+}</pre>
+      </div>
+
+      <h2 id="oauth-token">04 · AUTENTICACIÓN OAUTH2</h2>
+      <p>Para llamar a la REST API de SFMC, primero necesitas obtener un token OAuth2. Este patrón es esencial para cualquier integración server-to-server.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · OAuth2 Token</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">//  Obtener Token OAuth2 de SFMC </span>
+<span class="kw">function</span> <span class="fn">getAccessToken</span>(<span class="vr">clientId</span>, <span class="vr">clientSecret</span>, <span class="vr">subdomain</span>) {
+  <span class="kw">var</span> <span class="vr">authUrl</span> = <span class="st">"https://"</span> + <span class="vr">subdomain</span> + <span class="st">".auth.marketingcloudapis.com/v2/token"</span>;
+
+  <span class="kw">var</span> <span class="vr">payload</span>  = <span class="fn">Stringify</span>({
+    grant_type:    <span class="st">"client_credentials"</span>,
+    client_id:     <span class="vr">clientId</span>,
+    client_secret: <span class="vr">clientSecret</span>
+  });
+
+  <span class="kw">var</span> <span class="vr">statusCode</span> = [<span class="nb">0</span>];
+  <span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">authUrl</span>, <span class="st">"application/json"</span>,
+                            <span class="vr">payload</span>, [], [], <span class="vr">statusCode</span>);
+
+  <span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">200</span>) {
+    <span class="kw">var</span> <span class="vr">parsed</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+    <span class="kw">return</span> <span class="vr">parsed</span>.access_token;
+  }
+  <span class="kw">throw</span> <span class="st">"Token error: "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>];
+}
+
+<span class="cm">// Uso:</span>
+<span class="kw">var</span> <span class="vr">token</span>    = <span class="fn">getAccessToken</span>(<span class="st">"CLIENT_ID"</span>, <span class="st">"CLIENT_SECRET"</span>, <span class="st">"XXXX"</span>);
+<span class="kw">var</span> <span class="vr">apiUrl</span>   = <span class="st">"https://XXXX.rest.marketingcloudapis.com/contacts/v1/contacts"</span>;
+<span class="kw">var</span> <span class="vr">headers</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">hValues</span>  = [<span class="st">"Bearer "</span> + <span class="vr">token</span>, <span class="st">"application/json"</span>];
+<span class="kw">var</span> <span class="vr">sc</span>       = [<span class="nb">0</span>];
+
+<span class="kw">var</span> <span class="vr">result</span> = <span class="fn">HTTP.Post</span>(<span class="vr">apiUrl</span>, <span class="st">"application/json"</span>,
+             <span class="fn">Stringify</span>({...}), <span class="vr">headers</span>, <span class="vr">hValues</span>, <span class="vr">sc</span>);</pre>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP</div>
+        Guarda el <code>access_token</code> en una Data Extension con timestamp de expiración y reutilízalo durante su vida útil (1 hora) en lugar de generar uno nuevo en cada ejecución.
+      </div>
+
+      <h2 id="use-cases">05 · CASOS DE USO REALES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span data-lang="es">CASO DE USO: Sincronizar leads desde HubSpot</span>
+          <span data-lang="en">USE CASE: Sync leads from HubSpot</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <span data-lang="es">Con <code>HTTP.Get()</code> obtienes los deals recientes de HubSpot y los insertas en una DE de SFMC para usarlos en segmentaciones.</span>
+          <span data-lang="en">Use <code>HTTP.Get()</code> to fetch recent HubSpot deals and insert them into an SFMC DE for segmentation.</span>
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span data-lang="es">CASO DE USO: Notificar webhooks al completar un Journey</span>
+          <span data-lang="en">USE CASE: Notify webhooks when a Journey completes</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <span data-lang="es">Agrega un Script Activity al final del Journey con <code>HTTP.Post()</code> para notificar a tu CRM o sistema de tickets.</span>
+          <span data-lang="en">Add a Script Activity at the end of the Journey using <code>HTTP.Post()</code> to notify your CRM or ticketing system.</span>
+        </p>
+      </div>
+
+      <h2 id="challenge">06 · DESAFÍO ARCADE</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title" data-lang="es">MISIÓN: API Connector</div>
+            <div class="challenge-box-title" data-lang="en">MISSION: API Connector</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;" data-lang="es">
+          Crea un Script Activity que consuma la API pública <code>https://jsonplaceholder.typicode.com/users</code> y guarde el nombre y email de cada usuario en una Data Extension llamada <code>ExternalUsers</code>.
+        </p>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;" data-lang="en">
+          Create a Script Activity that consumes the public API <code>https://jsonplaceholder.typicode.com/users</code> and saves each user's name and email in a Data Extension called <code>ExternalUsers</code>.
+        </p>
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;" data-lang="es"> Ver solución</summary>
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;" data-lang="en"> View solution</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Solución</span>
+              <button class="code-copy-btn">📋 Copiar</button>
+            </div>
+            <pre><span class="kw">var</span> <span class="vr">resp</span> = <span class="fn">HTTP.Get</span>(<span class="st">"https://jsonplaceholder.typicode.com/users"</span>, [], []);
+<span class="kw">if</span> (<span class="vr">resp</span>.StatusCode == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">users</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">resp</span>.Content);
+  <span class="kw">for</span> (<span class="kw">var</span> <span class="vr">i</span> = <span class="nb">0</span>; <span class="vr">i</span> &lt; <span class="vr">users</span>.length; <span class="vr">i</span>++) {
+    <span class="fn">Platform.Function.UpsertDE</span>(<span class="st">"ExternalUsers"</span>,
+      [<span class="st">"Email"</span>],
+      [<span class="st">"Name"</span>, <span class="st">"Email"</span>],
+      [<span class="vr">users</span>[<span class="vr">i</span>].name, <span class="vr">users</span>[<span class="vr">i</span>].email]
+    );
+  }
+}</pre>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ENGLISH CONTENT -->
+    <div data-lang="en">
+      <p>SSJS (Server-Side JavaScript) in Salesforce Marketing Cloud lets you make HTTP requests to external APIs directly from your Cloud Pages or Automation Studio Script Activities. This guide covers the most important patterns: GET, POST, error handling, and authentication.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 PREREQUISITE</div>
+        To run SSJS you need a Cloud Page or a Script Activity in Automation Studio. SSJS runs on the SFMC server, not on the client.
+      </div>
+
+      <h2 id="get-request-en">01 · HTTP GET REQUEST</h2>
+      <p>Use <code>HTTP.Get()</code> to fetch data from an external API. Ideal for consuming endpoints that return information without needing to send a body.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Cloud Page</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">//  SSJS: HTTP GET Request </span>
+<span class="kw">var</span> <span class="vr">url</span> = <span class="st">"https://api.example.com/users?active=true"</span>;
+
+<span class="kw">var</span> <span class="vr">headerNames</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">headerValues</span> = [<span class="st">"Bearer YOUR_TOKEN_HERE"</span>, <span class="st">"application/json"</span>];
+
+<span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Get</span>(<span class="vr">url</span>, <span class="vr">headerNames</span>, <span class="vr">headerValues</span>);
+
+<span class="kw">if</span> (<span class="vr">response</span>.StatusCode == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">data</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>.Content);
+  <span class="fn">Write</span>(<span class="st">"Total users: "</span> + <span class="vr">data</span>.total);
+} <span class="kw">else</span> {
+  <span class="fn">Write</span>(<span class="st">"Error: "</span> + <span class="vr">response</span>.StatusCode);
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP</div>
+        Cache your <code>access_token</code> in a Data Extension with an expiry timestamp and reuse it during its lifetime (1 hour) instead of generating a new one on every execution.
+      </div>
+
+      <h2 id="challenge-en">02 · ARCADE CHALLENGE</h2>
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISSION: API Connector</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Create a Script Activity that consumes the public API <code>https://jsonplaceholder.typicode.com/users</code> and saves each user's name and email in a Data Extension called <code>ExternalUsers</code>.
+        </p>
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;"> View solution</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Solution</span>
+              <button class="code-copy-btn">📋 Copy</button>
+            </div>
+            <pre><span class="kw">var</span> <span class="vr">resp</span> = <span class="fn">HTTP.Get</span>(<span class="st">"https://jsonplaceholder.typicode.com/users"</span>, [], []);
+<span class="kw">if</span> (<span class="vr">resp</span>.StatusCode == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">users</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">resp</span>.Content);
+  <span class="kw">for</span> (<span class="kw">var</span> <span class="vr">i</span> = <span class="nb">0</span>; <span class="vr">i</span> &lt; <span class="vr">users</span>.length; <span class="vr">i</span>++) {
+    <span class="fn">Platform.Function.UpsertDE</span>(<span class="st">"ExternalUsers"</span>,
+      [<span class="st">"Email"</span>],
+      [<span class="st">"Name"</span>, <span class="st">"Email"</span>],
+      [<span class="vr">users</span>[<span class="vr">i</span>].name, <span class="vr">users</span>[<span class="vr">i</span>].email]
+    );
+  }
+}</pre>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Article Nav -->
+    <div class="article-nav">
+      <a class="article-nav-card" href="/catalog">
+        <div class="article-nav-label" data-lang="es">◀ Anterior</div>
+        <div class="article-nav-label" data-lang="en">◀ Previous</div>
+        <div class="article-nav-title" data-lang="es">Volver al catálogo</div>
+        <div class="article-nav-title" data-lang="en">Back to catalog</div>
+      </a>
+      <a class="article-nav-card next" href="/article">
+        <div class="article-nav-label" data-lang="es">Siguiente ▶ </div>
+        <div class="article-nav-label" data-lang="en">Next ▶ </div>
+        <div class="article-nav-title" data-lang="es">SSJS: Upsert Contactos REST API</div>
+        <div class="article-nav-title" data-lang="en">SSJS: Upsert Contacts REST API</div>
+      </a>
+    </div>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#get-request" data-lang="es">01 · GET Request</a><a href="#get-request-en" data-lang="en">01 · GET Request</a></li>
+        <li><a href="#post-request" data-lang="es">02 · POST Request</a><a href="#post-request" data-lang="en">02 · POST Request</a></li>
+        <li><a href="#error-handling" data-lang="es">03 · Manejo de errores</a><a href="#error-handling" data-lang="en">03 · Error handling</a></li>
+        <li><a href="#oauth-token" data-lang="es">04 · OAuth2 Token</a><a href="#oauth-token" data-lang="en">04 · OAuth2 Token</a></li>
+        <li><a href="#use-cases" data-lang="es">05 · Casos de uso</a><a href="#use-cases-en" data-lang="en">05 · Use cases</a></li>
+        <li><a href="#challenge" data-lang="es">06 · Desafío Arcade</a><a href="#challenge-en" data-lang="en">06 · Arcade Challenge</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <span class="tag pink">#ssjs</span>
+        <span class="tag">#http</span>
+        <span class="tag">#rest-api</span>
+        <span class="tag yellow">#oauth2</span>
+        <span class="tag green">#cloud-pages</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es"><img src="../assets/img/icons/ssjs.png" alt="SSJS" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; display:inline-block;"> SSJS: Upsert Contactos via REST API</a>
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en"><img src="../assets/img/icons/ssjs.png" alt="SSJS" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; display:inline-block;"> SSJS: Upsert Contacts via REST API</a>
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">☁️ Cloud Pages: Auth con tokens</a>
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">☁️ Cloud Pages: Token auth</a>
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">x AMPscript: Lookups avanzados</a>
+        <a href="/article" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">x AMPscript: Advanced lookups</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="border-color:rgba(0,255,255,0.2);background:rgba(0,255,255,0.03);">
+      <div class="sidebar-card-title">🐙 GITHUB</div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="es">¿Ves un error o tienes algo que agregar? Abre un PR.</p>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="en">See an error or have something to add? Open a PR.</p>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="es">Editar en GitHub</a>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="en">Edit on GitHub</a>
+    </div>
+  </aside>
+</div>
+
+
+</Layout>
+
