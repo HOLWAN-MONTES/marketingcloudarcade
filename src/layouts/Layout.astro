@@ -2,7 +2,7 @@
 // src/layouts/Layout.astro
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { categoryIconConfig } from '../config/icons.js';
+import { categoryIconConfig, getCategoryIcon } from '../config/icons.js';
 
 interface Props {
 	title: string;
@@ -94,7 +94,26 @@ const { title } = Astro.props;
 				<input id="search-input-modal" class="search-modal-input" type="text" placeholder="Buscar artículos... / Search articles..." />
 				<span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);">ESC</span>
 				</div>
+				<div class="search-modal-categories">
+					<button class="search-cat-btn" data-cat="ampscript" title="AMPscript"><span set:html={getCategoryIcon("ampscript", 14)}></span><span class="search-cat-label">AMPscript</span></button>
+					<button class="search-cat-btn" data-cat="sql" title="SQL"><span set:html={getCategoryIcon("sql", 14)}></span><span class="search-cat-label">SQL</span></button>
+					<button class="search-cat-btn" data-cat="automation" title="Automation Studio"><span set:html={getCategoryIcon("automation", 14)}></span><span class="search-cat-label">Automation</span></button>
+					<button class="search-cat-btn" data-cat="journey" title="Journey Builder"><span set:html={getCategoryIcon("journey", 14)}></span><span class="search-cat-label">Journey</span></button>
+					<button class="search-cat-btn" data-cat="cloudpages" title="Cloud Pages"><span set:html={getCategoryIcon("cloudpages", 14)}></span><span class="search-cat-label">Cloud Pages</span></button>
+					<button class="search-cat-btn" data-cat="innovations" title="Innovations"><span set:html={getCategoryIcon("innovations", 14)}></span><span class="search-cat-label" data-lang="es">Innovaciones</span><span class="search-cat-label" data-lang="en">Innovations</span></button>
+				</div>
+				<div class="search-results-header" data-lang="es">ARTÍCULOS RECIENTES</div>
+				<div class="search-results-header" data-lang="en" style="display:none;">RECENT ARTICLES</div>
 				<div id="search-results" class="search-results"></div>
+				<div class="search-modal-footer">
+					<span data-lang="es"><kbd>↑↓</kbd> navegar</span>
+					<span data-lang="en" style="display:none;"><kbd>↑↓</kbd> navigate</span>
+					<span data-lang="es"><kbd>↵</kbd> abrir</span>
+					<span data-lang="en" style="display:none;"><kbd>↵</kbd> open</span>
+					<span data-lang="es"><kbd>ESC</kbd> cerrar</span>
+					<span data-lang="en" style="display:none;"><kbd>ESC</kbd> close</span>
+					<span style="margin-left:auto;color:var(--neon-pink);font-family:var(--font-arcade);font-size:0.5rem;text-shadow:var(--glow-pink);">MCA</span>
+				</div>
 			</div>
 		</div>
 

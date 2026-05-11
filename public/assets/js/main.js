@@ -93,7 +93,23 @@ const LangManager = (() => {
 
 /* ── Search ── */
 const SearchManager = (() => {
-    const articles = [
+  const categoryIcons = {
+    ssjs: '<img src="/assets/img/icons/ssjs.png" alt="SSJS" style="width:16px;height:16px;vertical-align:middle;">',
+    ampscript: '<img src="/assets/img/icons/ampscript.png" alt="AMPscript" style="width:16px;height:16px;vertical-align:middle;">',
+    sql: '<img src="/assets/img/icons/sql.png" alt="SQL" style="width:16px;height:16px;vertical-align:middle;">',
+    innovations: '<img src="/assets/img/icons/innovations.jpg" alt="Innovations" style="width:16px;height:16px;vertical-align:middle;">',
+    automation: '⚙️',
+    journey: '🗺️',
+    cloudpages: '☁️',
+    resources: '🔗',
+    changelog: '📋'
+  };
+
+  function getIcon(cat) {
+    return categoryIcons[cat] || '🕹️';
+  }
+
+  const articles = [
     { title: 'SSJS: HTTP GET & POST Requests', title_es: 'SSJS: Peticiones HTTP GET y POST', category: 'ssjs', level: 'intermediate', url: '/ssjs-http', id: 'ssjs-http' },
     { title: 'AMPscript: Dynamic Content Blocks', title_es: 'AMPscript: Bloques de Contenido Dinámico', category: 'ampscript', level: 'beginner', url: '/amp-dynamic', id: 'amp-dynamic' },
     { title: 'SQL: Query Data Views Like a Pro', title_es: 'SQL: Consulta Data Views como un Pro', category: 'sql', level: 'intermediate', url: '/sql-dataviews', id: 'sql-dataviews' },
@@ -110,26 +126,39 @@ const SearchManager = (() => {
   window.MC_ARTICLES = articles;
 
   let overlay, input, results;
+  let currentCatFilter = '';
 
   function render(query) {
     const lang = localStorage.getItem('mca-lang') || 'es';
-    const q = query.toLowerCase().trim();
-    const filtered = q.length < 2 ? articles.slice(0, 6) : articles.filter(a => {
-      const t = lang === 'es' ? a.title_es : a.title;
-      return t.toLowerCase().includes(q) || a.category.toLowerCase().includes(q);
-    });
+    const q = (query || '').toLowerCase().trim();
+    
+    let filtered = articles;
+    
+    if (currentCatFilter) {
+      filtered = filtered.filter(a => a.category === currentCatFilter);
+    }
+    
+    if (q.length >= 2) {
+      filtered = filtered.filter(a => {
+        const t = lang === 'es' ? a.title_es : a.title;
+        return t.toLowerCase().includes(q) || a.category.toLowerCase().includes(q);
+      });
+    } else if (!currentCatFilter) {
+      filtered = filtered.slice(0, 6);
+    }
 
     if (!results) return;
 
     if (filtered.length === 0) {
-      results.innerHTML = `<div class="search-empty">${lang === 'es' ? '😅 Sin resultados para' : '😅 No results for'} "${query}"</div>`;
+      results.innerHTML = `<div class="search-empty">${lang === 'es' ? '😅 Sin resultados' : '😅 No results'} ${q ? (lang === 'es' ? 'para' : 'for') + ' "' + query + '"' : ''}</div>`;
       return;
     }
 
     results.innerHTML = filtered.map(a => {
       const title = lang === 'es' ? a.title_es : a.title;
+      const icon = getIcon(a.category);
       return `<a class="search-result-item" href="${a.url}">
-        <span class="search-result-icon">${a.icon}</span>
+        <span class="search-result-icon">${icon}</span>
         <div class="search-result-info">
           <div class="search-result-title">${title}</div>
           <div class="search-result-meta">${a.category} · ${a.level}</div>
@@ -141,7 +170,12 @@ const SearchManager = (() => {
   function open() {
     if (!overlay) return;
     overlay.classList.add('open');
-    if (input) input.focus();
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+    currentCatFilter = '';
+    document.querySelectorAll('.search-cat-btn').forEach(b => b.classList.remove('active'));
     render('');
   }
 
@@ -157,7 +191,7 @@ const SearchManager = (() => {
 
     // Open triggers
     document.querySelectorAll('[data-open-search]').forEach(el => {
-      el.addEventListener('click', open);
+      el.addEventListener('click', (e) => { e.preventDefault(); open(); });
     });
 
     // Navbar search bar
@@ -176,6 +210,23 @@ const SearchManager = (() => {
     if (input) {
       input.addEventListener('input', () => render(input.value));
     }
+
+    // Category filters
+    document.querySelectorAll('.search-cat-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const cat = e.currentTarget.getAttribute('data-cat');
+        if (currentCatFilter === cat) {
+          currentCatFilter = '';
+          e.currentTarget.classList.remove('active');
+        } else {
+          currentCatFilter = cat;
+          document.querySelectorAll('.search-cat-btn').forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+        }
+        if (input) render(input.value);
+        if (input) input.focus();
+      });
+    });
 
     // Keyboard shortcut Ctrl+K / Cmd+K
     document.addEventListener('keydown', e => {
