@@ -1,184 +1,1261 @@
 ---
+// src/pages/catalog.astro
 import Layout from '../layouts/Layout.astro';
 import { getCategoryIcon } from '../config/icons.js';
+
+// ALL_CARDS: Single source of truth for the entire catalog
+const ALL_CARDS = [
+  {
+    id: "ssjs-http",
+    category: "ssjs",
+    level: "intermediate",
+    url: "/ssjs-http",
+    title_es: "SSJS: Peticiones HTTP GET y POST",
+    title_en: "SSJS: HTTP GET & POST Requests",
+    desc_es: "Conecta SFMC con cualquier API externa usando HTTP.Get() y HTTP.Post() con manejo de errores y OAuth2.",
+    desc_en: "Connect SFMC with any external API using HTTP.Get() and HTTP.Post() with error handling and OAuth2.",
+    duration: "8 min",
+    date: "Apr 2025",
+    viewsMin: 3000,
+    viewsMax: 8000,
+    hot: true,
+    tags: ["#http", "#rest-api"]
+  },
+  {
+    id: "ssjs-upsert",
+    category: "ssjs",
+    level: "advanced",
+    url: "/ssjs-upsert",
+    title_es: "SSJS: Upsert de Contactos via REST API",
+    title_en: "SSJS: Upsert Contacts via REST API",
+    desc_es: "Crea y actualiza contactos masivamente en SFMC usando la Contacts REST API y manejo de errores avanzado.",
+    desc_en: "Create and update contacts in bulk in SFMC using the Contacts REST API with advanced error handling.",
+    duration: "12 min",
+    date: "Mar 2025",
+    viewsMin: 2000,
+    viewsMax: 5000,
+    hot: true,
+    tags: ["#rest-api", "#upsert"],
+    featured: true
+  },
+  {
+    id: "ssjs-intro",
+    category: "ssjs",
+    level: "beginner",
+    url: "/ssjs-intro",
+    title_es: "Introducción a SSJS en SFMC",
+    title_en: "Introduction to SSJS in SFMC",
+    desc_es: "Qué es SSJS, cómo usarlo en Cloud Pages y Script Activities, y cuáles son sus limitaciones.",
+    desc_en: "What SSJS is, how to use it in Cloud Pages and Script Activities, and what its limitations are.",
+    duration: "5 min",
+    date: "Jan 2025",
+    viewsMin: 1500,
+    viewsMax: 4000,
+    hot: false,
+    tags: ["#basics"]
+  },
+  {
+    id: "ssjs-debug",
+    category: "ssjs",
+    level: "intermediate",
+    url: "/ssjs-debug",
+    title_es: "SSJS: Logging y Debugging avanzado",
+    title_en: "SSJS: Advanced Logging & Debugging",
+    desc_es: "Estrategias de logging en Data Extensions y técnicas de debug para scripts en producción.",
+    desc_en: "Logging strategies using Data Extensions and debug techniques for production scripts.",
+    duration: "7 min",
+    date: "Mar 2025",
+    viewsMin: 700,
+    viewsMax: 2000,
+    hot: false,
+    tags: ["#debugging"]
+  },
+  {
+    id: "amp-lookup",
+    category: "ampscript",
+    level: "beginner",
+    url: "/amp-lookup",
+    title_es: "AMPscript: LookupRows y datos dinámicos",
+    title_en: "AMPscript: LookupRows & Dynamic Data",
+    desc_es: "Extrae filas de Data Extensions en tiempo de render para personalizar emails uno a uno.",
+    desc_en: "Extract Data Extension rows at render time to personalize emails one by one.",
+    duration: "6 min",
+    date: "Feb 2025",
+    viewsMin: 1200,
+    viewsMax: 3500,
+    hot: false,
+    tags: ["#lookup"],
+    featured: true
+  },
+  {
+    id: "amp-formatdate",
+    category: "ampscript",
+    level: "intermediate",
+    url: "/amp-formatdate",
+    title_es: "AMPscript: FormatDate y manejo de fechas",
+    title_en: "AMPscript: FormatDate & Date Handling",
+    desc_es: "Formatea, compara y manipula fechas en AMPscript para campañas dinámicas y contenido de cuenta regresiva.",
+    desc_en: "Format, compare and manipulate dates in AMPscript for dynamic campaigns and countdown content.",
+    duration: "7 min",
+    date: "Feb 2025",
+    viewsMin: 800,
+    viewsMax: 2000,
+    hot: false,
+    tags: ["#dates"]
+  },
+  {
+    id: "amp-dynamic",
+    category: "ampscript",
+    level: "advanced",
+    url: "/amp-dynamic",
+    title_es: "Bloques de Contenido Dinámico con AMPscript",
+    title_en: "Dynamic Content Blocks with AMPscript",
+    desc_es: "Crea bloques que muestran contenido diferente según segmento, historial de compras o comportamiento.",
+    desc_en: "Create blocks that show different content based on segment, purchase history or behavior.",
+    duration: "10 min",
+    date: "Mar 2025",
+    viewsMin: 2000,
+    viewsMax: 4500,
+    hot: true,
+    tags: ["#personalization"]
+  },
+  {
+    id: "sql-dataviews",
+    category: "sql",
+    level: "beginner",
+    url: "/sql-dataviews",
+    title_es: "SQL: Introducción a Data Views de SFMC",
+    title_en: "SQL: Intro to SFMC Data Views",
+    desc_es: "Conece las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.",
+    desc_en: "Learn the most important Data Views (_Sent, _Open, _Click, _Bounce) and how to query them with SQL.",
+    duration: "8 min",
+    date: "Jan 2025",
+    viewsMin: 1000,
+    viewsMax: 3000,
+    hot: false,
+    tags: ["#dataviews"]
+  },
+  {
+    id: "sql-engagement",
+    category: "sql",
+    level: "intermediate",
+    url: "/sql-engagement",
+    title_es: "SQL: Score de Engagement de Suscriptores",
+    title_en: "SQL: Subscriber Engagement Score",
+    desc_es: "Construye un score de engagement consultando _Sent, _Open y _Click en Automation Studio.",
+    desc_en: "Build an engagement score by querying _Sent, _Open and _Click in Automation Studio.",
+    duration: "9 min",
+    date: "Feb 2025",
+    viewsMin: 900,
+    viewsMax: 2500,
+    hot: false,
+    tags: ["#engagement"],
+    featured: true
+  },
+  {
+    id: "sql-joins",
+    category: "sql",
+    level: "advanced",
+    url: "/sql-joins",
+    title_es: "SQL: JOINs avanzados en Query Activities",
+    title_en: "SQL: Advanced JOINs in Query Activities",
+    desc_es: "LEFT JOIN, INNER JOIN y subconsultas para cruzar Data Extensions y Data Views en una sola query.",
+    desc_en: "LEFT JOIN, INNER JOIN and subqueries to cross Data Extensions and Data Views in a single query.",
+    duration: "10 min",
+    date: "Mar 2025",
+    viewsMin: 800,
+    viewsMax: 2200,
+    hot: false,
+    tags: ["#joins"]
+  },
+  {
+    id: "auto-filedrop",
+    category: "automation",
+    level: "intermediate",
+    url: "/auto-filedrop",
+    title_es: "Automation Studio: Patrón File Drop",
+    title_en: "Automation Studio: File Drop Pattern",
+    desc_es: "Configura un flujo automático que se dispara cuando un archivo llega al FTP de SFMC.",
+    desc_en: "Set up an automatic flow triggered when a file arrives at the SFMC FTP.",
+    duration: "6 min",
+    date: "Mar 2025",
+    viewsMin: 600,
+    viewsMax: 1800,
+    hot: false,
+    tags: ["#filedrop"]
+  },
+  {
+    id: "jb-api-entry",
+    category: "journey",
+    level: "advanced",
+    url: "/jb-api-entry",
+    title_es: "Journey Builder: API Entry Event",
+    title_en: "Journey Builder: API Entry Event",
+    desc_es: "Dispara journeys en tiempo real desde sistemas externos usando la Event Definition API.",
+    desc_en: "Trigger journeys in real time from external systems using the Event Definition API.",
+    duration: "11 min",
+    date: "Apr 2025",
+    viewsMin: 1500,
+    viewsMax: 4000,
+    hot: true,
+    tags: ["#api-entry"]
+  },
+  {
+    id: "cp-auth",
+    category: "cloudpages",
+    level: "advanced",
+    url: "/cp-auth",
+    title_es: "Cloud Pages: Sistema de Login con Tokens",
+    title_en: "Cloud Pages: Token-Based Login System",
+    desc_es: "Implementa autenticación segura en Cloud Pages usando tokens únicos almacenados en Data Extensions.",
+    desc_en: "Implement secure authentication in Cloud Pages using unique tokens stored in Data Extensions.",
+    duration: "14 min",
+    date: "Apr 2025",
+    viewsMin: 1000,
+    viewsMax: 3000,
+    hot: true,
+    tags: ["#auth"]
+  },
+  {
+    id: "inno-ai",
+    category: "innovations",
+    level: "advanced",
+    url: "/inno-ai",
+    title_es: "Personalización con IA: GPT + AMPscript",
+    title_en: "AI Personalization: GPT + AMPscript",
+    desc_es: "Genera contenido de email personalizado con OpenAI GPT-4 y renderízalo con AMPscript en tus envíos.",
+    desc_en: "Generate personalized email content with OpenAI GPT-4 and render it with AMPscript in your sends.",
+    duration: "15 min",
+    date: "Apr 2025",
+    viewsMin: 2500,
+    viewsMax: 6000,
+    hot: true,
+    tags: ["#ai"]
+  },
+  {
+    id: "resources-links",
+    category: "resources",
+    level: "beginner",
+    url: "/resources-links",
+    title_es: "Recursos esenciales de SFMC",
+    title_en: "Essential SFMC Resources",
+    desc_es: "Documentación oficial, herramientas de debugging, comunidades y cursos recomendados para SFMC.",
+    desc_en: "Official documentation, debugging tools, communities and recommended courses for SFMC.",
+    duration: "3 min",
+    date: "Jan 2025",
+    viewsMin: 600,
+    viewsMax: 1800,
+    hot: false,
+    tags: ["#basics"]
+  }
+];
+
+// Pre-calculate count tags for server side rendering
+const counts = {
+  all: ALL_CARDS.length,
+  ssjs: ALL_CARDS.filter(c => c.category === 'ssjs').length,
+  ampscript: ALL_CARDS.filter(c => c.category === 'ampscript').length,
+  sql: ALL_CARDS.filter(c => c.category === 'sql').length,
+  automation: ALL_CARDS.filter(c => c.category === 'automation').length,
+  journey: ALL_CARDS.filter(c => c.category === 'journey').length,
+  cloudpages: ALL_CARDS.filter(c => c.category === 'cloudpages').length,
+  innovations: ALL_CARDS.filter(c => c.category === 'innovations').length,
+  resources: ALL_CARDS.filter(c => c.category === 'resources').length,
+};
 ---
-<Layout title="Catlogo | Marketing Cloud Arcade">
-<div class="catalog-hero"> <div class="catalog-hero-inner"> <h1 data-lang="es">📂 CATÁLOGO COMPLETO</h1> <h1 data-lang="en">📂 FULL CATALOG</h1> <p data-lang="es">Todos los artículos, snippets y guías de Marketing Cloud Arcade. Filtra por categoría, nivel o busca lo que necesitas.</p> <p data-lang="en">All articles, snippets and guides from Marketing Cloud Arcade. Filter by category, level or search for what you need.</p> </div> </div>  <div class="catalog-layout"> <!-- SIDEBAR --> <aside class="catalog-sidebar"> <nav class="sidebar-nav"> <div class="sidebar-nav-header" data-lang="es">CATEGORÍAS</div> <div class="sidebar-nav-header" data-lang="en">CATEGORIES</div> <a class="sidebar-nav-item active" href="#" data-filter="all" onclick="filterCat(event,'all')"> <span>🗂️</span> <span data-lang="es">Todos</span> <span data-lang="en">All</span> <span class="count">42</span> </a> <a class="sidebar-nav-item" href="#" data-filter="ssjs" onclick="filterCat(event,'ssjs')"> <span set:html={getCategoryIcon("ssjs", 16)}></span> SSJS
-<span class="count">12</span> </a> <a class="sidebar-nav-item" href="#" data-filter="ampscript" onclick="filterCat(event,'ampscript')"> <span set:html={getCategoryIcon("ampscript", 16)}></span> AMPscript
-<span class="count">10</span> </a> <a class="sidebar-nav-item" href="#" data-filter="sql" onclick="filterCat(event,'sql')"> <span set:html={getCategoryIcon("sql", 16)}></span> SQL
-<span class="count">8</span> </a> <a class="sidebar-nav-item" href="#" data-filter="automation" onclick="filterCat(event,'automation')"> <span set:html={getCategoryIcon("automation", 16)}></span> Automation Studio
-<span class="count">5</span> </a> <a class="sidebar-nav-item" href="#" data-filter="journey" onclick="filterCat(event,'journey')"> <span set:html={getCategoryIcon("journey", 16)}></span> Journey Builder
-<span class="count">4</span> </a> <a class="sidebar-nav-item" href="#" data-filter="cloudpages" onclick="filterCat(event,'cloudpages')"> <span set:html={getCategoryIcon("cloudpages", 16)}></span> Cloud Pages
-<span class="count">6</span> </a> <a class="sidebar-nav-item" href="#" data-filter="innovations" onclick="filterCat(event,'innovations')"> <span set:html={getCategoryIcon("innovations", 16)}></span> <span data-lang="es">Innovaciones</span> <span data-lang="en">Innovations</span> <span class="count">4</span> </a> <a class="sidebar-nav-item" href="#" data-filter="resources" onclick="filterCat(event,'resources')"> <span set:html={getCategoryIcon("resources", 16)}></span> <span data-lang="es">Recursos</span> <span data-lang="en">Resources</span> <span class="count">7</span> </a> </nav> </aside> <!-- MAIN --> <main> <!-- Search inline --> <div class="search-bar-inline"> <span class="icon">🔍</span> <input id="catalog-search" type="text" placeholder="Filtrar artículos... / Filter articles..."> </div> <!-- Level filters --> <div class="level-filter"> <button class="filter-btn active" data-filter-level="all"> <span data-lang="es">Todos los niveles</span> <span data-lang="en">All levels</span> </button> <button class="filter-btn" data-filter-level="beginner">🟢 Beginner</button> <button class="filter-btn" data-filter-level="intermediate">🟡 Intermediate</button> <button class="filter-btn" data-filter-level="advanced">🔴 Advanced</button> </div> <!-- Header count --> <div class="catalog-main-header"> <div class="catalog-filters" style="margin:0;flex-wrap:wrap;gap:0.4rem;"> <span class="tag pink" id="active-cat-label" data-lang="es">Todos</span> <span class="tag pink" id="active-cat-label-en" data-lang="en">All</span> <span class="tag yellow" id="active-tag-label" style="display:none; cursor:pointer;" onclick="clearTagFilter()" title="Limpiar filtro / Clear filter">#<span id="active-tag-text"></span> &nbsp;✖</span> </div> <div class="catalog-count"><span id="visible-count">42</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </div> <!-- CARDS GRID --> <div class="articles-grid" id="articles-grid"> <a class="article-card" href="/ssjs-http" data-article-id="ssjs-http" data-category="ssjs" data-level="intermediate" data-title="ssjs http get post requests peticiones"> <div class="article-card-top"> <span class="tag pink">SSJS</span> <span class="tag">#http</span> <span class="level-badge intermediate">🟡 Intermediate</span> </div> <div class="article-card-title" data-lang="es">SSJS: Peticiones HTTP GET y POST</div> <div class="article-card-title" data-lang="en">SSJS: HTTP GET & POST Requests</div> <div class="article-card-desc" data-lang="es">Conecta SFMC con cualquier API externa usando HTTP.Get() y HTTP.Post() con manejo de errores y OAuth2.</div> <div class="article-card-desc" data-lang="en">Connect SFMC with any external API using HTTP.Get() and HTTP.Post() with error handling and OAuth2.</div> <div class="article-card-footer"> <span>⏱️ 8 min</span> <span>📅 Apr 2025</span> <span class="views hot">🔥 <span data-random-views data-min="3000" data-max="8000">4.2k</span></span> </div> </a> <a class="article-card" href="/ssjs-upsert" data-article-id="ssjs-upsert" data-category="ssjs" data-level="advanced" data-title="ssjs upsert contacts contactos rest api" data-featured="true"> <div class="article-card-top"> <span class="tag pink">SSJS</span> <span class="tag">#rest-api</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">SSJS: Upsert de Contactos via REST API</div> <div class="article-card-title" data-lang="en">SSJS: Upsert Contacts via REST API</div> <div class="article-card-desc" data-lang="es">Crea y actualiza contactos masivamente en SFMC usando la Contacts REST API y manejo de errores avanzado.</div> <div class="article-card-desc" data-lang="en">Create and update contacts in bulk in SFMC using the Contacts REST API with advanced error handling.</div> <div class="article-card-footer"> <span>⏱️ 12 min</span> <span>📅 Mar 2025</span> <span class="views hot">🔥 <span data-random-views data-min="2000" data-max="5000">3.1k</span></span> </div> </a> <a class="article-card" href="/ssjs-intro" data-article-id="ssjs-intro" data-category="ssjs" data-level="beginner" data-title="ssjs introduction introduccion basico"> <div class="article-card-top"> <span class="tag pink">SSJS</span> <span class="level-badge beginner">🟢 Beginner</span> </div> <div class="article-card-title" data-lang="es">Introducción a SSJS en SFMC</div> <div class="article-card-title" data-lang="en">Introduction to SSJS in SFMC</div> <div class="article-card-desc" data-lang="es">Qué es SSJS, cómo usarlo en Cloud Pages y Script Activities, y cuáles son sus limitaciones.</div> <div class="article-card-desc" data-lang="en">What SSJS is, how to use it in Cloud Pages and Script Activities, and what its limitations are.</div> <div class="article-card-footer"> <span>⏱️ 5 min</span> <span>📅 Jan 2025</span> <span class="views">👁️ <span data-random-views data-min="1500" data-max="4000">2.3k</span></span> </div> </a> <a class="article-card" href="/amp-lookup" data-article-id="amp-lookup" data-category="ampscript" data-level="beginner" data-title="ampscript lookuprows dynamic email dinamico" data-featured="true"> <div class="article-card-top"> <span class="tag">AMPscript</span> <span class="tag">#lookup</span> <span class="level-badge beginner">🟢 Beginner</span> </div> <div class="article-card-title" data-lang="es">AMPscript: LookupRows y datos dinámicos</div> <div class="article-card-title" data-lang="en">AMPscript: LookupRows & Dynamic Data</div> <div class="article-card-desc" data-lang="es">Extrae filas de Data Extensions en tiempo de render para personalizar emails uno a uno.</div> <div class="article-card-desc" data-lang="en">Extract Data Extension rows at render time to personalize emails one by one.</div> <div class="article-card-footer"> <span>⏱️ 6 min</span> <span>📅 Feb 2025</span> <span class="views">👁️ <span data-random-views data-min="1200" data-max="3500">1.8k</span></span> </div> </a> <a class="article-card" href="/amp-formatdate" data-article-id="amp-formatdate" data-category="ampscript" data-level="intermediate" data-title="ampscript formatdate fecha formato"> <div class="article-card-top"> <span class="tag">AMPscript</span> <span class="tag">#dates</span> <span class="level-badge intermediate">🟡 Intermediate</span> </div> <div class="article-card-title" data-lang="es">AMPscript: FormatDate y manejo de fechas</div> <div class="article-card-title" data-lang="en">AMPscript: FormatDate & Date Handling</div> <div class="article-card-desc" data-lang="es">Formatea, compara y manipula fechas en AMPscript para campañas dinámicas y contenido de cuenta regresiva.</div> <div class="article-card-desc" data-lang="en">Format, compare and manipulate dates in AMPscript for dynamic campaigns and countdown content.</div> <div class="article-card-footer"> <span>⏱️ 7 min</span> <span>📅 Feb 2025</span> <span class="views">👁️ <span data-random-views data-min="800" data-max="2000">1.1k</span></span> </div> </a> <a class="article-card" href="/amp-dynamic" data-article-id="amp-dynamic" data-category="ampscript" data-level="advanced" data-title="ampscript dynamic content blocks contenido dinamico"> <div class="article-card-top"> <span class="tag">AMPscript</span> <span class="tag pink">#personalization</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">Bloques de Contenido Dinámico con AMPscript</div> <div class="article-card-title" data-lang="en">Dynamic Content Blocks with AMPscript</div> <div class="article-card-desc" data-lang="es">Crea bloques que muestran contenido diferente según segmento, historial de compras o comportamiento.</div> <div class="article-card-desc" data-lang="en">Create blocks that show different content based on segment, purchase history or behavior.</div> <div class="article-card-footer"> <span>⏱️ 10 min</span> <span>📅 Mar 2025</span> <span class="views hot">🔥 <span data-random-views data-min="2000" data-max="4500">2.8k</span></span> </div> </a> <a class="article-card" href="/sql-dataviews" data-article-id="sql-dataviews" data-category="sql" data-level="beginner" data-title="sql data views introduccion basico"> <div class="article-card-top"> <span class="tag yellow">SQL</span> <span class="tag">#dataviews</span> <span class="level-badge beginner">🟢 Beginner</span> </div> <div class="article-card-title" data-lang="es">SQL: Introducción a Data Views de SFMC</div> <div class="article-card-title" data-lang="en">SQL: Intro to SFMC Data Views</div> <div class="article-card-desc" data-lang="es">Conoce las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.</div> <div class="article-card-desc" data-lang="en">Learn the most important Data Views (_Sent, _Open, _Click, _Bounce) and how to query them with SQL.</div> <div class="article-card-footer"> <span>⏱️ 8 min</span> <span>📅 Jan 2025</span> <span class="views">👁️ <span data-random-views data-min="1000" data-max="3000">1.7k</span></span> </div> </a> <a class="article-card" href="/sql-engagement" data-article-id="sql-engagement" data-category="sql" data-level="intermediate" data-title="sql engagement score suscriptores subscribers" data-featured="true"> <div class="article-card-top"> <span class="tag yellow">SQL</span> <span class="tag">#engagement</span> <span class="level-badge intermediate">🟡 Intermediate</span> </div> <div class="article-card-title" data-lang="es">SQL: Score de Engagement de Suscriptores</div> <div class="article-card-title" data-lang="en">SQL: Subscriber Engagement Score</div> <div class="article-card-desc" data-lang="es">Construye un score de engagement consultando _Sent, _Open y _Click en Automation Studio.</div> <div class="article-card-desc" data-lang="en">Build an engagement score by querying _Sent, _Open and _Click in Automation Studio.</div> <div class="article-card-footer"> <span>⏱️ 9 min</span> <span>📅 Feb 2025</span> <span class="views">👁️ <span data-random-views data-min="900" data-max="2500">1.3k</span></span> </div> </a> <a class="article-card" href="/auto-filedrop" data-article-id="auto-filedrop" data-category="automation" data-level="intermediate" data-title="automation studio file drop ftp import"> <div class="article-card-top"> <span class="tag green">Automation</span> <span class="tag">#filedrop</span> <span class="level-badge intermediate">🟡 Intermediate</span> </div> <div class="article-card-title" data-lang="es">Automation Studio: Patrón File Drop</div> <div class="article-card-title" data-lang="en">Automation Studio: File Drop Pattern</div> <div class="article-card-desc" data-lang="es">Configura un flujo automático que se dispara cuando un archivo llega al FTP de SFMC.</div> <div class="article-card-desc" data-lang="en">Set up an automatic flow triggered when a file arrives at the SFMC FTP.</div> <div class="article-card-footer"> <span>⏱️ 6 min</span> <span>📅 Mar 2025</span> <span class="views">👁️ <span data-random-views data-min="600" data-max="1800">980</span></span> </div> </a> <a class="article-card" href="/jb-api-entry" data-article-id="jb-api-entry" data-category="journey" data-level="advanced" data-title="journey builder api entry event external trigger"> <div class="article-card-top"> <span class="tag orange">Journey Builder</span> <span class="tag">#api-entry</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">Journey Builder: API Entry Event</div> <div class="article-card-title" data-lang="en">Journey Builder: API Entry Event</div> <div class="article-card-desc" data-lang="es">Dispara journeys en tiempo real desde sistemas externos usando la Event Definition API.</div> <div class="article-card-desc" data-lang="en">Trigger journeys in real time from external systems using the Event Definition API.</div> <div class="article-card-footer"> <span>⏱️ 11 min</span> <span>📅 Apr 2025</span> <span class="views hot">🔥 <span data-random-views data-min="1500" data-max="4000">2.1k</span></span> </div> </a> <a class="article-card" href="/cp-auth" data-article-id="cp-auth" data-category="cloudpages" data-level="advanced" data-title="cloud pages login auth token authentication"> <div class="article-card-top"> <span class="tag" style="--tag-color:#bd93f9;background:rgba(189,147,249,0.1);color:#bd93f9;border-color:rgba(189,147,249,0.2);">Cloud Pages</span> <span class="tag">#auth</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">Cloud Pages: Sistema de Login con Tokens</div> <div class="article-card-title" data-lang="en">Cloud Pages: Token-Based Login System</div> <div class="article-card-desc" data-lang="es">Implementa autenticación segura en Cloud Pages usando tokens únicos almacenados en Data Extensions.</div> <div class="article-card-desc" data-lang="en">Implement secure authentication in Cloud Pages using unique tokens stored in Data Extensions.</div> <div class="article-card-footer"> <span>⏱️ 14 min</span> <span>📅 Apr 2025</span> <span class="views hot">🔥 <span data-random-views data-min="1000" data-max="3000">1.6k</span></span> </div> </a> <a class="article-card" href="/inno-ai" data-article-id="inno-ai" data-category="innovations" data-level="advanced" data-title="ai gpt openai personalization personalización sfmc"> <div class="article-card-top"> <span class="tag green">Innovations</span> <span class="tag pink">#ai</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">Personalización con IA: GPT + AMPscript</div> <div class="article-card-title" data-lang="en">AI Personalization: GPT + AMPscript</div> <div class="article-card-desc" data-lang="es">Genera contenido de email personalizado con OpenAI GPT-4 y renderízalo con AMPscript en tus envíos.</div> <div class="article-card-desc" data-lang="en">Generate personalized email content with OpenAI GPT-4 and render it with AMPscript in your sends.</div> <div class="article-card-footer"> <span>⏱️ 15 min</span> <span>📅 Apr 2025</span> <span class="views hot">🔥 <span data-random-views data-min="2500" data-max="6000">3.8k</span></span> </div> </a> <a class="article-card" href="/ssjs-debug" data-article-id="ssjs-debug" data-category="ssjs" data-level="intermediate" data-title="ssjs logging debug troubleshooting"> <div class="article-card-top"> <span class="tag pink">SSJS</span> <span class="tag">#debugging</span> <span class="level-badge intermediate">🟡 Intermediate</span> </div> <div class="article-card-title" data-lang="es">SSJS: Logging y Debugging avanzado</div> <div class="article-card-title" data-lang="en">SSJS: Advanced Logging & Debugging</div> <div class="article-card-desc" data-lang="es">Estrategias de logging en Data Extensions y técnicas de debug para scripts en producción.</div> <div class="article-card-desc" data-lang="en">Logging strategies using Data Extensions and debug techniques for production scripts.</div> <div class="article-card-footer"> <span>⏱️ 7 min</span> <span>📅 Mar 2025</span> <span class="views">👁️ <span data-random-views data-min="700" data-max="2000">1.1k</span></span> </div> </a> <a class="article-card" href="/sql-joins" data-article-id="sql-joins" data-category="sql" data-level="advanced" data-title="sql joins data extensions query advanced"> <div class="article-card-top"> <span class="tag yellow">SQL</span> <span class="tag">#joins</span> <span class="level-badge advanced">🔴 Advanced</span> </div> <div class="article-card-title" data-lang="es">SQL: JOINs avanzados en Query Activities</div> <div class="article-card-title" data-lang="en">SQL: Advanced JOINs in Query Activities</div> <div class="article-card-desc" data-lang="es">LEFT JOIN, INNER JOIN y subconsultas para cruzar Data Extensions y Data Views en una sola query.</div> <div class="article-card-desc" data-lang="en">LEFT JOIN, INNER JOIN and subqueries to cross Data Extensions and Data Views in a single query.</div> <div class="article-card-footer"> <span>⏱️ 10 min</span> <span>📅 Mar 2025</span> <span class="views">👁️ <span data-random-views data-min="800" data-max="2200">1.2k</span></span> </div> </a> <a class="article-card" href="/resources-links" data-article-id="resources-links" data-category="resources" data-level="beginner" data-title="resources recursos links documentacion documentation"> <div class="article-card-top"> <span class="tag">🔗 Resources</span> <span class="level-badge beginner">🟢 Beginner</span> </div> <div class="article-card-title" data-lang="es">Recursos esenciales de SFMC</div> <div class="article-card-title" data-lang="en">Essential SFMC Resources</div> <div class="article-card-desc" data-lang="es">Documentación oficial, herramientas de debugging, comunidades y cursos recomendados para SFMC.</div> <div class="article-card-desc" data-lang="en">Official documentation, debugging tools, communities and recommended courses for SFMC.</div> <div class="article-card-footer"> <span>⏱️ 3 min</span> <span>📅 Jan 2025</span> <span class="views">👁️ <span data-random-views data-min="600" data-max="1800">950</span></span> </div> </a> </div><!-- /articles-grid --> <div class="no-results" id="no-results"> <span class="emoji">👾</span> <span data-lang="es">Sin resultados. Intenta otro filtro.</span> <span data-lang="en">No results. Try another filter.</span> </div> </main> </div> <script is:inline>
 
-  // ── Dynamic Category Counts ──
-  function updateCategoryCounts() {
-    const cards = document.querySelectorAll('#articles-grid .article-card');
-    const counts = { all: cards.length };
+<Layout title="Catálogo | Marketing Cloud Arcade">
+  <div class="catalog-hero">
+    <div class="catalog-hero-inner">
+      <h1 data-lang="es">📂 CATÁLOGO COMPLETO</h1>
+      <h1 data-lang="en">📂 FULL CATALOG</h1>
+      <p data-lang="es">Todos los artículos, snippets y guías de Marketing Cloud Arcade. Filtra por categoría, nivel o busca lo que necesitas.</p>
+      <p data-lang="en">All articles, snippets and guides from Marketing Cloud Arcade. Filter by category, level or search for what you need.</p>
+    </div>
+  </div>
+
+  <div class="catalog-layout">
+    <!-- SIDEBAR -->
+    <aside class="catalog-sidebar">
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-header" data-lang="es">CATEGORÍAS</div>
+        <div class="sidebar-nav-header" data-lang="en">CATEGORIES</div>
+        
+        <!-- ALL CATEGORIES -->
+        <a class="sidebar-nav-item active" href="#" data-filter="all" id="cat-btn-all" onclick="filterCat(event,'all')">
+          <span>🗂️</span>
+          <span data-lang="es">Todos</span>
+          <span data-lang="en">All</span>
+          <span class="count">{counts.all}</span>
+        </a>
+
+        <!-- SSJS Category Group -->
+        <div class="sidebar-nav-group" data-category="ssjs">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="ssjs" onclick="toggleCategoryGroup(event,'ssjs')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("ssjs", 16)}></span>
+            <span class="cat-label">SSJS</span>
+            <span class="count">{counts.ssjs}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-ssjs" style="display: none;"></ul>
+        </div>
+
+        <!-- AMPscript Category Group -->
+        <div class="sidebar-nav-group" data-category="ampscript">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="ampscript" onclick="toggleCategoryGroup(event,'ampscript')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("ampscript", 16)}></span>
+            <span class="cat-label">AMPscript</span>
+            <span class="count">{counts.ampscript}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-ampscript" style="display: none;"></ul>
+        </div>
+
+        <!-- SQL Category Group -->
+        <div class="sidebar-nav-group" data-category="sql">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="sql" onclick="toggleCategoryGroup(event,'sql')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("sql", 16)}></span>
+            <span class="cat-label">SQL</span>
+            <span class="count">{counts.sql}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-sql" style="display: none;"></ul>
+        </div>
+
+        <!-- Automation Studio Group -->
+        <div class="sidebar-nav-group" data-category="automation">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="automation" onclick="toggleCategoryGroup(event,'automation')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("automation", 16)}></span>
+            <span class="cat-label">Automation Studio</span>
+            <span class="count">{counts.automation}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-automation" style="display: none;"></ul>
+        </div>
+
+        <!-- Journey Builder Group -->
+        <div class="sidebar-nav-group" data-category="journey">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="journey" onclick="toggleCategoryGroup(event,'journey')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("journey", 16)}></span>
+            <span class="cat-label">Journey Builder</span>
+            <span class="count">{counts.journey}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-journey" style="display: none;"></ul>
+        </div>
+
+        <!-- Cloud Pages Group -->
+        <div class="sidebar-nav-group" data-category="cloudpages">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="cloudpages" onclick="toggleCategoryGroup(event,'cloudpages')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("cloudpages", 16)}></span>
+            <span class="cat-label">Cloud Pages</span>
+            <span class="count">{counts.cloudpages}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-cloudpages" style="display: none;"></ul>
+        </div>
+
+        <!-- Innovations Group -->
+        <div class="sidebar-nav-group" data-category="innovations">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="innovations" onclick="toggleCategoryGroup(event,'innovations')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("innovations", 16)}></span>
+            <span class="cat-label">
+              <span data-lang="es">Innovaciones</span>
+              <span data-lang="en">Innovations</span>
+            </span>
+            <span class="count">{counts.innovations}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-innovations" style="display: none;"></ul>
+        </div>
+
+        <!-- Resources Group -->
+        <div class="sidebar-nav-group" data-category="resources">
+          <a class="sidebar-nav-item parent-item" href="#" data-filter="resources" onclick="toggleCategoryGroup(event,'resources')">
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("resources", 16)}></span>
+            <span class="cat-label">
+              <span data-lang="es">Recursos</span>
+              <span data-lang="en">Resources</span>
+            </span>
+            <span class="count">{counts.resources}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-resources" style="display: none;"></ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main>
+      <!-- Search inline -->
+      <div class="search-bar-inline">
+        <span class="icon">🔍</span>
+        <input id="catalog-search" type="text" placeholder="Filtrar artículos... / Filter articles...">
+      </div>
+
+      <!-- Controls container: Level filter + Grid/List switcher -->
+      <div class="filter-controls-container">
+        <div class="level-filter">
+          <button class="filter-btn active" data-filter-level="all">
+            <span data-lang="es">Todos los niveles</span>
+            <span data-lang="en">All levels</span>
+          </button>
+          <button class="filter-btn" data-filter-level="beginner">🟢 Beginner</button>
+          <button class="filter-btn" data-filter-level="intermediate">🟡 Intermediate</button>
+          <button class="filter-btn" data-filter-level="advanced">🔴 Advanced</button>
+        </div>
+
+        <!-- View layout switcher -->
+        <div class="layout-toggle">
+          <button class="layout-btn active" id="layout-grid" onclick="switchLayout('grid')" title="Cuadrícula / Grid">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </button>
+          <button class="layout-btn" id="layout-list" onclick="switchLayout('list')" title="Lista / List">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Header count & tag status -->
+      <div class="catalog-main-header">
+        <div class="catalog-filters" style="margin:0;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag pink" id="active-cat-label" data-lang="es">Todos</span>
+          <span class="tag pink" id="active-cat-label-en" data-lang="en">All</span>
+          <span class="tag yellow" id="active-tag-label" style="display:none; cursor:pointer;" onclick="clearTagFilter()" title="Limpiar filtro / Clear filter">#<span id="active-tag-text"></span> &nbsp;✖</span>
+        </div>
+        <div class="catalog-count"><span id="visible-count">{counts.all}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </div>
+
+      <!-- CARDS GRID -->
+      <div class="articles-grid" id="articles-grid">
+        {ALL_CARDS.map(card => (
+          <a 
+            class="article-card" 
+            href={card.url} 
+            data-article-id={card.id} 
+            data-category={card.category} 
+            data-level={card.level} 
+            data-title={`${card.title_es} ${card.title_en} ${card.tags.join(' ')}`.toLowerCase()}
+            data-featured={card.featured ? "true" : undefined}
+          >
+            <div class="article-card-top">
+              <span class="tag pink">{card.category.toUpperCase()}</span>
+              {card.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+              <span class={`level-badge ${card.level}`}>
+                {card.level === 'beginner' && '🟢 Beginner'}
+                {card.level === 'intermediate' && '🟡 Intermediate'}
+                {card.level === 'advanced' && '🔴 Advanced'}
+              </span>
+            </div>
+            
+            <div class="article-card-title" data-lang="es">{card.title_es}</div>
+            <div class="article-card-title" data-lang="en">{card.title_en}</div>
+            
+            <div class="article-card-desc" data-lang="es">{card.desc_es}</div>
+            <div class="article-card-desc" data-lang="en">{card.desc_en}</div>
+            
+            <div class="article-card-footer">
+              <span>⏱️ {card.duration}</span>
+              <span>📅 {card.date}</span>
+              <span class={`views ${card.hot ? 'hot' : ''}`}>
+                {card.hot ? '🔥' : '👁️'}{' '}
+                <span data-random-views data-min={card.viewsMin} data-max={card.viewsMax}>
+                  {Math.round((card.viewsMin + card.viewsMax) / 200) / 10}k
+                </span>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div><!-- /articles-grid -->
+
+      <!-- PAGINATION -->
+      <div class="pagination-container" id="pagination-container" style="display: none;">
+        <button id="load-more-btn" class="pagination-btn">
+          <span class="btn-active-content" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <span class="btn-icon">📥</span>
+            <span data-lang="es">Cargar más artículos</span>
+            <span data-lang="en">Load more articles</span>
+          </span>
+          <span class="btn-loaded-content" style="display: none; align-items: center; gap: 0.5rem;">
+            <span class="btn-icon-loaded">☑</span>
+            <span data-lang="es">Todos cargados</span>
+            <span data-lang="en">All loaded</span>
+          </span>
+        </button>
+        <div class="pagination-status">
+          <span data-lang="es">Mostrando <span class="current-loaded">0</span> de <span class="total-matches">0</span> artículos</span>
+          <span data-lang="en">Showing <span class="current-loaded">0</span> of <span class="total-matches">0</span> articles</span>
+        </div>
+      </div>
+
+      <div class="no-results" id="no-results">
+        <span class="emoji">👾</span>
+        <span data-lang="es">Sin resultados. Intenta otro filtro.</span>
+        <span data-lang="en">No results. Try another filter.</span>
+      </div>
+    </main>
+  </div>
+
+  <!-- STYLES (is:global is required to style runtime elements in Astro) -->
+  <style is:global>
+    /* Chevron arrow rotation */
+    .chevron-arrow {
+      display: inline-block;
+      font-size: 0.6rem;
+      margin-right: 0.5rem;
+      transition: transform var(--transition);
+      color: var(--text-muted);
+    }
+    .sidebar-nav-group.expanded .chevron-arrow {
+      transform: rotate(90deg) !important;
+      color: var(--neon-cyan);
+    }
+
+    /* Sidebar Group Separators */
+    .sidebar-nav-group {
+      border-bottom: 1px solid var(--border-dim);
+      display: block;
+      width: 100%;
+    }
+    .sidebar-nav-group:last-child {
+      border-bottom: none;
+    }
+    .sidebar-nav-group .sidebar-nav-item {
+      border-bottom: none !important;
+    }
+
+    /* Sub-items list container */
+    .sidebar-sub-items {
+      list-style: none !important;
+      padding: 0.25rem 0 0.5rem 0 !important;
+      margin: 0 !important;
+      background: rgba(0, 0, 0, 0.15) !important;
+      border-top: 1px solid rgba(42, 42, 85, 0.2) !important;
+      width: 100%;
+    }
+
+    /* Individual sub-item link */
+    .sidebar-sub-item {
+      display: flex !important;
+      align-items: center !important;
+      padding: 0.4rem 1rem 0.4rem 2.4rem !important; /* Exactly 2.4rem indentation */
+      font-family: var(--font-mono) !important;
+      font-size: 0.72rem !important;
+      color: var(--text-secondary) !important; /* Override global <a> color */
+      transition: all var(--transition) !important;
+      border-left: 3px solid transparent !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .sidebar-sub-item .conector {
+      font-family: var(--font-mono) !important;
+      color: var(--text-muted) !important;
+      margin-right: 6px !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Level dots */
+    .sub-item-dot {
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
+      display: inline-block !important;
+      margin-right: 8px !important;
+      flex-shrink: 0 !important;
+    }
+    .sub-item-dot.dot-beginner {
+      background-color: var(--neon-green) !important;
+      box-shadow: var(--glow-green) !important;
+    }
+    .sub-item-dot.dot-intermediate {
+      background-color: var(--neon-yellow) !important;
+      box-shadow: var(--glow-yellow) !important;
+    }
+    .sub-item-dot.dot-advanced {
+      background-color: var(--neon-pink) !important;
+      box-shadow: var(--glow-pink) !important;
+    }
+
+    /* Sub-item text wrapper for ellipsis truncation */
+    .sub-item-title {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      flex: 1 !important;
+      text-align: left !important;
+      color: inherit !important;
+    }
+
+    /* Sub-item states */
+    .sidebar-sub-item:hover, .sidebar-sub-item.active {
+      color: var(--neon-cyan) !important;
+      background: rgba(0, 255, 255, 0.05) !important;
+      border-left-color: var(--neon-cyan) !important;
+      padding-left: 2.6rem !important; /* Slight responsive shift */
+    }
+    .sidebar-sub-item.active {
+      background: rgba(0, 255, 255, 0.08) !important;
+      font-weight: 600 !important;
+    }
+
+    /* Glowing Highlight Animation for selected Card */
+    @keyframes card-glow-pulse {
+      0% {
+        outline: 2px solid var(--neon-cyan);
+        box-shadow: 0 0 15px var(--neon-cyan), var(--glow-cyan);
+        transform: scale(1.02);
+      }
+      50% {
+        outline: 2px solid var(--neon-cyan);
+        box-shadow: 0 0 25px var(--neon-cyan), var(--glow-cyan);
+        transform: scale(1.025);
+      }
+      100% {
+        outline: 2px solid transparent;
+        box-shadow: none;
+        transform: scale(1);
+      }
+    }
+    .article-card.highlighted {
+      animation: card-glow-pulse 1.8s ease-out !important;
+      z-index: 10 !important;
+    }
+
+    /* Layout Switcher */
+    .filter-controls-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .filter-controls-container .level-filter {
+      margin-bottom: 0;
+    }
+    .layout-toggle {
+      display: flex;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 2px;
+    }
+    .layout-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      border-radius: calc(var(--radius) - 1px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+    .layout-btn:hover {
+      color: var(--neon-cyan);
+    }
+    .layout-btn.active {
+      background: rgba(0, 255, 255, 0.15);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.1);
+    }
+
+    /* Smooth grids */
+    .articles-grid {
+      transition: all 0.3s ease-in-out;
+    }
+    .article-card {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* List View Specific Layout Styles */
+    .articles-grid.list-view {
+      grid-template-columns: 1fr !important;
+      gap: 1rem;
+    }
     
-    cards.forEach(card => {
-      const cat = card.getAttribute('data-category');
-      if (cat) {
-        counts[cat] = (counts[cat] || 0) + 1;
+    .articles-grid.list-view .article-card {
+      display: flex;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 1.5rem !important;
+      padding: 1.25rem 1.5rem !important;
+      min-height: 100px;
+    }
+    
+    .articles-grid.list-view .article-card-top {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.4rem !important;
+      width: 150px !important;
+      flex-shrink: 0 !important;
+    }
+    
+    .articles-grid.list-view .article-card-top .level-badge {
+      margin-left: 0 !important;
+    }
+    
+    .articles-grid.list-view .article-card-title {
+      flex: 1 !important;
+      font-size: 1.05rem !important;
+      margin: 0 !important;
+    }
+    
+    .articles-grid.list-view .article-card-desc {
+      display: none !important;
+    }
+    
+    .articles-grid.list-view .article-card-footer {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      gap: 0.4rem !important;
+      border-top: none !important;
+      padding-top: 0 !important;
+      width: 120px !important;
+      flex-shrink: 0 !important;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+    
+    .articles-grid.list-view .article-card-footer .views {
+      margin-left: 0 !important;
+    }
+    
+    @media (max-width: 768px) {
+      .articles-grid.list-view .article-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+        min-height: auto !important;
       }
-    });
-
-    document.querySelectorAll('.sidebar-nav-item').forEach(item => {
-      const filter = item.getAttribute('data-filter');
-      const countSpan = item.querySelector('.count');
-      if (countSpan) {
-        countSpan.textContent = counts[filter] || 0;
+      .articles-grid.list-view .article-card-top {
+        width: 100% !important;
+        flex-direction: row !important;
+        align-items: center !important;
       }
-    });
-  }
+      .articles-grid.list-view .article-card-top .level-badge {
+        margin-left: auto !important;
+      }
+      .articles-grid.list-view .article-card-footer {
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        border-top: 1px solid var(--border-dim) !important;
+        padding-top: 0.75rem !important;
+        align-items: center !important;
+      }
+    }
 
-  // ── Sidebar category filter ──
-  function filterCat(e, cat) {
-    e.preventDefault();
-    document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-    applyCatFilter(cat);
-  }
+    /* Class-based filtering override */
+    .article-card.hidden {
+      display: none !important;
+    }
 
-  function applyCatFilter(cat) {
-    currentCat = cat;
-    applyFilters();
-    const labelES = document.getElementById('active-cat-label');
-    const labelEN = document.getElementById('active-cat-label-en');
-    const catLabels = {
-      all: {es:'Todos', en:'All'},
-      ssjs: {es:'SSJS', en:'SSJS'},
-      ampscript: {es:'AMPscript', en:'AMPscript'},
-      sql: {es:'SQL', en:'SQL'},
-      automation: {es:'Automation Studio', en:'Automation Studio'},
-      journey: {es:'Journey Builder', en:'Journey Builder'},
-      cloudpages: {es:'Cloud Pages', en:'Cloud Pages'},
-      innovations: {es:'Innovaciones', en:'Innovations'},
-      resources: {es:'Recursos', en:'Resources'},
+    /* Pagination Styles */
+    .pagination-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 3rem 0 1.5rem 0;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .pagination-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--neon-cyan);
+      border-radius: var(--radius);
+      padding: 0.75rem 1.75rem;
+      color: var(--neon-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(0, 255, 255, 0.08);
+      box-shadow: 0 0 18px rgba(0, 255, 255, 0.25), var(--glow-cyan);
+      transform: translateY(-2px);
+    }
+
+    .pagination-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .pagination-btn:disabled {
+      border-color: var(--border-strong);
+      color: var(--text-muted);
+      cursor: default;
+      box-shadow: none;
+      background: rgba(42, 42, 85, 0.1);
+    }
+
+    .pagination-btn .btn-icon-loaded {
+      color: var(--neon-green);
+      text-shadow: var(--glow-green);
+    }
+
+    .pagination-status {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+
+  <!-- SCRIPTS -->
+  <script is:inline define:vars={{ ALL_CARDS }}>
+    let currentCat = 'all';
+    let currentLevel = 'all';
+    let currentSearch = '';
+    let currentTag = 'all';
+    let currentLayout = 'grid';
+    let visibleLimit = 6;
+
+    // ── Reconstruct and render sidebar sub-items ──
+    window.renderSidebarSubItems = function(lang) {
+      // Group cards by category
+      const grouped = {};
+      ALL_CARDS.forEach(card => {
+        if (!grouped[card.category]) {
+          grouped[card.category] = [];
+        }
+        grouped[card.category].push(card);
+      });
+
+      // Populate list elements in sidebar
+      Object.keys(grouped).forEach(cat => {
+        const listEl = document.getElementById(`sub-${cat}`);
+        if (!listEl) return;
+
+        const cards = grouped[cat];
+        listEl.innerHTML = cards.map(card => {
+          const title = lang === 'es' ? card.title_es : card.title_en;
+
+          let dotClass = 'dot-beginner';
+          if (card.level === 'intermediate') dotClass = 'dot-intermediate';
+          if (card.level === 'advanced') dotClass = 'dot-advanced';
+
+          return `
+            <li>
+              <a href="#" class="sidebar-sub-item" onclick="handleSubItemClick(event, '${card.id}', '${card.category}')">
+                <span class="conector">└</span>
+                <span class="sub-item-dot ${dotClass}"></span>
+                <span class="sub-item-title" title="${title}">${title}</span>
+              </a>
+            </li>
+          `;
+        }).join('');
+      });
     };
-    if (labelES) labelES.textContent = (catLabels[cat] || catLabels.all).es;
-    if (labelEN) labelEN.textContent = (catLabels[cat] || catLabels.all).en;
-  }
 
-  let currentCat = 'all';
-  let currentLevel = 'all';
-  let currentSearch = '';
-  let currentTag = 'all';
-
-  function applyFilters() {
-    const cards = document.querySelectorAll('#articles-grid .article-card');
-    let visible = 0;
-    cards.forEach(card => {
-      const catMatch  = currentCat === 'all' || card.getAttribute('data-category') === currentCat;
-      const lvlMatch  = currentLevel === 'all' || card.getAttribute('data-level') === currentLevel;
-      const srchMatch = currentSearch === '' || card.getAttribute('data-title').includes(currentSearch.toLowerCase());
+    // ── Dynamic Category Counts ──
+    function updateCategoryCounts() {
+      const counts = { all: ALL_CARDS.length };
       
-      let tagMatch = currentTag === 'all';
-      if (!tagMatch) {
-        const topDiv = card.querySelector('.article-card-top');
-        if (topDiv) {
-          const tags = Array.from(topDiv.querySelectorAll('.tag')).map(t => t.textContent.trim().toLowerCase());
-          tagMatch = tags.includes(`#${currentTag.toLowerCase()}`);
+      ALL_CARDS.forEach(card => {
+        if (card.category) {
+          counts[card.category] = (counts[card.category] || 0) + 1;
+        }
+      });
+
+      // Update counters in sidebar items
+      document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+        const filter = item.getAttribute('data-filter');
+        const countSpan = item.querySelector('.count');
+        if (countSpan && counts[filter] !== undefined) {
+          countSpan.textContent = counts[filter];
+        }
+      });
+    }
+
+    // ── Sidebar Category Group Toggle ──
+    window.toggleCategoryGroup = function(e, cat) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      const groupEl = document.querySelector(`.sidebar-nav-group[data-category="${cat}"]`);
+      if (!groupEl) return;
+
+      const isExpanded = groupEl.classList.contains('expanded');
+
+      // Collapse all groups
+      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
+        el.classList.remove('expanded');
+        const sub = el.querySelector('.sidebar-sub-items');
+        if (sub) sub.style.display = 'none';
+      });
+
+      // Deactivate all sidebar nav active highlights
+      document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+
+      if (!isExpanded) {
+        // Expand target group
+        groupEl.classList.add('expanded');
+        const sub = groupEl.querySelector('.sidebar-sub-items');
+        if (sub) sub.style.display = 'block';
+
+        // Set active state on header
+        const header = groupEl.querySelector('.sidebar-nav-item');
+        if (header) header.classList.add('active');
+
+        // Apply filtering
+        applyCatFilter(cat);
+      } else {
+        // Collapse and restore to all
+        const allBtn = document.getElementById('cat-btn-all');
+        if (allBtn) allBtn.classList.add('active');
+        applyCatFilter('all');
+      }
+    };
+
+    // ── Sidebar Category Header Filter ──
+    window.filterCat = function(e, cat) {
+      if (e) {
+        e.preventDefault();
+      }
+
+      // Collapse all groups
+      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
+        el.classList.remove('expanded');
+        const sub = el.querySelector('.sidebar-sub-items');
+        if (sub) sub.style.display = 'none';
+      });
+
+      // Reset active states
+      document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+
+      if (cat === 'all') {
+        const allBtn = document.getElementById('cat-btn-all');
+        if (allBtn) allBtn.classList.add('active');
+      } else {
+        const header = document.querySelector(`.sidebar-nav-group[data-category="${cat}"] .sidebar-nav-item`);
+        if (header) header.classList.add('active');
+        
+        // Also expand the group when category is clicked
+        const groupEl = document.querySelector(`.sidebar-nav-group[data-category="${cat}"]`);
+        if (groupEl) {
+          groupEl.classList.add('expanded');
+          const sub = groupEl.querySelector('.sidebar-sub-items');
+          if (sub) sub.style.display = 'block';
         }
       }
 
-      const show = catMatch && lvlMatch && srchMatch && tagMatch;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    const countEl = document.getElementById('visible-count');
-    if (countEl) countEl.textContent = visible;
-    const noResults = document.getElementById('no-results');
-    if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
-  }
-
-  function clearTagFilter() {
-    currentTag = 'all';
-    const tagLabel = document.getElementById('active-tag-label');
-    if (tagLabel) tagLabel.style.display = 'none';
-    
-    const url = new URL(window.location);
-    url.searchParams.delete('tag');
-    window.history.pushState({}, '', url);
-
-    applyFilters();
-  }
-
-  // Level filter buttons
-  document.querySelectorAll('[data-filter-level]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-filter-level]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentLevel = btn.getAttribute('data-filter-level');
-      applyFilters();
-    });
-  });
-
-  // Inline search
-  const catalogSearch = document.getElementById('catalog-search');
-  if (catalogSearch) {
-    catalogSearch.addEventListener('input', () => {
-      currentSearch = catalogSearch.value.trim();
-      applyFilters();
-    });
-  }
-
-  // Check URL param on load
-  document.addEventListener('DOMContentLoaded', () => {
-    updateCategoryCounts(); // Initialize dynamic counts
-    const params = new URLSearchParams(window.location.search);
-    
-    const tag = params.get('tag');
-    if (tag) {
-      currentTag = tag;
-      const tagLabel = document.getElementById('active-tag-label');
-      const tagText = document.getElementById('active-tag-text');
-      if (tagLabel && tagText) {
-        tagText.textContent = tag;
-        tagLabel.style.display = 'inline-flex';
-      }
-    }
-
-    const cat = params.get('cat');
-    if (cat) {
-      const navItem = document.querySelector(`.sidebar-nav-item[data-filter="${cat}"]`);
-      if (navItem) {
-        document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
-        navItem.classList.add('active');
-      }
       applyCatFilter(cat);
-    } else {
-      applyFilters(); // Apply default filters on load just to be safe
-    }
-    
-    // Make tags inside the catalog clickable to filter without reloading
-    document.querySelectorAll('#articles-grid .tag').forEach(tagEl => {
-      const text = tagEl.textContent.trim();
-      if (text.startsWith('#')) {
-        tagEl.style.cursor = 'pointer';
-        tagEl.title = 'Filtrar por este tag';
-        tagEl.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const tagValue = text.substring(1);
-          
-          const url = new URL(window.location);
-          url.searchParams.set('tag', tagValue);
-          window.history.pushState({}, '', url);
-          
-          currentTag = tagValue;
-          const tagLabel = document.getElementById('active-tag-label');
-          const tagText = document.getElementById('active-tag-text');
-          if (tagLabel && tagText) {
-            tagText.textContent = tagValue;
-            tagLabel.style.display = 'inline-flex';
+    };
+
+    // ── Apply Category Filter State ──
+    window.applyCatFilter = function(cat) {
+      currentCat = cat;
+      visibleLimit = 6; // Reset pagination limit on category filter
+      applyFilters();
+      const labelES = document.getElementById('active-cat-label');
+      const labelEN = document.getElementById('active-cat-label-en');
+      const catLabels = {
+        all: { es: 'Todos', en: 'All' },
+        ssjs: { es: 'SSJS', en: 'SSJS' },
+        ampscript: { es: 'AMPscript', en: 'AMPscript' },
+        sql: { es: 'SQL', en: 'SQL' },
+        automation: { es: 'Automation Studio', en: 'Automation Studio' },
+        journey: { es: 'Journey Builder', en: 'Journey Builder' },
+        cloudpages: { es: 'Cloud Pages', en: 'Cloud Pages' },
+        innovations: { es: 'Innovaciones', en: 'Innovations' },
+        resources: { es: 'Recursos', en: 'Resources' },
+      };
+      if (labelES) labelES.textContent = (catLabels[cat] || catLabels.all).es;
+      if (labelEN) labelEN.textContent = (catLabels[cat] || catLabels.all).en;
+    };
+
+    // ── Smart Sub-Item Clicking & Highlighting ──
+    window.handleSubItemClick = function(e, cardId, category) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      // Filter grid to matching category first
+      applyCatFilter(category);
+
+      // Temporarily override limit to show all matching category articles so the clicked article card is visible
+      visibleLimit = ALL_CARDS.length;
+
+      // Keep matching group expanded and highlighted in the sidebar
+      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
+        if (el.getAttribute('data-category') === category) {
+          el.classList.add('expanded');
+          const sub = el.querySelector('.sidebar-sub-items');
+          if (sub) sub.style.display = 'block';
+          const header = el.querySelector('.sidebar-nav-item');
+          if (header) header.classList.add('active');
+        } else {
+          el.classList.remove('expanded');
+          const sub = el.querySelector('.sidebar-sub-items');
+          if (sub) sub.style.display = 'none';
+        }
+      });
+
+      // Mark the sub-item link itself as active
+      document.querySelectorAll('.sidebar-sub-item').forEach(el => el.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+
+      applyFilters();
+
+      // Scroll to specific article card & highlight
+      const cardEl = document.querySelector(`.article-card[data-article-id="${cardId}"]`);
+      if (cardEl) {
+        setTimeout(() => {
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+          // Apply temporary 1.8s cyan border + glow pulse
+          cardEl.classList.remove('highlighted');
+          void cardEl.offsetWidth; // Force DOM repaint
+          cardEl.classList.add('highlighted');
+
+          setTimeout(() => {
+            cardEl.classList.remove('highlighted');
+          }, 1800);
+        }, 80);
+      }
+    };
+
+    // ── Layout Switcher ──
+    window.switchLayout = function(mode, persist = true) {
+      currentLayout = mode;
+      if (persist) {
+        localStorage.setItem('mca-catalog-layout', mode);
+      }
+
+      const gridEl = document.getElementById('articles-grid');
+      const gridBtn = document.getElementById('layout-grid');
+      const listBtn = document.getElementById('layout-list');
+
+      if (!gridEl || !gridBtn || !listBtn) return;
+
+      if (mode === 'list') {
+        gridEl.classList.add('list-view');
+        listBtn.classList.add('active');
+        gridBtn.classList.remove('active');
+      } else {
+        gridEl.classList.remove('list-view');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+      }
+
+      // Re-apply filters to align layouts
+      applyFilters();
+    };
+
+    // ── Main Filter Applicator ──
+    function applyFilters() {
+      const cards = document.querySelectorAll('#articles-grid .article-card');
+      let matchCount = 0;
+      
+      cards.forEach(card => {
+        const catMatch = currentCat === 'all' || card.getAttribute('data-category') === currentCat;
+        const lvlMatch = currentLevel === 'all' || card.getAttribute('data-level') === currentLevel;
+        const srchMatch = currentSearch === '' || card.getAttribute('data-title').includes(currentSearch.toLowerCase());
+
+        let tagMatch = currentTag === 'all';
+        if (!tagMatch) {
+          const topDiv = card.querySelector('.article-card-top');
+          if (topDiv) {
+            const tags = Array.from(topDiv.querySelectorAll('.tag')).map(t => t.textContent.trim().toLowerCase());
+            tagMatch = tags.includes(`#${currentTag.toLowerCase()}`);
           }
+        }
+
+        const matchesFilters = catMatch && lvlMatch && srchMatch && tagMatch;
+        
+        if (matchesFilters) {
+          matchCount++;
+          if (matchCount <= visibleLimit) {
+            card.classList.remove('hidden');
+            card.style.display = '';
+          } else {
+            card.classList.add('hidden');
+            card.style.display = 'none';
+          }
+        } else {
+          card.classList.add('hidden');
+          card.style.display = 'none';
+        }
+      });
+
+      const countEl = document.getElementById('visible-count');
+      if (countEl) countEl.textContent = matchCount;
+      
+      const noResults = document.getElementById('no-results');
+      if (noResults) noResults.style.display = matchCount === 0 ? 'block' : 'none';
+
+      // Update Pagination UI
+      const paginationContainer = document.getElementById('pagination-container');
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      
+      if (paginationContainer && loadMoreBtn) {
+        if (matchCount > 6) {
+          paginationContainer.style.display = 'flex';
+          
+          const currentLoadedSpans = paginationContainer.querySelectorAll('.current-loaded');
+          const totalMatchesSpans = paginationContainer.querySelectorAll('.total-matches');
+          const activeContent = loadMoreBtn.querySelector('.btn-active-content');
+          const loadedContent = loadMoreBtn.querySelector('.btn-loaded-content');
+          
+          currentLoadedSpans.forEach(span => {
+            span.textContent = Math.min(visibleLimit, matchCount);
+          });
+          totalMatchesSpans.forEach(span => {
+            span.textContent = matchCount;
+          });
+          
+          if (visibleLimit >= matchCount) {
+            loadMoreBtn.disabled = true;
+            if (activeContent) activeContent.style.display = 'none';
+            if (loadedContent) loadedContent.style.display = 'inline-flex';
+            loadMoreBtn.classList.add('all-loaded');
+          } else {
+            loadMoreBtn.disabled = false;
+            if (activeContent) activeContent.style.display = 'inline-flex';
+            if (loadedContent) loadedContent.style.display = 'none';
+            loadMoreBtn.classList.remove('all-loaded');
+          }
+        } else {
+          paginationContainer.style.display = 'none';
+        }
+      }
+    }
+
+    // ── Clear Tag Filters ──
+    window.clearTagFilter = function() {
+      currentTag = 'all';
+      visibleLimit = 6; // Reset pagination limit
+      const tagLabel = document.getElementById('active-tag-label');
+      if (tagLabel) tagLabel.style.display = 'none';
+
+      const url = new URL(window.location);
+      url.searchParams.delete('tag');
+      window.history.pushState({}, '', url);
+
+      applyFilters();
+    };
+
+    // ── Bootstrap execution on load ──
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Restore View Layout Mode
+      const savedLayout = localStorage.getItem('mca-catalog-layout') || 'grid';
+      switchLayout(savedLayout, false);
+
+      // 2. Initialize Counts and render sub-items list
+      updateCategoryCounts();
+      const currentLang = document.documentElement.lang || 'es';
+      renderSidebarSubItems(currentLang);
+
+      // 3. Set up Language Mutation Observer to update sub-item titles when switched
+      const langObserver = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+            const newLang = document.documentElement.lang || 'es';
+            renderSidebarSubItems(newLang);
+          }
+        });
+      });
+      langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+      // 4. URL Params handling (load tag/cat filters)
+      const params = new URLSearchParams(window.location.search);
+      const tag = params.get('tag');
+      if (tag) {
+        currentTag = tag;
+        const tagLabel = document.getElementById('active-tag-label');
+        const tagText = document.getElementById('active-tag-text');
+        if (tagLabel && tagText) {
+          tagText.textContent = tag;
+          tagLabel.style.display = 'inline-flex';
+        }
+      }
+
+      const cat = params.get('cat');
+      if (cat) {
+        filterCat(null, cat);
+      } else {
+        applyFilters();
+      }
+
+      // 5. Click handler for level tags
+      document.querySelectorAll('[data-filter-level]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-level]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.getAttribute('data-filter-level');
+          visibleLimit = 6; // Reset pagination limit
           applyFilters();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // 6. Search bar input key listener
+      const catalogSearch = document.getElementById('catalog-search');
+      if (catalogSearch) {
+        catalogSearch.addEventListener('input', () => {
+          currentSearch = catalogSearch.value.trim();
+          visibleLimit = 6; // Reset pagination limit
+          applyFilters();
+        });
+      }
+
+      // 7. Clickable tags inside card trigger filters dynamically
+      document.querySelectorAll('#articles-grid .tag').forEach(tagEl => {
+        const text = tagEl.textContent.trim();
+        if (text.startsWith('#')) {
+          tagEl.style.cursor = 'pointer';
+          tagEl.title = 'Filtrar por este tag';
+          tagEl.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const tagValue = text.substring(1);
+
+            const url = new URL(window.location);
+            url.searchParams.set('tag', tagValue);
+            window.history.pushState({}, '', url);
+
+            currentTag = tagValue;
+            visibleLimit = 6; // Reset pagination limit
+            const tagLabel = document.getElementById('active-tag-label');
+            const tagText = document.getElementById('active-tag-text');
+            if (tagLabel && tagText) {
+              tagText.textContent = tagValue;
+              tagLabel.style.display = 'inline-flex';
+            }
+            applyFilters();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+      });
+
+      // 8. Click handler for load more button
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+          visibleLimit += 6;
+          applyFilters();
         });
       }
     });
-  });
-
-</script>
+  </script>
 </Layout>
