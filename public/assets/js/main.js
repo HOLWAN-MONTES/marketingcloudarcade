@@ -94,7 +94,7 @@ const LangManager = (() => {
 /* ── Search ── */
 const SearchManager = (() => {
   const categoryIcons = {
-    ssjs: '<img src="/assets/img/icons/ssjs.png" alt="SSJS" style="width:16px;height:16px;vertical-align:middle;">',
+    ssjs: '⚡',
     ampscript: '<img src="/assets/img/icons/ampscript.png" alt="AMPscript" style="width:16px;height:16px;vertical-align:middle;">',
     sql: '<img src="/assets/img/icons/sql.png" alt="SQL" style="width:16px;height:16px;vertical-align:middle;">',
     innovations: '<img src="/assets/img/icons/innovations.jpg" alt="Innovations" style="width:16px;height:16px;vertical-align:middle;">',

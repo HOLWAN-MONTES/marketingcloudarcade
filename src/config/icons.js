@@ -3,10 +3,6 @@
 // Only add entries for images that actually exist in /public/assets/img/icons/
 
 export const categoryIconConfig = {
-  ssjs: {
-    path: '/assets/img/icons/ssjs.png',
-    alt: 'SSJS'
-  },
   ampscript: {
     path: '/assets/img/icons/ampscript.png',
     alt: 'AMPscript'
@@ -23,6 +19,7 @@ export const categoryIconConfig = {
 
 // Emoji fallbacks for categories without images
 const categoryEmojis = {
+  ssjs: '⚡',
   automation: '⚙️',
   journey: '🗺️',
   cloudpages: '☁️',

@@ -1670,7 +1670,12 @@ a, a *, button, button *, [role="button"], [role="button"] *,
 input[type="submit"], input[type="button"], 
 .sidebar-nav-item, .category-card, .article-card, 
 .btn, .filter-btn, .search-result-item, .lang-btn, 
-.btn-icon, .code-copy-btn, label, summary {
+.btn-icon, .code-copy-btn, label, summary,
+a[title], a [title], button[title], button [title], [role="button"][title], [role="button"] [title],
+.sidebar-nav-item[title], .sidebar-nav-item [title],
+.sidebar-sub-item[title], .sidebar-sub-item [title],
+.btn[title], .btn [title], .filter-btn[title], .filter-btn [title],
+.article-card[title], .article-card [title] {
   cursor: url('../img/cursor/pixel-link.cur'), pointer !important;
 }
 
@@ -1678,7 +1683,7 @@ input, textarea, [data-open-search], .search-modal-input {
   cursor: url('../img/cursor/pixel-pencil-select.cur'), text !important;
 }
 
-[disabled], .disabled {
+[disabled], .disabled, [disabled] *, .disabled *, [disabled] [title], .disabled [title] {
   cursor: url('../img/cursor/pixel-no.cur'), not-allowed !important;
 }
 

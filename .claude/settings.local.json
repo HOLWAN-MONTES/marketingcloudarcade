@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cmd.exe /c \"where node\")"
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(npm run *)"
     ]
   }
 }

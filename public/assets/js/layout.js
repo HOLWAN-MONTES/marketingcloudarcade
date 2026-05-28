@@ -5,7 +5,9 @@
   const navbarHtml = `
 <nav class="navbar">
   <a class="navbar-logo" href="${basePath}index.html">
-    <div class="navbar-logo-icon">🕹️</div>
+    <div class="navbar-logo-icon">
+      <img src="${basePath}assets/img/logo-favicon/favicon.png" alt="Logo" style="width:24px;height:24px;object-fit:contain;" />
+    </div>
     <div class="navbar-logo-text">MARKETING CLOUD<span>ARCADE</span></div>
   </a>
   <div class="navbar-search">
@@ -43,7 +45,10 @@
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <div class="footer-brand-name">🕹️ MARKETING CLOUD ARCADE</div>
+      <div class="footer-brand-name" style="display:flex;align-items:center;gap:0.5rem;">
+        <img src="${basePath}assets/img/logo-favicon/favicon.png" alt="Logo" style="width:20px;height:20px;object-fit:contain;" />
+        MARKETING CLOUD ARCADE
+      </div>
       <p class="footer-brand-desc" data-lang="es">
         Base de conocimiento comunitaria para profesionales de Salesforce Marketing Cloud.
         Aprende, comparte y contribuye.
@@ -87,7 +92,10 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <a href="${basePath}index.html" style="display:flex;align-items:center;gap:0.5rem;color:var(--text-muted);font-family:var(--font-arcade);font-size:0.45rem;">🕹️ MARKETING CLOUD ARCADE</a>
+    <a href="${basePath}index.html" style="display:flex;align-items:center;gap:0.5rem;color:var(--text-muted);font-family:var(--font-arcade);font-size:0.45rem;">
+      <img src="${basePath}assets/img/logo-favicon/favicon.png" alt="Logo" style="width:14px;height:14px;object-fit:contain;" />
+      MARKETING CLOUD ARCADE
+    </a>
     <span data-lang="es">© 2025 Holwan David Montes · Hecho para la comunidad SFMC</span>
     <span data-lang="en">© 2025 Holwan David Montes · Made for the SFMC community</span>
   </div>

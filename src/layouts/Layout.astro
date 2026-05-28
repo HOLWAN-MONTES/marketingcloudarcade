@@ -13,10 +13,20 @@ const { title } = Astro.props;
 
 <script is:inline define:vars={{ iconConfig: JSON.stringify(categoryIconConfig) }}>
   window.categoryIconConfig = JSON.parse(iconConfig);
+  window.categoryEmojis = {
+    ssjs: '⚡',
+    automation: '⚙️',
+    journey: '🗺️',
+    cloudpages: '☁️',
+    resources: '🔗',
+    changelog: '📋'
+  };
   window.getCategoryIcon = function(category, size = 16) {
     const icon = window.categoryIconConfig[category];
-    if (!icon) return '';
-    return '<img src="' + icon.path + '" alt="' + icon.alt + '" style="width:' + size + 'px;height:' + size + 'px;vertical-align:middle;">';
+    if (icon) {
+      return '<img src="' + icon.path + '" alt="' + icon.alt + '" style="width:' + size + 'px;height:' + size + 'px;vertical-align:middle;">';
+    }
+    return window.categoryEmojis[category] || '🕹️';
   };
 </script>
 
