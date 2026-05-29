@@ -222,6 +222,11 @@ LinkedIn
             if (typeof LangManager !== 'undefined') {
               LangManager.apply(localStorage.getItem('mca-lang') || 'es');
             }
+
+            // Sync real view counts from Firebase for the dynamically loaded cards
+            if (typeof window.loadRealViews === 'function') {
+              window.loadRealViews();
+            }
           }
         }
 

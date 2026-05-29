@@ -22,12 +22,8 @@ export async function incrementArticleView(articleId) {
   if (!articleId) return;
   const docRef = doc(db, "views", articleId);
   try {
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      await updateDoc(docRef, { count: increment(1) });
-    } else {
-      await setDoc(docRef, { count: 1 });
-    }
+    // Single atomic write using setDoc with merge: true and increment(1)
+    await setDoc(docRef, { count: increment(1) }, { merge: true });
   } catch (e) {
     console.error("Error updating view count: ", e);
   }
@@ -107,7 +103,12 @@ export async function renderHighScores() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Expose functions globally so other scripts (like index.astro) can call them
+window.loadRealViews = loadRealViews;
+window.renderHighScores = renderHighScores;
+window.incrementArticleView = incrementArticleView;
+
+function init() {
   // Check if we are on an individual article page
   const articleHeroSpan = document.querySelector('.article-hero [data-article-id]');
   if (articleHeroSpan) {
@@ -122,4 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('high-scores-container')) {
     renderHighScores();
   }
-});
+}
+
+// Robust execution that handles DOMContentLoaded being already fired
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
