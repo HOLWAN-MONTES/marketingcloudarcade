@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /views/{articleId} {
+      // Cualquiera puede leer el número de vistas
+      allow read: if true;
+      
+      // Permitir la creación solo si el contador empieza exactamente en 1 y no hay campos adicionales
+      allow create: if request.resource.data.keys().hasOnly(['count']) 
+                    && request.resource.data.count == 1;
+                    
+      // Permitir la actualización solo si el contador se incrementa exactamente en 1
+      // y no se modifican ni agregan campos adicionales
+      allow update: if request.resource.data.keys().hasOnly(['count'])
+                    && request.resource.data.count == resource.data.count + 1;
+                    
+      // No permitir borrar los registros bajo ninguna circunstancia
+      allow delete: if false;
+    }
+  }
+}

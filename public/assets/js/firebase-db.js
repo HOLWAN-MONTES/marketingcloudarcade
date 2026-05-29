@@ -41,7 +41,25 @@ export async function loadRealViews() {
     document.querySelectorAll('[data-random-views]').forEach(el => {
       const articleId = el.closest('[data-article-id]')?.getAttribute('data-article-id');
       if (articleId && viewData[articleId] !== undefined) {
-        el.textContent = formatViews(viewData[articleId]);
+        const count = viewData[articleId];
+        el.textContent = formatViews(count);
+
+        // Automate 'hot' / popular status: if count is 10 or more, show flame emoji & hot class
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const isHot = count >= 10;
+          if (parentEl.classList.contains('views')) {
+            parentEl.classList.toggle('hot', isHot);
+          }
+          if (parentEl.childNodes.length > 0) {
+            const firstNode = parentEl.childNodes[0];
+            if (firstNode.nodeType === Node.TEXT_NODE) {
+              const text = firstNode.nodeValue || '';
+              const space = text.endsWith(' ') ? ' ' : '';
+              firstNode.nodeValue = (isHot ? '🔥' : '👁️') + space;
+            }
+          }
+        }
       } else {
         el.textContent = '0';
       }
@@ -108,17 +126,25 @@ window.loadRealViews = loadRealViews;
 window.renderHighScores = renderHighScores;
 window.incrementArticleView = incrementArticleView;
 
-function init() {
-  // Check if we are on an individual article page
+async function init() {
+  // 1. Fetch and render the current real views from the database first
+  await loadRealViews();
+
+  // 2. Increment view count in background and perform optimistic UI update
   const articleHeroSpan = document.querySelector('.article-hero [data-article-id]');
   if (articleHeroSpan) {
     const id = articleHeroSpan.getAttribute('data-article-id');
     if (id) {
       incrementArticleView(id);
+
+      // Optimistically update the count in the UI (+1)
+      const viewEl = document.querySelector(`.article-hero [data-article-id="${id}"]`);
+      if (viewEl) {
+        const currentCount = parseInt(viewEl.textContent.replace(/[^0-9]/g, '')) || 0;
+        viewEl.textContent = formatViews(currentCount + 1);
+      }
     }
   }
-
-  loadRealViews();
 
   if (document.getElementById('high-scores-container')) {
     renderHighScores();
