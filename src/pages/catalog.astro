@@ -710,13 +710,7 @@ const counts = {
                 <span>📅 {card.date}</span>
                 <span class={`views ${card.hot ? "hot" : ""}`}>
                   {card.hot ? "🔥" : "👁️"}{" "}
-                  <span
-                    data-random-views
-                    data-min={card.viewsMin}
-                    data-max={card.viewsMax}
-                  >
-                    {Math.round((card.viewsMin + card.viewsMax) / 200) / 10}k
-                  </span>
+                  <span data-random-views>-</span>
                 </span>
               </div>
             </a>
