@@ -19,7 +19,8 @@ const { title } = Astro.props;
     journey: '🗺️',
     cloudpages: '☁️',
     resources: '🔗',
-    changelog: '📋'
+    changelog: '📋',
+    'mc-next': '🔮'
   };
   window.getCategoryIcon = function(category, size = 16) {
     const icon = window.categoryIconConfig[category];
@@ -111,6 +112,7 @@ const { title } = Astro.props;
 					<button class="search-cat-btn" data-cat="journey" title="Journey Builder"><span set:html={getCategoryIcon("journey", 14)}></span><span class="search-cat-label">Journey</span></button>
 					<button class="search-cat-btn" data-cat="cloudpages" title="Cloud Pages"><span set:html={getCategoryIcon("cloudpages", 14)}></span><span class="search-cat-label">Cloud Pages</span></button>
 					<button class="search-cat-btn" data-cat="innovations" title="Innovations"><span set:html={getCategoryIcon("innovations", 14)}></span><span class="search-cat-label" data-lang="es">Innovaciones</span><span class="search-cat-label" data-lang="en">Innovations</span></button>
+					<button class="search-cat-btn" data-cat="mc-next" title="Marketing Cloud Next"><span set:html={getCategoryIcon("mc-next", 14)}></span><span class="search-cat-label">MC Next</span></button>
 				</div>
 				<div class="search-results-header" data-lang="es">ARTÍCULOS RECIENTES</div>
 				<div class="search-results-header" data-lang="en" style="display:none;">RECENT ARTICLES</div>

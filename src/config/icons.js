@@ -24,7 +24,8 @@ const categoryEmojis = {
   journey: '🗺️',
   cloudpages: '☁️',
   resources: '🔗',
-  changelog: '📋'
+  changelog: '📋',
+  'mc-next': '🔮'
 };
 
 // Helper function to generate icon HTML

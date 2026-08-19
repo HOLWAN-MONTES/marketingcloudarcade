@@ -1,7 +1,7 @@
 ---
 // src/pages/catalog.astro
-import Layout from '../layouts/Layout.astro';
-import { getCategoryIcon } from '../config/icons.js';
+import Layout from "../layouts/Layout.astro";
+import { getCategoryIcon } from "../config/icons.js";
 
 // ALL_CARDS: Single source of truth for the entire catalog
 const ALL_CARDS = [
@@ -12,14 +12,16 @@ const ALL_CARDS = [
     url: "/ssjs-http",
     title_es: "SSJS: Peticiones HTTP GET y POST",
     title_en: "SSJS: HTTP GET & POST Requests",
-    desc_es: "Conecta SFMC con cualquier API externa usando HTTP.Get() y HTTP.Post() con manejo de errores y OAuth2.",
-    desc_en: "Connect SFMC with any external API using HTTP.Get() and HTTP.Post() with error handling and OAuth2.",
+    desc_es:
+      "Conecta SFMC con cualquier API externa usando HTTP.Get() y HTTP.Post() con manejo de errores y OAuth2.",
+    desc_en:
+      "Connect SFMC with any external API using HTTP.Get() and HTTP.Post() with error handling and OAuth2.",
     duration: "8 min",
     date: "Apr 2025",
     viewsMin: 3000,
     viewsMax: 8000,
     hot: true,
-    tags: ["#http", "#rest-api"]
+    tags: ["#http", "#rest-api"],
   },
   {
     id: "ssjs-upsert",
@@ -28,15 +30,17 @@ const ALL_CARDS = [
     url: "/ssjs-upsert",
     title_es: "SSJS: Upsert de Contactos via REST API",
     title_en: "SSJS: Upsert Contacts via REST API",
-    desc_es: "Crea y actualiza contactos masivamente en SFMC usando la Contacts REST API y manejo de errores avanzado.",
-    desc_en: "Create and update contacts in bulk in SFMC using the Contacts REST API with advanced error handling.",
+    desc_es:
+      "Crea y actualiza contactos masivamente en SFMC usando la Contacts REST API y manejo de errores avanzado.",
+    desc_en:
+      "Create and update contacts in bulk in SFMC using the Contacts REST API with advanced error handling.",
     duration: "12 min",
     date: "Mar 2025",
     viewsMin: 2000,
     viewsMax: 5000,
     hot: true,
     tags: ["#rest-api", "#upsert"],
-    featured: true
+    featured: true,
   },
   {
     id: "ssjs-intro",
@@ -45,14 +49,16 @@ const ALL_CARDS = [
     url: "/ssjs-intro",
     title_es: "Introducción a SSJS en SFMC",
     title_en: "Introduction to SSJS in SFMC",
-    desc_es: "Qué es SSJS, cómo usarlo en Cloud Pages y Script Activities, y cuáles son sus limitaciones.",
-    desc_en: "What SSJS is, how to use it in Cloud Pages and Script Activities, and what its limitations are.",
+    desc_es:
+      "Qué es SSJS, cómo usarlo en Cloud Pages y Script Activities, y cuáles son sus limitaciones.",
+    desc_en:
+      "What SSJS is, how to use it in Cloud Pages and Script Activities, and what its limitations are.",
     duration: "5 min",
     date: "Jan 2025",
     viewsMin: 1500,
     viewsMax: 4000,
     hot: false,
-    tags: ["#basics"]
+    tags: ["#basics"],
   },
   {
     id: "ssjs-debug",
@@ -61,14 +67,16 @@ const ALL_CARDS = [
     url: "/ssjs-debug",
     title_es: "SSJS: Logging y Debugging avanzado",
     title_en: "SSJS: Advanced Logging & Debugging",
-    desc_es: "Estrategias de logging en Data Extensions y técnicas de debug para scripts en producción.",
-    desc_en: "Logging strategies using Data Extensions and debug techniques for production scripts.",
+    desc_es:
+      "Estrategias de logging en Data Extensions y técnicas de debug para scripts en producción.",
+    desc_en:
+      "Logging strategies using Data Extensions and debug techniques for production scripts.",
     duration: "7 min",
     date: "Mar 2025",
     viewsMin: 700,
     viewsMax: 2000,
     hot: false,
-    tags: ["#debugging"]
+    tags: ["#debugging"],
   },
   {
     id: "amp-lookup",
@@ -77,15 +85,17 @@ const ALL_CARDS = [
     url: "/amp-lookup",
     title_es: "AMPscript: LookupRows y datos dinámicos",
     title_en: "AMPscript: LookupRows & Dynamic Data",
-    desc_es: "Extrae filas de Data Extensions en tiempo de render para personalizar emails uno a uno.",
-    desc_en: "Extract Data Extension rows at render time to personalize emails one by one.",
+    desc_es:
+      "Extrae filas de Data Extensions en tiempo de render para personalizar emails uno a uno.",
+    desc_en:
+      "Extract Data Extension rows at render time to personalize emails one by one.",
     duration: "6 min",
     date: "Feb 2025",
     viewsMin: 1200,
     viewsMax: 3500,
     hot: false,
     tags: ["#lookup"],
-    featured: true
+    featured: true,
   },
   {
     id: "amp-formatdate",
@@ -94,14 +104,16 @@ const ALL_CARDS = [
     url: "/amp-formatdate",
     title_es: "AMPscript: FormatDate y manejo de fechas",
     title_en: "AMPscript: FormatDate & Date Handling",
-    desc_es: "Formatea, compara y manipula fechas en AMPscript para campañas dinámicas y contenido de cuenta regresiva.",
-    desc_en: "Format, compare and manipulate dates in AMPscript for dynamic campaigns and countdown content.",
+    desc_es:
+      "Formatea, compara y manipula fechas en AMPscript para campañas dinámicas y contenido de cuenta regresiva.",
+    desc_en:
+      "Format, compare and manipulate dates in AMPscript for dynamic campaigns and countdown content.",
     duration: "7 min",
     date: "Feb 2025",
     viewsMin: 800,
     viewsMax: 2000,
     hot: false,
-    tags: ["#dates"]
+    tags: ["#dates"],
   },
   {
     id: "amp-dynamic",
@@ -110,14 +122,16 @@ const ALL_CARDS = [
     url: "/amp-dynamic",
     title_es: "Bloques de Contenido Dinámico con AMPscript",
     title_en: "Dynamic Content Blocks with AMPscript",
-    desc_es: "Crea bloques que muestran contenido diferente según segmento, historial de compras o comportamiento.",
-    desc_en: "Create blocks that show different content based on segment, purchase history or behavior.",
+    desc_es:
+      "Crea bloques que muestran contenido diferente según segmento, historial de compras o comportamiento.",
+    desc_en:
+      "Create blocks that show different content based on segment, purchase history or behavior.",
     duration: "10 min",
     date: "Mar 2025",
     viewsMin: 2000,
     viewsMax: 4500,
     hot: true,
-    tags: ["#personalization"]
+    tags: ["#personalization"],
   },
   {
     id: "sql-dataviews",
@@ -126,14 +140,16 @@ const ALL_CARDS = [
     url: "/sql-dataviews",
     title_es: "SQL: Introducción a Data Views de SFMC",
     title_en: "SQL: Intro to SFMC Data Views",
-    desc_es: "Conece las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.",
-    desc_en: "Learn the most important Data Views (_Sent, _Open, _Click, _Bounce) and how to query them with SQL.",
+    desc_es:
+      "Conece las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.",
+    desc_en:
+      "Learn the most important Data Views (_Sent, _Open, _Click, _Bounce) and how to query them with SQL.",
     duration: "8 min",
     date: "Jan 2025",
     viewsMin: 1000,
     viewsMax: 3000,
     hot: false,
-    tags: ["#dataviews"]
+    tags: ["#dataviews"],
   },
   {
     id: "sql-engagement",
@@ -142,15 +158,17 @@ const ALL_CARDS = [
     url: "/sql-engagement",
     title_es: "SQL: Score de Engagement de Suscriptores",
     title_en: "SQL: Subscriber Engagement Score",
-    desc_es: "Construye un score de engagement consultando _Sent, _Open y _Click en Automation Studio.",
-    desc_en: "Build an engagement score by querying _Sent, _Open and _Click in Automation Studio.",
+    desc_es:
+      "Construye un score de engagement consultando _Sent, _Open y _Click en Automation Studio.",
+    desc_en:
+      "Build an engagement score by querying _Sent, _Open and _Click in Automation Studio.",
     duration: "9 min",
     date: "Feb 2025",
     viewsMin: 900,
     viewsMax: 2500,
     hot: false,
     tags: ["#engagement"],
-    featured: true
+    featured: true,
   },
   {
     id: "sql-joins",
@@ -159,14 +177,16 @@ const ALL_CARDS = [
     url: "/sql-joins",
     title_es: "SQL: JOINs avanzados en Query Activities",
     title_en: "SQL: Advanced JOINs in Query Activities",
-    desc_es: "LEFT JOIN, INNER JOIN y subconsultas para cruzar Data Extensions y Data Views en una sola query.",
-    desc_en: "LEFT JOIN, INNER JOIN and subqueries to cross Data Extensions and Data Views in a single query.",
+    desc_es:
+      "LEFT JOIN, INNER JOIN y subconsultas para cruzar Data Extensions y Data Views en una sola query.",
+    desc_en:
+      "LEFT JOIN, INNER JOIN and subqueries to cross Data Extensions and Data Views in a single query.",
     duration: "10 min",
     date: "Mar 2025",
     viewsMin: 800,
     viewsMax: 2200,
     hot: false,
-    tags: ["#joins"]
+    tags: ["#joins"],
   },
   {
     id: "auto-filedrop",
@@ -175,14 +195,16 @@ const ALL_CARDS = [
     url: "/auto-filedrop",
     title_es: "Automation Studio: Patrón File Drop",
     title_en: "Automation Studio: File Drop Pattern",
-    desc_es: "Configura un flujo automático que se dispara cuando un archivo llega al FTP de SFMC.",
-    desc_en: "Set up an automatic flow triggered when a file arrives at the SFMC FTP.",
+    desc_es:
+      "Configura un flujo automático que se dispara cuando un archivo llega al FTP de SFMC.",
+    desc_en:
+      "Set up an automatic flow triggered when a file arrives at the SFMC FTP.",
     duration: "6 min",
     date: "Mar 2025",
     viewsMin: 600,
     viewsMax: 1800,
     hot: false,
-    tags: ["#filedrop"]
+    tags: ["#filedrop"],
   },
   {
     id: "jb-api-entry",
@@ -191,14 +213,16 @@ const ALL_CARDS = [
     url: "/jb-api-entry",
     title_es: "Journey Builder: API Entry Event",
     title_en: "Journey Builder: API Entry Event",
-    desc_es: "Dispara journeys en tiempo real desde sistemas externos usando la Event Definition API.",
-    desc_en: "Trigger journeys in real time from external systems using the Event Definition API.",
+    desc_es:
+      "Dispara journeys en tiempo real desde sistemas externos usando la Event Definition API.",
+    desc_en:
+      "Trigger journeys in real time from external systems using the Event Definition API.",
     duration: "11 min",
     date: "Apr 2025",
     viewsMin: 1500,
     viewsMax: 4000,
     hot: true,
-    tags: ["#api-entry"]
+    tags: ["#api-entry"],
   },
   {
     id: "cp-auth",
@@ -207,14 +231,16 @@ const ALL_CARDS = [
     url: "/cp-auth",
     title_es: "Cloud Pages: Sistema de Login con Tokens",
     title_en: "Cloud Pages: Token-Based Login System",
-    desc_es: "Implementa autenticación segura en Cloud Pages usando tokens únicos almacenados en Data Extensions.",
-    desc_en: "Implement secure authentication in Cloud Pages using unique tokens stored in Data Extensions.",
+    desc_es:
+      "Implementa autenticación segura en Cloud Pages usando tokens únicos almacenados en Data Extensions.",
+    desc_en:
+      "Implement secure authentication in Cloud Pages using unique tokens stored in Data Extensions.",
     duration: "14 min",
     date: "Apr 2025",
     viewsMin: 1000,
     viewsMax: 3000,
     hot: true,
-    tags: ["#auth"]
+    tags: ["#auth"],
   },
   {
     id: "inno-ai",
@@ -223,14 +249,16 @@ const ALL_CARDS = [
     url: "/inno-ai",
     title_es: "Personalización con IA: GPT + AMPscript",
     title_en: "AI Personalization: GPT + AMPscript",
-    desc_es: "Genera contenido de email personalizado con OpenAI GPT-4 y renderízalo con AMPscript en tus envíos.",
-    desc_en: "Generate personalized email content with OpenAI GPT-4 and render it with AMPscript in your sends.",
+    desc_es:
+      "Genera contenido de email personalizado con OpenAI GPT-4 y renderízalo con AMPscript en tus envíos.",
+    desc_en:
+      "Generate personalized email content with OpenAI GPT-4 and render it with AMPscript in your sends.",
     duration: "15 min",
     date: "Apr 2025",
     viewsMin: 2500,
     viewsMax: 6000,
     hot: true,
-    tags: ["#ai"]
+    tags: ["#ai"],
   },
   {
     id: "resources-links",
@@ -239,28 +267,69 @@ const ALL_CARDS = [
     url: "/resources-links",
     title_es: "Recursos esenciales de SFMC",
     title_en: "Essential SFMC Resources",
-    desc_es: "Documentación oficial, herramientas de debugging, comunidades y cursos recomendados para SFMC.",
-    desc_en: "Official documentation, debugging tools, communities and recommended courses for SFMC.",
+    desc_es:
+      "Documentación oficial, herramientas de debugging, comunidades y cursos recomendados para SFMC.",
+    desc_en:
+      "Official documentation, debugging tools, communities and recommended courses for SFMC.",
     duration: "3 min",
     date: "Jan 2025",
     viewsMin: 600,
     viewsMax: 1800,
     hot: false,
-    tags: ["#basics"]
-  }
+    tags: ["#basics"],
+  },
+  {
+    id: "next-datacloud-segments",
+    category: "mc-next",
+    level: "intermediate",
+    url: "/next-datacloud-segments",
+    title_es: "Data Cloud: Segmentación en Tiempo Real y Activación",
+    title_en: "Data Cloud: Real-Time Segmentation & Activation",
+    desc_es:
+      "Unifica perfiles con Identity Resolution, crea Calculated Insights y activa segmentos sin queries SQL en Automation Studio.",
+    desc_en:
+      "Unify profiles with Identity Resolution, build Calculated Insights and activate segments without SQL in Automation Studio.",
+    duration: "10 min",
+    date: "May 2025",
+    viewsMin: 3200,
+    viewsMax: 8500,
+    hot: true,
+    tags: ["#datacloud", "#segmentation"],
+    featured: true,
+  },
+  {
+    id: "next-agentforce-campaigns",
+    category: "mc-next",
+    level: "advanced",
+    url: "/next-agentforce-campaigns",
+    title_es: "Agentforce for Marketing: Campañas Autónomas y Prompt Studio",
+    title_en: "Agentforce for Marketing: Autonomous Campaigns & Prompt Studio",
+    desc_es:
+      "Configura agentes de IA autónomos con Topics, Actions y Prompt Templates conectados en tiempo real a Data Cloud.",
+    desc_en:
+      "Build autonomous AI marketing agents with Topics, Actions and Prompt Templates grounded with live Data Cloud.",
+    duration: "12 min",
+    date: "May 2025",
+    viewsMin: 4100,
+    viewsMax: 9200,
+    hot: true,
+    tags: ["#agentforce", "#einstein"],
+    featured: true,
+  },
 ];
 
 // Pre-calculate count tags for server side rendering
 const counts = {
   all: ALL_CARDS.length,
-  ssjs: ALL_CARDS.filter(c => c.category === 'ssjs').length,
-  ampscript: ALL_CARDS.filter(c => c.category === 'ampscript').length,
-  sql: ALL_CARDS.filter(c => c.category === 'sql').length,
-  automation: ALL_CARDS.filter(c => c.category === 'automation').length,
-  journey: ALL_CARDS.filter(c => c.category === 'journey').length,
-  cloudpages: ALL_CARDS.filter(c => c.category === 'cloudpages').length,
-  innovations: ALL_CARDS.filter(c => c.category === 'innovations').length,
-  resources: ALL_CARDS.filter(c => c.category === 'resources').length,
+  ssjs: ALL_CARDS.filter((c) => c.category === "ssjs").length,
+  ampscript: ALL_CARDS.filter((c) => c.category === "ampscript").length,
+  sql: ALL_CARDS.filter((c) => c.category === "sql").length,
+  automation: ALL_CARDS.filter((c) => c.category === "automation").length,
+  journey: ALL_CARDS.filter((c) => c.category === "journey").length,
+  cloudpages: ALL_CARDS.filter((c) => c.category === "cloudpages").length,
+  innovations: ALL_CARDS.filter((c) => c.category === "innovations").length,
+  resources: ALL_CARDS.filter((c) => c.category === "resources").length,
+  "mc-next": ALL_CARDS.filter((c) => c.category === "mc-next").length,
 };
 ---
 
@@ -269,8 +338,14 @@ const counts = {
     <div class="catalog-hero-inner">
       <h1 data-lang="es">📂 CATÁLOGO COMPLETO</h1>
       <h1 data-lang="en">📂 FULL CATALOG</h1>
-      <p data-lang="es">Todos los artículos, snippets y guías de Marketing Cloud Arcade. Filtra por categoría, nivel o busca lo que necesitas.</p>
-      <p data-lang="en">All articles, snippets and guides from Marketing Cloud Arcade. Filter by category, level or search for what you need.</p>
+      <p data-lang="es">
+        Todos los artículos, snippets y guías de Marketing Cloud Arcade. Filtra
+        por categoría, nivel o busca lo que necesitas.
+      </p>
+      <p data-lang="en">
+        All articles, snippets and guides from Marketing Cloud Arcade. Filter by
+        category, level or search for what you need.
+      </p>
     </div>
   </div>
 
@@ -280,9 +355,15 @@ const counts = {
       <nav class="sidebar-nav">
         <div class="sidebar-nav-header" data-lang="es">CATEGORÍAS</div>
         <div class="sidebar-nav-header" data-lang="en">CATEGORIES</div>
-        
+
         <!-- ALL CATEGORIES -->
-        <a class="sidebar-nav-item active" href="#" data-filter="all" id="cat-btn-all" onclick="filterCat(event,'all')">
+        <a
+          class="sidebar-nav-item active"
+          href="#"
+          data-filter="all"
+          id="cat-btn-all"
+          onclick="filterCat(event,'all')"
+        >
           <span>🗂️</span>
           <span data-lang="es">Todos</span>
           <span data-lang="en">All</span>
@@ -291,96 +372,183 @@ const counts = {
 
         <!-- SSJS Category Group -->
         <div class="sidebar-nav-group" data-category="ssjs">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="ssjs" onclick="toggleCategoryGroup(event,'ssjs')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="ssjs"
+            onclick="toggleCategoryGroup(event,'ssjs')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("ssjs", 16)}></span>
+            <span set:html={getCategoryIcon("ssjs", 16)} />
             <span class="cat-label">SSJS</span>
             <span class="count">{counts.ssjs}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-ssjs" style="display: none;"></ul>
+          <ul class="sidebar-sub-items" id="sub-ssjs" style="display: none;">
+          </ul>
         </div>
 
         <!-- AMPscript Category Group -->
         <div class="sidebar-nav-group" data-category="ampscript">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="ampscript" onclick="toggleCategoryGroup(event,'ampscript')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="ampscript"
+            onclick="toggleCategoryGroup(event,'ampscript')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("ampscript", 16)}></span>
+            <span set:html={getCategoryIcon("ampscript", 16)} />
             <span class="cat-label">AMPscript</span>
             <span class="count">{counts.ampscript}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-ampscript" style="display: none;"></ul>
+          <ul
+            class="sidebar-sub-items"
+            id="sub-ampscript"
+            style="display: none;"
+          >
+          </ul>
         </div>
 
         <!-- SQL Category Group -->
         <div class="sidebar-nav-group" data-category="sql">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="sql" onclick="toggleCategoryGroup(event,'sql')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="sql"
+            onclick="toggleCategoryGroup(event,'sql')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("sql", 16)}></span>
+            <span set:html={getCategoryIcon("sql", 16)} />
             <span class="cat-label">SQL</span>
             <span class="count">{counts.sql}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-sql" style="display: none;"></ul>
+          <ul class="sidebar-sub-items" id="sub-sql" style="display: none;">
+          </ul>
         </div>
 
         <!-- Automation Studio Group -->
         <div class="sidebar-nav-group" data-category="automation">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="automation" onclick="toggleCategoryGroup(event,'automation')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="automation"
+            onclick="toggleCategoryGroup(event,'automation')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("automation", 16)}></span>
+            <span set:html={getCategoryIcon("automation", 16)} />
             <span class="cat-label">Automation Studio</span>
             <span class="count">{counts.automation}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-automation" style="display: none;"></ul>
+          <ul
+            class="sidebar-sub-items"
+            id="sub-automation"
+            style="display: none;"
+          >
+          </ul>
         </div>
 
         <!-- Journey Builder Group -->
         <div class="sidebar-nav-group" data-category="journey">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="journey" onclick="toggleCategoryGroup(event,'journey')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="journey"
+            onclick="toggleCategoryGroup(event,'journey')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("journey", 16)}></span>
+            <span set:html={getCategoryIcon("journey", 16)} />
             <span class="cat-label">Journey Builder</span>
             <span class="count">{counts.journey}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-journey" style="display: none;"></ul>
+          <ul class="sidebar-sub-items" id="sub-journey" style="display: none;">
+          </ul>
         </div>
 
         <!-- Cloud Pages Group -->
         <div class="sidebar-nav-group" data-category="cloudpages">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="cloudpages" onclick="toggleCategoryGroup(event,'cloudpages')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="cloudpages"
+            onclick="toggleCategoryGroup(event,'cloudpages')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("cloudpages", 16)}></span>
+            <span set:html={getCategoryIcon("cloudpages", 16)} />
             <span class="cat-label">Cloud Pages</span>
             <span class="count">{counts.cloudpages}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-cloudpages" style="display: none;"></ul>
+          <ul
+            class="sidebar-sub-items"
+            id="sub-cloudpages"
+            style="display: none;"
+          >
+          </ul>
         </div>
 
         <!-- Innovations Group -->
         <div class="sidebar-nav-group" data-category="innovations">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="innovations" onclick="toggleCategoryGroup(event,'innovations')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="innovations"
+            onclick="toggleCategoryGroup(event,'innovations')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("innovations", 16)}></span>
+            <span set:html={getCategoryIcon("innovations", 16)} />
             <span class="cat-label">
               <span data-lang="es">Innovaciones</span>
               <span data-lang="en">Innovations</span>
             </span>
             <span class="count">{counts.innovations}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-innovations" style="display: none;"></ul>
+          <ul
+            class="sidebar-sub-items"
+            id="sub-innovations"
+            style="display: none;"
+          >
+          </ul>
         </div>
 
         <!-- Resources Group -->
         <div class="sidebar-nav-group" data-category="resources">
-          <a class="sidebar-nav-item parent-item" href="#" data-filter="resources" onclick="toggleCategoryGroup(event,'resources')">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="resources"
+            onclick="toggleCategoryGroup(event,'resources')"
+          >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("resources", 16)}></span>
+            <span set:html={getCategoryIcon("resources", 16)} />
             <span class="cat-label">
               <span data-lang="es">Recursos</span>
               <span data-lang="en">Resources</span>
             </span>
             <span class="count">{counts.resources}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-resources" style="display: none;"></ul>
+          <ul
+            class="sidebar-sub-items"
+            id="sub-resources"
+            style="display: none;"
+          >
+          </ul>
+        </div>
+
+        <!-- MC Next Group -->
+        <div class="sidebar-nav-group" data-category="mc-next">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="mc-next"
+            onclick="toggleCategoryGroup(event,'mc-next')"
+          >
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("mc-next", 16)} />
+            <span class="cat-label">
+              <span style="color:#bd93f9;font-weight:700;">MC Next ✨</span>
+            </span>
+            <span class="count">{counts["mc-next"]}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-mc-next" style="display: none;">
+          </ul>
         </div>
       </nav>
     </aside>
@@ -390,7 +558,11 @@ const counts = {
       <!-- Search inline -->
       <div class="search-bar-inline">
         <span class="icon">🔍</span>
-        <input id="catalog-search" type="text" placeholder="Filtrar artículos... / Filter articles...">
+        <input
+          id="catalog-search"
+          type="text"
+          placeholder="Filtrar artículos... / Filter articles..."
+        />
       </div>
 
       <!-- Controls container: Level filter + Grid/List switcher -->
@@ -400,93 +572,193 @@ const counts = {
             <span data-lang="es">Todos los niveles</span>
             <span data-lang="en">All levels</span>
           </button>
-          <button class="filter-btn" data-filter-level="beginner">🟢 Beginner</button>
-          <button class="filter-btn" data-filter-level="intermediate">🟡 Intermediate</button>
-          <button class="filter-btn" data-filter-level="advanced">🔴 Advanced</button>
+          <button class="filter-btn" data-filter-level="beginner"
+            >🟢 Beginner</button
+          >
+          <button class="filter-btn" data-filter-level="intermediate"
+            >🟡 Intermediate</button
+          >
+          <button class="filter-btn" data-filter-level="advanced"
+            >🔴 Advanced</button
+          >
         </div>
 
         <!-- View layout switcher -->
         <div class="layout-toggle">
-          <button class="layout-btn active" id="layout-grid" onclick="switchLayout('grid')" title="Cuadrícula / Grid">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <button
+            class="layout-btn active"
+            id="layout-grid"
+            onclick="switchLayout('grid')"
+            title="Cuadrícula / Grid"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><rect x="3" y="3" width="7" height="7"></rect><rect
+                x="14"
+                y="3"
+                width="7"
+                height="7"></rect><rect x="14" y="14" width="7" height="7"
+              ></rect><rect x="3" y="14" width="7" height="7"></rect></svg
+            >
           </button>
-          <button class="layout-btn" id="layout-list" onclick="switchLayout('list')" title="Lista / List">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          <button
+            class="layout-btn"
+            id="layout-list"
+            onclick="switchLayout('list')"
+            title="Lista / List"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><line x1="8" y1="6" x2="21" y2="6"></line><line
+                x1="8"
+                y1="12"
+                x2="21"
+                y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line
+                x1="3"
+                y1="6"
+                x2="3.01"
+                y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"
+              ></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg
+            >
           </button>
         </div>
       </div>
 
       <!-- Header count & tag status -->
       <div class="catalog-main-header">
-        <div class="catalog-filters" style="margin:0;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag pink" id="active-cat-label" data-lang="es">Todos</span>
-          <span class="tag pink" id="active-cat-label-en" data-lang="en">All</span>
-          <span class="tag yellow" id="active-tag-label" style="display:none; cursor:pointer;" onclick="clearTagFilter()" title="Limpiar filtro / Clear filter">#<span id="active-tag-text"></span> &nbsp;✖</span>
+        <div
+          class="catalog-filters"
+          style="margin:0;flex-wrap:wrap;gap:0.4rem;"
+        >
+          <span class="tag pink" id="active-cat-label" data-lang="es"
+            >Todos</span
+          >
+          <span class="tag pink" id="active-cat-label-en" data-lang="en"
+            >All</span
+          >
+          <span
+            class="tag yellow"
+            id="active-tag-label"
+            style="display:none; cursor:pointer;"
+            onclick="clearTagFilter()"
+            title="Limpiar filtro / Clear filter"
+            >#<span id="active-tag-text"></span> &nbsp;✖</span
+          >
         </div>
-        <div class="catalog-count"><span id="visible-count">{counts.all}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="catalog-count">
+          <span id="visible-count">{counts.all}</span>
+          <span data-lang="es">artículos</span><span data-lang="en"
+            >articles</span>
+        </div>
       </div>
 
       <!-- CARDS GRID -->
       <div class="articles-grid" id="articles-grid">
-        {ALL_CARDS.map(card => (
-          <a 
-            class="article-card" 
-            href={card.url} 
-            data-article-id={card.id} 
-            data-category={card.category} 
-            data-level={card.level} 
-            data-title={`${card.title_es} ${card.title_en} ${card.tags.join(' ')}`.toLowerCase()}
-            data-featured={card.featured ? "true" : undefined}
-          >
-            <div class="article-card-top">
-              <span class="tag pink">{card.category.toUpperCase()}</span>
-              {card.tags.map(tag => (
-                <span class="tag">{tag}</span>
-              ))}
-              <span class={`level-badge ${card.level}`}>
-                {card.level === 'beginner' && '🟢 Beginner'}
-                {card.level === 'intermediate' && '🟡 Intermediate'}
-                {card.level === 'advanced' && '🔴 Advanced'}
-              </span>
-            </div>
-            
-            <div class="article-card-title" data-lang="es">{card.title_es}</div>
-            <div class="article-card-title" data-lang="en">{card.title_en}</div>
-            
-            <div class="article-card-desc" data-lang="es">{card.desc_es}</div>
-            <div class="article-card-desc" data-lang="en">{card.desc_en}</div>
-            
-            <div class="article-card-footer">
-              <span>⏱️ {card.duration}</span>
-              <span>📅 {card.date}</span>
-              <span class={`views ${card.hot ? 'hot' : ''}`}>
-                {card.hot ? '🔥' : '👁️'}{' '}
-                <span data-random-views data-min={card.viewsMin} data-max={card.viewsMax}>
-                  {Math.round((card.viewsMin + card.viewsMax) / 200) / 10}k
+        {
+          ALL_CARDS.map((card) => (
+            <a
+              class="article-card"
+              href={card.url}
+              data-article-id={card.id}
+              data-category={card.category}
+              data-level={card.level}
+              data-title={`${card.title_es} ${card.title_en} ${card.tags.join(" ")}`.toLowerCase()}
+              data-featured={card.featured ? "true" : undefined}
+            >
+              <div class="article-card-top">
+                <span class="tag pink">{card.category.toUpperCase()}</span>
+                {card.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+                <span class={`level-badge ${card.level}`}>
+                  {card.level === "beginner" && "🟢 Beginner"}
+                  {card.level === "intermediate" && "🟡 Intermediate"}
+                  {card.level === "advanced" && "🔴 Advanced"}
                 </span>
-              </span>
-            </div>
-          </a>
-        ))}
+              </div>
+
+              <div class="article-card-title" data-lang="es">
+                {card.title_es}
+              </div>
+              <div class="article-card-title" data-lang="en">
+                {card.title_en}
+              </div>
+
+              <div class="article-card-desc" data-lang="es">
+                {card.desc_es}
+              </div>
+              <div class="article-card-desc" data-lang="en">
+                {card.desc_en}
+              </div>
+
+              <div class="article-card-footer">
+                <span>⏱️ {card.duration}</span>
+                <span>📅 {card.date}</span>
+                <span class={`views ${card.hot ? "hot" : ""}`}>
+                  {card.hot ? "🔥" : "👁️"}{" "}
+                  <span
+                    data-random-views
+                    data-min={card.viewsMin}
+                    data-max={card.viewsMax}
+                  >
+                    {Math.round((card.viewsMin + card.viewsMax) / 200) / 10}k
+                  </span>
+                </span>
+              </div>
+            </a>
+          ))
+        }
       </div><!-- /articles-grid -->
 
       <!-- PAGINATION -->
-      <div class="pagination-container" id="pagination-container" style="display: none;">
+      <div
+        class="pagination-container"
+        id="pagination-container"
+        style="display: none;"
+      >
         <button id="load-more-btn" class="pagination-btn">
-          <span class="btn-active-content" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          <span
+            class="btn-active-content"
+            style="display: inline-flex; align-items: center; gap: 0.5rem;"
+          >
             <span class="btn-icon">📥</span>
             <span data-lang="es">Cargar más artículos</span>
             <span data-lang="en">Load more articles</span>
           </span>
-          <span class="btn-loaded-content" style="display: none; align-items: center; gap: 0.5rem;">
+          <span
+            class="btn-loaded-content"
+            style="display: none; align-items: center; gap: 0.5rem;"
+          >
             <span class="btn-icon-loaded">☑</span>
             <span data-lang="es">Todos cargados</span>
             <span data-lang="en">All loaded</span>
           </span>
         </button>
         <div class="pagination-status">
-          <span data-lang="es">Mostrando <span class="current-loaded">0</span> de <span class="total-matches">0</span> artículos</span>
-          <span data-lang="en">Showing <span class="current-loaded">0</span> of <span class="total-matches">0</span> articles</span>
+          <span data-lang="es"
+            >Mostrando <span class="current-loaded">0</span> de <span
+              class="total-matches">0</span
+            > artículos</span
+          >
+          <span data-lang="en"
+            >Showing <span class="current-loaded">0</span> of <span
+              class="total-matches">0</span
+            > articles</span
+          >
         </div>
       </div>
 
@@ -592,7 +864,8 @@ const counts = {
     }
 
     /* Sub-item states */
-    .sidebar-sub-item:hover, .sidebar-sub-item.active {
+    .sidebar-sub-item:hover,
+    .sidebar-sub-item.active {
       color: var(--neon-cyan) !important;
       background: rgba(0, 255, 255, 0.05) !important;
       border-left-color: var(--neon-cyan) !important;
@@ -607,12 +880,16 @@ const counts = {
     @keyframes card-glow-pulse {
       0% {
         outline: 2px solid var(--neon-cyan);
-        box-shadow: 0 0 15px var(--neon-cyan), var(--glow-cyan);
+        box-shadow:
+          0 0 15px var(--neon-cyan),
+          var(--glow-cyan);
         transform: scale(1.02);
       }
       50% {
         outline: 2px solid var(--neon-cyan);
-        box-shadow: 0 0 25px var(--neon-cyan), var(--glow-cyan);
+        box-shadow:
+          0 0 25px var(--neon-cyan),
+          var(--glow-cyan);
         transform: scale(1.025);
       }
       100% {
@@ -679,7 +956,7 @@ const counts = {
       grid-template-columns: 1fr !important;
       gap: 1rem;
     }
-    
+
     .articles-grid.list-view .article-card {
       display: flex;
       flex-direction: row !important;
@@ -689,7 +966,7 @@ const counts = {
       padding: 1.25rem 1.5rem !important;
       min-height: 100px;
     }
-    
+
     .articles-grid.list-view .article-card-top {
       display: flex !important;
       flex-direction: column !important;
@@ -698,21 +975,21 @@ const counts = {
       width: 150px !important;
       flex-shrink: 0 !important;
     }
-    
+
     .articles-grid.list-view .article-card-top .level-badge {
       margin-left: 0 !important;
     }
-    
+
     .articles-grid.list-view .article-card-title {
       flex: 1 !important;
       font-size: 1.05rem !important;
       margin: 0 !important;
     }
-    
+
     .articles-grid.list-view .article-card-desc {
       display: none !important;
     }
-    
+
     .articles-grid.list-view .article-card-footer {
       display: flex !important;
       flex-direction: column !important;
@@ -725,11 +1002,11 @@ const counts = {
       font-family: var(--font-mono);
       font-size: 0.72rem;
     }
-    
+
     .articles-grid.list-view .article-card-footer .views {
       margin-left: 0 !important;
     }
-    
+
     @media (max-width: 768px) {
       .articles-grid.list-view .article-card {
         flex-direction: column !important;
@@ -790,7 +1067,9 @@ const counts = {
 
     .pagination-btn:hover:not(:disabled) {
       background: rgba(0, 255, 255, 0.08);
-      box-shadow: 0 0 18px rgba(0, 255, 255, 0.25), var(--glow-cyan);
+      box-shadow:
+        0 0 18px rgba(0, 255, 255, 0.25),
+        var(--glow-cyan);
       transform: translateY(-2px);
     }
 
@@ -821,18 +1100,18 @@ const counts = {
 
   <!-- SCRIPTS -->
   <script is:inline define:vars={{ ALL_CARDS }}>
-    let currentCat = 'all';
-    let currentLevel = 'all';
-    let currentSearch = '';
-    let currentTag = 'all';
-    let currentLayout = 'grid';
+    let currentCat = "all";
+    let currentLevel = "all";
+    let currentSearch = "";
+    let currentTag = "all";
+    let currentLayout = "grid";
     let visibleLimit = 6;
 
     // ── Reconstruct and render sidebar sub-items ──
-    window.renderSidebarSubItems = function(lang) {
+    window.renderSidebarSubItems = function (lang) {
       // Group cards by category
       const grouped = {};
-      ALL_CARDS.forEach(card => {
+      ALL_CARDS.forEach((card) => {
         if (!grouped[card.category]) {
           grouped[card.category] = [];
         }
@@ -840,19 +1119,20 @@ const counts = {
       });
 
       // Populate list elements in sidebar
-      Object.keys(grouped).forEach(cat => {
+      Object.keys(grouped).forEach((cat) => {
         const listEl = document.getElementById(`sub-${cat}`);
         if (!listEl) return;
 
         const cards = grouped[cat];
-        listEl.innerHTML = cards.map(card => {
-          const title = lang === 'es' ? card.title_es : card.title_en;
+        listEl.innerHTML = cards
+          .map((card) => {
+            const title = lang === "es" ? card.title_es : card.title_en;
 
-          let dotClass = 'dot-beginner';
-          if (card.level === 'intermediate') dotClass = 'dot-intermediate';
-          if (card.level === 'advanced') dotClass = 'dot-advanced';
+            let dotClass = "dot-beginner";
+            if (card.level === "intermediate") dotClass = "dot-intermediate";
+            if (card.level === "advanced") dotClass = "dot-advanced";
 
-          return `
+            return `
             <li>
               <a href="#" class="sidebar-sub-item" onclick="handleSubItemClick(event, '${card.id}', '${card.category}')">
                 <span class="conector">└</span>
@@ -861,24 +1141,25 @@ const counts = {
               </a>
             </li>
           `;
-        }).join('');
+          })
+          .join("");
       });
     };
 
     // ── Dynamic Category Counts ──
     function updateCategoryCounts() {
       const counts = { all: ALL_CARDS.length };
-      
-      ALL_CARDS.forEach(card => {
+
+      ALL_CARDS.forEach((card) => {
         if (card.category) {
           counts[card.category] = (counts[card.category] || 0) + 1;
         }
       });
 
       // Update counters in sidebar items
-      document.querySelectorAll('.sidebar-nav-item').forEach(item => {
-        const filter = item.getAttribute('data-filter');
-        const countSpan = item.querySelector('.count');
+      document.querySelectorAll(".sidebar-nav-item").forEach((item) => {
+        const filter = item.getAttribute("data-filter");
+        const countSpan = item.querySelector(".count");
         if (countSpan && counts[filter] !== undefined) {
           countSpan.textContent = counts[filter];
         }
@@ -886,76 +1167,86 @@ const counts = {
     }
 
     // ── Sidebar Category Group Toggle ──
-    window.toggleCategoryGroup = function(e, cat) {
+    window.toggleCategoryGroup = function (e, cat) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
 
-      const groupEl = document.querySelector(`.sidebar-nav-group[data-category="${cat}"]`);
+      const groupEl = document.querySelector(
+        `.sidebar-nav-group[data-category="${cat}"]`,
+      );
       if (!groupEl) return;
 
-      const isExpanded = groupEl.classList.contains('expanded');
+      const isExpanded = groupEl.classList.contains("expanded");
 
       // Collapse all groups
-      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
-        el.classList.remove('expanded');
-        const sub = el.querySelector('.sidebar-sub-items');
-        if (sub) sub.style.display = 'none';
+      document.querySelectorAll(".sidebar-nav-group").forEach((el) => {
+        el.classList.remove("expanded");
+        const sub = el.querySelector(".sidebar-sub-items");
+        if (sub) sub.style.display = "none";
       });
 
       // Deactivate all sidebar nav active highlights
-      document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+      document
+        .querySelectorAll(".sidebar-nav-item")
+        .forEach((el) => el.classList.remove("active"));
 
       if (!isExpanded) {
         // Expand target group
-        groupEl.classList.add('expanded');
-        const sub = groupEl.querySelector('.sidebar-sub-items');
-        if (sub) sub.style.display = 'block';
+        groupEl.classList.add("expanded");
+        const sub = groupEl.querySelector(".sidebar-sub-items");
+        if (sub) sub.style.display = "block";
 
         // Set active state on header
-        const header = groupEl.querySelector('.sidebar-nav-item');
-        if (header) header.classList.add('active');
+        const header = groupEl.querySelector(".sidebar-nav-item");
+        if (header) header.classList.add("active");
 
         // Apply filtering
         applyCatFilter(cat);
       } else {
         // Collapse and restore to all
-        const allBtn = document.getElementById('cat-btn-all');
-        if (allBtn) allBtn.classList.add('active');
-        applyCatFilter('all');
+        const allBtn = document.getElementById("cat-btn-all");
+        if (allBtn) allBtn.classList.add("active");
+        applyCatFilter("all");
       }
     };
 
     // ── Sidebar Category Header Filter ──
-    window.filterCat = function(e, cat) {
+    window.filterCat = function (e, cat) {
       if (e) {
         e.preventDefault();
       }
 
       // Collapse all groups
-      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
-        el.classList.remove('expanded');
-        const sub = el.querySelector('.sidebar-sub-items');
-        if (sub) sub.style.display = 'none';
+      document.querySelectorAll(".sidebar-nav-group").forEach((el) => {
+        el.classList.remove("expanded");
+        const sub = el.querySelector(".sidebar-sub-items");
+        if (sub) sub.style.display = "none";
       });
 
       // Reset active states
-      document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+      document
+        .querySelectorAll(".sidebar-nav-item")
+        .forEach((el) => el.classList.remove("active"));
 
-      if (cat === 'all') {
-        const allBtn = document.getElementById('cat-btn-all');
-        if (allBtn) allBtn.classList.add('active');
+      if (cat === "all") {
+        const allBtn = document.getElementById("cat-btn-all");
+        if (allBtn) allBtn.classList.add("active");
       } else {
-        const header = document.querySelector(`.sidebar-nav-group[data-category="${cat}"] .sidebar-nav-item`);
-        if (header) header.classList.add('active');
-        
+        const header = document.querySelector(
+          `.sidebar-nav-group[data-category="${cat}"] .sidebar-nav-item`,
+        );
+        if (header) header.classList.add("active");
+
         // Also expand the group when category is clicked
-        const groupEl = document.querySelector(`.sidebar-nav-group[data-category="${cat}"]`);
+        const groupEl = document.querySelector(
+          `.sidebar-nav-group[data-category="${cat}"]`,
+        );
         if (groupEl) {
-          groupEl.classList.add('expanded');
-          const sub = groupEl.querySelector('.sidebar-sub-items');
-          if (sub) sub.style.display = 'block';
+          groupEl.classList.add("expanded");
+          const sub = groupEl.querySelector(".sidebar-sub-items");
+          if (sub) sub.style.display = "block";
         }
       }
 
@@ -963,29 +1254,30 @@ const counts = {
     };
 
     // ── Apply Category Filter State ──
-    window.applyCatFilter = function(cat) {
+    window.applyCatFilter = function (cat) {
       currentCat = cat;
       visibleLimit = 6; // Reset pagination limit on category filter
       applyFilters();
-      const labelES = document.getElementById('active-cat-label');
-      const labelEN = document.getElementById('active-cat-label-en');
+      const labelES = document.getElementById("active-cat-label");
+      const labelEN = document.getElementById("active-cat-label-en");
       const catLabels = {
-        all: { es: 'Todos', en: 'All' },
-        ssjs: { es: 'SSJS', en: 'SSJS' },
-        ampscript: { es: 'AMPscript', en: 'AMPscript' },
-        sql: { es: 'SQL', en: 'SQL' },
-        automation: { es: 'Automation Studio', en: 'Automation Studio' },
-        journey: { es: 'Journey Builder', en: 'Journey Builder' },
-        cloudpages: { es: 'Cloud Pages', en: 'Cloud Pages' },
-        innovations: { es: 'Innovaciones', en: 'Innovations' },
-        resources: { es: 'Recursos', en: 'Resources' },
+        all: { es: "Todos", en: "All" },
+        ssjs: { es: "SSJS", en: "SSJS" },
+        ampscript: { es: "AMPscript", en: "AMPscript" },
+        sql: { es: "SQL", en: "SQL" },
+        automation: { es: "Automation Studio", en: "Automation Studio" },
+        journey: { es: "Journey Builder", en: "Journey Builder" },
+        cloudpages: { es: "Cloud Pages", en: "Cloud Pages" },
+        innovations: { es: "Innovaciones", en: "Innovations" },
+        resources: { es: "Recursos", en: "Resources" },
+        "mc-next": { es: "Marketing Cloud Next", en: "Marketing Cloud Next" },
       };
       if (labelES) labelES.textContent = (catLabels[cat] || catLabels.all).es;
       if (labelEN) labelEN.textContent = (catLabels[cat] || catLabels.all).en;
     };
 
     // ── Smart Sub-Item Clicking & Highlighting ──
-    window.handleSubItemClick = function(e, cardId, category) {
+    window.handleSubItemClick = function (e, cardId, category) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -998,65 +1290,69 @@ const counts = {
       visibleLimit = ALL_CARDS.length;
 
       // Keep matching group expanded and highlighted in the sidebar
-      document.querySelectorAll('.sidebar-nav-group').forEach(el => {
-        if (el.getAttribute('data-category') === category) {
-          el.classList.add('expanded');
-          const sub = el.querySelector('.sidebar-sub-items');
-          if (sub) sub.style.display = 'block';
-          const header = el.querySelector('.sidebar-nav-item');
-          if (header) header.classList.add('active');
+      document.querySelectorAll(".sidebar-nav-group").forEach((el) => {
+        if (el.getAttribute("data-category") === category) {
+          el.classList.add("expanded");
+          const sub = el.querySelector(".sidebar-sub-items");
+          if (sub) sub.style.display = "block";
+          const header = el.querySelector(".sidebar-nav-item");
+          if (header) header.classList.add("active");
         } else {
-          el.classList.remove('expanded');
-          const sub = el.querySelector('.sidebar-sub-items');
-          if (sub) sub.style.display = 'none';
+          el.classList.remove("expanded");
+          const sub = el.querySelector(".sidebar-sub-items");
+          if (sub) sub.style.display = "none";
         }
       });
 
       // Mark the sub-item link itself as active
-      document.querySelectorAll('.sidebar-sub-item').forEach(el => el.classList.remove('active'));
-      e.currentTarget.classList.add('active');
+      document
+        .querySelectorAll(".sidebar-sub-item")
+        .forEach((el) => el.classList.remove("active"));
+      e.currentTarget.classList.add("active");
 
       applyFilters();
 
       // Scroll to specific article card & highlight
-      const cardEl = document.querySelector(`.article-card[data-article-id="${cardId}"]`);
+      const cardEl = document.querySelector(
+        `.article-card[data-article-id="${cardId}"]`,
+      );
       if (cardEl) {
         setTimeout(() => {
-          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          cardEl.scrollIntoView({ behavior: "smooth", block: "center" });
 
           // Apply temporary 1.8s cyan border + glow pulse
-          cardEl.classList.remove('highlighted');
+          cardEl.classList.remove("highlighted");
           void cardEl.offsetWidth; // Force DOM repaint
-          cardEl.classList.add('highlighted');
+          cardEl.classList.add("highlighted");
 
           setTimeout(() => {
-            cardEl.classList.remove('highlighted');
+            cardEl.classList.remove("highlighted");
           }, 1800);
         }, 80);
       }
     };
 
     // ── Layout Switcher ──
-    window.switchLayout = function(mode, persist = true) {
+    window.switchLayout = function (mode, persist = true) {
       currentLayout = mode;
       if (persist) {
-        localStorage.setItem('mca-catalog-layout', mode);
+        localStorage.setItem("mca-catalog-layout", mode);
       }
 
-      const gridEl = document.getElementById('articles-grid');
-      const gridBtn = document.getElementById('layout-grid');
-      const listBtn = document.getElementById('layout-list');
+      const gridEl = document.getElementById("articles-grid");
+      const gridBtn = document.getElementById("layout-grid");
+      const listBtn = document.getElementById("layout-list");
 
       if (!gridEl || !gridBtn || !listBtn) return;
 
-      if (mode === 'list') {
-        gridEl.classList.add('list-view');
-        listBtn.classList.add('active');
-        gridBtn.classList.remove('active');
+      if (mode === "list") {
+        gridEl.classList.add("list-view");
+        listBtn.classList.add("active");
+        gridBtn.classList.remove("active");
       } else {
-        gridEl.classList.remove('list-view');
-        gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
+        gridEl.classList.remove("list-view");
+        gridBtn.classList.add("active");
+        listBtn.classList.remove("active");
       }
 
       // Re-apply filters to align layouts
@@ -1065,133 +1361,156 @@ const counts = {
 
     // ── Main Filter Applicator ──
     function applyFilters() {
-      const cards = document.querySelectorAll('#articles-grid .article-card');
+      const cards = document.querySelectorAll("#articles-grid .article-card");
       let matchCount = 0;
-      
-      cards.forEach(card => {
-        const catMatch = currentCat === 'all' || card.getAttribute('data-category') === currentCat;
-        const lvlMatch = currentLevel === 'all' || card.getAttribute('data-level') === currentLevel;
-        const srchMatch = currentSearch === '' || card.getAttribute('data-title').includes(currentSearch.toLowerCase());
 
-        let tagMatch = currentTag === 'all';
+      cards.forEach((card) => {
+        const catMatch =
+          currentCat === "all" ||
+          card.getAttribute("data-category") === currentCat;
+        const lvlMatch =
+          currentLevel === "all" ||
+          card.getAttribute("data-level") === currentLevel;
+        const srchMatch =
+          currentSearch === "" ||
+          card.getAttribute("data-title").includes(currentSearch.toLowerCase());
+
+        let tagMatch = currentTag === "all";
         if (!tagMatch) {
-          const topDiv = card.querySelector('.article-card-top');
+          const topDiv = card.querySelector(".article-card-top");
           if (topDiv) {
-            const tags = Array.from(topDiv.querySelectorAll('.tag')).map(t => t.textContent.trim().toLowerCase());
+            const tags = Array.from(topDiv.querySelectorAll(".tag")).map((t) =>
+              t.textContent.trim().toLowerCase(),
+            );
             tagMatch = tags.includes(`#${currentTag.toLowerCase()}`);
           }
         }
 
         const matchesFilters = catMatch && lvlMatch && srchMatch && tagMatch;
-        
+
         if (matchesFilters) {
           matchCount++;
           if (matchCount <= visibleLimit) {
-            card.classList.remove('hidden');
-            card.style.display = '';
+            card.classList.remove("hidden");
+            card.style.display = "";
           } else {
-            card.classList.add('hidden');
-            card.style.display = 'none';
+            card.classList.add("hidden");
+            card.style.display = "none";
           }
         } else {
-          card.classList.add('hidden');
-          card.style.display = 'none';
+          card.classList.add("hidden");
+          card.style.display = "none";
         }
       });
 
-      const countEl = document.getElementById('visible-count');
+      const countEl = document.getElementById("visible-count");
       if (countEl) countEl.textContent = matchCount;
-      
-      const noResults = document.getElementById('no-results');
-      if (noResults) noResults.style.display = matchCount === 0 ? 'block' : 'none';
+
+      const noResults = document.getElementById("no-results");
+      if (noResults)
+        noResults.style.display = matchCount === 0 ? "block" : "none";
 
       // Update Pagination UI
-      const paginationContainer = document.getElementById('pagination-container');
-      const loadMoreBtn = document.getElementById('load-more-btn');
-      
+      const paginationContainer = document.getElementById(
+        "pagination-container",
+      );
+      const loadMoreBtn = document.getElementById("load-more-btn");
+
       if (paginationContainer && loadMoreBtn) {
         if (matchCount > 6) {
-          paginationContainer.style.display = 'flex';
-          
-          const currentLoadedSpans = paginationContainer.querySelectorAll('.current-loaded');
-          const totalMatchesSpans = paginationContainer.querySelectorAll('.total-matches');
-          const activeContent = loadMoreBtn.querySelector('.btn-active-content');
-          const loadedContent = loadMoreBtn.querySelector('.btn-loaded-content');
-          
-          currentLoadedSpans.forEach(span => {
+          paginationContainer.style.display = "flex";
+
+          const currentLoadedSpans =
+            paginationContainer.querySelectorAll(".current-loaded");
+          const totalMatchesSpans =
+            paginationContainer.querySelectorAll(".total-matches");
+          const activeContent = loadMoreBtn.querySelector(
+            ".btn-active-content",
+          );
+          const loadedContent = loadMoreBtn.querySelector(
+            ".btn-loaded-content",
+          );
+
+          currentLoadedSpans.forEach((span) => {
             span.textContent = Math.min(visibleLimit, matchCount);
           });
-          totalMatchesSpans.forEach(span => {
+          totalMatchesSpans.forEach((span) => {
             span.textContent = matchCount;
           });
-          
+
           if (visibleLimit >= matchCount) {
             loadMoreBtn.disabled = true;
-            if (activeContent) activeContent.style.display = 'none';
-            if (loadedContent) loadedContent.style.display = 'inline-flex';
-            loadMoreBtn.classList.add('all-loaded');
+            if (activeContent) activeContent.style.display = "none";
+            if (loadedContent) loadedContent.style.display = "inline-flex";
+            loadMoreBtn.classList.add("all-loaded");
           } else {
             loadMoreBtn.disabled = false;
-            if (activeContent) activeContent.style.display = 'inline-flex';
-            if (loadedContent) loadedContent.style.display = 'none';
-            loadMoreBtn.classList.remove('all-loaded');
+            if (activeContent) activeContent.style.display = "inline-flex";
+            if (loadedContent) loadedContent.style.display = "none";
+            loadMoreBtn.classList.remove("all-loaded");
           }
         } else {
-          paginationContainer.style.display = 'none';
+          paginationContainer.style.display = "none";
         }
       }
     }
 
     // ── Clear Tag Filters ──
-    window.clearTagFilter = function() {
-      currentTag = 'all';
+    window.clearTagFilter = function () {
+      currentTag = "all";
       visibleLimit = 6; // Reset pagination limit
-      const tagLabel = document.getElementById('active-tag-label');
-      if (tagLabel) tagLabel.style.display = 'none';
+      const tagLabel = document.getElementById("active-tag-label");
+      if (tagLabel) tagLabel.style.display = "none";
 
       const url = new URL(window.location);
-      url.searchParams.delete('tag');
-      window.history.pushState({}, '', url);
+      url.searchParams.delete("tag");
+      window.history.pushState({}, "", url);
 
       applyFilters();
     };
 
     // ── Bootstrap execution on load ──
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       // 1. Restore View Layout Mode
-      const savedLayout = localStorage.getItem('mca-catalog-layout') || 'grid';
+      const savedLayout = localStorage.getItem("mca-catalog-layout") || "grid";
       switchLayout(savedLayout, false);
 
       // 2. Initialize Counts and render sub-items list
       updateCategoryCounts();
-      const currentLang = document.documentElement.lang || 'es';
+      const currentLang = document.documentElement.lang || "es";
       renderSidebarSubItems(currentLang);
 
       // 3. Set up Language Mutation Observer to update sub-item titles when switched
-      const langObserver = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
-            const newLang = document.documentElement.lang || 'es';
+      const langObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "lang"
+          ) {
+            const newLang = document.documentElement.lang || "es";
             renderSidebarSubItems(newLang);
           }
         });
       });
-      langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+      langObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["lang"],
+      });
 
       // 4. URL Params handling (load tag/cat filters)
       const params = new URLSearchParams(window.location.search);
-      const tag = params.get('tag');
+      const tag = params.get("tag");
       if (tag) {
         currentTag = tag;
-        const tagLabel = document.getElementById('active-tag-label');
-        const tagText = document.getElementById('active-tag-text');
+        const tagLabel = document.getElementById("active-tag-label");
+        const tagText = document.getElementById("active-tag-text");
         if (tagLabel && tagText) {
           tagText.textContent = tag;
-          tagLabel.style.display = 'inline-flex';
+          tagLabel.style.display = "inline-flex";
         }
       }
 
-      const cat = params.get('cat');
+      const cat = params.get("cat");
       if (cat) {
         filterCat(null, cat);
       } else {
@@ -1199,20 +1518,22 @@ const counts = {
       }
 
       // 5. Click handler for level tags
-      document.querySelectorAll('[data-filter-level]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('[data-filter-level]').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentLevel = btn.getAttribute('data-filter-level');
+      document.querySelectorAll("[data-filter-level]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-filter-level]")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentLevel = btn.getAttribute("data-filter-level");
           visibleLimit = 6; // Reset pagination limit
           applyFilters();
         });
       });
 
       // 6. Search bar input key listener
-      const catalogSearch = document.getElementById('catalog-search');
+      const catalogSearch = document.getElementById("catalog-search");
       if (catalogSearch) {
-        catalogSearch.addEventListener('input', () => {
+        catalogSearch.addEventListener("input", () => {
           currentSearch = catalogSearch.value.trim();
           visibleLimit = 6; // Reset pagination limit
           applyFilters();
@@ -1220,38 +1541,38 @@ const counts = {
       }
 
       // 7. Clickable tags inside card trigger filters dynamically
-      document.querySelectorAll('#articles-grid .tag').forEach(tagEl => {
+      document.querySelectorAll("#articles-grid .tag").forEach((tagEl) => {
         const text = tagEl.textContent.trim();
-        if (text.startsWith('#')) {
-          tagEl.style.cursor = 'pointer';
-          tagEl.title = 'Filtrar por este tag';
-          tagEl.addEventListener('click', (e) => {
+        if (text.startsWith("#")) {
+          tagEl.style.cursor = "pointer";
+          tagEl.title = "Filtrar por este tag";
+          tagEl.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             const tagValue = text.substring(1);
 
             const url = new URL(window.location);
-            url.searchParams.set('tag', tagValue);
-            window.history.pushState({}, '', url);
+            url.searchParams.set("tag", tagValue);
+            window.history.pushState({}, "", url);
 
             currentTag = tagValue;
             visibleLimit = 6; // Reset pagination limit
-            const tagLabel = document.getElementById('active-tag-label');
-            const tagText = document.getElementById('active-tag-text');
+            const tagLabel = document.getElementById("active-tag-label");
+            const tagText = document.getElementById("active-tag-text");
             if (tagLabel && tagText) {
               tagText.textContent = tagValue;
-              tagLabel.style.display = 'inline-flex';
+              tagLabel.style.display = "inline-flex";
             }
             applyFilters();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: "smooth" });
           });
         }
       });
 
       // 8. Click handler for load more button
-      const loadMoreBtn = document.getElementById('load-more-btn');
+      const loadMoreBtn = document.getElementById("load-more-btn");
       if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', () => {
+        loadMoreBtn.addEventListener("click", () => {
           visibleLimit += 6;
           applyFilters();
         });

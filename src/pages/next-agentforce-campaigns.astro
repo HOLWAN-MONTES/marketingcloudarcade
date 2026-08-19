@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Agentforce for Marketing: Creación de Campañas Autónomas | Marketing Cloud Arcade">
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-breadcrumb">
+      <a href="/" data-lang="es">Inicio</a>
+      <a href="/" data-lang="en">Home</a>
+      <span class="sep">/</span>
+      <a href="/catalog?cat=mc-next">MC Next</a>
+      <span class="sep">/</span>
+      <span data-lang="es">Agentforce</span>
+      <span data-lang="en">Agentforce</span>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <span class="tag" style="background:rgba(189,147,249,0.2);border:1px solid #bd93f9;color:#bd93f9;">🔮 MC NEXT</span>
+      <span class="tag">#agentforce</span>
+      <span class="tag">#einstein</span>
+      <span class="level-badge advanced">🔴 Advanced</span>
+    </div>
+
+    <h1 data-lang="es">Agentforce for Marketing: Campañas Autónomas y Prompt Studio</h1>
+    <h1 data-lang="en">Agentforce for Marketing: Autonomous Campaigns & Prompt Studio</h1>
+
+    <div class="article-meta">
+      <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: May 2025</span>
+      <span class="article-meta-item">⏱️ 12 min read</span>
+      <span class="article-meta-item">👁️ <span data-random-views data-article-id="next-agentforce-campaigns">0</span> views</span>
+    </div>
+  </div>
+</div>
+
+<div class="article-layout">
+  <article class="article-content" is:raw>
+
+    <!-- SPANISH CONTENT -->
+    <div data-lang="es">
+      <p><strong>Agentforce</strong> lleva la automatización en Marketing Cloud de reglas estáticas hacia <em>agentes de IA autónomos</em> capaces de analizar el brief de una campaña, seleccionar segmentos en Data Cloud, generar el copy multicanal y ejecutar flujos de optimización continua.</p>
+
+      <div class="callout">
+        <div class="callout-label">🤖 AGENTFORCE ENGINE</div>
+        A diferencia de los copilots tradicionales, Agentforce razona y actúa ejecutando acciones parametrizadas (Topics & Actions) integradas con el Atlas Reasoning Engine de Salesforce y la capa de confianza Einstein Trust Layer.
+      </div>
+
+      <h2 id="prompt-studio">01 · CONFIGURACIÓN DE PROMPT TEMPLATES</h2>
+      <p>En Prompt Studio conectamos los datos del cliente desde Data Cloud directamente en el prompt grounding:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">Prompt Studio · Template</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">/* Einstein Prompt Template: Email Personalizado de Re-engagement */</span>
+Eres un asistente de marketing experto en retail de lujo.
+Genera un email breve, empático y persuasivo para el cliente {!$UnifiedIndividual.ssot__FirstName__c}.
+
+Contexto del cliente (Data Cloud Grounding):
+- Nivel de Lealtad: {!$UnifiedIndividual.LoyaltyTier__c}
+- Última Categoría Comprada: {!$CalculatedInsight.TopPurchasedCategory__c}
+- Carrito abandonado valor: {!$DataGraph.CurrentCart.TotalAmount__c}
+
+Tono: Elegante, personal y directo con un Call To Action personalizado.</pre>
+      </div>
+
+      <h2 id="topics-actions">02 · TOPICS Y ACTIONS EN AGENTFORCE</h2>
+      <p>Los agentes se configuran mediante <strong>Topics</strong> (temas como <em>Campañas de Reactivación</em> o <em>Calificación de Leads</em>) que contienen <strong>Actions</strong> (invocar un Flow de Salesforce, crear una audiencia en Data Cloud o enviar un mensaje vía Flow Builder).</p>
+    </div>
+
+    <!-- ENGLISH CONTENT -->
+    <div data-lang="en">
+      <p><strong>Agentforce</strong> evolves Marketing Cloud automation from rigid rule-based journeys to <em>autonomous AI agents</em> capable of analyzing campaign briefs, building audiences in Data Cloud, drafting personalized multichannel copy, and self-optimizing performance.</p>
+
+      <div class="callout">
+        <div class="callout-label">🤖 AGENTFORCE ENGINE</div>
+        Unlike traditional assistant copilots, Agentforce reasons and executes parameterized actions (Topics & Actions) connected through Salesforce Atlas Reasoning Engine and the Einstein Trust Layer.
+      </div>
+
+      <h2 id="prompt-studio-en">01 · PROMPT TEMPLATE CONFIGURATION</h2>
+      <p>In Prompt Studio, we ground prompts directly with real-time customer data from Data Cloud:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">Prompt Studio · Template</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">/* Einstein Prompt Template: Re-engagement Personalized Email */</span>
+You are an expert luxury retail copywriter.
+Generate a concise, warm and persuasive email for customer {!$UnifiedIndividual.ssot__FirstName__c}.
+
+Customer Context (Data Cloud Grounding):
+- Loyalty Tier: {!$UnifiedIndividual.LoyaltyTier__c}
+- Top Category: {!$CalculatedInsight.TopPurchasedCategory__c}
+- Abandoned Cart Value: {!$DataGraph.CurrentCart.TotalAmount__c}
+
+Tone: Sophisticated, personal, and concise with a custom Call To Action.</pre>
+      </div>
+
+      <h2 id="topics-actions-en">02 · TOPICS & ACTIONS ARCHITECTURE</h2>
+      <p>Agents are built using <strong>Topics</strong> (e.g. <em>Re-engagement Campaigns</em> or <em>Lead Qualification</em>) which trigger <strong>Actions</strong> (running Salesforce Flows, creating Data Cloud segments, or dispatching messages via Flow Builder).</p>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#prompt-studio" data-lang="es">01 · Prompt Templates</a><a href="#prompt-studio-en" data-lang="en">01 · Prompt Templates</a></li>
+        <li><a href="#topics-actions" data-lang="es">02 · Topics & Actions</a><a href="#topics-actions-en" data-lang="en">02 · Topics & Actions</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <span class="tag purple">#agentforce</span>
+        <span class="tag purple">#einstein</span>
+        <span class="tag purple">#prompt-studio</span>
+        <span class="tag green">#ai</span>
+        <span class="tag">#autonomous-agents</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
+        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🔮 Data Cloud: Segmentación en Tiempo Real</a>
+        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🔮 Data Cloud: Real-Time Segmentation</a>
+        <a href="/inno-ai" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🤖 Personalización con IA: GPT + AMPscript</a>
+        <a href="/inno-ai" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🤖 AI Personalization: GPT + AMPscript</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗺️ Journey Builder: API Entry Event</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗺️ Journey Builder: API Entry Event</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="border-color:rgba(0,255,255,0.2);background:rgba(0,255,255,0.03);">
+      <div class="sidebar-card-title">🐙 GITHUB</div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="es">¿Ves un error o tienes algo que agregar? Abre un PR.</p>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="en">See an error or have something to add? Open a PR.</p>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="es">Editar en GitHub</a>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="en">Edit on GitHub</a>
+    </div>
+  </aside>
+</div>
+</Layout>

@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Data Cloud for Marketing: Segmentación en Tiempo Real | Marketing Cloud Arcade">
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-breadcrumb">
+      <a href="/" data-lang="es">Inicio</a>
+      <a href="/" data-lang="en">Home</a>
+      <span class="sep">/</span>
+      <a href="/catalog?cat=mc-next">MC Next</a>
+      <span class="sep">/</span>
+      <span data-lang="es">Data Cloud</span>
+      <span data-lang="en">Data Cloud</span>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <span class="tag" style="background:rgba(189,147,249,0.2);border:1px solid #bd93f9;color:#bd93f9;">🔮 MC NEXT</span>
+      <span class="tag">#datacloud</span>
+      <span class="tag">#segmentation</span>
+      <span class="level-badge intermediate">🟡 Intermediate</span>
+    </div>
+
+    <h1 data-lang="es">Data Cloud for Marketing: Segmentación en Tiempo Real y Activación</h1>
+    <h1 data-lang="en">Data Cloud for Marketing: Real-Time Segmentation & Activation</h1>
+
+    <div class="article-meta">
+      <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: May 2025</span>
+      <span class="article-meta-item">⏱️ 10 min read</span>
+      <span class="article-meta-item">👁️ <span data-random-views data-article-id="next-datacloud-segments">0</span> views</span>
+    </div>
+  </div>
+</div>
+
+<div class="article-layout">
+  <article class="article-content" is:raw>
+
+    <!-- SPANISH CONTENT -->
+    <div data-lang="es">
+      <p><strong>Marketing Cloud Next</strong> cambia radicalmente el paradigma de datos: en lugar de duplicar tablas en Data Extensions tradicionales, se apoya en <strong>Data Cloud</strong> como motor unificado de identidad, streaming data y segmentación multidimensional en tiempo real.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 CONCEPTO CLAVE · MC NEXT</div>
+        Data Cloud unifica perfiles (Unified Individual) con Identity Resolution rules. Las audiencias creadas aquí se activan de forma instantánea hacia Journey Builder, Marketing Cloud Growth o canales publicitarios sin necesidad de Query Activities complejas en Automation Studio.
+      </div>
+
+      <h2 id="arquitectura">01 · ARQUITECTURA DE DATOS: DMO vs DATA EXTENSION</h2>
+      <p>En MC Next trabajamos con <strong>Data Model Objects (DMOs)</strong> estándar como <code>UnifiedIndividual__dlm</code>, <code>SalesOrder__dlm</code> o <code>WebEngagement__dlm</code>.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">Data Cloud · Calculated Insight SQL</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">/* Calculated Insight: CLV y RFM en Data Cloud */</span>
+<span class="kw">SELECT</span>
+  <span class="vr">ssot__Individual__dlm.ssot__Id__c</span> <span class="kw">AS</span> <span class="vr">CustomerId__c</span>,
+  <span class="fn">SUM</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__GrandTotalAmount__c</span>) <span class="kw">AS</span> <span class="vr">LifetimeSpend__c</span>,
+  <span class="fn">MAX</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__PurchaseOrderDate__c</span>) <span class="kw">AS</span> <span class="vr">LastPurchaseDate__c</span>,
+  <span class="fn">COUNT</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__Id__c</span>) <span class="kw">AS</span> <span class="vr">OrderCount__c</span>
+<span class="kw">FROM</span> <span class="vr">ssot__Individual__dlm</span>
+<span class="kw">JOIN</span> <span class="vr">ssot__SalesOrder__dlm</span> 
+  <span class="kw">ON</span> <span class="vr">ssot__Individual__dlm.ssot__Id__c</span> = <span class="vr">ssot__SalesOrder__dlm.ssot__SoldToCustomerId__c</span>
+<span class="kw">GROUP BY</span> <span class="vr">ssot__Individual__dlm.ssot__Id__c</span></pre>
+      </div>
+
+      <h2 id="activacion">02 · ACTIVACIÓN DIRECTA A ENGAGEMENT & GROWTH</h2>
+      <p>Al crear un <strong>Segment Target</strong> en Data Cloud, puedes activar atributos directos y métricas calculadas (Calculated Insights) hacia <strong>Marketing Cloud Engagement</strong> como Data Extensions sincronizadas o disparar flujos basados en eventos de streaming (Data Cloud Triggered Flows).</p>
+
+      <div class="callout">
+        <div class="callout-label">⚡ PRO TIP</div>
+        Utiliza <strong>Data Graphs</strong> en Data Cloud para empaquetar perfiles con todos sus datos relacionados (pedidos, carritos, preferencias) en un único objeto optimizado para personalización ultrarrápida.
+      </div>
+    </div>
+
+    <!-- ENGLISH CONTENT -->
+    <div data-lang="en">
+      <p><strong>Marketing Cloud Next</strong> fundamentally evolves the data architecture: rather than syncing and duplicating tables into traditional Data Extensions, it leverages <strong>Data Cloud</strong> as the real-time unified identity and multidimensional segmentation engine.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 KEY CONCEPT · MC NEXT</div>
+        Data Cloud creates a Unified Individual through Identity Resolution. Audiences created here activate instantly to Journey Builder, Marketing Cloud Growth, or Ad networks without complex SQL Query Activities in Automation Studio.
+      </div>
+
+      <h2 id="architecture-en">01 · DATA ARCHITECTURE: DMO vs DATA EXTENSION</h2>
+      <p>In MC Next we work with standard <strong>Data Model Objects (DMOs)</strong> such as <code>UnifiedIndividual__dlm</code>, <code>SalesOrder__dlm</code>, and <code>WebEngagement__dlm</code>.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">Data Cloud · Calculated Insight SQL</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">/* Calculated Insight: CLV & RFM in Data Cloud */</span>
+<span class="kw">SELECT</span>
+  <span class="vr">ssot__Individual__dlm.ssot__Id__c</span> <span class="kw">AS</span> <span class="vr">CustomerId__c</span>,
+  <span class="fn">SUM</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__GrandTotalAmount__c</span>) <span class="kw">AS</span> <span class="vr">LifetimeSpend__c</span>,
+  <span class="fn">MAX</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__PurchaseOrderDate__c</span>) <span class="kw">AS</span> <span class="vr">LastPurchaseDate__c</span>,
+  <span class="fn">COUNT</span>(<span class="vr">ssot__SalesOrder__dlm.ssot__Id__c</span>) <span class="kw">AS</span> <span class="vr">OrderCount__c</span>
+<span class="kw">FROM</span> <span class="vr">ssot__Individual__dlm</span>
+<span class="kw">JOIN</span> <span class="vr">ssot__SalesOrder__dlm</span> 
+  <span class="kw">ON</span> <span class="vr">ssot__Individual__dlm.ssot__Id__c</span> = <span class="vr">ssot__SalesOrder__dlm.ssot__SoldToCustomerId__c</span>
+<span class="kw">GROUP BY</span> <span class="vr">ssot__Individual__dlm.ssot__Id__c</span></pre>
+      </div>
+
+      <h2 id="activation-en">02 · DIRECT ACTIVATION TO ENGAGEMENT & GROWTH</h2>
+      <p>When creating a <strong>Segment Target</strong> in Data Cloud, you can activate direct attributes and Calculated Insights metrics directly into <strong>Marketing Cloud Engagement</strong> as auto-refreshed Data Extensions or fire Data Cloud Triggered Flows.</p>
+
+      <div class="callout">
+        <div class="callout-label">⚡ PRO TIP</div>
+        Use <strong>Data Graphs</strong> in Data Cloud to bundle customer profiles with all related objects (orders, carts, preferences) into a single payload optimized for sub-second personalization.
+      </div>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#arquitectura" data-lang="es">01 · Arquitectura DMO</a><a href="#architecture-en" data-lang="en">01 · DMO Architecture</a></li>
+        <li><a href="#activacion" data-lang="es">02 · Activación de Audiencias</a><a href="#activation-en" data-lang="en">02 · Audience Activation</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <span class="tag purple">#datacloud</span>
+        <span class="tag purple">#segmentation</span>
+        <span class="tag purple">#dmo</span>
+        <span class="tag">#identity-resolution</span>
+        <span class="tag yellow">#calculated-insights</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
+        <a href="/next-agentforce-campaigns" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🔮 Agentforce: Campañas Autónomas y Prompt Studio</a>
+        <a href="/next-agentforce-campaigns" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🔮 Agentforce: Autonomous Campaigns & Prompt Studio</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗺️ Journey Builder: API Entry Event</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗺️ Journey Builder: API Entry Event</a>
+        <a href="/inno-ai" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🤖 Personalización con IA: GPT + AMPscript</a>
+        <a href="/inno-ai" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🤖 AI Personalization: GPT + AMPscript</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="border-color:rgba(0,255,255,0.2);background:rgba(0,255,255,0.03);">
+      <div class="sidebar-card-title">🐙 GITHUB</div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="es">¿Ves un error o tienes algo que agregar? Abre un PR.</p>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:0.5rem 0 1rem;" data-lang="en">See an error or have something to add? Open a PR.</p>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="es">Editar en GitHub</a>
+      <a class="btn btn-secondary" href="https://github.com/" target="_blank" style="font-size:0.7rem;padding:0.5rem 1rem;" data-lang="en">Edit on GitHub</a>
+    </div>
+  </aside>
+</div>
+</Layout>
