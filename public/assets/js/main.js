@@ -381,28 +381,41 @@ function initTOC() {
 
 /* ── Navbar Active State ── */
 function initNavbarActive() {
-  const currentPath = window.location.pathname;  // e.g. '/' or '/catalog'
-  const currentSearch = window.location.search;  // e.g. '?cat=ssjs'
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+  const params = new URLSearchParams(window.location.search);
+  const currentCat = params.get('cat');
   
   document.querySelectorAll('.navbar-links a').forEach(link => {
     link.classList.remove('active');
     
     const linkHref = link.getAttribute('href');
+    if (!linkHref) return;
     const [linkPath, linkSearch] = linkHref.split('?');
+    const normalizedLinkPath = linkPath.replace(/\/$/, '') || '/';
+    const linkParams = new URLSearchParams(linkSearch || '');
+    const linkCat = linkParams.get('cat');
     
-    if (linkSearch) {
-      // Match path + query (e.g. /catalog?cat=ssjs)
-      if (currentPath === linkPath && currentSearch === '?' + linkSearch) {
+    if (linkCat) {
+      // Match specific category link (e.g. /catalog?cat=ssjs)
+      if (currentPath === normalizedLinkPath && currentCat === linkCat) {
         link.classList.add('active');
       }
     } else {
-      // Match base path (e.g. /catalog or /)
-      if (currentPath === linkPath && !currentSearch) {
-        link.classList.add('active');
+      // Match base path link (e.g. /catalog or / or /about)
+      if (currentPath === normalizedLinkPath) {
+        if (currentPath === '/catalog') {
+          // On catalog: active if no category is specified or cat=all
+          if (!currentCat || currentCat === 'all') {
+            link.classList.add('active');
+          }
+        } else {
+          link.classList.add('active');
+        }
       }
     }
   });
 }
+window.initNavbarActive = initNavbarActive;
 
 /* ── Boot ── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -415,6 +428,25 @@ document.addEventListener('DOMContentLoaded', () => {
   Counters.init();
   initTOC();
   initNavbarActive();
+
+  // Seamless client-side navbar category switching when already on /catalog
+  document.addEventListener('click', (e) => {
+    const navLink = e.target.closest('.navbar-links a');
+    if (!navLink) return;
+    const href = navLink.getAttribute('href');
+    if (!href) return;
+
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    const [linkPath, linkSearch] = href.split('?');
+    const normalizedLinkPath = linkPath.replace(/\/$/, '') || '/';
+
+    if (currentPath === '/catalog' && normalizedLinkPath === '/catalog' && typeof window.filterCat === 'function') {
+      e.preventDefault();
+      const linkParams = new URLSearchParams(linkSearch || '');
+      const cat = linkParams.get('cat') || 'all';
+      window.filterCat(null, cat);
+    }
+  });
 
   // Inject Global Favicon
   if (!document.querySelector('link[rel="icon"]')) {

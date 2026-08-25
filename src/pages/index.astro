@@ -103,45 +103,98 @@ import { getCategoryIcon } from '../config/icons.js';
         <span class="stat-label" data-lang="en">Languages</span>
       </div>
     </div>
-  </div>  <section class="section"> <div class="section-header"> <h2 class="section-title" data-lang="es">CATEGORÍAS</h2> <h2 class="section-title" data-lang="en">CATEGORIES</h2> <a class="section-link" href="/catalog" data-lang="es">Ver todo →</a> <a class="section-link" href="/catalog" data-lang="en">View all →</a> </div> <div class="categories-grid"> <a class="category-card" href="/catalog?cat=ssjs" style="--card-color:#ff00ff"> <div class="category-icon" set:html={getCategoryIcon("ssjs", 32)}></div> <div class="category-name">SSJS</div> <div class="category-count"><span>12</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=ampscript" style="--card-color:#00ffff"> <div class="category-icon"><img src="assets/img/icons/ampscript.png" alt="AMPscript" style="width:32px; height:32px;"></div> <div class="category-name">AMPscript</div> <div class="category-count"><span>10</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=sql" style="--card-color:#ffff00"> <div class="category-icon" set:html={getCategoryIcon("sql", 32)}></div> <div class="category-name">SQL Data Views</div> <div class="category-count"><span>8</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=automation" style="--card-color:#00ff88"> <div class="category-icon" set:html={getCategoryIcon("automation", 32)}></div> <div class="category-name" data-lang="es">Automation Studio</div> <div class="category-name" data-lang="en">Automation Studio</div> <div class="category-count"><span>5</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=journey" style="--card-color:#ff6b35"> <div class="category-icon" set:html={getCategoryIcon("journey", 32)}></div> <div class="category-name">Journey Builder</div> <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=cloudpages" style="--card-color:#bd93f9"> <div class="category-icon" set:html={getCategoryIcon("cloudpages", 32)}></div> <div class="category-name">Cloud Pages</div> <div class="category-count"><span>6</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=innovations" style="--card-color:#00ffff"> <div class="category-icon" set:html={getCategoryIcon("innovations", 32)}></div> <div class="category-name" data-lang="es">Innovaciones</div> <div class="category-name" data-lang="en">Innovations</div> <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div> </a> <a class="category-card" href="/catalog?cat=resources" style="--card-color:#ff00ff"> <div class="category-icon" set:html={getCategoryIcon("resources", 32)}></div> <div class="category-name" data-lang="es">Recursos</div> <div class="category-name" data-lang="en">Resources</div> <div class="category-count"><span>7</span> <span data-lang="es">links</span><span data-lang="en">links</span></div> </a>    <a class="category-card" href="/catalog?cat=mc-next" style="--card-color:#bd93f9; border-color: rgba(189,147,249,0.4);">
-      <div class="category-icon" set:html={getCategoryIcon("mc-next", 32)}></div>
-      <div class="category-name" style="color:#bd93f9; font-weight:700;">MC Next ✨</div>
-      <div class="category-count"><span>2</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
-    </a>
-    <a class="category-card" href="/catalog?cat=changelog" style="--card-color:#ffff00">
-      <div class="category-icon" set:html={getCategoryIcon("changelog", 32)}></div>
-      <div class="category-name">Changelog</div>
-      <div class="category-count"><span data-lang="es">Novedades</span><span data-lang="en">What's new</span></div>
-    </a>
   </div>
-</section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title" data-lang="es">CATEGORÍAS</h2>
+      <h2 class="section-title" data-lang="en">CATEGORIES</h2>
+      <a class="section-link" href="/catalog" data-lang="es">Ver todo →</a>
+      <a class="section-link" href="/catalog" data-lang="en">View all →</a>
+    </div>
+    <div class="categories-grid">
+      <a class="category-card" href="/catalog?cat=ssjs" style="--card-color:var(--neon-pink)">
+        <div class="category-icon" set:html={getCategoryIcon("ssjs", 32)}></div>
+        <div class="category-name">SSJS</div>
+        <div class="category-count"><span>12</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=ampscript" style="--card-color:var(--neon-cyan)">
+        <div class="category-icon"><img src="assets/img/icons/ampscript.png" alt="AMPscript" style="width:32px; height:32px;"></div>
+        <div class="category-name">AMPscript</div>
+        <div class="category-count"><span>10</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=sql" style="--card-color:var(--neon-yellow)">
+        <div class="category-icon" set:html={getCategoryIcon("sql", 32)}></div>
+        <div class="category-name">SQL Data Views</div>
+        <div class="category-count"><span>8</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=automation" style="--card-color:var(--neon-green)">
+        <div class="category-icon" set:html={getCategoryIcon("automation", 32)}></div>
+        <div class="category-name" data-lang="es">Automation Studio</div>
+        <div class="category-name" data-lang="en">Automation Studio</div>
+        <div class="category-count"><span>5</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=journey" style="--card-color:var(--neon-orange)">
+        <div class="category-icon" set:html={getCategoryIcon("journey", 32)}></div>
+        <div class="category-name">Journey Builder</div>
+        <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=cloudpages" style="--card-color:var(--neon-purple)">
+        <div class="category-icon" set:html={getCategoryIcon("cloudpages", 32)}></div>
+        <div class="category-name">Cloud Pages</div>
+        <div class="category-count"><span>6</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=innovations" style="--card-color:var(--neon-cyan)">
+        <div class="category-icon" set:html={getCategoryIcon("innovations", 32)}></div>
+        <div class="category-name" data-lang="es">Innovaciones</div>
+        <div class="category-name" data-lang="en">Innovations</div>
+        <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=resources" style="--card-color:var(--neon-pink)">
+        <div class="category-icon" set:html={getCategoryIcon("resources", 32)}></div>
+        <div class="category-name" data-lang="es">Recursos</div>
+        <div class="category-name" data-lang="en">Resources</div>
+        <div class="category-count"><span>7</span> <span data-lang="es">links</span><span data-lang="en">links</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=mc-next" style="--card-color:var(--neon-purple); border-color: rgba(189,147,249,0.4);">
+        <div class="category-icon" set:html={getCategoryIcon("mc-next", 32)}></div>
+        <div class="category-name" style="color:var(--neon-purple); font-weight:700;">MC Next ✨</div>
+        <div class="category-count"><span>2</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+      </a>
+      <a class="category-card" href="/catalog?cat=changelog" style="--card-color:var(--neon-yellow)">
+        <div class="category-icon" set:html={getCategoryIcon("changelog", 32)}></div>
+        <div class="category-name">Changelog</div>
+        <div class="category-count"><span data-lang="es">Novedades</span><span data-lang="en">What's new</span></div>
+      </a>
+    </div>
+  </section>
 
 <!-- ════════════════ MC NEXT SPOTLIGHT BANNER ════════════════ -->
-<section style="max-width:1280px; margin: 0 auto var(--space-xl); padding: 0 var(--space-xl);">
-  <div style="background: linear-gradient(135deg, rgba(189,147,249,0.12), rgba(0,255,255,0.08)); border: 2px solid #bd93f9; border-radius: var(--radius); padding: var(--space-xl); position: relative; overflow: hidden; box-shadow: 0 0 25px rgba(189,147,249,0.25);">
-    <div style="position:absolute; top:-20px; right:-20px; font-size: 7rem; opacity: 0.07; font-family: var(--font-arcade); pointer-events:none;">🔮</div>
+<section class="mc-next-banner-section">
+  <div class="mc-next-banner">
+    <div class="mc-next-banner-watermark">🔮</div>
     
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
-      <div style="max-width:700px;">
-        <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(189,147,249,0.2); border:1px solid #bd93f9; padding:0.25rem 0.75rem; border-radius:100px; font-family:var(--font-arcade); font-size:0.45rem; color:#bd93f9; margin-bottom:0.75rem;">
+    <div class="mc-next-banner-content">
+      <div class="mc-next-banner-text">
+        <div class="mc-next-banner-badge">
           <span class="blink">●</span> NEW REALM UNLOCKED
         </div>
-        <h2 style="font-family:var(--font-arcade); font-size:clamp(1rem, 2.5vw, 1.5rem); color:#fff; text-shadow:0 0 10px rgba(189,147,249,0.8); margin-bottom:0.5rem;" data-lang="es">
+        <h2 class="mc-next-banner-title" data-lang="es">
           MARKETING CLOUD NEXT & DATA CLOUD
         </h2>
-        <h2 style="font-family:var(--font-arcade); font-size:clamp(1rem, 2.5vw, 1.5rem); color:#fff; text-shadow:0 0 10px rgba(189,147,249,0.8); margin-bottom:0.5rem;" data-lang="en">
+        <h2 class="mc-next-banner-title" data-lang="en">
           MARKETING CLOUD NEXT & DATA CLOUD
         </h2>
-        <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.6; margin:0;" data-lang="es">
+        <p class="mc-next-banner-desc" data-lang="es">
           Descubre la nueva generación: Unificación de datos con Data Cloud, agentes autónomos con Agentforce, Prompt Templates y marketing en tiempo real.
         </p>
-        <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.6; margin:0;" data-lang="en">
+        <p class="mc-next-banner-desc" data-lang="en">
           Explore the next-gen architecture: Data Cloud identity resolution, autonomous Agentforce agents, Prompt Templates, and real-time marketing flows.
         </p>
       </div>
 
       <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <a class="btn" href="/catalog?cat=mc-next" style="background:#bd93f9; color:#000; font-weight:700; border-color:#bd93f9; box-shadow:0 0 15px rgba(189,147,249,0.6);">
+        <a class="btn mc-next-banner-btn" href="/catalog?cat=mc-next">
           <span>🔮</span>
           <span data-lang="es">Explorar MC Next</span>
           <span data-lang="en">Explore MC Next</span>
@@ -160,7 +213,7 @@ import { getCategoryIcon } from '../config/icons.js';
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <!-- Next-Gen / Data Cloud -->
             <div>
-              <div style="font-family:var(--font-arcade);font-size:0.42rem;color:#bd93f9;margin-bottom:0.35rem;">🔮 MC NEXT & DATA CLOUD</div>
+              <div style="font-family:var(--font-arcade);font-size:0.42rem;color:var(--neon-purple);margin-bottom:0.35rem;">🔮 MC NEXT & DATA CLOUD</div>
               <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
                 <a href="/catalog?tag=datacloud" class="tag purple">#datacloud</a>
                 <a href="/catalog?tag=agentforce" class="tag purple">#agentforce</a>
@@ -203,7 +256,7 @@ import { getCategoryIcon } from '../config/icons.js';
       <div class="changelog-desc" data-lang="es">Nueva sección dedicada con artículos sobre Data Cloud, Calculated Insights y automatización agéntica con Agentforce.</div>
       <div class="changelog-desc" data-lang="en">Dedicated section with articles covering Data Cloud, Calculated Insights, and autonomous agents with Agentforce.</div>
     </div>
-    <span class="tag" style="background:#bd93f9;color:#000;font-weight:700;box-shadow:0 0 10px rgba(189,147,249,0.5);">NEXT</span>
+    <span class="tag purple" style="font-weight:700;">NEXT</span>
   </div>
   <div class="changelog-item">
     <div class="changelog-date">Apr 2025</div>
@@ -265,10 +318,10 @@ import { getCategoryIcon } from '../config/icons.js';
       </div>
 
       <!-- CLOUD PAGES -->
-      <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-top:3px solid #bd93f9; border-radius:var(--radius); padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem;">
-        <div style="font-family:var(--font-arcade); font-size:0.5rem; color:#bd93f9; text-shadow:0 0 8px rgba(189,147,249,0.5);">☁️ CLOUD PAGES TIP</div>
-        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-lang="es">Usa <code style="font-family:var(--font-mono); font-size:0.85em; background:var(--bg-elevated); padding:0.1em 0.4em; border-radius:3px; color:#bd93f9;">Request.GetQueryStringParameter()</code> en SSJS para leer de forma segura parámetros URL en Cloud Pages.</p>
-        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-lang="en">Use <code style="font-family:var(--font-mono); font-size:0.85em; background:var(--bg-elevated); padding:0.1em 0.4em; border-radius:3px; color:#bd93f9;">Request.GetQueryStringParameter()</code> in SSJS to safely read URL parameters in Cloud Pages.</p>
+      <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-top:3px solid var(--neon-purple); border-radius:var(--radius); padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem;">
+        <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-purple); text-shadow:0 0 8px rgba(189,147,249,0.5);">☁️ CLOUD PAGES TIP</div>
+        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-lang="es">Usa <code style="font-family:var(--font-mono); font-size:0.85em; background:var(--bg-elevated); padding:0.1em 0.4em; border-radius:3px; color:var(--neon-purple);">Request.GetQueryStringParameter()</code> en SSJS para leer de forma segura parámetros URL en Cloud Pages.</p>
+        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-lang="en">Use <code style="font-family:var(--font-mono); font-size:0.85em; background:var(--bg-elevated); padding:0.1em 0.4em; border-radius:3px; color:var(--neon-purple);">Request.GetQueryStringParameter()</code> in SSJS to safely read URL parameters in Cloud Pages.</p>
       </div>
 
     </div>

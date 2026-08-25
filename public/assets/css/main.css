@@ -16,6 +16,7 @@
   --neon-yellow:  #ffff00;
   --neon-green:   #00ff88;
   --neon-orange:  #ff6b35;
+  --neon-purple:  #bd93f9;
 
   --text-primary:   #e8e8ff;
   --text-secondary: #8888aa;
@@ -38,6 +39,7 @@
   --glow-cyan:   0 0 8px #00ffff88, 0 0 20px #00ffff44;
   --glow-yellow: 0 0 8px #ffff0088, 0 0 20px #ffff0044;
   --glow-green:  0 0 8px #00ff8888, 0 0 20px #00ff8844;
+  --glow-purple: 0 0 8px #bd93f988, 0 0 20px #bd93f944;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -70,14 +72,16 @@
   --control-focus:  #007a8a;
   --neon-cyan:    #007a8a;
   --neon-pink:    #d6005c;
-  --neon-yellow:  #b88600;
+  --neon-yellow:  #854d0e;
   --neon-green:   #0a8044;
-  --neon-orange:  #d4502a;
+  --neon-orange:  #c2410c;
+  --neon-purple:  #7c3aed;
   --glow-pink:   0 0 0 1px rgba(214,0,92,0.18);
   --glow-cyan:   0 0 0 1px rgba(0,122,138,0.18);
-  --glow-yellow: 0 0 0 1px rgba(184,134,0,0.18);
+  --glow-yellow: 0 0 0 1px rgba(133,77,14,0.18);
   --glow-green:  0 0 0 1px rgba(10,128,68,0.18);
-  --glow-orange: 0 0 0 1px rgba(212,80,42,0.18);
+  --glow-orange: 0 0 0 1px rgba(194,65,12,0.18);
+  --glow-purple: 0 0 0 1px rgba(124,58,237,0.18);
 }
 
 /* 4. Eliminar text-shadows en light */
@@ -87,9 +91,12 @@
   text-shadow: none !important;
 }
 [data-theme="light"] .arcade-title,
-[data-theme="light"] .section-title,
 [data-theme="light"] .hero-title {
   text-shadow: 1px 1px 0 rgba(0,0,0,0.08) !important;
+}
+[data-theme="light"] .section-title {
+  color: #854d0e !important;
+  text-shadow: none !important;
 }
 
 /* 5. Code blocks SIEMPRE oscuros */
@@ -114,8 +121,8 @@
   color: var(--neon-pink) !important;
 }
 [data-theme="light"] .tag.yellow {
-  background: rgba(184,134,0,0.08) !important;
-  border-color: rgba(184,134,0,0.25) !important;
+  background: rgba(133,77,14,0.08) !important;
+  border-color: rgba(133,77,14,0.25) !important;
   color: var(--neon-yellow) !important;
 }
 [data-theme="light"] .tag.green {
@@ -124,9 +131,14 @@
   color: var(--neon-green) !important;
 }
 [data-theme="light"] .tag.orange {
-  background: rgba(212,80,42,0.08) !important;
-  border-color: rgba(212,80,42,0.25) !important;
+  background: rgba(194,65,12,0.08) !important;
+  border-color: rgba(194,65,12,0.25) !important;
   color: var(--neon-orange) !important;
+}
+[data-theme="light"] .tag.purple {
+  background: rgba(124,58,237,0.08) !important;
+  border-color: rgba(124,58,237,0.25) !important;
+  color: var(--neon-purple) !important;
 }
 
 /* 7. Sidebar boxes con sombra sutil */
@@ -723,6 +735,26 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
 }
 
+[data-theme="light"] .category-card {
+  background: #ffffff;
+  border-color: var(--border-dim);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+[data-theme="light"] .category-card:hover {
+  border-color: var(--card-color, var(--neon-cyan));
+  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+}
+
+[data-theme="light"] .category-count {
+  color: var(--card-color, var(--neon-cyan));
+}
+
+[data-theme="light"] .category-count span {
+  color: var(--card-color, var(--neon-cyan));
+  font-weight: 700;
+}
+
 /* ── Article Cards ── */
 .articles-grid {
   display: grid;
@@ -775,6 +807,7 @@ img { max-width: 100%; display: block; }
 .tag.yellow { background: rgba(255,255,0,0.1); color: var(--neon-yellow); border-color: rgba(255,255,0,0.2); }
 .tag.green { background: rgba(0,255,136,0.1); color: var(--neon-green); border-color: rgba(0,255,136,0.2); }
 .tag.orange { background: rgba(255,107,53,0.1); color: var(--neon-orange); border-color: rgba(255,107,53,0.2); }
+.tag.purple { background: rgba(189,147,249,0.15); color: var(--neon-purple); border-color: rgba(189,147,249,0.3); }
 
 .level-badge {
   margin-left: auto;
@@ -1660,6 +1693,193 @@ pre {
 .story-block p { font-size: 1rem; line-height: 1.85; color: var(--text-tertiary); position: relative; }
 .contact-strip { background: var(--bg-secondary); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: var(--space-xl) var(--space-xl); text-align: center; }
 .contact-strip h2 { font-family: var(--font-arcade); font-size: 0.75rem; color: var(--neon-yellow); text-shadow: var(--glow-yellow); margin-bottom: 1rem; }
+
+/* Light Mode Overrides for About Page */
+[data-theme="light"] .skill-bar {
+  background: #ffffff;
+  border-color: var(--border-dim);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+[data-theme="light"] .skill-bar:hover {
+  border-color: var(--skill-color, var(--neon-cyan));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+[data-theme="light"] .skill-level {
+  color: var(--skill-color, var(--neon-cyan));
+  font-weight: 700;
+  font-size: 0.42rem;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="light"] .achievement-card {
+  background: #ffffff;
+  border-color: var(--border-dim);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+[data-theme="light"] .achievement-card:hover {
+  border-color: var(--ach-color, var(--neon-cyan));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+[data-theme="light"] .achievement-badge {
+  background: rgba(0, 122, 138, 0.08);
+  border-color: var(--ach-color, var(--neon-cyan));
+  color: var(--ach-color, var(--neon-cyan));
+  font-weight: 700;
+}
+
+[data-theme="light"] .contact-strip h2 {
+  color: #854d0e !important;
+  text-shadow: none !important;
+}
+
+/* ── MC Next Spotlight Banner ── */
+.mc-next-banner-section {
+  max-width: 1280px;
+  margin: 0 auto var(--space-xl);
+  padding: 0 var(--space-xl);
+}
+
+.mc-next-banner {
+  background: linear-gradient(135deg, rgba(189,147,249,0.12), rgba(0,255,255,0.08));
+  border: 2px solid var(--neon-purple);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(189,147,249,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mc-next-banner:hover {
+  box-shadow: 0 0 32px rgba(189,147,249,0.45);
+}
+
+.mc-next-banner-watermark {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 7rem;
+  opacity: 0.07;
+  font-family: var(--font-arcade);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mc-next-banner-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.mc-next-banner-text {
+  max-width: 720px;
+}
+
+.mc-next-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(189,147,249,0.2);
+  border: 1px solid var(--neon-purple);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-family: var(--font-arcade);
+  font-size: 0.45rem;
+  color: var(--neon-purple);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.mc-next-banner-title {
+  font-family: var(--font-arcade);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(189,147,249,0.8);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.mc-next-banner-desc {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.mc-next-banner-btn {
+  background: #bd93f9;
+  color: #000000 !important;
+  font-weight: 700;
+  border: 1px solid #bd93f9;
+  box-shadow: 0 0 15px rgba(189,147,249,0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-arcade);
+  font-size: 0.55rem;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.mc-next-banner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(189,147,249,0.85);
+  background: #d4b2ff;
+}
+
+/* Light Mode Overrides for MC Next Spotlight */
+[data-theme="light"] .mc-next-banner {
+  background: linear-gradient(135deg, #f5f0ff 0%, #edf4fe 50%, #faf8ff 100%) !important;
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.12), 0 1px 3px rgba(0,0,0,0.04) !important;
+}
+
+[data-theme="light"] .mc-next-banner:hover {
+  border-color: #7c3aed !important;
+  box-shadow: 0 8px 28px rgba(124, 58, 237, 0.2), 0 2px 6px rgba(0,0,0,0.06) !important;
+}
+
+[data-theme="light"] .mc-next-banner-watermark {
+  opacity: 0.08 !important;
+}
+
+[data-theme="light"] .mc-next-banner-badge {
+  background: rgba(124, 58, 237, 0.1) !important;
+  border-color: rgba(124, 58, 237, 0.35) !important;
+  color: #6d28d9 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .mc-next-banner-title {
+  color: #2e1065 !important;
+  text-shadow: 1px 1px 0 rgba(124, 58, 237, 0.1) !important;
+}
+
+[data-theme="light"] .mc-next-banner-desc {
+  color: #374151 !important;
+}
+
+[data-theme="light"] .mc-next-banner-btn {
+  background: #7c3aed !important;
+  color: #ffffff !important;
+  border-color: #6d28d9 !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
+}
+
+[data-theme="light"] .mc-next-banner-btn:hover {
+  background: #6d28d9 !important;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5) !important;
+}
 
 /* ── Arcade Custom Cursors ── */
 html, body, * {

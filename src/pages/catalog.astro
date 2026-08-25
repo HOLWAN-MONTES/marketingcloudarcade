@@ -370,23 +370,6 @@ const counts = {
           <span class="count">{counts.all}</span>
         </a>
 
-        <!-- SSJS Category Group -->
-        <div class="sidebar-nav-group" data-category="ssjs">
-          <a
-            class="sidebar-nav-item parent-item"
-            href="#"
-            data-filter="ssjs"
-            onclick="toggleCategoryGroup(event,'ssjs')"
-          >
-            <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("ssjs", 16)} />
-            <span class="cat-label">SSJS</span>
-            <span class="count">{counts.ssjs}</span>
-          </a>
-          <ul class="sidebar-sub-items" id="sub-ssjs" style="display: none;">
-          </ul>
-        </div>
-
         <!-- AMPscript Category Group -->
         <div class="sidebar-nav-group" data-category="ampscript">
           <a
@@ -408,23 +391,6 @@ const counts = {
           </ul>
         </div>
 
-        <!-- SQL Category Group -->
-        <div class="sidebar-nav-group" data-category="sql">
-          <a
-            class="sidebar-nav-item parent-item"
-            href="#"
-            data-filter="sql"
-            onclick="toggleCategoryGroup(event,'sql')"
-          >
-            <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("sql", 16)} />
-            <span class="cat-label">SQL</span>
-            <span class="count">{counts.sql}</span>
-          </a>
-          <ul class="sidebar-sub-items" id="sub-sql" style="display: none;">
-          </ul>
-        </div>
-
         <!-- Automation Studio Group -->
         <div class="sidebar-nav-group" data-category="automation">
           <a
@@ -443,23 +409,6 @@ const counts = {
             id="sub-automation"
             style="display: none;"
           >
-          </ul>
-        </div>
-
-        <!-- Journey Builder Group -->
-        <div class="sidebar-nav-group" data-category="journey">
-          <a
-            class="sidebar-nav-item parent-item"
-            href="#"
-            data-filter="journey"
-            onclick="toggleCategoryGroup(event,'journey')"
-          >
-            <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("journey", 16)} />
-            <span class="cat-label">Journey Builder</span>
-            <span class="count">{counts.journey}</span>
-          </a>
-          <ul class="sidebar-sub-items" id="sub-journey" style="display: none;">
           </ul>
         </div>
 
@@ -508,6 +457,42 @@ const counts = {
           </ul>
         </div>
 
+        <!-- Journey Builder Group -->
+        <div class="sidebar-nav-group" data-category="journey">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="journey"
+            onclick="toggleCategoryGroup(event,'journey')"
+          >
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("journey", 16)} />
+            <span class="cat-label">Journey Builder</span>
+            <span class="count">{counts.journey}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-journey" style="display: none;">
+          </ul>
+        </div>
+
+        <!-- MC Next Group -->
+        <div class="sidebar-nav-group" data-category="mc-next">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="mc-next"
+            onclick="toggleCategoryGroup(event,'mc-next')"
+          >
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("mc-next", 16)} />
+            <span class="cat-label">
+              <span style="color:#bd93f9;font-weight:700;">MC Next ✨</span>
+            </span>
+            <span class="count">{counts["mc-next"]}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-mc-next" style="display: none;">
+          </ul>
+        </div>
+
         <!-- Resources Group -->
         <div class="sidebar-nav-group" data-category="resources">
           <a
@@ -532,22 +517,37 @@ const counts = {
           </ul>
         </div>
 
-        <!-- MC Next Group -->
-        <div class="sidebar-nav-group" data-category="mc-next">
+        <!-- SQL Category Group -->
+        <div class="sidebar-nav-group" data-category="sql">
           <a
             class="sidebar-nav-item parent-item"
             href="#"
-            data-filter="mc-next"
-            onclick="toggleCategoryGroup(event,'mc-next')"
+            data-filter="sql"
+            onclick="toggleCategoryGroup(event,'sql')"
           >
             <span class="chevron-arrow">▶</span>
-            <span set:html={getCategoryIcon("mc-next", 16)} />
-            <span class="cat-label">
-              <span style="color:#bd93f9;font-weight:700;">MC Next ✨</span>
-            </span>
-            <span class="count">{counts["mc-next"]}</span>
+            <span set:html={getCategoryIcon("sql", 16)} />
+            <span class="cat-label">SQL</span>
+            <span class="count">{counts.sql}</span>
           </a>
-          <ul class="sidebar-sub-items" id="sub-mc-next" style="display: none;">
+          <ul class="sidebar-sub-items" id="sub-sql" style="display: none;">
+          </ul>
+        </div>
+
+        <!-- SSJS Category Group -->
+        <div class="sidebar-nav-group" data-category="ssjs">
+          <a
+            class="sidebar-nav-item parent-item"
+            href="#"
+            data-filter="ssjs"
+            onclick="toggleCategoryGroup(event,'ssjs')"
+          >
+            <span class="chevron-arrow">▶</span>
+            <span set:html={getCategoryIcon("ssjs", 16)} />
+            <span class="cat-label">SSJS</span>
+            <span class="count">{counts.ssjs}</span>
+          </a>
+          <ul class="sidebar-sub-items" id="sub-ssjs" style="display: none;">
           </ul>
         </div>
       </nav>
@@ -1252,6 +1252,21 @@ const counts = {
       currentCat = cat;
       visibleLimit = 6; // Reset pagination limit on category filter
       applyFilters();
+
+      // Seamlessly synchronize browser URL without page reload
+      const url = new URL(window.location);
+      if (cat && cat !== "all") {
+        url.searchParams.set("cat", cat);
+      } else {
+        url.searchParams.delete("cat");
+      }
+      window.history.replaceState({ cat }, "", url.toString());
+
+      // Update Navbar active indicator
+      if (typeof window.initNavbarActive === "function") {
+        window.initNavbarActive();
+      }
+
       const labelES = document.getElementById("active-cat-label");
       const labelEN = document.getElementById("active-cat-label-en");
       const catLabels = {
@@ -1571,6 +1586,15 @@ const counts = {
           applyFilters();
         });
       }
+
+      // 9. Synchronize filters with browser Back/Forward navigation
+      window.addEventListener("popstate", (event) => {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get("cat") || "all";
+        if (typeof window.filterCat === "function") {
+          window.filterCat(null, cat);
+        }
+      });
     });
   </script>
 </Layout>
