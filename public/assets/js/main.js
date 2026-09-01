@@ -111,16 +111,21 @@ const SearchManager = (() => {
 
   const articles = [
     { title: 'What is Marketing Cloud Engagement? Complete Guide', title_es: '¿Qué es Marketing Cloud Engagement? Guía Completa', category: 'resources', level: 'beginner', url: '/sfmc-overview', id: 'sfmc-overview' },
+    { title: 'Introduction to AMPscript: Complete Fundamentals Guide', title_es: 'Introducción a AMPscript: Guía Completa de Fundamentos', category: 'ampscript', level: 'beginner', url: '/amp-intro', id: 'amp-intro' },
     { title: 'SSJS: HTTP GET & POST Requests', title_es: 'SSJS: Peticiones HTTP GET y POST', category: 'ssjs', level: 'intermediate', url: '/ssjs-http', id: 'ssjs-http' },
-    { title: 'AMPscript: Dynamic Content Blocks', title_es: 'AMPscript: Bloques de Contenido Dinámico', category: 'ampscript', level: 'beginner', url: '/amp-dynamic', id: 'amp-dynamic' },
     { title: 'SQL: Query Data Views Like a Pro', title_es: 'SQL: Consulta Data Views como un Pro', category: 'sql', level: 'intermediate', url: '/sql-dataviews', id: 'sql-dataviews' },
     { title: 'SSJS: Upsert Contacts via REST API', title_es: 'SSJS: Upsert de Contactos via REST API', category: 'ssjs', level: 'advanced', url: '/ssjs-upsert', id: 'ssjs-upsert' },
-    { title: 'AMPscript: LookupRows & FormatDate', title_es: 'AMPscript: LookupRows y FormatDate', category: 'ampscript', level: 'beginner', url: '/amp-lookup', id: 'amp-lookup' },
+    { title: 'SSJS: Introduction to SSJS in SFMC', title_es: 'Introducción a SSJS en SFMC', category: 'ssjs', level: 'beginner', url: '/ssjs-intro', id: 'ssjs-intro' },
+    { title: 'SSJS: Advanced Logging & Debugging', title_es: 'SSJS: Logging y Debugging avanzado', category: 'ssjs', level: 'intermediate', url: '/ssjs-debug', id: 'ssjs-debug' },
     { title: 'Journey Builder: API Entry Event', title_es: 'Journey Builder: API Entry Event', category: 'journey', level: 'advanced', url: '/jb-api-entry', id: 'jb-api-entry' },
     { title: 'Automation Studio: File Drop Pattern', title_es: 'Automation Studio: Patrón File Drop', category: 'automation', level: 'intermediate', url: '/auto-filedrop', id: 'auto-filedrop' },
     { title: 'Cloud Pages: Login & Token Auth', title_es: 'Cloud Pages: Login y Autenticación Token', category: 'cloudpages', level: 'advanced', url: '/cp-auth', id: 'cp-auth' },
     { title: 'SQL: Subscriber Engagement Score', title_es: 'SQL: Score de Engagement de Suscriptores', category: 'sql', level: 'intermediate', url: '/sql-engagement', id: 'sql-engagement' },
+    { title: 'SQL: Advanced JOINs in Query Activities', title_es: 'SQL: JOINs avanzados en Query Activities', category: 'sql', level: 'advanced', url: '/sql-joins', id: 'sql-joins' },
     { title: 'Innovation: AI-Personalization with GPT', title_es: 'Innovación: Personalización con IA y GPT', category: 'innovations', level: 'advanced', url: '/inno-ai', id: 'inno-ai' },
+    { title: 'Essential SFMC Resources', title_es: 'Recursos esenciales de SFMC', category: 'resources', level: 'beginner', url: '/resources-links', id: 'resources-links' },
+    { title: 'Data Cloud: Real-Time Segmentation & Activation', title_es: 'Data Cloud: Segmentación en Tiempo Real y Activación', category: 'mc-next', level: 'intermediate', url: '/next-datacloud-segments', id: 'next-datacloud-segments' },
+    { title: 'Agentforce for Marketing: Autonomous Campaigns & Prompt Studio', title_es: 'Agentforce for Marketing: Campañas Autónomas y Prompt Studio', category: 'mc-next', level: 'advanced', url: '/next-agentforce-campaigns', id: 'next-agentforce-campaigns' },
   ];
 
   // Expose to global scope for Firebase leaderboard

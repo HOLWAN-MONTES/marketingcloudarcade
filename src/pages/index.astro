@@ -1,6 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCategoryIcon } from '../config/icons.js';
+import { ALL_CARDS } from '../config/articles.js';
+
+const counts = {
+  all: ALL_CARDS.length,
+  ssjs: ALL_CARDS.filter((c) => c.category === "ssjs").length,
+  ampscript: ALL_CARDS.filter((c) => c.category === "ampscript").length,
+  sql: ALL_CARDS.filter((c) => c.category === "sql").length,
+  automation: ALL_CARDS.filter((c) => c.category === "automation").length,
+  journey: ALL_CARDS.filter((c) => c.category === "journey").length,
+  cloudpages: ALL_CARDS.filter((c) => c.category === "cloudpages").length,
+  innovations: ALL_CARDS.filter((c) => c.category === "innovations").length,
+  resources: ALL_CARDS.filter((c) => c.category === "resources").length,
+  "mc-next": ALL_CARDS.filter((c) => c.category === "mc-next").length,
+};
 ---
 <Layout title="Marketing Cloud Arcade">
 <style>
@@ -83,7 +97,7 @@ import { getCategoryIcon } from '../config/icons.js';
 </section>  <div class="pixel-marquee"> <div class="pixel-marquee-inner" id="marquee-inner"> <!-- Items duplicated for seamless loop --> <span class="pixel-marquee-item"><span class="dot"></span> SSJS</span> <span class="pixel-marquee-item"><span class="dot"></span> AMPSCRIPT</span> <span class="pixel-marquee-item"><span class="dot"></span> SQL DATA VIEWS</span> <span class="pixel-marquee-item"><span class="dot"></span> AUTOMATION STUDIO</span> <span class="pixel-marquee-item"><span class="dot"></span> JOURNEY BUILDER</span> <span class="pixel-marquee-item"><span class="dot"></span> CLOUD PAGES</span> <span class="pixel-marquee-item"><span class="dot"></span> <span data-lang="es">INNOVACIONES</span><span data-lang="en">INNOVATIONS</span></span> <span class="pixel-marquee-item"><span class="dot"></span> MARKETING CLOUD ARCADE</span> <span class="pixel-marquee-item"><span class="dot"></span> SSJS</span> <span class="pixel-marquee-item"><span class="dot"></span> AMPSCRIPT</span> <span class="pixel-marquee-item"><span class="dot"></span> SQL DATA VIEWS</span> <span class="pixel-marquee-item"><span class="dot"></span> AUTOMATION STUDIO</span> <span class="pixel-marquee-item"><span class="dot"></span> JOURNEY BUILDER</span> <span class="pixel-marquee-item"><span class="dot"></span> CLOUD PAGES</span> <span class="pixel-marquee-item"><span class="dot"></span> <span data-lang="es">INNOVACIONES</span><span data-lang="en">INNOVATIONS</span></span> <span class="pixel-marquee-item"><span class="dot"></span> MARKETING CLOUD ARCADE</span> </div> </div>  <div style="max-width:1280px;margin:0 auto;padding:var(--space-xl) var(--space-xl) 0;">
     <div class="stats-bar">
       <div class="stat-item">
-        <span class="stat-value" data-counter data-target="18">0</span>
+        <span class="stat-value" data-counter data-target={counts.all}>0</span>
         <span class="stat-label" data-lang="es">Artículos</span>
         <span class="stat-label" data-lang="en">Articles</span>
       </div>
@@ -116,50 +130,50 @@ import { getCategoryIcon } from '../config/icons.js';
       <a class="category-card" href="/catalog?cat=ssjs" style="--card-color:var(--neon-pink)">
         <div class="category-icon" set:html={getCategoryIcon("ssjs", 32)}></div>
         <div class="category-name">SSJS</div>
-        <div class="category-count"><span>12</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.ssjs}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=ampscript" style="--card-color:var(--neon-cyan)">
         <div class="category-icon"><img src="assets/img/icons/ampscript.png" alt="AMPscript" style="width:32px; height:32px;"></div>
         <div class="category-name">AMPscript</div>
-        <div class="category-count"><span>10</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.ampscript}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=sql" style="--card-color:var(--neon-yellow)">
         <div class="category-icon" set:html={getCategoryIcon("sql", 32)}></div>
         <div class="category-name">SQL Data Views</div>
-        <div class="category-count"><span>8</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.sql}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=automation" style="--card-color:var(--neon-green)">
         <div class="category-icon" set:html={getCategoryIcon("automation", 32)}></div>
         <div class="category-name" data-lang="es">Automation Studio</div>
         <div class="category-name" data-lang="en">Automation Studio</div>
-        <div class="category-count"><span>5</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.automation}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=journey" style="--card-color:var(--neon-orange)">
         <div class="category-icon" set:html={getCategoryIcon("journey", 32)}></div>
         <div class="category-name">Journey Builder</div>
-        <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.journey}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=cloudpages" style="--card-color:var(--neon-purple)">
         <div class="category-icon" set:html={getCategoryIcon("cloudpages", 32)}></div>
         <div class="category-name">Cloud Pages</div>
-        <div class="category-count"><span>6</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.cloudpages}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=innovations" style="--card-color:var(--neon-cyan)">
         <div class="category-icon" set:html={getCategoryIcon("innovations", 32)}></div>
         <div class="category-name" data-lang="es">Innovaciones</div>
         <div class="category-name" data-lang="en">Innovations</div>
-        <div class="category-count"><span>4</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts.innovations}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=resources" style="--card-color:var(--neon-pink)">
         <div class="category-icon" set:html={getCategoryIcon("resources", 32)}></div>
         <div class="category-name" data-lang="es">Recursos</div>
         <div class="category-name" data-lang="en">Resources</div>
-        <div class="category-count"><span>7</span> <span data-lang="es">links</span><span data-lang="en">links</span></div>
+        <div class="category-count"><span>{counts.resources}</span> <span data-lang="es">recursos</span><span data-lang="en">resources</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=mc-next" style="--card-color:var(--neon-purple); border-color: rgba(189,147,249,0.4);">
         <div class="category-icon" set:html={getCategoryIcon("mc-next", 32)}></div>
         <div class="category-name" style="color:var(--neon-purple); font-weight:700;">MC Next ✨</div>
-        <div class="category-count"><span>2</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
+        <div class="category-count"><span>{counts["mc-next"]}</span> <span data-lang="es">artículos</span><span data-lang="en">articles</span></div>
       </a>
       <a class="category-card" href="/catalog?cat=changelog" style="--card-color:var(--neon-yellow)">
         <div class="category-icon" set:html={getCategoryIcon("changelog", 32)}></div>

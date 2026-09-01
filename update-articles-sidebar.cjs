@@ -23,7 +23,7 @@ const articlesMeta = {
     related: [
       { url: '/ssjs-http', icon: '⚡', es: 'SSJS: Peticiones HTTP GET y POST', en: 'SSJS: HTTP GET & POST Requests' },
       { url: '/ssjs-debug', icon: '⚡', es: 'SSJS: Logging y Debugging avanzado', en: 'SSJS: Advanced Logging & Debugging' },
-      { url: '/amp-lookup', icon: '📄', es: 'AMPscript: LookupRows y datos dinámicos', en: 'AMPscript: LookupRows & Dynamic Data' }
+      { url: '/amp-intro', icon: '⚡', es: 'Introducción a AMPscript', en: 'Introduction to AMPscript' }
     ]
   },
   'ssjs-debug': {
@@ -34,28 +34,12 @@ const articlesMeta = {
       { url: '/sql-dataviews', icon: '🗃️', es: 'SQL: Introducción a Data Views', en: 'SQL: Intro to SFMC Data Views' }
     ]
   },
-  'amp-lookup': {
-    tags: ['#ampscript', '#lookup', '#personalization', '#dataextension'],
+  'amp-intro': {
+    tags: ['#ampscript', '#basics', '#emailstudio', '#cloudpages', '#personalization'],
     related: [
-      { url: '/amp-dynamic', icon: '📄', es: 'Bloques de Contenido Dinámico con AMPscript', en: 'Dynamic Content Blocks with AMPscript' },
-      { url: '/amp-formatdate', icon: '📄', es: 'AMPscript: FormatDate y manejo de fechas', en: 'AMPscript: FormatDate & Date Handling' },
-      { url: '/inno-ai', icon: '🤖', es: 'Personalización con IA: GPT + AMPscript', en: 'AI Personalization: GPT + AMPscript' }
-    ]
-  },
-  'amp-formatdate': {
-    tags: ['#ampscript', '#dates', '#formatdate', '#personalization'],
-    related: [
-      { url: '/amp-lookup', icon: '📄', es: 'AMPscript: LookupRows y datos dinámicos', en: 'AMPscript: LookupRows & Dynamic Data' },
-      { url: '/amp-dynamic', icon: '📄', es: 'Bloques de Contenido Dinámico con AMPscript', en: 'Dynamic Content Blocks with AMPscript' },
-      { url: '/sql-engagement', icon: '🗃️', es: 'SQL: Score de Engagement de Suscriptores', en: 'SQL: Subscriber Engagement Score' }
-    ]
-  },
-  'amp-dynamic': {
-    tags: ['#ampscript', '#personalization', '#dynamic-content', '#email'],
-    related: [
-      { url: '/amp-lookup', icon: '📄', es: 'AMPscript: LookupRows y datos dinámicos', en: 'AMPscript: LookupRows & Dynamic Data' },
-      { url: '/inno-ai', icon: '🤖', es: 'Personalización con IA: GPT + AMPscript', en: 'AI Personalization: GPT + AMPscript' },
-      { url: '/next-agentforce-campaigns', icon: '🔮', es: 'Agentforce: Campañas Autónomas y Prompt Studio', en: 'Agentforce: Autonomous Campaigns & Prompt Studio' }
+      { url: '/sfmc-overview', icon: '🚀', es: '¿Qué es Marketing Cloud Engagement?', en: 'What is Marketing Cloud Engagement?' },
+      { url: '/ssjs-intro', icon: '⚡', es: 'Introducción a SSJS en SFMC', en: 'Introduction to SSJS in SFMC' },
+      { url: '/sql-dataviews', icon: '📊', es: 'SQL: Introducción a Data Views', en: 'SQL: Intro to SFMC Data Views' }
     ]
   },
   'sql-dataviews': {

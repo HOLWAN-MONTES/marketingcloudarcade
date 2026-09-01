@@ -2,7 +2,7 @@
    MARKETING CLOUD ARCADE — Main Stylesheet
    ========================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Press+Start+2P&family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ── CSS Variables ── */
 :root {
@@ -31,7 +31,7 @@
   --control-border: #2a2a55;
   --control-focus:  #00ffff;
 
-  --font-arcade: 'Press Start 2P', monospace;
+  --font-arcade: 'Pixelify Sans', 'Press Start 2P', sans-serif;
   --font-mono:   'JetBrains Mono', monospace;
   --font-body:   'Inter', sans-serif;
 
@@ -1302,11 +1302,13 @@ pre {
 
 .article-content h2 {
   font-family: var(--font-arcade);
-  font-size: 0.7rem;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--neon-cyan);
   text-shadow: var(--glow-cyan);
   margin: 2.5rem 0 1rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
 }
 
 .article-content h2::before { content: '// '; color: var(--neon-pink); }
@@ -1596,13 +1598,13 @@ pre {
    ========================================== */
 .catalog-hero { padding: var(--space-xl) var(--space-xl) var(--space-lg); background: var(--bg-secondary); border-bottom: 1px solid var(--border-dim); }
 .catalog-hero-inner { max-width: 1280px; margin: 0 auto; }
-.catalog-hero h1 { font-family: var(--font-arcade); font-size: clamp(0.7rem, 2vw, 1rem); color: var(--neon-cyan); text-shadow: var(--glow-cyan); margin-bottom: 0.75rem; }
+.catalog-hero h1 { font-family: var(--font-arcade); font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 700; color: var(--neon-cyan); text-shadow: var(--glow-cyan); margin-bottom: 0.75rem; }
 .catalog-hero p { color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; }
 .catalog-layout { display: grid; grid-template-columns: 220px 1fr; gap: var(--space-xl); max-width: 1280px; margin: 0 auto; padding: var(--space-xl) var(--space-xl); }
 @media (max-width: 768px) { .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { display: none; } }
 .catalog-sidebar { position: sticky; top: 80px; align-self: start; }
 .sidebar-nav { background: var(--bg-primary); border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
-.sidebar-nav-header { padding: 0.75rem 1rem; background: var(--bg-elevated); border-bottom: 1px solid var(--border-dim); font-family: var(--font-arcade); font-size: 0.45rem; color: var(--neon-yellow); text-shadow: var(--glow-yellow); }
+.sidebar-nav-header { padding: 0.75rem 1rem; background: var(--bg-elevated); border-bottom: 1px solid var(--border-dim); font-family: var(--font-arcade); font-size: 0.85rem; font-weight: 700; color: var(--neon-yellow); text-shadow: var(--glow-yellow); }
 .sidebar-nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1rem; border-bottom: 1px solid var(--border-dim); cursor: pointer; text-decoration: none; color: var(--text-secondary); font-size: 0.83rem; transition: all var(--transition); border-left: 3px solid transparent; }
 .sidebar-nav-item:last-child { border-bottom: none; }
 .sidebar-nav-item:hover, .sidebar-nav-item.active { color: var(--neon-cyan); background: rgba(0,255,255,0.05); border-left-color: var(--neon-cyan); }
@@ -1633,16 +1635,16 @@ pre {
 .callout { background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-left: 3px solid var(--neon-cyan); border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.9rem; color: var(--text-secondary); }
 .callout.warning { background: rgba(255,255,0,0.04); border-color: rgba(255,255,0,0.2); border-left-color: var(--neon-yellow); }
 .callout.tip { background: rgba(0,255,136,0.04); border-color: rgba(0,255,136,0.2); border-left-color: var(--neon-green); }
-.callout-label { font-family: var(--font-arcade); font-size: 0.45rem; margin-bottom: 0.5rem; color: var(--neon-cyan); }
+.callout-label { font-family: var(--font-arcade); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 0.5rem; color: var(--neon-cyan); }
 .callout.warning .callout-label { color: var(--neon-yellow); }
 .callout.tip .callout-label { color: var(--neon-green); }
 .steps { counter-reset: step; }
 .step { display: flex; gap: 1.25rem; margin-bottom: 2rem; align-items: flex-start; }
-.step-num { flex-shrink: 0; width: 32px; height: 32px; background: var(--neon-cyan); color: #000; display: flex; align-items: center; justify-content: center; font-family: var(--font-arcade); font-size: 0.55rem; border-radius: 3px; box-shadow: var(--glow-cyan); margin-top: 2px; }
+.step-num { flex-shrink: 0; width: 32px; height: 32px; background: var(--neon-cyan); color: #000; display: flex; align-items: center; justify-content: center; font-family: var(--font-arcade); font-size: 0.85rem; font-weight: 700; border-radius: 3px; box-shadow: var(--glow-cyan); margin-top: 2px; }
 .step-body { flex: 1; }
 .step-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
 .usecase-box { background: var(--bg-elevated); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 1.5rem; margin: 1.5rem 0; }
-.usecase-box-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-family: var(--font-arcade); font-size: 0.5rem; color: var(--neon-orange); }
+.usecase-box-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-family: var(--font-arcade); font-size: 0.85rem; font-weight: 700; color: var(--neon-orange); }
 .article-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-dim); }
 .article-nav-card { background: var(--bg-card); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 1rem 1.25rem; text-decoration: none; color: var(--text-primary); transition: all 0.2s; }
 .article-nav-card:hover { border-color: var(--neon-cyan); color: var(--text-primary); }
