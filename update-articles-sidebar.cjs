@@ -117,9 +117,17 @@ const articlesMeta = {
   'resources-links': {
     tags: ['#resources', '#documentation', '#tools', '#community', '#cheatsheet'],
     related: [
+      { url: '/sfmc-overview', icon: '🚀', es: '¿Qué es Marketing Cloud Engagement?', en: 'What is Marketing Cloud Engagement?' },
+      { url: '/ssjs-intro', icon: '⚡', es: 'Introducción a SSJS en SFMC', en: 'Introduction to SSJS in SFMC' },
+      { url: '/sql-dataviews', icon: '🗃️', es: 'SQL: Introducción a Data Views', en: 'SQL: Intro to SFMC Data Views' }
+    ]
+  },
+  'sfmc-overview': {
+    tags: ['#sfmc-overview', '#basics', '#architecture', '#studios-builders', '#implementation', '#emailstudio', '#journeybuilder'],
+    related: [
       { url: '/ssjs-intro', icon: '⚡', es: 'Introducción a SSJS en SFMC', en: 'Introduction to SSJS in SFMC' },
       { url: '/sql-dataviews', icon: '🗃️', es: 'SQL: Introducción a Data Views', en: 'SQL: Intro to SFMC Data Views' },
-      { url: '/next-datacloud-segments', icon: '🔮', es: 'Data Cloud: Segmentación en Tiempo Real', en: 'Data Cloud: Real-Time Segmentation' }
+      { url: '/jb-api-entry', icon: '🗺️', es: 'Journey Builder: API Entry Event', en: 'Journey Builder: API Entry Event' }
     ]
   }
 };

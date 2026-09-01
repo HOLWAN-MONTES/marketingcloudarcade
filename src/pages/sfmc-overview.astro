@@ -1,0 +1,583 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="¿Qué es Salesforce Marketing Cloud? Guía de Marketing Cloud Engagement | Marketing Cloud Arcade">
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-breadcrumb">
+      <a href="/" data-lang="es">Inicio</a>
+      <a href="/" data-lang="en">Home</a>
+      <span class="sep">/</span>
+      <a href="/catalog?cat=resources" data-lang="es">Recursos</a>
+      <a href="/catalog?cat=resources" data-lang="en">Resources</a>
+      <span class="sep">/</span>
+      <span data-lang="es">Fundamentos</span>
+      <span data-lang="en">Fundamentals</span>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <span class="tag" style="background:rgba(0,255,255,0.15);border:1px solid var(--neon-cyan);color:var(--neon-cyan);">🚀 SFMC 101</span>
+      <span class="tag pink">#basics</span>
+      <span class="tag orange">#architecture</span>
+      <span class="level-badge beginner">🟢 Beginner</span>
+    </div>
+
+    <h1 data-lang="es">¿Qué es Salesforce Marketing Cloud? Guía Completa de Marketing Cloud Engagement</h1>
+    <h1 data-lang="en">What is Salesforce Marketing Cloud? Complete Marketing Cloud Engagement Guide</h1>
+
+    <div class="article-meta">
+      <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: May 2025</span>
+      <span class="article-meta-item">⏱️ 12 min read</span>
+      <span class="article-meta-item">👁️ <span data-random-views data-article-id="sfmc-overview">0</span> views</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ ARTICLE BODY ════════════════ -->
+<div class="article-layout">
+
+  <!-- CONTENT -->
+  <article class="article-content" is:raw>
+
+    <!-- SPANISH CONTENT -->
+    <div data-lang="es">
+      <p><strong>Salesforce Marketing Cloud Engagement (SFMC)</strong> es la plataforma empresarial líder a nivel global para la automatización, personalización y orquestación de comunicaciones 1:1 a través de canales digitales como Email, SMS, Push Notifications, WhatsApp y Web.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 CONCEPTO CLAVE · SFMC ENGAGEMENT</div>
+        A diferencia de herramientas de email marketing convencionales, Marketing Cloud es un <strong>motor relacional empresarial y multicanal</strong> capaz de procesar millones de eventos por segundo, integrarse con CRMs y bases de datos transaccionales, y ejecutar recorridos hiperpersonalizados (Customer Journeys) en tiempo real.
+      </div>
+
+      <!-- SECTION 1 -->
+      <h2 id="historia">01 · HISTORIA Y EVOLUCIÓN: DE EXACTTARGET A SFMC</h2>
+      <p>Para entender la potencia y particularidades arquitectónicas de Marketing Cloud, es fundamental conocer su origen tecnológico:</p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-pink); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-pink); margin-bottom:0.5rem;">AÑO 2000 · NACIMIENTO</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">ExactTarget</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Fundada en Indianápolis, nació como una plataforma pionera de email marketing masivo con un motor MTA ultrarrápido y soporte de lenguajes scripting propios (AMPscript).</p>
+        </div>
+
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-cyan); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-cyan); margin-bottom:0.5rem;">AÑO 2013 · ADQUISICIÓN</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">Salesforce Adquiere ExactTarget</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Salesforce compra ExactTarget por $2.5 mil millones de dólares, integrando adquisiciones previas como Radian6, Buddy Media y luego Krux (DMP) para formar <em>Salesforce Marketing Cloud</em>.</p>
+        </div>
+
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-yellow); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-yellow); margin-bottom:0.5rem;">ACTUALIDAD · ERA ENGAGEMENT & DATA CLOUD</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">Marketing Cloud Engagement</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Rebautizado como <strong>Marketing Cloud Engagement</strong>, se conecta de forma nativa con <strong>Data Cloud</strong> para segmentación en tiempo real y <strong>Agentforce</strong> para campañas autónomas con IA generativa.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <h2 id="caracteristicas">02 · CARACTERÍSTICAS CLAVE DE MARKETING CLOUD ENGAGEMENT</h2>
+      <p>Marketing Cloud destaca en el mercado empresarial gracias a 5 pilares fundamentales:</p>
+
+      <ul style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:0.75rem;">
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-cyan); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-cyan);">1. Hiperpersonalización 1:1 en Tiempo de Render:</strong> Mediante <code>AMPscript</code> y <code>SSJS</code>, el contenido de cada mensaje se calcula de forma individual en el instante exacto del envío, consultando datos de compras, preferencias o catálogos externos.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-pink); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-pink);">2. Orquestación Omnicanal Basada en Eventos:</strong> Con Journey Builder, puedes crear experiencias sincronizadas que inician con un Email, esperan interacción, envían un WhatsApp o SMS de rescate, y sincronizan el estado en Salesforce CRM.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-yellow); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-yellow);">3. Escalabilidad y Entregabilidad Enterprise:</strong> Capacidad de despachar decenas de millones de correos por hora manteniendo altos estándares de reputación gracias a infraestructura SAP (Sender Authentication Package) e IPs dedicadas.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-green); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-green);">4. Motor de Datos Relacional y SQL:</strong> A diferencia de listas planas, SFMC utiliza <strong>Data Extensions</strong> que admiten modelos relacionales complejos, llaves compuestas y procesamiento masivo con SQL en Automation Studio.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-purple); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-purple);">5. Multi-Tenant y Gobernanza Jerárquica:</strong> Estructura de <strong>Business Units (Enterprise 2.0)</strong> para separar marcas, países o líneas de negocio con control granular de accesos, contenido compartido y configuraciones de envío independientes.
+        </li>
+      </ul>
+
+      <!-- SECTION 3 -->
+      <h2 id="arquitectura">03 · CÓMO FUNCIONA: ARQUITECTURA Y MODELO DE DATOS</h2>
+      <p>Para dominar SFMC es necesario comprender sus 3 pilares estructurales:</p>
+
+      <h3>1. Business Units (Enterprise 2.0)</h3>
+      <p>Una cuenta de Marketing Cloud (MID o Member ID) cuenta con una <strong>Parent Business Unit</strong> (unidad raíz) y múltiples <strong>Child Business Units</strong> (unidades hijas). Esto permite aislar audiencias de diferentes subsidiarias o regiones geográficas mientras se comparte contenido mediante Shared Data Extensions y Shared Content Folders.</p>
+
+      <h3>2. El Modelo de Contactos (Contact Model & Subscriber Key)</h3>
+      <p>En SFMC, una persona es identificada en los distintos canales mediante una clave única y persistente:</p>
+      
+      <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; margin:1rem 0;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-yellow); font-weight:700;">Subscriber Key / Contact Key</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Identificador universal del contacto (e.g. Salesforce Contact ID <code>003...</code> o UUID del CRM). Nunca debe ser una dirección de email modificable.</p>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-cyan); font-weight:700;">All Subscribers List</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Registro maestro del estado de suscripción de email (Active, Bounced, Held, Unsubscribed). Regula el opt-in general a nivel de cuenta.</p>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-pink); font-weight:700;">Contact ID</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Número interno asignado por el sistema de Contact Builder para vincular atributos omnicanal (Email, SMS y Push).</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>3. Data Extensions (Tablas de Datos)</h3>
+      <p>Son tablas relacionales similares a bases de datos SQL. Se dividen en:</p>
+      <ul>
+        <li><strong>Sendable Data Extensions:</strong> Tienen un campo mapeado al <code>Subscriber Key</code> y una dirección de envío (Email o Phone). Se pueden usar directamente como audiencia para envíos o entradas de Journey Builder.</li>
+        <li><strong>Non-Sendable Data Extensions:</strong> Tablas auxiliares para almacenar transacciones, catálogos de productos, registros de errores o datos relacionales consumidos con <code>LookupRows()</code> en AMPscript.</li>
+      </ul>
+
+      <!-- SECTION 4 -->
+      <h2 id="studios-builders">04 · STUDIOS & BUILDERS: EL ECOSISTEMA SFMC</h2>
+      <p>Marketing Cloud divide sus capacidades en módulos especializados denominados <strong>Studios</strong> (específicos por canal) y <strong>Builders</strong> (herramientas transversales de orquestación y gestión de datos):</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem; margin:1.5rem 0;">
+        <!-- Card 1 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-cyan);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">📧</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-cyan);">EMAIL STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Creación, prueba y despacho de campañas de email marketing. Configuración de <strong>Send Classifications</strong>, <strong>Sender Profiles</strong> y <strong>Delivery Profiles</strong>. Administración de listas y Data Extensions.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-pink);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">🎨</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-pink);">CONTENT BUILDER</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Repositorio centralizado de activos digitales. Creación de plantillas modulares, bloques dinámicos basados en reglas, fragmentos de código reutilizables y formularios interactivos embebidos.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-yellow);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">📱</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-yellow);">MOBILE STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">
+            Incluye <strong>MobileConnect</strong> (SMS y MMS bidireccionales con Shortcodes/Longcodes), <strong>MobilePush</strong> (notificaciones push para apps iOS/Android con geofencing) y canales OTT como <strong>WhatsApp</strong>.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-orange);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">🗺️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-orange);">JOURNEY BUILDER</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">El motor de orquestación 1:1. Diseña flujos automatizados con <em>Decision Splits</em>, <em>Engagement Splits</em>, tiempos de espera, llamadas a APIs externas y sincronización con Sales/Service Cloud.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-green);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">⚙️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-green);">AUTOMATION STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Motor de procesos batch y ETL. Ejecuta consultas <strong>SQL Query Activities</strong>, transferencias e importaciones automáticas desde servidores FTP/SFTP, y ejecución de código <strong>SSJS</strong> programado o por eventos de archivo (File Drop).</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-purple);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">☁️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-purple);">CLOUDPAGES & WEB STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Publicación de landing pages interactivas, centros de preferencias personalizados (Preference Centers), formularios Smart Capture y endpoints API para recibir webhooks procesados con SSJS.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 5 -->
+      <h2 id="implementacion">05 · QUÉ SE NECESITA PARA UNA IMPLEMENTACIÓN EXITOSA</h2>
+      <p>Implementar Marketing Cloud requiere una planificación técnica rigurosa. A continuación se presentan los prerequisitos y fases indispensables en todo proyecto enterprise:</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Sender Authentication Package (SAP) & Configuración DNS</div>
+            <p>Es el paquete de autenticación de envíos de Salesforce. Incluye:</p>
+            <ul style="margin-top:0.3rem;">
+              <li><strong>Dedicated IP:</strong> Dirección IP exclusiva para tus envíos, aislada de la reputación de otros clientes.</li>
+              <li><strong>Private Domain / Subdomain:</strong> Subdominio delegado (ej: <code>mail.tuempresa.com</code>) para links, imágenes y remitentes.</li>
+              <li><strong>Registros de Autenticación:</strong> Configuración de <strong>SPF</strong> (Sender Policy Framework), <strong>DKIM</strong> (firma criptográfica de 2048 bits) y <strong>DMARC</strong> alineado con políticas de rechazo/cuarentena.</li>
+              <li><strong>SSL Certificates:</strong> Certificados TLS para asegurar enlaces de tracking y CloudPages con protocolo HTTPS.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Estrategia de IP Warming (Calentamiento de IP)</div>
+            <p>Una IP dedicada nueva no tiene reputación frente a proveedores como Gmail, Microsoft o Yahoo. Enviar volúmenes masivos de golpe provocará bloqueos y redirección a Spam.</p>
+            <div class="callout tip" style="margin:0.5rem 0;">
+              <div class="callout-label">💡 PLAN RECOMENDADO</div>
+              Incrementa el volumen progresivamente a lo largo de <strong>4 a 6 semanas</strong>, comenzando exclusivamente con los usuarios más activos y con mayor engagement histórico (aperturas en los últimos 30 días).
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Definición de Arquitectura de Datos y Subscriber Key</div>
+            <p>Establece la regla de oro: <strong>1 Persona = 1 Único Subscriber Key</strong> en toda la organización. Define las políticas de retención de datos (Data Retention Policies) en las Data Extensions para evitar sobrecostos de almacenamiento y cumplir con regulaciones como GDPR / CCPA.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Marketing Cloud Connect (MCC) para Integración con CRM</div>
+            <p>Si la empresa utiliza Salesforce Sales Cloud o Service Cloud, se instala el paquete administrado <strong>Marketing Cloud Connect</strong> para sincronizar Contactos, Leads y Objetos Personalizados en tiempo real mediante <em>Synchronized Data Sources</em> y enviar emails directamente desde el CRM.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Seguridad, Roles y Gobernanza de Business Units</div>
+            <p>Habilitar Multi-Factor Authentication (MFA obligatorio), configurar políticas de expiración de contraseñas, definir rangos de IP permitidos (IP Allowlisting) y asignar roles estándar o personalizados (ej: <em>Marketing Cloud Administrator</em>, <em>Content Creator</em>, <em>Data Manager</em>).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6 -->
+      <h2 id="challenge">06 · DESAFÍO ARCADE: ARQUITECTURA DE SOLUCIÓN</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮</span>
+          <div>
+            <div class="challenge-box-title" data-lang="es">MISIÓN: Welcome Series Omnicanal 500K</div>
+            <div class="challenge-box-title" data-lang="en">MISSION: 500K Omnichannel Welcome Series</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Tu empresa registra 50,000 nuevos usuarios al mes en una app móvil y web. El requerimiento del negocio es:
+          <br>1. Recibir al usuario inmediatamente tras el registro con un Email de bienvenida personalizado.
+          <br>2. Si no abre el correo en 48 horas, enviar un SMS de recordatorio con un cupón único.
+          <br>3. Si realiza una compra dentro de los primeros 7 días, salir del flujo y actualizar su status a "Cliente Activo" en el CRM.
+        </p>
+
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;">⚡ Ver Arquitectura Recomendada</summary>
+          
+          <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1rem; margin-top:0.75rem; color:var(--text-secondary);">
+            <p style="color:var(--neon-cyan); font-weight:700; margin-bottom:0.5rem;">ARQUITECTURA RECOMENDADA EN SFMC:</p>
+            <ol style="padding-left:1.2rem; margin:0; line-height:1.7;">
+              <li><strong>Punto de Entrada:</strong> <code>API Entry Event</code> en Journey Builder conectado al backend de registro para inyección instantánea (sub-segundo).</li>
+              <li><strong>Mensaje 1 (Email):</strong> Email configurado con <strong>Content Builder</strong> y personalización de nombre con <code>AMPscript</code>.</li>
+              <li><strong>Pausa y Decisión:</strong> Actividad <code>Wait By Duration (48 horas)</code> seguida de un <code>Engagement Split</code> evaluando aperturas del Email 1.</li>
+              <li><strong>Rama Sin Apertura (SMS):</strong> Actividad <code>MobileConnect SMS</code> con cupón dinámico generado mediante lookup a Data Extension transaccional.</li>
+              <li><strong>Criterio de Salida y Meta (Goal):</strong> Configurar un <code>Journey Goal</code> basado en el campo <code>HasPurchased = true</code>. Cuando el usuario compra, sale automáticamente del Journey en cualquier etapa.</li>
+              <li><strong>Sincronización CRM:</strong> Actividad <code>Salesforce Object Activity</code> para actualizar el campo <em>Status</em> en el registro del Contacto en Sales/Service Cloud.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- ENGLISH CONTENT -->
+    <div data-lang="en">
+      <p><strong>Salesforce Marketing Cloud Engagement (SFMC)</strong> is the world-leading enterprise platform for automating, personalizing, and orchestrating 1:1 communications across digital channels including Email, SMS, Mobile Push Notifications, WhatsApp, and Web.</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 KEY CONCEPT · SFMC ENGAGEMENT</div>
+        Unlike conventional email tools, Marketing Cloud is an <strong>enterprise multi-channel relational engine</strong> capable of processing millions of events per second, integrating with transactional CRMs and databases, and running hyper-personalized real-time Customer Journeys.
+      </div>
+
+      <!-- SECTION 1 EN -->
+      <h2 id="historia-en">01 · HISTORY & EVOLUTION: FROM EXACTTARGET TO SFMC</h2>
+      <p>To understand the architectural foundation of Marketing Cloud, it is essential to explore its origin:</p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-pink); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-pink); margin-bottom:0.5rem;">YEAR 2000 · GENESIS</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">ExactTarget</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Founded in Indianapolis, it pioneered high-volume email delivery with ultra-fast MTA infrastructure and its proprietary scripting language (AMPscript).</p>
+        </div>
+
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-cyan); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-cyan); margin-bottom:0.5rem;">YEAR 2013 · ACQUISITION</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">Salesforce Acquires ExactTarget</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Salesforce acquired ExactTarget for $2.5B, unifying previous acquisitions like Radian6, Buddy Media, and later Krux (DMP) into <em>Salesforce Marketing Cloud</em>.</p>
+        </div>
+
+        <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-yellow); border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-yellow); margin-bottom:0.5rem;">PRESENT · ENGAGEMENT & DATA CLOUD ERA</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">Marketing Cloud Engagement</div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Rebranded as <strong>Marketing Cloud Engagement</strong>, it natively connects with <strong>Data Cloud</strong> for real-time segmentation and <strong>Agentforce</strong> for autonomous AI campaigns.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 2 EN -->
+      <h2 id="caracteristicas-en">02 · KEY FEATURES OF MARKETING CLOUD ENGAGEMENT</h2>
+      <p>Marketing Cloud stands out in enterprise technology through 5 core pillars:</p>
+
+      <ul style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:0.75rem;">
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-cyan); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-cyan);">1. 1:1 Render-Time Hyper-Personalization:</strong> Using <code>AMPscript</code> and <code>SSJS</code>, content is computed on the fly at send time, looking up purchases, preferences, or external catalogs.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-pink); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-pink);">2. Event-Driven Omnichannel Orchestration:</strong> With Journey Builder, build synchronized experiences spanning Email, SMS, WhatsApp, Push, and bi-directional CRM updates.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-yellow); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-yellow);">3. Enterprise Scalability & Deliverability:</strong> Send tens of millions of emails per hour with dedicated IP infrastructure, SAP authentication, and optimal ISP reputation.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-green); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-green);">4. Relational Data Model & SQL Power:</strong> Unlike flat lists, SFMC utilizes <strong>Data Extensions</strong> supporting composite primary keys, relational lookups, and massive SQL processing via Automation Studio.
+        </li>
+        <li style="background:var(--bg-card); border:1px solid var(--border-dim); border-left:3px solid var(--neon-purple); padding:0.9rem 1.2rem; border-radius:4px;">
+          <strong style="color:var(--neon-purple);">5. Multi-Tenant Architecture & Governance:</strong> <strong>Business Units (Enterprise 2.0)</strong> allow isolation of brands, markets, and subsidiaries with granular permission sets and shared asset libraries.
+        </li>
+      </ul>
+
+      <!-- SECTION 3 EN -->
+      <h2 id="arquitectura-en">03 · HOW IT WORKS: ARCHITECTURE & DATA MODEL</h2>
+      <p>To master SFMC, understanding its 3 structural layers is critical:</p>
+
+      <h3>1. Business Units (Enterprise 2.0)</h3>
+      <p>An enterprise account contains a <strong>Parent Business Unit</strong> (root) and multiple <strong>Child Business Units</strong>. This isolates audience data across regions or sub-brands while enabling shared assets via Shared Data Extensions.</p>
+
+      <h3>2. The Contact Model & Subscriber Key</h3>
+      <p>A customer is recognized across channels via an immutable unique identifier:</p>
+
+      <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; margin:1rem 0;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-yellow); font-weight:700;">Subscriber Key / Contact Key</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Universal identifier (e.g., Salesforce Contact ID <code>003...</code> or CRM UUID). Must never be a mutable email address.</p>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-cyan); font-weight:700;">All Subscribers List</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Master email subscription status registry (Active, Bounced, Held, Unsubscribed) enforcing global opt-in/opt-out.</p>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--neon-pink); font-weight:700;">Contact ID</div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.3rem;">Internal Contact Builder system identifier unifying omnichannel communication records.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>3. Data Extensions (Data Tables)</h3>
+      <p>Relational tables structured like SQL database tables:</p>
+      <ul>
+        <li><strong>Sendable Data Extensions:</strong> Contain a field mapped to the <code>Subscriber Key</code> and a send address (Email/Phone) for direct audience targeting.</li>
+        <li><strong>Non-Sendable Data Extensions:</strong> Reference tables storing transactions, product catalogs, error logs, or relational datasets queried via <code>LookupRows()</code> in AMPscript.</li>
+      </ul>
+
+      <!-- SECTION 4 EN -->
+      <h2 id="studios-builders-en">04 · STUDIOS & BUILDERS: THE SFMC ECOSYSTEM</h2>
+      <p>Marketing Cloud splits its functionality into channel-specific <strong>Studios</strong> and cross-functional <strong>Builders</strong>:</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem; margin:1.5rem 0;">
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-cyan);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">📧</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-cyan);">EMAIL STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Create, test, and send email campaigns. Manage <strong>Send Classifications</strong>, <strong>Sender Profiles</strong>, lists, and Data Extensions.</p>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-pink);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">🎨</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-pink);">CONTENT BUILDER</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Unified asset repository. Build responsive templates, rule-based dynamic blocks, reusable code snippets, and interactive emails.</p>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-yellow);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">📱</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-yellow);">MOBILE STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Includes <strong>MobileConnect</strong> (2-way SMS/MMS), <strong>MobilePush</strong> (iOS/Android push notifications with geofencing), and <strong>WhatsApp</strong> messaging.</p>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-orange);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">🗺️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-orange);">JOURNEY BUILDER</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">1:1 journey orchestration engine. Design workflows with <em>Decision Splits</em>, <em>Engagement Splits</em>, wait timers, API events, and CRM updates.</p>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-green);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">⚙️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-green);">AUTOMATION STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Batch processing and ETL engine. Run <strong>SQL Query Activities</strong>, automated FTP/SFTP file imports/exports, and scheduled <strong>SSJS</strong> scripts.</p>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1.25rem; border-top:3px solid var(--neon-purple);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.4rem;">☁️</span>
+            <span style="font-family:var(--font-arcade); font-size:0.55rem; color:var(--neon-purple);">CLOUDPAGES & WEB STUDIO</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Publish landing pages, custom preference centers, Smart Capture forms, and REST endpoints processing webhooks via SSJS.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 5 EN -->
+      <h2 id="implementacion-en">05 · IMPLEMENTATION GUIDE (KEY PREREQUISITES)</h2>
+      <p>Implementing Marketing Cloud requires rigorous technical preparation. Here are the 5 foundational phases:</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Sender Authentication Package (SAP) & DNS Configuration</div>
+            <p>Salesforce email branding and deliverability package:</p>
+            <ul style="margin-top:0.3rem;">
+              <li><strong>Dedicated IP:</strong> Isolated IP address exclusively building your organization's sending reputation.</li>
+              <li><strong>Private Domain / Subdomain:</strong> Delegated domain (e.g. <code>mail.company.com</code>) for links, images, and sender addresses.</li>
+              <li><strong>Email Authentication:</strong> <strong>SPF</strong>, <strong>DKIM (2048-bit)</strong>, and aligned <strong>DMARC</strong> policy configuration.</li>
+              <li><strong>SSL Certificates:</strong> HTTPS encryption for tracking links and CloudPages.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">IP Warming Strategy</div>
+            <p>A fresh dedicated IP possesses zero reputation with major mailbox providers (Google, Microsoft, Yahoo). Sudden blasts will land in spam folders.</p>
+            <div class="callout tip" style="margin:0.5rem 0;">
+              <div class="callout-label">💡 RECOMMENDED RAMP-UP</div>
+              Gradually ramp up send volume across <strong>4 to 6 weeks</strong>, sending exclusively to your most engaged subscribers (recent 30-day openers).
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Data Architecture & Subscriber Key Definition</div>
+            <p>Enforce the immutable rule: <strong>1 Individual = 1 Unique Subscriber Key</strong> across the entire enterprise. Define Data Retention Policies on Data Extensions to avoid storage bloat and ensure compliance.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Marketing Cloud Connect (MCC) Setup</div>
+            <p>If utilizing Salesforce Sales or Service Cloud, deploy the <strong>Marketing Cloud Connect</strong> managed package to stream Contact, Lead, and Custom Object records via <em>Synchronized Data Sources</em>.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Security, Roles & Business Units Hierarchy</div>
+            <p>Enforce MFA, configure password policies, establish IP allowlists, and assign structured permission sets across Business Units.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6 EN -->
+      <h2 id="challenge-en">06 · ARCADE CHALLENGE: SOLUTION ARCHITECTURE</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮</span>
+          <div>
+            <div class="challenge-box-title">MISSION: 500K Omnichannel Welcome Series</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Your company acquires 50,000 new users per month across web and mobile. Business requirements:
+          <br>1. Welcome the user immediately upon registration with a personalized email.
+          <br>2. If they do not open within 48 hours, send a fallback SMS containing a unique voucher.
+          <br>3. If they make a purchase within 7 days, immediately exit them from the journey and update their status to "Active Customer" in CRM.
+        </p>
+
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;">⚡ View Solution Architecture</summary>
+          
+          <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1rem; margin-top:0.75rem; color:var(--text-secondary);">
+            <p style="color:var(--neon-cyan); font-weight:700; margin-bottom:0.5rem;">RECOMMENDED SFMC ARCHITECTURE:</p>
+            <ol style="padding-left:1.2rem; margin:0; line-height:1.7;">
+              <li><strong>Entry Source:</strong> <code>API Entry Event</code> in Journey Builder hooked into the signup backend for sub-second injection.</li>
+              <li><strong>Message 1 (Email):</strong> Email built with <strong>Content Builder</strong> using <code>AMPscript</code> for dynamic personalization.</li>
+              <li><strong>Wait & Evaluation:</strong> <code>Wait By Duration (48 hours)</code> followed by an <code>Engagement Split</code> checking Email 1 opens.</li>
+              <li><strong>Unopened Branch (SMS):</strong> <code>MobileConnect SMS</code> activity fetching unique coupon codes via transactional Data Extension lookups.</li>
+              <li><strong>Exit & Goal:</strong> Define a <code>Journey Goal</code> with <code>HasPurchased = true</code> so converting users instantly exit regardless of stage.</li>
+              <li><strong>CRM Sync:</strong> <code>Salesforce Object Activity</code> to update the Contact record <em>Status</em> in Sales/Service Cloud.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Article Nav -->
+    <div class="article-nav">
+      <a class="article-nav-card" href="/catalog">
+        <div class="article-nav-label" data-lang="es">◀ Anterior</div>
+        <div class="article-nav-label" data-lang="en">◀ Previous</div>
+        <div class="article-nav-title" data-lang="es">Volver al catálogo</div>
+        <div class="article-nav-title" data-lang="en">Back to catalog</div>
+      </a>
+      <a class="article-nav-card next" href="/ssjs-intro">
+        <div class="article-nav-label" data-lang="es">Siguiente ▶</div>
+        <div class="article-nav-label" data-lang="en">Next ▶</div>
+        <div class="article-nav-title" data-lang="es">Introducción a SSJS en SFMC</div>
+        <div class="article-nav-title" data-lang="en">Introduction to SSJS in SFMC</div>
+      </a>
+    </div>
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#historia" data-lang="es">01 · Historia y evolución</a><a href="#historia-en" data-lang="en">01 · History & evolution</a></li>
+        <li><a href="#caracteristicas" data-lang="es">02 · Características clave</a><a href="#caracteristicas-en" data-lang="en">02 · Key features</a></li>
+        <li><a href="#arquitectura" data-lang="es">03 · Arquitectura y datos</a><a href="#arquitectura-en" data-lang="en">03 · Architecture & data</a></li>
+        <li><a href="#studios-builders" data-lang="es">04 · Studios & Builders</a><a href="#studios-builders-en" data-lang="en">04 · Studios & Builders</a></li>
+        <li><a href="#implementacion" data-lang="es">05 · Implementación</a><a href="#implementacion-en" data-lang="en">05 · Implementation</a></li>
+        <li><a href="#challenge" data-lang="es">06 · Desafío Arcade</a><a href="#challenge-en" data-lang="en">06 · Arcade Challenge</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <span class="tag" style="background:rgba(0,255,255,0.15);border:1px solid var(--neon-cyan);color:var(--neon-cyan);">#sfmc-overview</span>
+        <span class="tag pink">#basics</span>
+        <span class="tag yellow">#architecture</span>
+        <span class="tag orange">#studios-builders</span>
+        <span class="tag green">#implementation</span>
+        <span class="tag pink">#emailstudio</span>
+        <span class="tag orange">#journeybuilder</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
+        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ Introducción a SSJS en SFMC</a>
+        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ Introduction to SSJS in SFMC</a>
+        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗃️ SQL: Introducción a Data Views</a>
+        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗃️ SQL: Intro to SFMC Data Views</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗺️ Journey Builder: API Entry Event</a>
+        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗺️ Journey Builder: API Entry Event</a>
+        <a href="/amp-lookup" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">📄 AMPscript: LookupRows y datos dinámicos</a>
+        <a href="/amp-lookup" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">📄 AMPscript: LookupRows & Dynamic Data</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+</Layout>

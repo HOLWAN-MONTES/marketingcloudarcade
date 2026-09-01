@@ -110,6 +110,7 @@ const SearchManager = (() => {
   }
 
   const articles = [
+    { title: 'What is Marketing Cloud Engagement? Complete Guide', title_es: '¿Qué es Marketing Cloud Engagement? Guía Completa', category: 'resources', level: 'beginner', url: '/sfmc-overview', id: 'sfmc-overview' },
     { title: 'SSJS: HTTP GET & POST Requests', title_es: 'SSJS: Peticiones HTTP GET y POST', category: 'ssjs', level: 'intermediate', url: '/ssjs-http', id: 'ssjs-http' },
     { title: 'AMPscript: Dynamic Content Blocks', title_es: 'AMPscript: Bloques de Contenido Dinámico', category: 'ampscript', level: 'beginner', url: '/amp-dynamic', id: 'amp-dynamic' },
     { title: 'SQL: Query Data Views Like a Pro', title_es: 'SQL: Consulta Data Views como un Pro', category: 'sql', level: 'intermediate', url: '/sql-dataviews', id: 'sql-dataviews' },
