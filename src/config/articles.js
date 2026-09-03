@@ -37,7 +37,7 @@ export const ALL_CARDS = [
     viewsMin: 3000,
     viewsMax: 8000,
     hot: true,
-    tags: ["#http", "#rest-api"],
+    tags: ["#ssjs", "#http", "#rest-api", "#oauth2"],
   },
   {
     id: "ssjs-upsert",
@@ -55,7 +55,7 @@ export const ALL_CARDS = [
     viewsMin: 2000,
     viewsMax: 5000,
     hot: true,
-    tags: ["#rest-api", "#upsert"],
+    tags: ["#ssjs", "#rest-api", "#upsert", "#contacts"],
     featured: true,
   },
   {
@@ -74,7 +74,7 @@ export const ALL_CARDS = [
     viewsMin: 1500,
     viewsMax: 4000,
     hot: false,
-    tags: ["#basics"],
+    tags: ["#ssjs", "#basics", "#cloudpages", "#automation"],
   },
   {
     id: "ssjs-debug",
@@ -92,7 +92,7 @@ export const ALL_CARDS = [
     viewsMin: 700,
     viewsMax: 2000,
     hot: false,
-    tags: ["#debugging"],
+    tags: ["#ssjs", "#debugging", "#troubleshooting"],
   },
   {
     id: "amp-intro",
@@ -121,7 +121,7 @@ export const ALL_CARDS = [
     title_es: "SQL: Introducción a Data Views de SFMC",
     title_en: "SQL: Intro to SFMC Data Views",
     desc_es:
-      "Conece las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.",
+      "Conoce las Data Views más importantes (_Sent, _Open, _Click, _Bounce) y cómo consultarlas con SQL.",
     desc_en:
       "Learn the most important Data Views (_Sent, _Open, _Click, _Bounce) and how to query them with SQL.",
     duration: "8 min",
@@ -129,7 +129,7 @@ export const ALL_CARDS = [
     viewsMin: 1000,
     viewsMax: 3000,
     hot: false,
-    tags: ["#dataviews"],
+    tags: ["#sql", "#dataviews", "#system-tables"],
   },
   {
     id: "sql-engagement",
@@ -147,7 +147,7 @@ export const ALL_CARDS = [
     viewsMin: 900,
     viewsMax: 2500,
     hot: false,
-    tags: ["#engagement"],
+    tags: ["#sql", "#engagement", "#dataviews", "#scoring"],
     featured: true,
   },
   {
@@ -166,7 +166,7 @@ export const ALL_CARDS = [
     viewsMin: 800,
     viewsMax: 2200,
     hot: false,
-    tags: ["#joins"],
+    tags: ["#sql", "#joins", "#subqueries"],
   },
   {
     id: "auto-filedrop",
@@ -184,7 +184,7 @@ export const ALL_CARDS = [
     viewsMin: 600,
     viewsMax: 1800,
     hot: false,
-    tags: ["#filedrop"],
+    tags: ["#automation", "#filedrop", "#ftp"],
   },
   {
     id: "jb-api-entry",
@@ -202,7 +202,7 @@ export const ALL_CARDS = [
     viewsMin: 1500,
     viewsMax: 4000,
     hot: true,
-    tags: ["#api-entry"],
+    tags: ["#journey", "#api-entry", "#event-definition"],
   },
   {
     id: "cp-auth",
@@ -220,7 +220,7 @@ export const ALL_CARDS = [
     viewsMin: 1000,
     viewsMax: 3000,
     hot: true,
-    tags: ["#auth"],
+    tags: ["#cloudpages", "#auth", "#tokens", "#security"],
   },
   {
     id: "inno-ai",
@@ -238,7 +238,7 @@ export const ALL_CARDS = [
     viewsMin: 2500,
     viewsMax: 6000,
     hot: true,
-    tags: ["#ai"],
+    tags: ["#innovations", "#ai", "#gpt", "#personalization"],
   },
   {
     id: "resources-links",
@@ -256,7 +256,7 @@ export const ALL_CARDS = [
     viewsMin: 600,
     viewsMax: 1800,
     hot: false,
-    tags: ["#basics"],
+    tags: ["#resources", "#documentation", "#tools"],
   },
   {
     id: "next-datacloud-segments",
@@ -274,7 +274,7 @@ export const ALL_CARDS = [
     viewsMin: 3200,
     viewsMax: 8500,
     hot: true,
-    tags: ["#datacloud", "#segmentation"],
+    tags: ["#datacloud", "#segmentation", "#dmo", "#realtime"],
     featured: true,
   },
   {
@@ -293,7 +293,7 @@ export const ALL_CARDS = [
     viewsMin: 4100,
     viewsMax: 9200,
     hot: true,
-    tags: ["#agentforce", "#einstein"],
+    tags: ["#agentforce", "#ai", "#autonomous-campaigns", "#einstein"],
     featured: true,
   },
 ];

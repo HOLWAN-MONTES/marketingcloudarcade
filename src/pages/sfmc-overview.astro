@@ -553,30 +553,72 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag" style="background:rgba(0,255,255,0.15);border:1px solid var(--neon-cyan);color:var(--neon-cyan);">#sfmc-overview</span>
-        <span class="tag pink">#basics</span>
-        <span class="tag yellow">#architecture</span>
-        <span class="tag orange">#studios-builders</span>
-        <span class="tag green">#implementation</span>
-        <span class="tag pink">#emailstudio</span>
-        <span class="tag orange">#journeybuilder</span>
+        <a href="/catalog?tag=sfmc-overview" class="tag">#sfmc-overview</a>
+        <a href="/catalog?tag=basics" class="tag">#basics</a>
+        <a href="/catalog?tag=architecture" class="tag">#architecture</a>
+        <a href="/catalog?tag=studios-builders" class="tag">#studios-builders</a>
+        <a href="/catalog?tag=implementation" class="tag">#implementation</a>
+        <a href="/catalog?tag=emailstudio" class="tag green">#emailstudio</a>
+        <a href="/catalog?tag=journeybuilder" class="tag orange">#journeybuilder</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ Introducción a SSJS en SFMC</a>
-        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ Introduction to SSJS in SFMC</a>
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗃️ SQL: Introducción a Data Views</a>
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗃️ SQL: Intro to SFMC Data Views</a>
-        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗺️ Journey Builder: API Entry Event</a>
-        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗺️ Journey Builder: API Entry Event</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ Introducción a AMPscript</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ Introduction to AMPscript</a>
+      <div class="related-articles-list">
+        <a href="/ssjs-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a SSJS en SFMC</span>
+        </a>
+        <a href="/ssjs-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to SSJS in SFMC</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a AMPscript</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to AMPscript</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Introducción a Data Views</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Intro to SFMC Data Views</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_overview.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Introducción a MC Engagement <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_overview.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: MC Engagement Overview <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/mrkt_cloud_basics" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Conceptos Básicos de Marketing Cloud <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/mrkt_cloud_basics" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Marketing Cloud Basics <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 

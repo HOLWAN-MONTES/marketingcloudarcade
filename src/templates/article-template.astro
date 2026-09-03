@@ -1,0 +1,304 @@
+---
+// src/templates/article-template.astro
+// MASTER BLUEPRINT FOR ALL MARKETING CLOUD ARCADE ARTICLES
+// Reference model: src/pages/ssjs-intro.astro
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="[TITULO_ES] | Marketing Cloud Arcade">
+
+<!-- ============================================================
+     ARTICLE HERO BANNER
+     ============================================================ -->
+<div class="article-hero">
+  <div class="article-hero-inner">
+    
+    <!-- Meta badges (Category, Level, Duration, Date, Views) -->
+    <div class="article-meta">
+      <span class="tag [COLOR_TAG]">[CATEGORIA_UPPER]</span>
+      <span class="level-badge [NIVEL]">[EMOJI_NIVEL] [Nivel]</span>
+      <span class="article-meta-item">⏱️ [X] min</span>
+      <span class="article-meta-item">📅 [Mes Año]</span>
+      <span class="article-meta-item views hot">🔥 <span data-random-views>-</span></span>
+    </div>
+
+    <!-- Bilingual H1 Title -->
+    <h1 data-lang="es">[TÍTULO EN ESPAÑOL]</h1>
+    <h1 data-lang="en">[TITLE IN ENGLISH]</h1>
+
+    <!-- Bilingual Subtitle / Summary -->
+    <p class="article-hero-desc" data-lang="es">
+      [Descripción breve en español explicando qué aprenderá el lector y por qué es importante.]
+    </p>
+    <p class="article-hero-desc" data-lang="en">
+      [Brief description in English explaining what the reader will learn and why it matters.]
+    </p>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     ARTICLE BODY & SIDEBAR GRID
+     ============================================================ -->
+<div class="article-layout">
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <article class="article-content" is:raw>
+
+    <!-- ──────────────────────────────────────────
+         SPANISH CONTENT (data-lang="es")
+         ────────────────────────────────────────── -->
+    <div data-lang="es">
+      <p>[Introducción conceptual clara explicando qué es la tecnología y su relevancia en SFMC.]</p>
+
+      <!-- Callout: Prerequisito -->
+      <div class="callout">
+        <div class="callout-label">📌 PREREQUISITO</div>
+        [Requisitos previos necesarios en la instancia de SFMC o permisos requeridos.]
+      </div>
+
+      <!-- SECCIÓN 01 -->
+      <h2 id="sec-01">01 · [TITULO DE SECCION 01]</h2>
+      <p>[Explicación didáctica paso a paso.]</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots">
+            <div class="code-block-dot"></div>
+            <div class="code-block-dot"></div>
+            <div class="code-block-dot"></div>
+          </div>
+          <span class="code-block-lang">[Lenguaje · Contexto]</span>
+          <button class="code-copy-btn">📋 Copiar</button>
+        </div>
+        <pre><span class="cm">// [Comentario del snippet]</span>
+<span class="kw">var</span> <span class="vr">example</span> = <span class="st">"code"</span>;</pre>
+      </div>
+
+      <!-- SECCIÓN 02: Tip / Advertencia -->
+      <h2 id="sec-02">02 · [TITULO DE SECCION 02]</h2>
+      <p>[Explicación técnica con ejemplos de código.]</p>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP</div>
+        [Consejo avanzado de optimización o buena práctica para entornos de producción.]
+      </div>
+
+      <!-- SECCIÓN 03: Casos de Uso Reales -->
+      <h2 id="use-cases">03 · CASOS DE USO REALES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: [Nombre del caso de uso 1]</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          [Descripción práctica del problema de negocio y cómo se resuelve.]
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: [Nombre del caso de uso 2]</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          [Descripción práctica del segundo caso de uso.]
+        </p>
+      </div>
+
+      <!-- SECCIÓN 04: Desafío Arcade Interactivo -->
+      <h2 id="challenge">04 · DESAFÍO ARCADE</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISIÓN: [Nombre de la Misión]</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          [Planteamiento del reto práctico para que el lector escriba o deduzca el código.]
+        </p>
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;"> Ver solución</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Solución</span>
+              <button class="code-copy-btn">📋 Copiar</button>
+            </div>
+            <pre><span class="cm">// Código de solución comentada</span>
+<span class="kw">var</span> <span class="vr">solved</span> = <span class="nb">true</span>;</pre>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         ENGLISH CONTENT (data-lang="en")
+         ────────────────────────────────────────── -->
+    <div data-lang="en">
+      <p>[Clear conceptual introduction explaining the technology and its SFMC relevance in English.]</p>
+
+      <div class="callout">
+        <div class="callout-label">📌 PREREQUISITE</div>
+        [Prerequisites needed in SFMC or required user permissions.]
+      </div>
+
+      <!-- SECTION 01 EN -->
+      <h2 id="sec-01-en">01 · [SECTION 01 TITLE IN ENGLISH]</h2>
+      <p>[Step by step educational explanation in English.]</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">[Language · Context]</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">// [Snippet comment in English]</span>
+<span class="kw">var</span> <span class="vr">example</span> = <span class="st">"code"</span>;</pre>
+      </div>
+
+      <!-- SECTION 02 EN -->
+      <h2 id="sec-02-en">02 · [SECTION 02 TITLE IN ENGLISH]</h2>
+      <p>[Technical explanation with code examples.]</p>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP</div>
+        [Advanced optimization or best practice tip for production environments.]
+      </div>
+
+      <!-- SECTION 03 EN -->
+      <h2 id="use-cases-en">03 · REAL USE CASES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: [Use Case 1 Name]</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          [Practical explanation of the business problem and how it is solved.]
+        </p>
+      </div>
+
+      <!-- SECTION 04 EN -->
+      <h2 id="challenge-en">04 · ARCADE CHALLENGE</h2>
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISSION: [Mission Name]</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          [Hands-on challenge prompt for the reader.]
+        </p>
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;"> View solution</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Solution</span>
+              <button class="code-copy-btn">📋 Copy</button>
+            </div>
+            <pre><span class="cm">// English solution code</span>
+<span class="kw">var</span> <span class="vr">solved</span> = <span class="nb">true</span>;</pre>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         BOTTOM ARTICLE NAVIGATION (Prev / Next)
+         ────────────────────────────────────────── -->
+    <div class="article-nav">
+      <a class="article-nav-card" href="[URL_ANTERIOR]">
+        <div class="article-nav-label" data-lang="es">◀ Anterior</div>
+        <div class="article-nav-label" data-lang="en">◀ Previous</div>
+        <div class="article-nav-title" data-lang="es">[Título Anterior]</div>
+        <div class="article-nav-title" data-lang="en">[Previous Title]</div>
+      </a>
+      <a class="article-nav-card next" href="[URL_SIGUIENTE]">
+        <div class="article-nav-label" data-lang="es">Siguiente ▶ </div>
+        <div class="article-nav-label" data-lang="en">Next ▶ </div>
+        <div class="article-nav-title" data-lang="es">[Título Siguiente]</div>
+        <div class="article-nav-title" data-lang="en">[Next Title]</div>
+      </a>
+    </div>
+
+  </article>
+
+  <!-- ==================== STICKY RIGHT SIDEBAR ==================== -->
+  <aside class="article-sidebar">
+
+    <!-- 1. TOC (TABLE OF CONTENTS - BILINGUAL & EXACT MATCH) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#sec-01" data-lang="es">01 · [Título Sección 01]</a><a href="#sec-01-en" data-lang="en">01 · [Section 01 Title]</a></li>
+        <li><a href="#sec-02" data-lang="es">02 · [Título Sección 02]</a><a href="#sec-02-en" data-lang="en">02 · [Section 02 Title]</a></li>
+        <li><a href="#use-cases" data-lang="es">03 · Casos de Uso Reales</a><a href="#use-cases-en" data-lang="en">03 · Real Use Cases</a></li>
+        <li><a href="#challenge" data-lang="es">04 · Desafío Arcade</a><a href="#challenge-en" data-lang="en">04 · Arcade Challenge</a></li>
+      </ul>
+    </div>
+
+    <!-- 2. CLICKABLE TAGS (AUTO-SYNC VIA update-articles-sidebar.cjs) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <a href="/catalog?tag=[tag1]" class="tag pink">#[tag1]</a>
+        <a href="/catalog?tag=[tag2]" class="tag">#[tag2]</a>
+        <a href="/catalog?tag=[tag3]" class="tag orange">#[tag3]</a>
+      </div>
+    </div>
+
+    <!-- 3. RELATED ARTICLES (AUTO-SYNC VIA update-articles-sidebar.cjs) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div class="related-articles-list">
+        <a href="[URL_RELACIONADO_1]" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">[Título Relacionado 1 ES]</span>
+        </a>
+        <a href="[URL_RELACIONADO_1]" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">[Related Title 1 EN]</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. OFFICIAL DOCS (SALESFORCE & TRAILHEAD WITH OFFICIAL FAVICONS) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="[URL_SALESFORCE_DOCS]" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: [Guía Oficial ES] <span class="external-icon">↗</span></span>
+        </a>
+        <a href="[URL_SALESFORCE_DOCS]" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: [Official Guide EN] <span class="external-icon">↗</span></span>
+        </a>
+        <a href="[URL_TRAILHEAD_MODULE]" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: [Módulo Oficial ES] <span class="external-icon">↗</span></span>
+        </a>
+        <a href="[URL_TRAILHEAD_MODULE]" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: [Official Module EN] <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+</Layout>

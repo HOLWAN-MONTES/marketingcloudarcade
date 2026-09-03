@@ -1,63 +1,82 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Introducción a AMPscript: Guía Completa para Principiantes | Marketing Cloud Arcade">
+
+<Layout title="Introducción a AMPscript: Guía Completa de Fundamentos | Marketing Cloud Arcade">
+
+<!-- ============================================================
+     ARTICLE HERO BANNER
+     ============================================================ -->
 <div class="article-hero">
   <div class="article-hero-inner">
+    
+    <!-- Breadcrumb -->
     <div class="article-breadcrumb">
       <a href="/" data-lang="es">Inicio</a>
       <a href="/" data-lang="en">Home</a>
       <span class="sep">/</span>
-      <a href="/catalog?cat=ampscript" data-lang="es">AMPscript</a>
-      <a href="/catalog?cat=ampscript" data-lang="en">AMPscript</a>
+      <a href="/catalog?cat=ampscript">AMPscript</a>
       <span class="sep">/</span>
-      <span data-lang="es">Fundamentos</span>
-      <span data-lang="en">Fundamentals</span>
+      <span data-lang="es">Artículo</span>
+      <span data-lang="en">Article</span>
     </div>
 
+    <!-- Meta badges -->
     <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
-      <span class="tag" style="background:rgba(0,255,255,0.15);border:1px solid var(--neon-cyan);color:var(--neon-cyan);">⚡ AMPSCRIPT 101</span>
-      <span class="tag pink">#basics</span>
-      <span class="tag green">#emailstudio</span>
-      <span class="tag purple">#personalization</span>
+      <span class="tag green">AMPSCRIPT</span>
       <span class="level-badge beginner">🟢 Beginner</span>
     </div>
 
-    <h1 data-lang="es">Introducción a AMPscript: Guía Completa de Fundamentos en SFMC</h1>
-    <h1 data-lang="en">Introduction to AMPscript: Complete Fundamentals Guide in SFMC</h1>
+    <!-- Bilingual H1 Title -->
+    <h1 data-lang="es">Introducción a AMPscript: Guía Completa de Fundamentos</h1>
+    <h1 data-lang="en">Introduction to AMPscript: Complete Fundamentals Guide</h1>
 
+    <!-- Bilingual Subtitle / Summary -->
+    <p class="article-hero-desc" data-lang="es">
+      Aprende qué es AMPscript, dónde se ejecuta en SFMC, ciclo de vida OMM, delimitadores, sintaxis, variables, funciones clave y casos reales para hiperpersonalización 1:1.
+    </p>
+    <p class="article-hero-desc" data-lang="en">
+      Learn what AMPscript is, where it executes in SFMC, OMM lifecycle, delimiters, syntax, variables, essential functions, and real use cases for 1:1 hyper-personalization.
+    </p>
+
+    <!-- Meta info -->
     <div class="article-meta">
       <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: Sep 2026</span>
-      <span class="article-meta-item">⏱️ 9 min read</span>
+      <span class="article-meta-item">⏱️ 8 min read</span>
       <span class="article-meta-item">👁️ <span data-random-views data-article-id="amp-intro">0</span> views</span>
     </div>
+
   </div>
 </div>
 
-<!-- ════════════════ ARTICLE BODY ════════════════ -->
+<!-- ============================================================
+     ARTICLE BODY & SIDEBAR GRID
+     ============================================================ -->
 <div class="article-layout">
 
-  <!-- CONTENT -->
+  <!-- ==================== MAIN CONTENT ==================== -->
   <article class="article-content" is:raw>
 
-    <!-- SPANISH CONTENT -->
+    <!-- ──────────────────────────────────────────
+         SPANISH CONTENT (data-lang="es")
+         ────────────────────────────────────────── -->
     <div data-lang="es">
       <p><strong>AMPscript</strong> es el lenguaje de programación y scripting del lado del servidor (<em>server-side</em>) nativo y propietario de <strong>Salesforce Marketing Cloud (SFMC)</strong>. Diseñado específicamente para el ecosistema de mensajería digital, es el motor principal detrás de la hiperpersonalización 1:1 en correos electrónicos, páginas web interactivas y mensajes móviles.</p>
 
       <div class="callout">
         <div class="callout-label">📌 CONCEPTO CLAVE · ¿POR QUÉ EXISTE AMPSCRIPT?</div>
-        A diferencia de lenguajes de propósito general como JavaScript en el navegador, AMPscript se ejecuta <strong>en los servidores de Salesforce en el instante exacto en que se va a enviar o renderizar un mensaje</strong> (<em>Send-Time</em>). El destinatario final <strong>nunca ve el código AMPscript</strong>; únicamente recibe el HTML o texto plano resultante ya personalizado con sus propios datos.
+        A diferencia de lenguajes del lado del cliente como JavaScript en el navegador web, AMPscript se ejecuta <strong>en los servidores de Salesforce en el instante exacto en que se va a enviar o renderizar un mensaje</strong> (<em>Send-Time</em>). El destinatario final <strong>nunca ve el código fuente</strong>; únicamente recibe el HTML o texto plano resultante ya transformado con sus datos específicos.
       </div>
 
-      <!-- SECTION 1 -->
+      <!-- SECCIÓN 01 -->
       <h2 id="que-es-ampscript">01 · ¿QUÉ ES AMPSCRIPT Y PARA QUÉ SIRVE?</h2>
-      <p>AMPscript fue creado originalmente por ExactTarget antes de su adquisición por Salesforce. Su propósito es permitir a los desarrolladores y especialistas en marketing:</p>
+      <p>AMPscript fue creado originalmente por ExactTarget antes de su adquisición por Salesforce. Su propósito es permitir a los desarrolladores y especialistas técnicos de marketing:</p>
       <ul>
-        <li><strong>Incrustar datos dinámicos</strong> de suscriptores (nombre, ciudad, puntos de fidelidad, saldo de cuenta).</li>
-        <li><strong>Ejecutar lógica condicional</strong> (ej: mostrar una imagen de bienvenida diferente según el género, categoría VIP o idioma preferido).</li>
-        <li><strong>Consultar y cruzar datos en tiempo real</strong> directamente desde <em>Data Extensions</em> mediante funciones de búsqueda (<em>Lookups</em>).</li>
+        <li><strong>Incrustar atributos dinámicos</strong> de suscriptores (nombre, saldo de cuenta, puntos de fidelidad, ciudad).</li>
+        <li><strong>Ejecutar lógica condicional</strong> (ej: mostrar un banner u oferta diferente según la categoría VIP o idioma del contacto).</li>
+        <li><strong>Consultar y cruzar datos en tiempo real</strong> directamente desde <em>Data Extensions</em> mediante funciones <code>Lookup()</code> y <code>LookupRows()</code>.</li>
         <li><strong>Formatear valores y fechas</strong> adaptadas a la zona horaria y moneda local de cada usuario.</li>
-        <li><strong>Manejar enlaces con seguimiento dinámico</strong> asegurando que los clics queden registrados en el historial de engagement de Marketing Cloud.</li>
+        <li><strong>Manejar enlaces con tracking dinámico</strong> garantizando que los clics queden registrados en el historial de engagement de Marketing Cloud con <code>RedirectTo()</code>.</li>
       </ul>
 
       <!-- COMPARISON TABLE -->
@@ -75,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
             </thead>
             <tbody style="color:var(--text-secondary);">
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:0.6rem 0.8rem; font-weight:bold; color:var(--neon-cyan);">AMPscript</td>
+                <td style="padding:0.6rem 0.8rem; font-weight:bold; color:var(--neon-green);">AMPscript</td>
                 <td style="padding:0.6rem 0.8rem;">Emails 1:1, SMS, Push, personalización rápida</td>
                 <td style="padding:0.6rem 0.8rem; color:var(--neon-green);">⚡ Ultra Rápido</td>
                 <td style="padding:0.6rem 0.8rem;">90% de los emails dinámicos, Lookups y condiciones.</td>
@@ -97,7 +116,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- SECTION 2 -->
+      <!-- SECCIÓN 02 -->
       <h2 id="donde-se-puede-usar">02 · ¿DÓNDE SE PUEDE USAR AMPSCRIPT?</h2>
       <p>AMPscript no se limita únicamente a los correos electrónicos. Es un lenguaje transversal soportado en casi todas las herramientas de Marketing Cloud:</p>
 
@@ -117,17 +136,17 @@ import Layout from '../layouts/Layout.astro';
         <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-purple); border-radius:var(--radius); padding:1.2rem;">
           <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-purple); margin-bottom:0.4rem;">CANAL 03</div>
           <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">🌐 CloudPages & Web</div>
-          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">En Landing Pages, centros de preferencias de suscripción, formularios que reciben parámetros por URL y páginas de agradecimiento.</p>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">En Landing Pages, centros de preferencias de suscripción, formularios que procesan parámetros de URL y páginas de confirmación.</p>
         </div>
 
         <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-top:3px solid var(--neon-pink); border-radius:var(--radius); padding:1.2rem;">
           <div style="font-family:var(--font-arcade); font-size:0.5rem; color:var(--neon-pink); margin-bottom:0.4rem;">CANAL 04</div>
           <div style="font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">📦 Content Blocks Reutilizables</div>
-          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Bloques de código centralizados que se pueden invocar dinámicamente en cientos de correos con <code>ContentBlockByKey("clave")</code>.</p>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">Bloques de código centralizados que se pueden invocar modularmente en cientos de correos con <code>ContentBlockByKey("clave")</code>.</p>
         </div>
       </div>
 
-      <!-- SECTION 3 -->
+      <!-- SECCIÓN 03 -->
       <h2 id="ciclo-de-vida">03 · CICLO DE VIDA Y MOTOR DE RENDERIZADO (OMM)</h2>
       <p>¿Qué sucede exactamente en los servidores de Salesforce cuando se inicia un envío de email con AMPscript?</p>
 
@@ -157,12 +176,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div class="callout">
-        <div class="callout-label">💡 DATO IMPORTANTE · CASE INSENSITIVITY</div>
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP · CASE INSENSITIVITY</div>
         AMPscript es un lenguaje <strong>insensible a mayúsculas y minúsculas (case-insensitive)</strong>. Por ejemplo, <code>SET @nombre = "Juan"</code>, <code>set @Nombre = "Juan"</code> y <code>Set @NOMBRE = "Juan"</code> son exactamente lo mismo para el motor. Sin embargo, para mantener el código profesional y legible, se recomienda utilizar convenciones estandarizadas como <em>camelCase</em> o <em>PascalCase</em>.
       </div>
 
-      <!-- SECTION 4 -->
+      <!-- SECCIÓN 04 -->
       <h2 id="sintaxis-basica">04 · SINTAXIS BÁSICA Y TIPOS DE DELIMITADORES</h2>
       <p>En AMPscript existen dos maneras fundamentales de escribir código según el objetivo que se busque:</p>
 
@@ -170,52 +189,55 @@ import Layout from '../layouts/Layout.astro';
       <p>Se utilizan para realizar declaraciones de variables, cálculos matemáticos, llamadas a funciones y lógica condicional. Todo lo que esté dentro de estos delimitadores se procesa silenciosamente en el servidor sin generar texto visible en el correo.</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">AMPSCRIPT · DECLARACIÓN Y ASIGNACIÓN</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">AMPscript · Declaración y Asignación</span>
+          <button class="code-copy-btn">📋 Copiar</button>
         </div>
-        <pre><code class="language-ampscript">%%[
-  /* 1. Declaramos las variables con la palabra reservada VAR */
-  VAR @nombre, @membresia, @puntos, @descuento
+        <pre><span class="cm">%%[
+  /* 1. Declaramos las variables con la palabra reservada VAR */</span>
+  <span class="kw">VAR</span> <span class="vr">@nombre</span>, <span class="vr">@membresia</span>, <span class="vr">@puntos</span>, <span class="vr">@descuento</span>
 
-  /* 2. Asignamos valores fijos o calculados con SET */
-  SET @nombre = "Holwan David"
-  SET @membresia = "VIP"
-  SET @puntos = 1250
+  <span class="cm">/* 2. Asignamos valores fijos o calculados con SET */</span>
+  <span class="kw">SET</span> <span class="vr">@nombre</span> = <span class="st">"Holwan David"</span>
+  <span class="kw">SET</span> <span class="vr">@membresia</span> = <span class="st">"VIP"</span>
+  <span class="kw">SET</span> <span class="vr">@puntos</span> = <span class="nb">1250</span>
 
-  /* 3. Lógica condicional */
-  IF @membresia == "VIP" THEN
-    SET @descuento = 20
-  ELSE
-    SET @descuento = 5
-  ENDIF
-]%%</code></pre>
+  <span class="cm">/* 3. Lógica condicional */</span>
+  <span class="kw">IF</span> <span class="vr">@membresia</span> == <span class="st">"VIP"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@descuento</span> = <span class="nb">20</span>
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@descuento</span> = <span class="nb">5</span>
+  <span class="kw">ENDIF</span>
+<span class="cm">]%%</span></pre>
       </div>
 
       <h3>2. Salida Inline en el HTML o Texto: <code>%%= ... =%%</code></h3>
       <p>Se utilizan dentro del cuerpo del mensaje o etiquetas HTML para <strong>imprimir el valor de una variable o el resultado de una función</strong> directamente donde se coloca la etiqueta:</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">HTML + AMPSCRIPT INLINE</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">HTML + AMPscript Inline</span>
+          <button class="code-copy-btn">📋 Copiar</button>
         </div>
-        <pre><code class="language-html">&lt;!-- Salida simple de variables en el HTML --&gt;
-&lt;h1&gt;¡Hola, %%=v(@nombre)=%%!&lt;/h1&gt;
-&lt;p&gt;Tu nivel actual de socio es &lt;strong&gt;%%=v(@membresia)=%%&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Tienes un &lt;span style="color:#00ffff;"&gt;%%=v(@descuento)=%% % de descuento&lt;/span&gt; disponible.&lt;/p&gt;</code></pre>
+        <pre><span class="cm">&lt;!-- Salida simple de variables en el HTML --&gt;</span>
+<span class="kw">&lt;h1&gt;</span>¡Hola, <span class="st">%%=v(@nombre)=%%</span>!<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;p&gt;</span>Tu nivel actual de socio es <span class="kw">&lt;strong&gt;</span><span class="st">%%=v(@membresia)=%%</span><span class="kw">&lt;/strong&gt;</span>.<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;</span>Tienes un <span class="kw">&lt;span style="color:#00ffff;"&gt;</span><span class="st">%%=v(@descuento)=%%</span> % de descuento<span class="kw">&lt;/span&gt;</span> disponible.<span class="kw">&lt;/p&gt;</span></pre>
       </div>
 
-      <!-- SECTION 5 -->
+      <!-- SECCIÓN 05 -->
       <h2 id="estructuras-control">05 · ESTRUCTURAS DE CONTROL: CONDICIONALES IF / ELSE</h2>
       <p>Las sentencias condicionales permiten mostrar contenido personalizado según las características únicas de cada suscriptor:</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">AMPSCRIPT · ESTRUCTURA IF / ELSEIF / ELSE</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">AMPscript · Estructura IF / ELSEIF / ELSE</span>
+          <button class="code-copy-btn">📋 Copiar</button>
         </div>
-        <pre><code class="language-ampscript">%%[
+        <pre><span class="cm">%%[
   VAR @nivel, @mensaje
 
   SET @nivel = AttributeValue("SegmentoCliente")
@@ -227,12 +249,12 @@ import Layout from '../layouts/Layout.astro';
   ELSE
     SET @mensaje = "Acumula puntos en cada compra y sube de categoría."
   ENDIF
-]%%
+]%%</span>
 
-&lt;!-- En el cuerpo del correo --&gt;
-&lt;div class="promo-box"&gt;
-  &lt;p&gt;%%=v(@mensaje)=%%&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+<span class="cm">&lt;!-- En el cuerpo del correo --&gt;</span>
+<span class="kw">&lt;div class="promo-box"&gt;</span>
+  <span class="kw">&lt;p&gt;</span><span class="st">%%=v(@mensaje)=%%</span><span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
       </div>
 
       <div style="background:var(--bg-elevated); border:1px solid var(--border-dim); border-radius:var(--radius); padding:1rem; margin:1.5rem 0;">
@@ -243,8 +265,8 @@ import Layout from '../layouts/Layout.astro';
         </ul>
       </div>
 
-      <!-- SECTION 6 -->
-      <h2 id="funciones-esenciales">06 · FUNCIONES ESENCIALES PARA TU PRIMER PROYECTO</h2>
+      <!-- SECCIÓN 06 -->
+      <h2 id="funciones-esenciales">06 · FUNCIONES ESENCIALES PARA TU DÍA A DÍA</h2>
       <p>A continuación se resumen las funciones más importantes que todo desarrollador de Marketing Cloud debe dominar desde el día 1:</p>
 
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
@@ -281,8 +303,31 @@ import Layout from '../layouts/Layout.astro';
 
       </div>
 
-      <!-- SECTION 7 -->
-      <h2 id="buenas-practicas">07 · REGLAS DE ORO PARA PROGRAMAR EN AMPSCRIPT</h2>
+      <!-- SECCIÓN 07 · CASOS DE USO REALES -->
+      <h2 id="use-cases">07 · CASOS DE USO REALES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: Saludo dinámico con fallback seguro</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Usa <code>AttributeValue("FirstName")</code> combinado con <code>Empty()</code> y <code>ProperCase()</code> para saludar cordialmente al usuario por su nombre o utilizar un genérico amigable como <em>"Estimado/a cliente"</em> cuando el dato no esté registrado.
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: Ofertas escalonadas en Carrito Abandonado</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Evalúa el valor del carrito y el segmento del cliente (<code>IF @cartTotal > 100 AND @isVIP == "True"</code>) para mostrar un cupón del 25% con un botón de compra directa generado mediante <code>RedirectTo(@checkoutUrl)</code>.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 08 -->
+      <h2 id="buenas-practicas">08 · REGLAS DE ORO PARA PROGRAMAR EN AMPSCRIPT</h2>
       <p>Para asegurar que tus correos no fallen en producción durante envíos masivos, sigue siempre estas directrices:</p>
 
       <ol style="padding-left:1.2rem; line-height:1.8; color:var(--text-secondary); font-size:0.9rem;">
@@ -292,77 +337,82 @@ import Layout from '../layouts/Layout.astro';
         <li><strong style="color:var(--text-primary);">Prueba con diferentes perfiles de datos en "Preview and Test":</strong> Comprueba siempre qué ocurre cuando el nombre del cliente viene vacío o nulo.</li>
       </ol>
 
-      <div class="callout">
-        <div class="callout-label">🚀 PRÓXIMO NIVEL · CONVENCIONES DE CÓDIGO</div>
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP · PRÓXIMO NIVEL</div>
         En el siguiente artículo de la saga de AMPscript profundizaremos en los <strong>Estándares de Nomenclatura (Naming Conventions)</strong>, prefijos recomendados (<code>@s_</code> para Strings, <code>@n_</code> para Números, <code>@b_</code> para Booleanos) y arquitectura modular con Content Blocks.
       </div>
 
-      <!-- SECTION 8 · ARCADE CHALLENGE -->
-      <h2 id="desafio">08 · ARCADE CHALLENGE: TU PRIMER SALUDO DINÁMICO</h2>
+      <!-- SECCIÓN 09 · ARCADE CHALLENGE -->
+      <h2 id="desafio">09 · DESAFÍO ARCADE: TU PRIMER SALUDO DINÁMICO</h2>
       <div class="challenge-box">
-        <div class="challenge-badge">🕹️ DESAFÍO ARCADE · NIVEL 1</div>
-        <div class="challenge-title">Construye un Bloque de Saludo Personalizado</div>
-        <div class="challenge-desc">
-          Crea un bloque de código AMPscript que reciba el nombre del suscriptor (<code>FirstName</code>) y su membresía (<code>Tier</code>). 
-          <ul>
-            <li>Si el nombre existe, formátalo en <strong>ProperCase</strong>; si viene vacío, utiliza el saludo genérico <em>"Cliente VIP"</em> o <em>"Amigo"</em>.</li>
-            <li>Si <code>Tier</code> es <strong>"VIP"</strong>, asigna un 20% de descuento. Si es <strong>"Gold"</strong>, un 10%. Para cualquier otro caso, un 5%.</li>
-            <li>Imprime el saludo y el cupón de descuento en el HTML.</li>
-          </ul>
-        </div>
-
-        <details class="challenge-details">
-          <summary class="challenge-summary">▶ Ver Solución y Explicación del Desafío</summary>
-          <div class="challenge-solution">
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">SOLUCIÓN COMPLETA · AMPSCRIPT</span>
-                <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
-              </div>
-              <pre><code class="language-ampscript">%%[
-  /* 1. Declaramos todas las variables */
-  VAR @rawName, @formattedName, @tier, @discountPercent
-
-  /* 2. Extraemos los campos de forma segura */
-  SET @rawName = AttributeValue("FirstName")
-  SET @tier = AttributeValue("Tier")
-
-  /* 3. Validamos el nombre con Empty() y formateamos */
-  IF NOT EMPTY(@rawName) THEN
-    SET @formattedName = ProperCase(@rawName)
-  ELSE
-    SET @formattedName = "Estimado/a cliente"
-  ENDIF
-
-  /* 4. Evaluamos el nivel de membresía */
-  IF @tier == "VIP" THEN
-    SET @discountPercent = 20
-  ELSEIF @tier == "Gold" THEN
-    SET @discountPercent = 10
-  ELSE
-    SET @discountPercent = 5
-  ENDIF
-]%%
-
-&lt;!-- HTML Renderizado --&gt;
-&lt;div style="background:#1a1d2e; border:1px solid #00ffff; border-radius:8px; padding:20px; font-family:sans-serif; color:#ffffff;"&gt;
-  &lt;h2 style="color:#00ffff; margin-top:0;"&gt;¡Hola, %%=v(@formattedName)=%%!&lt;/h2&gt;
-  &lt;p&gt;Por pertenecer a nuestra comunidad, hoy tienes un beneficio especial:&lt;/p&gt;
-  &lt;div style="font-size:24px; font-weight:bold; color:#ff00ff;"&gt;
-    🎟️ %%=v(@discountPercent)=%% % DE DESCUENTO
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-            </div>
-            <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-secondary);">
-              <strong>Explicación:</strong> Usamos <code>AttributeValue()</code> para evitar errores en caso de campos inexistentes. Con <code>IF NOT EMPTY()</code> comprobamos si el suscriptor tiene nombre y aplicamos <code>ProperCase()</code>. Por último, evaluamos <code>@tier</code> con una estructura limpia <code>IF/ELSEIF/ELSE</code>.
-            </p>
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISIÓN: Saludo Personalizado con Descuento</div>
           </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Crea un bloque de código AMPscript que reciba el nombre del suscriptor (<code>FirstName</code>) y su membresía (<code>Tier</code>):
+        </p>
+        <ul style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1rem;">
+          <li>Si el nombre existe, formátalo en <strong>ProperCase</strong>; si viene vacío, utiliza el saludo genérico <em>"Estimado/a cliente"</em>.</li>
+          <li>Si <code>Tier</code> es <strong>"VIP"</strong>, asigna un 20% de descuento. Si es <strong>"Gold"</strong>, un 10%. Para cualquier otro caso, un 5%.</li>
+          <li>Imprime el saludo y el cupón de descuento en el HTML.</li>
+        </ul>
+
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;"> Ver solución</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Solución Completa · AMPscript</span>
+              <button class="code-copy-btn">📋 Copiar</button>
+            </div>
+            <pre><span class="cm">%%[
+  /* 1. Declaramos todas las variables */</span>
+  <span class="kw">VAR</span> <span class="vr">@rawName</span>, <span class="vr">@formattedName</span>, <span class="vr">@tier</span>, <span class="vr">@discountPercent</span>
+
+  <span class="cm">/* 2. Extraemos los campos de forma segura */</span>
+  <span class="kw">SET</span> <span class="vr">@rawName</span> = <span class="fn">AttributeValue</span>(<span class="st">"FirstName"</span>)
+  <span class="kw">SET</span> <span class="vr">@tier</span> = <span class="fn">AttributeValue</span>(<span class="st">"Tier"</span>)
+
+  <span class="cm">/* 3. Validamos el nombre con Empty() y formateamos */</span>
+  <span class="kw">IF NOT EMPTY</span>(<span class="vr">@rawName</span>) <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@formattedName</span> = <span class="fn">ProperCase</span>(<span class="vr">@rawName</span>)
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@formattedName</span> = <span class="st">"Estimado/a cliente"</span>
+  <span class="kw">ENDIF</span>
+
+  <span class="cm">/* 4. Evaluamos el nivel de membresía */</span>
+  <span class="kw">IF</span> <span class="vr">@tier</span> == <span class="st">"VIP"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">20</span>
+  <span class="kw">ELSEIF</span> <span class="vr">@tier</span> == <span class="st">"Gold"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">10</span>
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">5</span>
+  <span class="kw">ENDIF</span>
+<span class="cm">]%%</span>
+
+<span class="cm">&lt;!-- HTML Renderizado --&gt;</span>
+<span class="kw">&lt;div style="background:#1a1d2e; border:1px solid #00ffff; border-radius:8px; padding:20px; font-family:sans-serif; color:#ffffff;"&gt;</span>
+  <span class="kw">&lt;h2 style="color:#00ffff; margin-top:0;"&gt;</span>¡Hola, <span class="st">%%=v(@formattedName)=%%</span>!<span class="kw">&lt;/h2&gt;</span>
+  <span class="kw">&lt;p&gt;</span>Por pertenecer a nuestra comunidad, hoy tienes un beneficio especial:<span class="kw">&lt;/p&gt;</span>
+  <span class="kw">&lt;div style="font-size:24px; font-weight:bold; color:#ff00ff;"&gt;</span>
+    🎟️ <span class="st">%%=v(@discountPercent)=%%</span> % DE DESCUENTO
+  <span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+          </div>
+          <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-secondary);">
+            <strong>Explicación:</strong> Usamos <code>AttributeValue()</code> para evitar errores en caso de campos inexistentes. Con <code>IF NOT EMPTY()</code> comprobamos si el suscriptor tiene nombre y aplicamos <code>ProperCase()</code>. Por último, evaluamos <code>@tier</code> con una estructura limpia <code>IF/ELSEIF/ELSE</code>.
+          </p>
         </details>
       </div>
 
     </div>
 
-    <!-- ENGLISH CONTENT -->
+    <!-- ──────────────────────────────────────────
+         ENGLISH CONTENT (data-lang="en")
+         ────────────────────────────────────────── -->
     <div data-lang="en">
       <p><strong>AMPscript</strong> is the native, proprietary <em>server-side</em> scripting language of <strong>Salesforce Marketing Cloud (SFMC)</strong>. Designed specifically for digital messaging, it is the primary engine behind 1:1 hyper-personalization across emails, interactive web pages, and mobile notifications.</p>
 
@@ -371,15 +421,15 @@ import Layout from '../layouts/Layout.astro';
         Unlike client-side JavaScript in web browsers, AMPscript executes <strong>on Salesforce servers at the exact moment a message is sent or rendered</strong> (<em>Send-Time</em>). The end recipient <strong>never sees the AMPscript source code</strong>; they only receive the resulting personalized HTML or plain text.
       </div>
 
-      <!-- SECTION 1 -->
+      <!-- SECTION 1 EN -->
       <h2 id="what-is-ampscript">01 · WHAT IS AMPSCRIPT AND WHAT IS IT USED FOR?</h2>
       <p>AMPscript was originally developed by ExactTarget before its acquisition by Salesforce. Its primary purpose is to allow developers and marketers to:</p>
       <ul>
         <li><strong>Inject dynamic subscriber attributes</strong> (name, location, loyalty points, account balance).</li>
         <li><strong>Execute conditional logic</strong> (e.g., showing a different hero banner depending on gender, VIP tier, or language preference).</li>
-        <li><strong>Query and join real-time data</strong> directly from <em>Data Extensions</em> using Lookup functions.</li>
+        <li><strong>Query and join real-time data</strong> directly from <em>Data Extensions</em> using <code>Lookup()</code> and <code>LookupRows()</code>.</li>
         <li><strong>Format numbers and dates</strong> adapted to each recipient's local time zone and currency.</li>
-        <li><strong>Manage trackable dynamic links</strong> ensuring clicks are recorded in Marketing Cloud engagement metrics.</li>
+        <li><strong>Manage trackable dynamic links</strong> ensuring clicks are recorded in Marketing Cloud engagement metrics via <code>RedirectTo()</code>.</li>
       </ul>
 
       <!-- COMPARISON TABLE -->
@@ -397,7 +447,7 @@ import Layout from '../layouts/Layout.astro';
             </thead>
             <tbody style="color:var(--text-secondary);">
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:0.6rem 0.8rem; font-weight:bold; color:var(--neon-cyan);">AMPscript</td>
+                <td style="padding:0.6rem 0.8rem; font-weight:bold; color:var(--neon-green);">AMPscript</td>
                 <td style="padding:0.6rem 0.8rem;">1:1 Emails, SMS, Push, fast personalization</td>
                 <td style="padding:0.6rem 0.8rem; color:var(--neon-green);">⚡ Ultra Fast</td>
                 <td style="padding:0.6rem 0.8rem;">90% of dynamic email content, lookups, and conditions.</td>
@@ -419,7 +469,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- SECTION 2 -->
+      <!-- SECTION 2 EN -->
       <h2 id="where-can-ampscript-be-used">02 · WHERE CAN AMPSCRIPT BE USED?</h2>
       <p>AMPscript is not limited to emails. It is a cross-channel language supported throughout Marketing Cloud:</p>
 
@@ -449,7 +499,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- SECTION 3 -->
+      <!-- SECTION 3 EN -->
       <h2 id="execution-lifecycle">03 · EXECUTION LIFECYCLE AND OMM ENGINE</h2>
       <p>What happens on Salesforce servers when an email send with AMPscript is triggered?</p>
 
@@ -479,12 +529,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div class="callout">
+      <div class="callout tip">
         <div class="callout-label">💡 PRO TIP · CASE INSENSITIVITY</div>
         AMPscript is <strong>case-insensitive</strong>. <code>SET @name = "John"</code>, <code>set @Name = "John"</code> and <code>Set @NAME = "John"</code> are identical to the engine. However, adhering to standard conventions like <em>camelCase</em> ensures clean, maintainable code.
       </div>
 
-      <!-- SECTION 4 -->
+      <!-- SECTION 4 EN -->
       <h2 id="basic-syntax">04 · BASIC SYNTAX AND DELIMITER TYPES</h2>
       <p>There are two primary ways to write AMPscript depending on your objective:</p>
 
@@ -492,52 +542,55 @@ import Layout from '../layouts/Layout.astro';
       <p>Used for variable declarations, math operations, function calls, and conditional logic. Everything inside executes silently without rendering visible text.</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">AMPSCRIPT · DECLARATION & ASSIGNMENT</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">AMPscript · Declaration & Assignment</span>
+          <button class="code-copy-btn">📋 Copy</button>
         </div>
-        <pre><code class="language-ampscript">%%[
-  /* 1. Declare variables using the VAR keyword */
-  VAR @name, @tier, @points, @discount
+        <pre><span class="cm">%%[
+  /* 1. Declare variables using the VAR keyword */</span>
+  <span class="kw">VAR</span> <span class="vr">@name</span>, <span class="vr">@tier</span>, <span class="vr">@points</span>, <span class="vr">@discount</span>
 
-  /* 2. Assign values using SET */
-  SET @name = "Holwan David"
-  SET @tier = "VIP"
-  SET @points = 1250
+  <span class="cm">/* 2. Assign values using SET */</span>
+  <span class="kw">SET</span> <span class="vr">@name</span> = <span class="st">"Holwan David"</span>
+  <span class="kw">SET</span> <span class="vr">@tier</span> = <span class="st">"VIP"</span>
+  <span class="kw">SET</span> <span class="vr">@points</span> = <span class="nb">1250</span>
 
-  /* 3. Conditional logic */
-  IF @tier == "VIP" THEN
-    SET @discount = 20
-  ELSE
-    SET @discount = 5
-  ENDIF
-]%%</code></pre>
+  <span class="cm">/* 3. Conditional logic */</span>
+  <span class="kw">IF</span> <span class="vr">@tier</span> == <span class="st">"VIP"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@discount</span> = <span class="nb">20</span>
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@discount</span> = <span class="nb">5</span>
+  <span class="kw">ENDIF</span>
+<span class="cm">]%%</span></pre>
       </div>
 
       <h3>2. Inline Output Delimiters: <code>%%= ... =%%</code></h3>
       <p>Used directly inside HTML tags or text paragraphs to <strong>output the value of a variable or function result</strong>:</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">HTML + INLINE AMPSCRIPT</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">HTML + Inline AMPscript</span>
+          <button class="code-copy-btn">📋 Copy</button>
         </div>
-        <pre><code class="language-html">&lt;!-- Inline variable output in HTML --&gt;
-&lt;h1&gt;Hello, %%=v(@name)=%%!&lt;/h1&gt;
-&lt;p&gt;Your member tier is &lt;strong&gt;%%=v(@tier)=%%&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;You have a &lt;span style="color:#00ffff;"&gt;%%=v(@discount)=%% % discount&lt;/span&gt; available.&lt;/p&gt;</code></pre>
+        <pre><span class="cm">&lt;!-- Inline variable output in HTML --&gt;</span>
+<span class="kw">&lt;h1&gt;</span>Hello, <span class="st">%%=v(@name)=%%</span>!<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;p&gt;</span>Your member tier is <span class="kw">&lt;strong&gt;</span><span class="st">%%=v(@tier)=%%</span><span class="kw">&lt;/strong&gt;</span>.<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;</span>You have a <span class="kw">&lt;span style="color:#00ffff;"&gt;</span><span class="st">%%=v(@discount)=%%</span> % discount<span class="kw">&lt;/span&gt;</span> available.<span class="kw">&lt;/p&gt;</span></pre>
       </div>
 
-      <!-- SECTION 5 -->
+      <!-- SECTION 5 EN -->
       <h2 id="control-flow">05 · CONTROL FLOW: IF / ELSE CONDITIONAL STATEMENTS</h2>
       <p>Conditional logic enables dynamic content rendering tailored to each subscriber's unique profile:</p>
 
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">AMPSCRIPT · IF / ELSEIF / ELSE STRUCTURE</span>
-          <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">AMPscript · IF / ELSEIF / ELSE Structure</span>
+          <button class="code-copy-btn">📋 Copy</button>
         </div>
-        <pre><code class="language-ampscript">%%[
+        <pre><span class="cm">%%[
   VAR @tier, @message
 
   SET @tier = AttributeValue("CustomerTier")
@@ -549,16 +602,16 @@ import Layout from '../layouts/Layout.astro';
   ELSE
     SET @message = "Earn reward points on every order to level up."
   ENDIF
-]%%
+]%%</span>
 
-&lt;!-- In email template --&gt;
-&lt;div class="promo-box"&gt;
-  &lt;p&gt;%%=v(@message)=%%&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+<span class="cm">&lt;!-- In email template --&gt;</span>
+<span class="kw">&lt;div class="promo-box"&gt;</span>
+  <span class="kw">&lt;p&gt;</span><span class="st">%%=v(@message)=%%</span><span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
       </div>
 
-      <!-- SECTION 6 -->
-      <h2 id="essential-functions">06 · ESSENTIAL FUNCTIONS FOR YOUR FIRST PROJECT</h2>
+      <!-- SECTION 6 EN -->
+      <h2 id="essential-functions">06 · ESSENTIAL FUNCTIONS FOR YOUR EVERYDAY WORKFLOW</h2>
       <p>Key fundamental functions every SFMC developer must know:</p>
 
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
@@ -595,8 +648,31 @@ import Layout from '../layouts/Layout.astro';
 
       </div>
 
-      <!-- SECTION 7 -->
-      <h2 id="best-practices">07 · GOLDEN RULES FOR AMPSCRIPT DEVELOPMENT</h2>
+      <!-- SECTION 7 EN · REAL USE CASES -->
+      <h2 id="use-cases-en">07 · REAL USE CASES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Dynamic Greeting with Safe Fallback</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Use <code>AttributeValue("FirstName")</code> with <code>Empty()</code> and <code>ProperCase()</code> to greet the recipient warmly by name or fallback cleanly to <em>"Valued Member"</em> when missing.
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Tiered Offers in Abandoned Cart Campaigns</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Evaluate cart value and customer tier (<code>IF @cartTotal > 100 AND @isVIP == "True"</code>) to display a 25% discount voucher with a trackable CTA button via <code>RedirectTo(@checkoutUrl)</code>.
+        </p>
+      </div>
+
+      <!-- SECTION 8 EN -->
+      <h2 id="best-practices">08 · GOLDEN RULES FOR AMPSCRIPT DEVELOPMENT</h2>
       <ol style="padding-left:1.2rem; line-height:1.8; color:var(--text-secondary); font-size:0.9rem;">
         <li><strong style="color:var(--text-primary);">Always declare variables with <code>VAR</code>:</strong> Declaring variables at the top of your block prevents scoping issues and improves maintainability.</li>
         <li><strong style="color:var(--text-primary);">Wrap send context fields with <code>AttributeValue()</code>:</strong> Calling <code>[FieldName]</code> directly causes a hard send failure if the column doesn't exist in the Send DE. <code>AttributeValue()</code> fails safely.</li>
@@ -604,166 +680,189 @@ import Layout from '../layouts/Layout.astro';
         <li><strong style="color:var(--text-primary);">Always test edge cases in Preview & Test:</strong> Verify behavior when a subscriber's first name or attribute is blank.</li>
       </ol>
 
-      <div class="callout">
-        <div class="callout-label">🚀 NEXT LEVEL · CODING CONVENTIONS</div>
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP · CODING CONVENTIONS</div>
         In our upcoming AMPscript guide, we will dive deep into <strong>Naming Conventions</strong>, variable prefixes (<code>@s_</code>, <code>@n_</code>, <code>@b_</code>), and modular Content Block architecture.
       </div>
 
-      <!-- SECTION 8 · ARCADE CHALLENGE -->
-      <h2 id="challenge">08 · ARCADE CHALLENGE: YOUR FIRST DYNAMIC GREETING</h2>
+      <!-- SECTION 9 · ARCADE CHALLENGE EN -->
+      <h2 id="challenge-en">09 · ARCADE CHALLENGE: YOUR FIRST DYNAMIC GREETING</h2>
       <div class="challenge-box">
-        <div class="challenge-badge">🕹️ ARCADE CHALLENGE · LEVEL 1</div>
-        <div class="challenge-title">Build a Personalized Greeting Block</div>
-        <div class="challenge-desc">
-          Create an AMPscript block that processes subscriber name (<code>FirstName</code>) and loyalty tier (<code>Tier</code>).
-          <ul>
-            <li>If the name exists, format it in <strong>ProperCase</strong>; if blank, use the fallback <em>"Valued Member"</em>.</li>
-            <li>If <code>Tier</code> is <strong>"VIP"</strong>, assign a 20% discount. If <strong>"Gold"</strong>, assign 10%. Otherwise, assign 5%.</li>
-            <li>Output the greeting and discount voucher in the HTML.</li>
-          </ul>
-        </div>
-
-        <details class="challenge-details">
-          <summary class="challenge-summary">▶ View Challenge Solution and Breakdown</summary>
-          <div class="challenge-solution">
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">FULL AMPSCRIPT SOLUTION</span>
-                <button class="btn-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('pre').innerText); this.textContent='COPIED!'; setTimeout(()=>this.textContent='COPY',2000);">COPY</button>
-              </div>
-              <pre><code class="language-ampscript">%%[
-  /* 1. Declare all variables */
-  VAR @rawName, @formattedName, @tier, @discountPercent
-
-  /* 2. Safely extract subscriber data */
-  SET @rawName = AttributeValue("FirstName")
-  SET @tier = AttributeValue("Tier")
-
-  /* 3. Validate and format name with Empty() */
-  IF NOT EMPTY(@rawName) THEN
-    SET @formattedName = ProperCase(@rawName)
-  ELSE
-    SET @formattedName = "Valued Member"
-  ENDIF
-
-  /* 4. Evaluate tier and assign discount */
-  IF @tier == "VIP" THEN
-    SET @discountPercent = 20
-  ELSEIF @tier == "Gold" THEN
-    SET @discountPercent = 10
-  ELSE
-    SET @discountPercent = 5
-  ENDIF
-]%%
-
-&lt;!-- Rendered HTML --&gt;
-&lt;div style="background:#1a1d2e; border:1px solid #00ffff; border-radius:8px; padding:20px; font-family:sans-serif; color:#ffffff;"&gt;
-  &lt;h2 style="color:#00ffff; margin-top:0;"&gt;Hello, %%=v(@formattedName)=%%!&lt;/h2&gt;
-  &lt;p&gt;As a valued member of our community, you have a special perk:&lt;/p&gt;
-  &lt;div style="font-size:24px; font-weight:bold; color:#ff00ff;"&gt;
-    🎟️ %%=v(@discountPercent)=%% % OFF
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-            </div>
-            <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-secondary);">
-              <strong>Breakdown:</strong> We use <code>AttributeValue()</code> to prevent send errors on missing fields. With <code>IF NOT EMPTY()</code> we format the name using <code>ProperCase()</code>, and finally evaluate <code>@tier</code> with clean conditional statements.
-            </p>
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISSION: Personalized Greeting with Discount</div>
           </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Create an AMPscript block that processes subscriber name (<code>FirstName</code>) and loyalty tier (<code>Tier</code>):
+        </p>
+        <ul style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1rem;">
+          <li>If the name exists, format it in <strong>ProperCase</strong>; if blank, use the fallback <em>"Valued Member"</em>.</li>
+          <li>If <code>Tier</code> is <strong>"VIP"</strong>, assign a 20% discount. If <strong>"Gold"</strong>, assign 10%. Otherwise, assign 5%.</li>
+          <li>Output the greeting and discount voucher in the HTML.</li>
+        </ul>
+
+        <details style="font-family:var(--font-mono);font-size:0.75rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;"> View solution</summary>
+          <div class="code-block" style="margin-top:0.75rem;">
+            <div class="code-block-header">
+              <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+              <span class="code-block-lang">Full Solution · AMPscript</span>
+              <button class="code-copy-btn">📋 Copy</button>
+            </div>
+            <pre><span class="cm">%%[
+  /* 1. Declare all variables */</span>
+  <span class="kw">VAR</span> <span class="vr">@rawName</span>, <span class="vr">@formattedName</span>, <span class="vr">@tier</span>, <span class="vr">@discountPercent</span>
+
+  <span class="cm">/* 2. Safely extract subscriber data */</span>
+  <span class="kw">SET</span> <span class="vr">@rawName</span> = <span class="fn">AttributeValue</span>(<span class="st">"FirstName"</span>)
+  <span class="kw">SET</span> <span class="vr">@tier</span> = <span class="fn">AttributeValue</span>(<span class="st">"Tier"</span>)
+
+  <span class="cm">/* 3. Validate and format name with Empty() */</span>
+  <span class="kw">IF NOT EMPTY</span>(<span class="vr">@rawName</span>) <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@formattedName</span> = <span class="fn">ProperCase</span>(<span class="vr">@rawName</span>)
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@formattedName</span> = <span class="st">"Valued Member"</span>
+  <span class="kw">ENDIF</span>
+
+  <span class="cm">/* 4. Evaluate tier and assign discount */</span>
+  <span class="kw">IF</span> <span class="vr">@tier</span> == <span class="st">"VIP"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">20</span>
+  <span class="kw">ELSEIF</span> <span class="vr">@tier</span> == <span class="st">"Gold"</span> <span class="kw">THEN</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">10</span>
+  <span class="kw">ELSE</span>
+    <span class="kw">SET</span> <span class="vr">@discountPercent</span> = <span class="nb">5</span>
+  <span class="kw">ENDIF</span>
+<span class="cm">]%%</span>
+
+<span class="cm">&lt;!-- Rendered HTML --&gt;</span>
+<span class="kw">&lt;div style="background:#1a1d2e; border:1px solid #00ffff; border-radius:8px; padding:20px; font-family:sans-serif; color:#ffffff;"&gt;</span>
+  <span class="kw">&lt;h2 style="color:#00ffff; margin-top:0;"&gt;</span>Hello, <span class="st">%%=v(@formattedName)=%%</span>!<span class="kw">&lt;/h2&gt;</span>
+  <span class="kw">&lt;p&gt;</span>As a valued member of our community, you have a special perk:<span class="kw">&lt;/p&gt;</span>
+  <span class="kw">&lt;div style="font-size:24px; font-weight:bold; color:#ff00ff;"&gt;</span>
+    🎟️ <span class="st">%%=v(@discountPercent)=%%</span> % OFF
+  <span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+          </div>
+          <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-secondary);">
+            <strong>Breakdown:</strong> We use <code>AttributeValue()</code> to prevent send errors on missing fields. With <code>IF NOT EMPTY()</code> we format the name using <code>ProperCase()</code>, and finally evaluate <code>@tier</code> with clean conditional statements.
+          </p>
         </details>
       </div>
 
     </div>
 
-    <!-- BOTTOM ARTICLE NAVIGATION -->
+    <!-- ──────────────────────────────────────────
+         BOTTOM ARTICLE NAVIGATION
+         ────────────────────────────────────────── -->
     <div class="article-nav">
       <a class="article-nav-card" href="/sfmc-overview">
-        <span class="article-nav-dir" data-lang="es">← Anterior</span>
-        <span class="article-nav-dir" data-lang="en">← Previous</span>
-        <span class="article-nav-title" data-lang="es">🚀 ¿Qué es Marketing Cloud Engagement?</span>
-        <span class="article-nav-title" data-lang="en">🚀 What is Marketing Cloud Engagement?</span>
+        <div class="article-nav-label" data-lang="es">◀ Anterior</div>
+        <div class="article-nav-label" data-lang="en">◀ Previous</div>
+        <div class="article-nav-title" data-lang="es">¿Qué es Marketing Cloud Engagement?</div>
+        <div class="article-nav-title" data-lang="en">What is Marketing Cloud Engagement?</div>
       </a>
       <a class="article-nav-card next" href="/ssjs-intro">
-        <span class="article-nav-dir" data-lang="es">Siguiente →</span>
-        <span class="article-nav-dir" data-lang="en">Next →</span>
-        <span class="article-nav-title" data-lang="es">⚡ Introducción a Server-Side JavaScript (SSJS)</span>
-        <span class="article-nav-title" data-lang="en">⚡ Introduction to Server-Side JavaScript (SSJS)</span>
+        <div class="article-nav-label" data-lang="es">Siguiente ▶ </div>
+        <div class="article-nav-label" data-lang="en">Next ▶ </div>
+        <div class="article-nav-title" data-lang="es">Introducción a SSJS en SFMC</div>
+        <div class="article-nav-title" data-lang="en">Introduction to SSJS in SFMC</div>
       </a>
     </div>
 
   </article>
 
-  <!-- SIDEBAR -->
+  <!-- ==================== STICKY RIGHT SIDEBAR ==================== -->
   <aside class="article-sidebar">
 
-    <!-- TOC WIDGET -->
-    <div class="sidebar-widget">
-      <div class="sidebar-widget-title" data-lang="es">📑 EN ESTE ARTÍCULO</div>
-      <div class="sidebar-widget-title" data-lang="en">📑 IN THIS ARTICLE</div>
-      
-      <!-- ES TOC -->
-      <ul class="toc-list" data-lang="es">
-        <li><a href="#que-es-ampscript">01 · ¿Qué es AMPscript?</a></li>
-        <li><a href="#donde-se-puede-usar">02 · ¿Dónde se puede usar?</a></li>
-        <li><a href="#ciclo-de-vida">03 · Ciclo de Vida y Motor OMM</a></li>
-        <li><a href="#sintaxis-basica">04 · Sintaxis y Delimitadores</a></li>
-        <li><a href="#estructuras-control">05 · Condicionales IF / ELSE</a></li>
-        <li><a href="#funciones-esenciales">06 · Funciones Esenciales</a></li>
-        <li><a href="#buenas-practicas">07 · Reglas de Oro</a></li>
-        <li><a href="#desafio">08 · Arcade Challenge</a></li>
-      </ul>
-
-      <!-- EN TOC -->
-      <ul class="toc-list" data-lang="en">
-        <li><a href="#what-is-ampscript">01 · What is AMPscript?</a></li>
-        <li><a href="#where-can-ampscript-be-used">02 · Where can it be used?</a></li>
-        <li><a href="#execution-lifecycle">03 · Lifecycle & OMM Engine</a></li>
-        <li><a href="#basic-syntax">04 · Syntax & Delimiters</a></li>
-        <li><a href="#control-flow">05 · Conditional IF / ELSE</a></li>
-        <li><a href="#essential-functions">06 · Essential Functions</a></li>
-        <li><a href="#best-practices">07 · Golden Rules</a></li>
-        <li><a href="#challenge">08 · Arcade Challenge</a></li>
+    <!-- 1. TOC (TABLE OF CONTENTS - BILINGUAL & EXACT MATCH) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#que-es-ampscript" data-lang="es">01 · ¿Qué es AMPscript?</a><a href="#what-is-ampscript" data-lang="en">01 · What is AMPscript?</a></li>
+        <li><a href="#donde-se-puede-usar" data-lang="es">02 · ¿Dónde se puede usar?</a><a href="#where-can-ampscript-be-used" data-lang="en">02 · Where can it be used?</a></li>
+        <li><a href="#ciclo-de-vida" data-lang="es">03 · Ciclo de Vida y OMM</a><a href="#execution-lifecycle" data-lang="en">03 · Lifecycle & OMM Engine</a></li>
+        <li><a href="#sintaxis-basica" data-lang="es">04 · Sintaxis y Delimitadores</a><a href="#basic-syntax" data-lang="en">04 · Syntax & Delimiters</a></li>
+        <li><a href="#estructuras-control" data-lang="es">05 · Condicionales IF / ELSE</a><a href="#control-flow" data-lang="en">05 · Conditional IF / ELSE</a></li>
+        <li><a href="#funciones-esenciales" data-lang="es">06 · Funciones Esenciales</a><a href="#essential-functions" data-lang="en">06 · Essential Functions</a></li>
+        <li><a href="#use-cases" data-lang="es">07 · Casos de Uso Reales</a><a href="#use-cases-en" data-lang="en">07 · Real Use Cases</a></li>
+        <li><a href="#buenas-practicas" data-lang="es">08 · Reglas de Oro</a><a href="#best-practices" data-lang="en">08 · Golden Rules</a></li>
+        <li><a href="#desafio" data-lang="es">09 · Desafío Arcade</a><a href="#challenge-en" data-lang="en">09 · Arcade Challenge</a></li>
       </ul>
     </div>
 
-    <!-- TAGS WIDGET -->
-    <div class="sidebar-widget">
-      <div class="sidebar-widget-title">TAGS</div>
-      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-        <span class="tag" style="background:rgba(0,255,255,0.15);border:1px solid var(--neon-cyan);color:var(--neon-cyan);">#ampscript</span>
-        <span class="tag pink">#basics</span>
-        <span class="tag green">#emailstudio</span>
-        <span class="tag purple">#cloudpages</span>
-        <span class="tag yellow">#personalization</span>
+    <!-- 2. CLICKABLE TAGS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <a href="/catalog?tag=ampscript" class="tag">#ampscript</a>
+        <a href="/catalog?tag=basics" class="tag">#basics</a>
+        <a href="/catalog?tag=emailstudio" class="tag green">#emailstudio</a>
+        <a href="/catalog?tag=cloudpages" class="tag pink">#cloudpages</a>
+        <a href="/catalog?tag=personalization" class="tag green">#personalization</a>
       </div>
     </div>
 
-    <!-- RELATED ARTICLES -->
-    <div class="sidebar-widget">
-      <div class="sidebar-widget-title" data-lang="es">ARTÍCULOS RELACIONADOS</div>
-      <div class="sidebar-widget-title" data-lang="en">RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;">
-        <a href="/sfmc-overview" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🚀 ¿Qué es Marketing Cloud Engagement?</a>
-        <a href="/sfmc-overview" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🚀 What is Marketing Cloud Engagement?</a>
-
-        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">📄 Introducción a SSJS en SFMC</a>
-        <a href="/ssjs-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">📄 Introduction to SSJS in SFMC</a>
-
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">📊 SQL: Introducción a Data Views</a>
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">📊 SQL: Intro to SFMC Data Views</a>
+    <!-- 3. RELATED ARTICLES -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div class="related-articles-list">
+        <a href="/sfmc-overview" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🚀</span>
+          <span class="related-article-text">¿Qué es Marketing Cloud Engagement?</span>
+        </a>
+        <a href="/sfmc-overview" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🚀</span>
+          <span class="related-article-text">What is Marketing Cloud Engagement?</span>
+        </a>
+        <a href="/ssjs-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a SSJS en SFMC</span>
+        </a>
+        <a href="/ssjs-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to SSJS in SFMC</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Introducción a Data Views</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Intro to SFMC Data Views</span>
+        </a>
       </div>
     </div>
 
-    <!-- SHARE WIDGET -->
-    <div class="sidebar-widget">
-      <div class="sidebar-widget-title" data-lang="es">COMPARTIR</div>
-      <div class="sidebar-widget-title" data-lang="en">SHARE</div>
-      <button class="btn btn-secondary" style="width:100%;font-size:0.75rem;padding:0.5rem;" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copiado al portapapeles');">
-        <span data-lang="es">📋 Copiar enlace</span>
-        <span data-lang="en">📋 Copy link</span>
-      </button>
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/ampscript.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: Sintaxis y Guía de AMPscript <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/ampscript.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: AMPscript Syntax Guide <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/ampscript-for-nondevelopers" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Introducción a AMPscript <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/ampscript-for-nondevelopers" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Intro to AMPscript <span class="external-icon">↗</span></span>
+        </a>
+      </div>
     </div>
 
   </aside>
 
 </div>
+
 </Layout>

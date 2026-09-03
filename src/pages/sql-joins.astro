@@ -364,26 +364,70 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag yellow">#sql</span>
-        <span class="tag">#joins</span>
-        <span class="tag">#subqueries</span>
-        <span class="tag">#dataextension</span>
-        <span class="tag orange">#automation</span>
+        <a href="/catalog?tag=sql" class="tag yellow">#sql</a>
+        <a href="/catalog?tag=joins" class="tag">#joins</a>
+        <a href="/catalog?tag=subqueries" class="tag">#subqueries</a>
+        <a href="/catalog?tag=dataextension" class="tag">#dataextension</a>
+        <a href="/catalog?tag=automation" class="tag orange">#automation</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗃️ SQL: Introducción a Data Views</a>
-        <a href="/sql-dataviews" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗃️ SQL: Intro to SFMC Data Views</a>
-        <a href="/sql-engagement" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗃️ SQL: Score de Engagement de Suscriptores</a>
-        <a href="/sql-engagement" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗃️ SQL: Subscriber Engagement Score</a>
-        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🔮 Data Cloud: Segmentación en Tiempo Real</a>
-        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🔮 Data Cloud: Real-Time Segmentation</a>
+      <div class="related-articles-list">
+        <a href="/sql-dataviews" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Introducción a Data Views</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Intro to SFMC Data Views</span>
+        </a>
+        <a href="/sql-engagement" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Score de Engagement de Suscriptores</span>
+        </a>
+        <a href="/sql-engagement" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Subscriber Engagement Score</span>
+        </a>
+        <a href="/next-datacloud-segments" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Data Cloud: Segmentación en Tiempo Real</span>
+        </a>
+        <a href="/next-datacloud-segments" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Data Cloud: Real-Time Segmentation</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_sql_query_activity.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Actividades de Consulta SQL <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_sql_query_activity.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: SQL Query Activities <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Consultas SQL en Automation Studio <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: SQL Queries in Studio <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 

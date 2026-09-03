@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<style>
+  #error-description {
+      font-family: sans-serif;
+  }
+  .error-content h1, .error-content h2, .error-content p {
+      color: #ffffff;
+      margin: 0;
+      padding-bottom:15px;
+  }
+  h2 {
+      font-size: 24px;
+      line-height: 26px;
+      font-weight: normal;
+  }
+  #error-title {
+      font-size: 100px;
+      font-weight: bold;
+      line-height: 162px;
+  }
+  .error-content {
+      background: url(https://a.sfdcstatic.com/developer-website/prod/images/error-background.png) no-repeat center center scroll;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      text-align: center;
+      color: white;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 60px;
+  }
+  body {
+      padding: 0;
+      margin: 0;
+  }
+  #astro {
+      top: 50px;
+      position: relative;
+      left: 45%;
+      animation: rot 10s infinite linear;
+      -webkit-animation: rot 10s infinite linear;
+      height: 250px;
+      width: 200px;
+  }
+  #astro img {
+    height: 250px;
+    width: 200px;
+  }
+  @keyframes rot {
+      from {
+          transform: rotate(0deg) translate(-50px) rotate(0deg)
+      }
+      to {
+          transform: rotate(360deg) translate(-50px) rotate(-360deg)
+      }
+  }
+  @-webkit-keyframes rot {
+      from {
+          -webkit-transform: rotate(0deg) translate(-50px) rotate(0deg)
+      }
+      to {
+          -webkit-transform: rotate(360deg) translate(-50px) rotate(-360deg)
+      }
+  }
+</style>
+</head>
+<body>
+  <div>
+    <div class="error-page contentArea">
+      <div class="generic-error">
+        <div class="error_container clearfix">
+          <div class="error-content">
+            <div id="error-description">
+              <h1 id="error-title">
+                Oops
+              </h1>
+              <h2>
+                Something went wrong
+              </h2>
+
+              <p>
+                Reference id: 0.84d4da17.1788305695.1ece4c44
+              </p>
+
+              <div class="floating" id="astro">
+                <img src="https://a.sfdcstatic.com/developer-website/prod/images/astro-in-space.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

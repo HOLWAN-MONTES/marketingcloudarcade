@@ -1072,12 +1072,16 @@ const counts = {
 
         let tagMatch = currentTag === "all";
         if (!tagMatch) {
+          const cleanCurTag = currentTag.toLowerCase().replace(/^#/, "");
+          const cardCat = (card.getAttribute("data-category") || "").toLowerCase();
           const topDiv = card.querySelector(".article-card-top");
           if (topDiv) {
             const tags = Array.from(topDiv.querySelectorAll(".tag")).map((t) =>
-              t.textContent.trim().toLowerCase(),
+              t.textContent.trim().toLowerCase().replace(/^#/, ""),
             );
-            tagMatch = tags.includes(`#${currentTag.toLowerCase()}`);
+            tagMatch = tags.includes(cleanCurTag) || cardCat === cleanCurTag;
+          } else {
+            tagMatch = cardCat === cleanCurTag;
           }
         }
 

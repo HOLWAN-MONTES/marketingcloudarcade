@@ -368,22 +368,58 @@ const Counters = (() => {
 
 /* ── Table of Contents Active State ── */
 function initTOC() {
-  const headings = document.querySelectorAll('.article-content h2, .article-content h3');
   const tocLinks = document.querySelectorAll('.toc-list a');
-  if (!headings.length || !tocLinks.length) return;
+  if (!tocLinks.length) return;
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        tocLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-        });
+  function updateActive() {
+    const headings = Array.from(document.querySelectorAll('.article-content h2, .article-content h3'))
+      .filter(h => h.offsetParent !== null && h.id);
+    if (!headings.length) return;
+
+    let currentId = '';
+    for (let i = 0; i < headings.length; i++) {
+      const top = headings[i].getBoundingClientRect().top;
+      if (top <= 140) {
+        currentId = headings[i].id;
+      } else {
+        break;
+      }
+    }
+
+    if (!currentId && headings.length > 0) {
+      currentId = headings[0].id;
+    }
+
+    if (currentId) {
+      tocLinks.forEach(a => {
+        const href = a.getAttribute('href');
+        const isActive = href === '#' + currentId;
+        a.classList.toggle('active', isActive);
+      });
+    }
+  }
+
+  tocLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, null, href);
+          tocLinks.forEach(link => link.classList.remove('active'));
+          a.classList.add('active');
+        }
       }
     });
-  }, { rootMargin: '-20% 0px -70% 0px' });
+  });
 
-  headings.forEach(h => observer.observe(h));
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
 }
+window.initTOC = initTOC;
 
 /* ── Navbar Active State ── */
 function initNavbarActive() {

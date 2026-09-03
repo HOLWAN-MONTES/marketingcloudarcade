@@ -364,25 +364,69 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag orange">#automation</span>
-        <span class="tag orange">#filedrop</span>
-        <span class="tag">#ftp</span>
-        <span class="tag orange">#triggered-automation</span>
+        <a href="/catalog?tag=automation" class="tag orange">#automation</a>
+        <a href="/catalog?tag=filedrop" class="tag orange">#filedrop</a>
+        <a href="/catalog?tag=ftp" class="tag">#ftp</a>
+        <a href="/catalog?tag=triggered-automation" class="tag orange">#triggered-automation</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗺️ Journey Builder: API Entry Event</a>
-        <a href="/jb-api-entry" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗺️ Journey Builder: API Entry Event</a>
-        <a href="/ssjs-upsert" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ SSJS: Upsert Contactos via REST API</a>
-        <a href="/ssjs-upsert" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ SSJS: Upsert Contacts via REST API</a>
-        <a href="/sql-joins" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🗃️ SQL: JOINs avanzados en Query Activities</a>
-        <a href="/sql-joins" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🗃️ SQL: Advanced JOINs in Query Activities</a>
+      <div class="related-articles-list">
+        <a href="/jb-api-entry" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🗺️</span>
+          <span class="related-article-text">Journey Builder: API Entry Event</span>
+        </a>
+        <a href="/jb-api-entry" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🗺️</span>
+          <span class="related-article-text">Journey Builder: API Entry Event</span>
+        </a>
+        <a href="/ssjs-upsert" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Upsert Contactos via REST API</span>
+        </a>
+        <a href="/ssjs-upsert" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Upsert Contacts via REST API</span>
+        </a>
+        <a href="/sql-joins" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: JOINs avanzados en Query Activities</span>
+        </a>
+        <a href="/sql-joins" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Advanced JOINs in Query Activities</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_triggered_automations.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Automatizaciones Activadas <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_triggered_automations.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Triggered Automations <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Actividades de Automation Studio <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Automation Studio Activities <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 

@@ -256,15 +256,15 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- ENGLISH CONTENT -->
     <div data-lang="en">
-      <p>SSJS (Server-Side JavaScript) in Salesforce Marketing Cloud lets you make HTTP requests to external APIs directly from your Cloud Pages or Automation Studio Script Activities. This guide covers the most important patterns: GET, POST, error handling, and authentication.</p>
+      <p>SSJS (Server-Side JavaScript) in Salesforce Marketing Cloud lets you make HTTP requests to external APIs directly from your Cloud Pages or Automation Studio Script Activities. This guide covers the most important patterns: GET, POST, error handling, and OAuth2 authentication.</p>
 
       <div class="callout">
         <div class="callout-label">📌 PREREQUISITE</div>
-        To run SSJS you need a Cloud Page or a Script Activity in Automation Studio. SSJS runs on the SFMC server, not on the client.
+        To run SSJS you need a Cloud Page or a Script Activity in Automation Studio. SSJS runs on the SFMC server, not on the client browser.
       </div>
 
       <h2 id="get-request-en">01 · HTTP GET REQUEST</h2>
-      <p>Use <code>HTTP.Get()</code> to fetch data from an external API. Ideal for consuming endpoints that return information without needing to send a body.</p>
+      <p>Use <code>HTTP.Get()</code> to fetch data from an external API. Ideal for consuming endpoints that return information without needing to send a payload body.</p>
 
       <div class="code-block">
         <div class="code-block-header">
@@ -288,12 +288,142 @@ import Layout from '../layouts/Layout.astro';
 }</pre>
       </div>
 
+      <h2 id="post-request-en">02 · HTTP POST REQUEST</h2>
+      <p>Use <code>HTTP.Post()</code> when you need to send data to an API. The body must be a string (typically serialized JSON).</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Cloud Page</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">//  SSJS: HTTP POST Request </span>
+<span class="kw">var</span> <span class="vr">url</span> = <span class="st">"https://api.example.com/contacts"</span>;
+
+<span class="kw">var</span> <span class="vr">payload</span> = {
+  firstName: <span class="st">"John"</span>,
+  lastName:  <span class="st">"Doe"</span>,
+  email:     <span class="st">"john.doe@example.com"</span>
+};
+
+<span class="kw">var</span> <span class="vr">body</span>         = <span class="fn">Stringify</span>(<span class="vr">payload</span>);
+<span class="kw">var</span> <span class="vr">headerNames</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">headerValues</span> = [<span class="st">"Bearer YOUR_TOKEN_HERE"</span>, <span class="st">"application/json"</span>];
+<span class="kw">var</span> <span class="vr">statusCode</span>   = [<span class="nb">0</span>];
+
+<span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">url</span>, <span class="st">"application/json"</span>, <span class="vr">body</span>, <span class="vr">headerNames</span>, <span class="vr">headerValues</span>, <span class="vr">statusCode</span>);
+
+<span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">201</span> || <span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">200</span>) {
+  <span class="kw">var</span> <span class="vr">result</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+  <span class="fn">Write</span>(<span class="st">"Contact created with ID: "</span> + <span class="vr">result</span>.id);
+} <span class="kw">else</span> {
+  <span class="fn">Write</span>(<span class="st">"Error "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>] + <span class="st">": "</span> + <span class="vr">response</span>);
+}</pre>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ IMPORTANT</div>
+        <code>HTTP.Post()</code> returns the <strong>body</strong> as a string directly. The status code is returned inside the array passed as the last parameter.
+      </div>
+
+      <h2 id="error-handling-en">03 · ERROR HANDLING</h2>
+      <p>Wrap your API calls in <code>try/catch</code> blocks to catch network or parsing errors. Log errors into a Data Extension for troubleshooting.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · Error Handling</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="kw">try</span> {
+  <span class="kw">var</span> <span class="vr">statusCode</span> = [<span class="nb">0</span>];
+  <span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">url</span>, <span class="st">"application/json"</span>, <span class="vr">body</span>,
+                           <span class="vr">headerNames</span>, <span class="vr">headerValues</span>, <span class="vr">statusCode</span>);
+
+  <span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] &gt;= <span class="nb">400</span>) {
+    <span class="kw">throw</span> <span class="st">"HTTP Error: "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>] + <span class="st">" - "</span> + <span class="vr">response</span>;
+  }
+
+  <span class="kw">var</span> <span class="vr">data</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+
+} <span class="kw">catch</span>(<span class="vr">e</span>) {
+  <span class="fn">Platform.Function.InsertDE</span>(<span class="st">"ErrorLog"</span>,
+    [<span class="st">"ErrorMsg"</span>, <span class="st">"Timestamp"</span>],
+    [<span class="vr">e</span>.message || <span class="fn">Stringify</span>(<span class="vr">e</span>), <span class="fn">Now</span>()]
+  );
+  <span class="fn">Write</span>(<span class="st">"Something went wrong. Please try again later."</span>);
+}</pre>
+      </div>
+
+      <h2 id="oauth-token-en">04 · OAUTH2 AUTHENTICATION</h2>
+      <p>To call SFMC's REST API, you must first obtain an OAuth2 token. This pattern is essential for any server-to-server integration.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-dots"><div class="code-block-dot"></div><div class="code-block-dot"></div><div class="code-block-dot"></div></div>
+          <span class="code-block-lang">SSJS · OAuth2 Token</span>
+          <button class="code-copy-btn">📋 Copy</button>
+        </div>
+        <pre><span class="cm">//  Obtain SFMC OAuth2 Token </span>
+<span class="kw">function</span> <span class="fn">getAccessToken</span>(<span class="vr">clientId</span>, <span class="vr">clientSecret</span>, <span class="vr">subdomain</span>) {
+  <span class="kw">var</span> <span class="vr">authUrl</span> = <span class="st">"https://"</span> + <span class="vr">subdomain</span> + <span class="st">".auth.marketingcloudapis.com/v2/token"</span>;
+
+  <span class="kw">var</span> <span class="vr">payload</span>  = <span class="fn">Stringify</span>({
+    grant_type:    <span class="st">"client_credentials"</span>,
+    client_id:     <span class="vr">clientId</span>,
+    client_secret: <span class="vr">clientSecret</span>
+  });
+
+  <span class="kw">var</span> <span class="vr">statusCode</span> = [<span class="nb">0</span>];
+  <span class="kw">var</span> <span class="vr">response</span> = <span class="fn">HTTP.Post</span>(<span class="vr">authUrl</span>, <span class="st">"application/json"</span>,
+                            <span class="vr">payload</span>, [], [], <span class="vr">statusCode</span>);
+
+  <span class="kw">if</span> (<span class="vr">statusCode</span>[<span class="nb">0</span>] == <span class="nb">200</span>) {
+    <span class="kw">var</span> <span class="vr">parsed</span> = <span class="fn">Platform.Function.ParseJSON</span>(<span class="vr">response</span>);
+    <span class="kw">return</span> <span class="vr">parsed</span>.access_token;
+  }
+  <span class="kw">throw</span> <span class="st">"Token error: "</span> + <span class="vr">statusCode</span>[<span class="nb">0</span>];
+}
+
+<span class="cm">// Usage:</span>
+<span class="kw">var</span> <span class="vr">token</span>    = <span class="fn">getAccessToken</span>(<span class="st">"CLIENT_ID"</span>, <span class="st">"CLIENT_SECRET"</span>, <span class="st">"XXXX"</span>);
+<span class="kw">var</span> <span class="vr">apiUrl</span>   = <span class="st">"https://XXXX.rest.marketingcloudapis.com/contacts/v1/contacts"</span>;
+<span class="kw">var</span> <span class="vr">headers</span>  = [<span class="st">"Authorization"</span>, <span class="st">"Content-Type"</span>];
+<span class="kw">var</span> <span class="vr">hValues</span>  = [<span class="st">"Bearer "</span> + <span class="vr">token</span>, <span class="st">"application/json"</span>];
+<span class="kw">var</span> <span class="vr">sc</span>       = [<span class="nb">0</span>];
+
+<span class="kw">var</span> <span class="vr">result</span> = <span class="fn">HTTP.Post</span>(<span class="vr">apiUrl</span>, <span class="st">"application/json"</span>,
+             <span class="fn">Stringify</span>({...}), <span class="vr">headers</span>, <span class="vr">hValues</span>, <span class="vr">sc</span>);</pre>
+      </div>
+
       <div class="callout tip">
         <div class="callout-label">💡 PRO TIP</div>
         Cache your <code>access_token</code> in a Data Extension with an expiry timestamp and reuse it during its lifetime (1 hour) instead of generating a new one on every execution.
       </div>
 
-      <h2 id="challenge-en">02 · ARCADE CHALLENGE</h2>
+      <h2 id="use-cases-en">05 · REAL USE CASES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Sync leads from HubSpot</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Use <code>HTTP.Get()</code> to fetch recent HubSpot deals and insert them into an SFMC DE for segmentation.
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Notify webhooks when a Journey completes</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          Add a Script Activity at the end of the Journey using <code>HTTP.Post()</code> to notify your CRM or ticketing system.
+        </p>
+      </div>
+
+      <h2 id="challenge-en">06 · ARCADE CHALLENGE</h2>
       <div class="challenge-box">
         <div class="challenge-box-header">
           <span class="challenge-box-icon">🎮 </span>
@@ -351,11 +481,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
       <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
       <ul class="toc-list">
-        <li><a href="#get-request" data-lang="es">01 · GET Request</a><a href="#get-request-en" data-lang="en">01 · GET Request</a></li>
-        <li><a href="#post-request" data-lang="es">02 · POST Request</a><a href="#post-request" data-lang="en">02 · POST Request</a></li>
-        <li><a href="#error-handling" data-lang="es">03 · Manejo de errores</a><a href="#error-handling" data-lang="en">03 · Error handling</a></li>
-        <li><a href="#oauth-token" data-lang="es">04 · OAuth2 Token</a><a href="#oauth-token" data-lang="en">04 · OAuth2 Token</a></li>
-        <li><a href="#use-cases" data-lang="es">05 · Casos de uso</a><a href="#use-cases-en" data-lang="en">05 · Use cases</a></li>
+        <li><a href="#get-request" data-lang="es">01 · Petición HTTP GET</a><a href="#get-request-en" data-lang="en">01 · HTTP GET Request</a></li>
+        <li><a href="#post-request" data-lang="es">02 · Petición HTTP POST</a><a href="#post-request-en" data-lang="en">02 · HTTP POST Request</a></li>
+        <li><a href="#error-handling" data-lang="es">03 · Manejo de Errores</a><a href="#error-handling-en" data-lang="en">03 · Error Handling</a></li>
+        <li><a href="#oauth-token" data-lang="es">04 · Autenticación OAuth2</a><a href="#oauth-token-en" data-lang="en">04 · OAuth2 Authentication</a></li>
+        <li><a href="#use-cases" data-lang="es">05 · Casos de Uso Reales</a><a href="#use-cases-en" data-lang="en">05 · Real Use Cases</a></li>
         <li><a href="#challenge" data-lang="es">06 · Desafío Arcade</a><a href="#challenge-en" data-lang="en">06 · Arcade Challenge</a></li>
       </ul>
     </div>
@@ -363,26 +493,70 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag pink">#ssjs</span>
-        <span class="tag">#basics</span>
-        <span class="tag pink">#cloudpages</span>
-        <span class="tag orange">#automation</span>
-        <span class="tag">#tips</span>
+        <a href="/catalog?tag=ssjs" class="tag pink">#ssjs</a>
+        <a href="/catalog?tag=basics" class="tag">#basics</a>
+        <a href="/catalog?tag=cloudpages" class="tag pink">#cloudpages</a>
+        <a href="/catalog?tag=automation" class="tag orange">#automation</a>
+        <a href="/catalog?tag=tips" class="tag">#tips</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/ssjs-http" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ SSJS: Peticiones HTTP GET y POST</a>
-        <a href="/ssjs-http" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ SSJS: HTTP GET & POST Requests</a>
-        <a href="/ssjs-debug" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ SSJS: Logging y Debugging avanzado</a>
-        <a href="/ssjs-debug" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ SSJS: Advanced Logging & Debugging</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ Introducción a AMPscript</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ Introduction to AMPscript</a>
+      <div class="related-articles-list">
+        <a href="/ssjs-http" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Peticiones HTTP GET y POST</span>
+        </a>
+        <a href="/ssjs-http" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: HTTP GET & POST Requests</span>
+        </a>
+        <a href="/ssjs-debug" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Logging y Debugging avanzado</span>
+        </a>
+        <a href="/ssjs-debug" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Advanced Logging & Debugging</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a AMPscript</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to AMPscript</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/ssjs_serverSideJavaScript.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: Guía Oficial de SSJS <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/ssjs_serverSideJavaScript.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: SSJS Overview <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-programmatic-languages/learn-about-server-side-javascript" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Lenguajes Programáticos y SSJS <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-programmatic-languages/learn-about-server-side-javascript" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Programmatic Languages & SSJS <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 

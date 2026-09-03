@@ -364,26 +364,70 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag pink">#cloudpages</span>
-        <span class="tag">#auth</span>
-        <span class="tag">#tokens</span>
-        <span class="tag">#security</span>
-        <span class="tag">#dataextension</span>
+        <a href="/catalog?tag=cloudpages" class="tag pink">#cloudpages</a>
+        <a href="/catalog?tag=auth" class="tag">#auth</a>
+        <a href="/catalog?tag=tokens" class="tag">#tokens</a>
+        <a href="/catalog?tag=security" class="tag">#security</a>
+        <a href="/catalog?tag=dataextension" class="tag">#dataextension</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/ssjs-http" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ SSJS: Peticiones HTTP GET y POST</a>
-        <a href="/ssjs-http" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ SSJS: HTTP GET & POST Requests</a>
-        <a href="/ssjs-debug" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ SSJS: Logging y Debugging avanzado</a>
-        <a href="/ssjs-debug" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ SSJS: Advanced Logging & Debugging</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">⚡ Introducción a AMPscript</a>
-        <a href="/amp-intro" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">⚡ Introduction to AMPscript</a>
+      <div class="related-articles-list">
+        <a href="/ssjs-http" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Peticiones HTTP GET y POST</span>
+        </a>
+        <a href="/ssjs-http" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: HTTP GET & POST Requests</span>
+        </a>
+        <a href="/ssjs-debug" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Logging y Debugging avanzado</span>
+        </a>
+        <a href="/ssjs-debug" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">SSJS: Advanced Logging & Debugging</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a AMPscript</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to AMPscript</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/your-subdomain-tenant-specific-endpoints.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: Endpoints TSE y Auth <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/your-subdomain-tenant-specific-endpoints.html" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Docs: TSE Endpoints & Auth <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-apis" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: APIs de Marketing Cloud <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-apis" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Marketing Cloud APIs <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 

@@ -364,26 +364,70 @@ import Layout from '../layouts/Layout.astro';
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏷️ TAGS</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
-        <span class="tag pink">#innovations</span>
-        <span class="tag green">#ai</span>
-        <span class="tag green">#gpt</span>
-        <span class="tag">#ampscript</span>
-        <span class="tag green">#personalization</span>
+        <a href="/catalog?tag=innovations" class="tag pink">#innovations</a>
+        <a href="/catalog?tag=ai" class="tag green">#ai</a>
+        <a href="/catalog?tag=gpt" class="tag green">#gpt</a>
+        <a href="/catalog?tag=ampscript" class="tag">#ampscript</a>
+        <a href="/catalog?tag=personalization" class="tag green">#personalization</a>
       </div>
     </div>
 
+    <!-- 3. RELATED ARTICLES -->
     <div class="sidebar-card">
       <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
       <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem;">
-        <a href="/next-agentforce-campaigns" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🔮 Agentforce: Campañas Autónomas y Prompt Studio</a>
-        <a href="/next-agentforce-campaigns" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🔮 Agentforce: Autonomous Campaigns & Prompt Studio</a>
-        <a href="/amp-dynamic" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">📄 Bloques de Contenido Dinámico con AMPscript</a>
-        <a href="/amp-dynamic" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">📄 Dynamic Content Blocks with AMPscript</a>
-        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="es">🔮 Data Cloud: Segmentación en Tiempo Real</a>
-        <a href="/next-datacloud-segments" style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:block;" data-lang="en">🔮 Data Cloud: Real-Time Segmentation</a>
+      <div class="related-articles-list">
+        <a href="/next-agentforce-campaigns" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Agentforce: Campañas Autónomas y Prompt Studio</span>
+        </a>
+        <a href="/next-agentforce-campaigns" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Agentforce: Autonomous Campaigns & Prompt Studio</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introducción a AMPscript</span>
+        </a>
+        <a href="/amp-intro" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">⚡</span>
+          <span class="related-article-text">Introduction to AMPscript</span>
+        </a>
+        <a href="/next-datacloud-segments" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Data Cloud: Segmentación en Tiempo Real</span>
+        </a>
+        <a href="/next-datacloud-segments" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🔮</span>
+          <span class="related-article-text">Data Cloud: Real-Time Segmentation</span>
+        </a>
       </div>
     </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_overview_einstein.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Einstein en Marketing Cloud <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_overview_einstein.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Einstein for MC <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/trails/develop-for-marketing-cloud" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Desarrollo para Marketing Cloud <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/trails/develop-for-marketing-cloud" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Develop for Marketing Cloud <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
   </aside>
 </div>
 
