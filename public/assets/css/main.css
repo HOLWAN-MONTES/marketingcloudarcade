@@ -2027,3 +2027,11 @@ input, textarea, [data-open-search], .search-modal-input {
   cursor: url('../img/cursor/pixel-help.cur'), help !important;
 }
 
+/* ── Print / PDF Export Styles ── */
+@media print {
+  #konami-toast,
+  #search-modal,
+  .search-backdrop {
+    display: none !important;
+  }
+}
