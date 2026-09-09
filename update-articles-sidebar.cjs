@@ -79,7 +79,7 @@ const articlesMeta = {
     related: [
       { url: '/sql-engagement', icon: '📊', es: 'SQL: Score de Engagement de Suscriptores', en: 'SQL: Subscriber Engagement Score' },
       { url: '/sql-joins', icon: '📊', es: 'SQL: JOINs avanzados en Query Activities', en: 'SQL: Advanced JOINs in Query Activities' },
-      { url: '/auto-filedrop', icon: '⚙️', es: 'Automation Studio: Patrón File Drop', en: 'Automation Studio: File Drop Pattern' }
+      { url: '/auto-intro', icon: '⚙️', es: 'Introducción a Automation Studio', en: 'Intro to Automation Studio' }
     ],
     docs: [
       { url: 'https://help.salesforce.com/s/articleView?id=sf.mc_as_data_views.htm&type=5', icon: '☁️', es: 'Salesforce Help: Referencia de Data Views', en: 'Salesforce Help: Data Views Reference' },
@@ -110,22 +110,22 @@ const articlesMeta = {
       { url: 'https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities', icon: '🧭', es: 'Trailhead: Consultas SQL en Automation Studio', en: 'Trailhead: SQL Queries in Studio' }
     ]
   },
-  'auto-filedrop': {
-    tags: ['#automation', '#filedrop', '#ftp', '#triggered-automation'],
+  'auto-intro': {
+    tags: ['#automation', '#basics', '#activities', '#steps', '#workflow'],
     related: [
-      { url: '/jb-api-entry', icon: '🗺️', es: 'Journey Builder: API Entry Event', en: 'Journey Builder: API Entry Event' },
-      { url: '/ssjs-upsert', icon: '⚡', es: 'SSJS: Upsert Contactos via REST API', en: 'SSJS: Upsert Contacts via REST API' },
-      { url: '/sql-joins', icon: '📊', es: 'SQL: JOINs avanzados en Query Activities', en: 'SQL: Advanced JOINs in Query Activities' }
+      { url: '/sfmc-overview', icon: '🚀', es: '¿Qué es Marketing Cloud Engagement?', en: 'What is Marketing Cloud Engagement?' },
+      { url: '/sql-dataviews', icon: '📊', es: 'SQL: Introducción a Data Views', en: 'SQL: Intro to SFMC Data Views' },
+      { url: '/jb-api-entry', icon: '🗺️', es: 'Journey Builder: API Entry Event', en: 'Journey Builder: API Entry Event' }
     ],
     docs: [
-      { url: 'https://help.salesforce.com/s/articleView?id=sf.mc_as_triggered_automations.htm&type=5', icon: '☁️', es: 'Salesforce Help: Automatizaciones Activadas', en: 'Salesforce Help: Triggered Automations' },
+      { url: 'https://help.salesforce.com/s/articleView?id=sf.mc_as_automation_studio.htm&type=5', icon: '☁️', es: 'Salesforce Help: Automation Studio', en: 'Salesforce Help: Automation Studio Overview' },
       { url: 'https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities', icon: '🧭', es: 'Trailhead: Actividades de Automation Studio', en: 'Trailhead: Automation Studio Activities' }
     ]
   },
   'jb-api-entry': {
     tags: ['#journey', '#api-entry', '#event-definition', '#realtime', '#rest-api'],
     related: [
-      { url: '/auto-filedrop', icon: '⚙️', es: 'Automation Studio: Patrón File Drop', en: 'Automation Studio: File Drop Pattern' },
+      { url: '/auto-intro', icon: '⚙️', es: 'Introducción a Automation Studio', en: 'Intro to Automation Studio' },
       { url: '/ssjs-http', icon: '⚡', es: 'SSJS: Peticiones HTTP GET y POST', en: 'SSJS: HTTP GET & POST Requests' },
       { url: '/next-agentforce-campaigns', icon: '🔮', es: 'Agentforce: Campañas Autónomas', en: 'Agentforce: Autonomous Campaigns' }
     ],

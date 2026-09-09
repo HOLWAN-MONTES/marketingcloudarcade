@@ -1,0 +1,1750 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Introducción a Automation Studio: Guía de Fundamentos | Marketing Cloud Arcade">
+
+<!-- ============================================================
+     ARTICLE HERO BANNER
+     ============================================================ -->
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-breadcrumb">
+      <a href="/" data-lang="es">Inicio</a>
+      <a href="/" data-lang="en">Home</a>
+      <span class="sep">/</span>
+      <a href="/catalog?cat=automation">Automation Studio</a>
+      <span class="sep">/</span>
+      <span data-lang="es">Artículo</span>
+      <span data-lang="en">Article</span>
+    </div>
+
+    <!-- Meta badges (Category, Level, Duration, Date, Views) -->
+    <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <span class="tag orange">AUTOMATION</span>
+      <span class="level-badge beginner">🟢 Beginner</span>
+    </div>
+
+    <!-- Bilingual H1 Title -->
+    <h1 data-lang="es">Introducción a Automation Studio: Guía de Fundamentos</h1>
+    <h1 data-lang="en">Introduction to Automation Studio: Fundamentals Guide</h1>
+
+    <div class="article-meta">
+      <span class="article-meta-item">📅 <span data-lang="es">Actualizado</span><span data-lang="en">Updated</span>: Sep 2026</span>
+      <span class="article-meta-item">⏱️ 8 min read</span>
+      <span class="article-meta-item">👁️ <span data-random-views data-article-id="auto-intro">0</span> views</span>
+    </div>
+
+    <!-- Bilingual Subtitle / Summary -->
+    <p class="article-hero-desc" data-lang="es">
+      Tu mapa de ruta conceptual para entender qué es Automation Studio, cómo se articulan las Automations, Steps y Activities, y cómo orquestar flujos de datos y tareas en Marketing Cloud Engagement.
+    </p>
+    <p class="article-hero-desc" data-lang="en">
+      Your conceptual roadmap to understanding what Automation Studio is, how Automations, Steps, and Activities connect, and how to orchestrate data flows and scheduled tasks in Marketing Cloud Engagement.
+    </p>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     ARTICLE BODY & SIDEBAR GRID
+     ============================================================ -->
+<div class="article-layout">
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <article class="article-content" is:raw>
+
+    <!-- ──────────────────────────────────────────
+         SPANISH CONTENT (data-lang="es")
+         ────────────────────────────────────────── -->
+    <div data-lang="es">
+
+      <!-- Callout: Alcance del artículo -->
+      <div class="callout">
+        <div class="callout-label">📌 ALCANCE DE ESTA GUÍA</div>
+        Este artículo se enfoca exclusivamente en <strong>Salesforce Marketing Cloud Engagement (SFMCE)</strong> y sus capacidades nativas de <strong>Automation Studio</strong>. No profundizaremos en sintaxis SQL compleja, scripts SSJS avanzados ni arquitecturas de Data Cloud / MC Next; este es el <strong>Artículo 00</strong>: un mapa general diseñado para que adquieras la intuición correcta antes de construir tus primeras automatizaciones.
+      </div>
+
+      <!-- Bloque: Lo que aprenderás -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.5rem;color:var(--neon-green);margin-bottom:0.8rem;">🎯 LO QUE APRENDERÁS EN ESTA GUÍA</div>
+        <ul style="margin:0;padding-left:1.2rem;color:var(--text-secondary);line-height:1.6;font-size:0.92rem;">
+          <li><strong>Qué es Automation Studio</strong> según la documentación técnica oficial de Salesforce.</li>
+          <li><strong>La jerarquía clave</strong>: diferencia exacta entre Automation, Step y Activity.</li>
+          <li><strong>Los tres Starting Sources oficiales</strong>: Schedule, File Drop y Trigger, junto con la ejecución manual.</li>
+          <li><strong>Familias conceptuales de Activities</strong>: Datos, Consultas, Mensajería y Control de flujo.</li>
+          <li><strong>La diferencia entre File Transfer y Data Copy or Import</strong> explicada conceptualmente.</li>
+          <li><strong>El orden de ejecución</strong>: cuándo ejecutar actividades de forma secuencial y cuándo en simultáneo.</li>
+          <li><strong>Un caso práctico completo de principio a fin</strong> y un desafío interactivo para validar tu aprendizaje.</li>
+        </ul>
+      </div>
+
+      <!-- SECCIÓN 01 -->
+      <h2 id="sec-what-is">01 · ¿QUÉ ES AUTOMATION STUDIO?</h2>
+      <p>
+        <strong>Automation Studio</strong> es una aplicación de Salesforce Marketing Cloud Engagement que permite automatizar procesos de marketing y gestión de datos mediante Activities organizadas dentro de Automations.
+      </p>
+      <p>
+        A través de esta herramienta se pueden transferir y preparar archivos, transformar información mediante consultas, gestionar tablas de datos y coordinar envíos masivos o procesos programados. No se limita únicamente a la ejecución de consultas SQL; abarca un conjunto amplio de tareas de movimiento, transformación y administración de datos.
+      </p>
+
+      <div class="callout tip">
+        <div class="callout-label">🏭 LA ANALOGÍA DE LA FÁBRICA</div>
+        Para visualizar su funcionamiento, imagina Automation Studio como <strong>una línea de producción de una fábrica automatizada</strong>:
+        <br/><br/>
+        • La <strong>materia prima</strong> que entra son los datos brutos (archivos, registros).<br/>
+        • Cada <strong>estación de trabajo</strong> realiza una labor puntual (limpiar, filtrar, empaquetar) → <strong>Activity</strong>.<br/>
+        • Las estaciones se organizan por <strong>etapas secuenciales</strong> a lo largo de la línea → <strong>Steps</strong>.<br/>
+        • La <strong>línea de producción completa</strong> funcionando de punta a punta es tu <strong>Automation</strong>.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Automation Studio permite encadenar y automatizar tareas de Marketing Cloud Engagement dentro de procesos planificados y estructurados.
+      </div>
+
+      <!-- SECCIÓN 02 -->
+      <h2 id="sec-what-for">02 · ¿PARA QUÉ SIRVE EN EL NEGOCIO?</h2>
+      <p>
+        En las operaciones cotidianas de una organización, los equipos de marketing necesitan procesar, validar y actualizar grandes volúmenes de datos antes de disparar comunicaciones. Automation Studio resuelve las tareas técnicas de fondo que mantienen la plataforma sincronizada y los datos listos.
+      </p>
+      <p>
+        Casos reales habituales en entornos corporativos incluyen:
+      </p>
+      <ul>
+        <li><strong>Importar o copiar datos</strong>: Ingestar periódicamente archivos de clientes o transacciones desde ubicaciones seguras o copiar registros entre Data Extensions.</li>
+        <li><strong>Preparar y segmentar audiencias</strong>: Identificar clientes de alto valor, carritos abandonados de las últimas 48 horas o suscriptores que requieren campañas de reactivación.</li>
+        <li><strong>Transferir y proteger archivos</strong>: Mover archivos hacia y desde el Safehouse de Marketing Cloud, descomprimir archivos ZIP o aplicar descifrado PGP.</li>
+        <li><strong>Ejecutar lógica personalizada</strong>: Correr Server-Side JavaScript (SSJS) mediante Script Activities para orquestar llamadas o validar procesos.</li>
+        <li><strong>Alimentar Journey Builder</strong>: Preparar y actualizar las Data Extensions que se utilizarán para admitir contactos en recorridos multicanal.</li>
+        <li><strong>Extraer información</strong>: Exportar datos consolidados o registros de seguimiento para auditoría o consumo de sistemas externos.</li>
+      </ul>
+
+      <div style="background:var(--bg-elevated);border-left:4px solid var(--neon-cyan);padding:1rem 1.2rem;border-radius:0 var(--radius) var(--radius) 0;margin:1.2rem 0;">
+        <span style="color:var(--neon-cyan);font-weight:bold;display:block;margin-bottom:0.3rem;">🏢 Escenario Real de Negocio:</span>
+        <span style="color:var(--text-secondary);font-size:0.9rem;">
+          Cada madrugada a las 02:00 AM, una empresa recibe un archivo con las altas de clientes del día anterior. Automation Studio lo detecta, lo importa a una Data Extension, ejecuta una consulta para clasificar a los nuevos clientes según su categoría de compra y deja los datos preparados para la campaña matutina de bienvenida.
+        </span>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Automation Studio ejecuta de forma autónoma los procesos técnicos y el movimiento de datos necesarios para respaldar las estrategias de marketing.
+      </div>
+
+      <!-- SECCIÓN 03 -->
+      <h2 id="sec-hierarchy">03 · AUTOMATION VS ACTIVITY VS STEP</h2>
+      <p>
+        Comprender la estructura de Automation Studio requiere diferenciar tres conceptos fundamentales:
+      </p>
+
+      <div style="overflow-x:auto;margin:1.5rem 0;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-dim);color:var(--text-primary);text-align:left;">
+              <th style="padding:0.6rem 0.8rem;">Concepto</th>
+              <th style="padding:0.6rem 0.8rem;">Definición en SFMC</th>
+              <th style="padding:0.6rem 0.8rem;">Analogía de Fábrica</th>
+              <th style="padding:0.6rem 0.8rem;">Ejemplo Concreto</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-orange);">AUTOMATION</td>
+              <td style="padding:0.6rem 0.8rem;">El proceso automatizado completo, incluyendo su fuente de inicio y todos sus pasos ordenados.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-orange);">Toda la línea de producción</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Sincronizacion_Diaria_Clientes</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-yellow);">STEP</td>
+              <td style="padding:0.6rem 0.8rem;">Una etapa dentro de la Automation que agrupa una o más Activities para su ejecución.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-yellow);">Una estación o etapa de la banda</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Step 1 (Ingesta) → Step 2 (Cálculo)</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-green);">ACTIVITY</td>
+              <td style="padding:0.6rem 0.8rem;">Una acción o tarea específica y reutilizable que realiza un trabajo puntual dentro de un Step.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-green);">La máquina o tarea concreta</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Data Copy or Import (antes Import File)</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Una Automation puede contener múltiples Steps ordenados cronológicamente, y cada Step puede contener una o varias Activities. Visualmente, esta jerarquía se organiza de la siguiente manera:
+      </p>
+
+      <!-- DIAGRAMA A: JERARQUÍA VISUAL (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:1rem;text-align:center;">
+          🏭 JERARQUÍA CONCEPTUAL DE AUTOMATION STUDIO
+        </div>
+        
+        <!-- Automation Container -->
+        <div style="background:rgba(255,140,0,0.06);border:1.5px solid var(--neon-orange);border-radius:var(--radius);padding:1.2rem;max-width:540px;margin:0 auto;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid rgba(255,140,0,0.25);padding-bottom:0.5rem;">
+            <span style="font-weight:bold;color:var(--neon-orange);font-size:0.92rem;">AUTOMATION: "Procesamiento_Diario"</span>
+            <span style="font-size:0.75rem;background:rgba(255,140,0,0.15);color:var(--neon-orange);padding:0.2rem 0.5rem;border-radius:4px;">Proceso Completo</span>
+          </div>
+
+          <!-- Step 1 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.6rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 1 · Etapa de Ingesta</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">📥</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: Data Copy or Import (antes Import File)</span>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.6rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 2 · Etapa de Transformación</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">🗃️</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: SQL Query</span>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 3 · Etapa de Envío</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">✉️</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: Send Email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Una <strong>Automation</strong> es el proceso completo; un <strong>Step</strong> es una etapa dentro de él; y las <strong>Activities</strong> son las tareas individuales que componen cada etapa.
+      </div>
+
+      <!-- SECCIÓN 04 -->
+      <h2 id="sec-starting-sources">04 · ¿CÓMO COMIENZA UNA AUTOMATION?</h2>
+      <p>
+        Toda automatización requiere definir cómo y cuándo debe iniciar su ejecución. Según la documentación oficial actual de Salesforce, existen <strong>tres Starting Sources</strong> oficiales para iniciar una Automation:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-yellow);margin-bottom:0.5rem;">⏰ 1. SCHEDULE (PROGRAMACIÓN)</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Inicia la Automation según un calendario o intervalo programado (por ejemplo, diariamente a las 02:00 AM, cada hora o los días lunes).
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-green);">Ejemplo: Actualización nocturna de audiencias.</span>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:0.5rem;">📂 2. FILE DROP (LLEGADA DE ARCHIVO)</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Inicia la Automation cuando se carga un archivo en el Enhanced FTP de Marketing Cloud según los criterios configurados (como un patrón de nombre o una carpeta específica).
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-cyan);">Ejemplo: Carga de archivo <code>customers.csv</code> por un proveedor.</span>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-pink);margin-bottom:0.5rem;">⚡ 3. TRIGGER (UBICACIÓN EXTERNA)</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Inicia una Automation cuando se deposita un archivo en una ubicación de almacenamiento externa compatible (como Amazon S3, Microsoft Azure Blob Storage o Google Cloud Storage) y se envía una solicitud a la Trigger API de Automation Studio.
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-pink);">Ejemplo: Archivo depositado en bucket externo con llamada a Trigger API.</span>
+        </div>
+      </div>
+
+      <!-- Subsección: Ejecución Manual -->
+      <h3 style="color:var(--text-primary);font-size:1.05rem;margin-top:1.5rem;">Ejecución Manual</h3>
+      <p>
+        Además de los tres Starting Sources programados y orientados a eventos, Automation Studio permite iniciar procesos de forma manual:
+      </p>
+      <ul>
+        <li><strong>Run Once</strong>: Permite iniciar una Automation completa bajo demanda de forma manual desde la interfaz de usuario de Automation Studio, útil para pruebas o ejecuciones no planificadas.</li>
+        <li><strong>Advanced Run Once</strong>: Permite seleccionar únicamente ciertos Steps o Activities concretas para su ejecución parcial. Salesforce documenta esta funcionalidad de forma específica para <em>Scheduled Automations</em>.</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP: EJECUCIÓN PROGRAMÁTICA VÍA API</div>
+        Automation Studio también ofrece APIs REST y SOAP documentadas por Salesforce Developers para iniciar o gestionar Automations desde sistemas externos de forma programática. Esta capacidad es independiente del Starting Source de tipo <strong>Trigger</strong> mencionado anteriormente.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Existen tres Starting Sources oficiales (Schedule, File Drop y Trigger). Opciones como Run Once corresponden a mecanismos de ejecución manual bajo demanda.
+      </div>
+
+      <!-- SECCIÓN 05 -->
+      <h2 id="sec-activity-families">05 · PRINCIPALES FAMILIAS DE ACTIVITIES</h2>
+      <p>
+        Una <strong>Activity</strong> es la unidad o bloque básico de construcción que realiza un trabajo puntual dentro de una Automation. Para facilitar el aprendizaje, en Marketing Cloud Arcade agruparemos las Activities en las siguientes <strong>familias conceptuales</strong> (ten en cuenta que esta es una agrupación pedagógica y no una taxonomía oficial de Salesforce):
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1.2rem;">
+
+          <div>
+            <div style="color:var(--neon-green);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">1. Gestión de Datos y Archivos</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Actividades dedicadas al movimiento, preparación y carga de datos.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Data Copy or Import (antes Import File)</strong>: Permite importar datos desde archivos externos y, en determinados escenarios, copiar datos entre Data Extensions.</li>
+              <li><strong>File Transfer Activity</strong>: Permite mover, descomprimir, cifrar o descifrar archivos según la configuración. Por ejemplo, puede administrar archivos en una ubicación configurada (Manage File) o mover archivos desde el Safehouse hacia una ubicación FTP.</li>
+              <li><strong>Data Extract Activity</strong>: Extrae información de una Data Extension o genera archivos con datos de seguimiento (tracking) para colocarlos en el Safehouse.</li>
+              <li><strong>Filter Activity</strong>: Aplica condiciones de filtrado sobre una Data Extension para generar un segmento filtrado.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-yellow);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">2. Consultas y Código</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Transformación analítica y lógica programática.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>SQL Query Activity</strong>: Ejecuta consultas SQL para recuperar, combinar y transformar registros desde Data Extensions o Data Views, escribiendo el resultado en una Data Extension de destino.</li>
+              <li><strong>Script Activity</strong>: Ejecuta Server-Side JavaScript (SSJS) en el servidor de Marketing Cloud para lógica personalizada o integraciones.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-orange);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">3. Mensajería y Envíos</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Ejecución de envíos a audiencias preparadas.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Send Email</strong>: Inicia el envío de mensajes de correo electrónico previamente configurados a una audiencia objetivo.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-cyan);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">4. Control de Flujo y Supervisión</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Gestión de tiempos y validación de condiciones de ejecución.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Wait Activity</strong>: Pausa la ejecución de la Automation durante un período determinado o hasta una fecha y hora específicas.</li>
+              <li><strong>Verification Activity</strong>: Comprueba el número de registros (record count) de una Data Extension. Cuando el conteo cumple las condiciones configuradas, puede detener la Automation, enviar una notificación por email o realizar ambas acciones.<br/><span style="font-size:0.8rem;color:var(--text-muted);display:block;margin-top:0.25rem;"><em>Nota para principiantes:</em> Verification no evalúa directamente valores específicos de campos (como <code>Status == 'Active'</code>). Si necesitas validar una condición de datos concreta, normalmente primero preparas esos registros mediante una SQL Query y luego verificas el conteo de la Data Extension resultante.</span></li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-pink);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">5. Relación con Journey Builder</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Automation Studio puede preparar datos utilizados posteriormente por Journey Builder. Salesforce todavía documenta <strong>Fire Event Activity</strong> para escenarios basados en Contact Data Events, pero advierte que Contact Data Events dejarán de estar soportados en una próxima release (los eventos y journeys existentes continúan funcionando). Para nuevas implementaciones, consulta los mecanismos actuales de entrada de Journey Builder, como <strong>Data Extension</strong> o <strong>Audiences</strong> según el escenario. La referencia oficial de Automation Studio también incluye <strong>Journey Entry: Audience</strong> para automations que actualizan audiencias de entrada.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">📌 REUTILIZACIÓN DE ACTIVIDADES</div>
+        Muchas Activities configuradas pueden reutilizarse y aparecer en múltiples Automations. Sin embargo, existen excepciones específicas: por ejemplo, <strong>Verification Activity</strong> se configura dentro de una Automation y no puede reutilizarse entre varias Automations.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Las Activities son las tareas concretas de una Automation. Cada tipo de Activity resuelve una necesidad específica: transferir archivos, transformar datos, enviar comunicaciones o verificar condiciones.
+      </div>
+
+      <!-- SECCIÓN 06 -->
+      <h2 id="sec-sql-role">06 · EL ROL DE SQL QUERY ACTIVITY</h2>
+      <p>
+        <strong>SQL Query Activity</strong> es una de las Activities más utilizadas para recuperar, combinar, filtrar y preparar datos en Automation Studio.
+      </p>
+      <p>
+        Su función principal consiste en leer registros desde una o más Data Extensions (o Data Views del sistema), ejecutar una consulta SQL para transformarlos o unirlos, y almacenar el resultado en una Data Extension de destino configurada.
+      </p>
+
+      <!-- DIAGRAMA B: SQL QUERY ACTIVITY (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-yellow);margin-bottom:1rem;text-align:center;">
+          🗃️ FLUJO DE DATOS EN SQL QUERY ACTIVITY
+        </div>
+        
+        <div style="max-width:540px;margin:0 auto;">
+          <!-- Two sources -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.5rem;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.7rem;text-align:center;">
+              <span style="font-size:1.1rem;display:block;margin-bottom:0.2rem;">📋</span>
+              <span style="font-size:0.8rem;color:var(--text-primary);font-weight:bold;">DE: "Clientes"</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.7rem;text-align:center;">
+              <span style="font-size:1.1rem;display:block;margin-bottom:0.2rem;">🛍️</span>
+              <span style="font-size:0.8rem;color:var(--text-primary);font-weight:bold;">DE: "Pedidos"</span>
+            </div>
+          </div>
+
+          <!-- Converging arrows -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg>
+          </div>
+
+          <!-- SQL Query Card -->
+          <div style="background:rgba(255,230,0,0.08);border:1.5px solid var(--neon-yellow);border-radius:6px;padding:0.9rem;text-align:center;margin-bottom:0.5rem;">
+            <div style="font-size:0.82rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.2rem;">SQL QUERY ACTIVITY</div>
+            <div style="font-size:0.82rem;color:var(--text-secondary);">Cruza clientes con pedidos y filtra compras superiores a $500</div>
+          </div>
+
+          <!-- Down arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-green);margin:0.2rem 0;">
+            <svg width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg>
+          </div>
+
+          <!-- Target DE -->
+          <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-green);font-weight:bold;text-transform:uppercase;">Data Extension Destino</div>
+            <div style="font-size:0.9rem;color:var(--text-primary);font-weight:bold;">"Clientes_VIP"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ SQL NO ES AUTOMATION STUDIO</div>
+        Es fundamental distinguir ambos conceptos: <strong>SQL</strong> es el lenguaje de consulta, y <strong>SQL Query Activity</strong> es una de las múltiples Activities que Automation Studio puede ejecutar. Aprenderemos a construir consultas SQL en un artículo dedicado más adelante.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        SQL Query Activity permite ejecutar una consulta SQL para leer, transformar o preparar datos almacenados en Marketing Cloud.
+      </div>
+
+      <!-- SECCIÓN 07 -->
+      <h2 id="sec-transfer-vs-import">07 · FILE TRANSFER VS DATA COPY OR IMPORT</h2>
+      <p>
+        Una confusión frecuente entre principiantes es diferenciar la función de <strong>File Transfer Activity</strong> frente a <strong>Data Copy or Import</strong> (antes llamada <em>Import File</em>). Aunque ambas forman parte del flujo de ingesta, sus responsabilidades son distintas y complementarias:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:0.5rem;">🚚 FILE TRANSFER ACTIVITY</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.6rem;">
+            <strong>"Trabaja con el archivo físico"</strong>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0;">
+            Permite mover, descomprimir, cifrar o descifrar archivos según la opción configurada (como <em>Manage File</em> o <em>Move a File From Safehouse</em>). Gestiona el archivo como un contenedor u objeto en el almacenamiento.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-green);margin-bottom:0.5rem;">📦 DATA COPY OR IMPORT</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.6rem;">
+            <strong>"Trabaja con los registros y datos"</strong>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0;">
+            Importa registros desde un archivo externo hacia una Data Extension o lista, o copia datos entre Data Extensions. Un archivo CSV estándar no necesita obligatoriamente pasar por File Transfer antes de ser importado.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">📦 LA ANALOGÍA DEL PAQUETE</div>
+        • <strong>File Transfer</strong> prepara o transporta el paquete (lo mueve, descomprime o descifra).<br/>
+        • <strong>Data Copy or Import</strong> toma los datos del paquete y los carga o copia en las estructuras correspondientes.<br/><br/>
+        Conceptualmente, <em>File Transfer</em> gestiona el paquete físico, mientras que <em>Data Copy or Import</em> procesa las filas y registros que residen en su interior.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        File Transfer prepara o transporta el paquete; Data Copy or Import toma los datos del paquete y los carga en las tablas correspondientes.
+      </div>
+
+      <!-- SECCIÓN 08 -->
+      <h2 id="sec-execution-order">08 · STEPS SECUENCIALES Y TAREAS SIMULTÁNEAS</h2>
+      <p>
+        Automation Studio permite organizar las actividades de forma secuencial o simultánea según cómo se distribuyan en los Steps:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <span style="color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">1. Los STEPS se ejecutan de forma secuencial</span>
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin:0.3rem 0 0 0;">
+              El Step 1 se ejecuta en primer lugar. Una vez finalizadas sus actividades, la Automation continúa con el Step 2, y así sucesivamente.
+            </p>
+          </div>
+          <div style="border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <span style="color:var(--neon-green);font-weight:bold;font-size:0.92rem;">2. Múltiples ACTIVITIES dentro de un mismo Step pueden ejecutarse de forma simultánea</span>
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin:0.3rem 0 0 0;">
+              Si colocas varias actividades en el mismo Step, Automation Studio intentará ejecutarlas al mismo tiempo en paralelo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ PRINCIPIO DE DEPENDENCIA ENTRE TAREAS</div>
+        El orden importa cuando una tarea depende del resultado de otra. Si la <strong>Activity B</strong> necesita los datos generados por la <strong>Activity A</strong>, <strong>deben colocarse en Steps consecutivos</strong>, nunca en el mismo Step.
+        <br/><br/>
+        <em>Ejemplo correcto:</em><br/>
+        • <strong>Step 1:</strong> SQL Query genera <code>Audience_Final</code>.<br/>
+        • <strong>Step 2:</strong> Send Email utiliza <code>Audience_Final</code>.
+        <br/><br/>
+        Analogía: <em>"No puedes empacar un producto antes de fabricarlo"</em>.
+      </div>
+
+      <p style="font-size:0.88rem;color:var(--text-secondary);">
+        <strong>Comportamiento ante errores:</strong> Cuando una Automation encuentra errores en una Activity, la ejecución puede detenerse y los Steps posteriores pueden no ejecutarse. El comportamiento detallado y el estado resultante deben consultarse en el historial de ejecución (<em>Automation History</em>) y en las alertas de Automation Studio.
+      </p>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Si una Activity depende del resultado de otra, el orden de los Steps importa: deben ubicarse en Steps consecutivos.
+      </div>
+
+      <!-- SECCIÓN 09 -->
+      <h2 id="sec-data-extensions">09 · DATA EXTENSIONS: LAS MESAS DE TRABAJO</h2>
+      <p>
+        Muchas Automations utilizan <strong>Data Extensions (DE)</strong> como origen, destino o punto intermedio de los datos.
+      </p>
+      <p>
+        En la práctica de diseño de automatizaciones, es común encontrar tres roles conceptuales de Data Extensions:
+      </p>
+      <ul>
+        <li><strong>Staging (Área intermedia)</strong>: Donde se reciben los datos sin procesar tal como provienen del archivo importado.</li>
+        <li><strong>Transformación</strong>: Tablas auxiliares para cálculos intermedios o cruces preliminares.</li>
+        <li><strong>Audiencia final (Target)</strong>: El conjunto de datos limpio y listo que consumirá un envío o un Journey.</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="callout-label">🪑 LA ANALOGÍA DEL TALLER</div>
+        Las Data Extensions funcionan como <strong>las mesas de trabajo o almacenes</strong> donde las distintas Activities leen, depositan y recogen información a lo largo del proceso.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Las Data Extensions son las estructuras donde las Activities leen y guardan la información procesada.
+      </div>
+
+      <!-- SECCIÓN 10 -->
+      <h2 id="sec-full-example">10 · EJEMPLO COMPLETO DE UNA AUTOMATION</h2>
+      <p>
+        Veamos un caso sencillo de principio a fin: <strong>preparación diaria de una audiencia de clientes VIP</strong>.
+      </p>
+
+      <!-- DIAGRAMA C: CASO COMPLETO (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-green);margin-bottom:1rem;text-align:center;">
+          🚀 FLUJO COMPLETO: AUDIENCIA DIARIA VIP
+        </div>
+        
+        <div style="max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:0.4rem;">
+          <!-- Trigger -->
+          <div style="background:rgba(255,230,0,0.08);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;">STARTING SOURCE · SCHEDULE</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Todos los días a las 02:00 AM</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Step 1 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-orange);font-weight:bold;">STEP 1 · DATA COPY OR IMPORT</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Importar nuevos clientes en la DE "Staging_Clientes"</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Step 2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;">STEP 2 · SQL QUERY ACTIVITY</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Ejecutar consulta para identificar y segmentar clientes VIP</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Outcome -->
+          <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-green);font-weight:bold;">RESULTADO FINAL</div>
+            <div style="font-size:0.9rem;color:var(--text-primary);font-weight:bold;">DE "Audience_VIP" lista para la campaña</div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        <strong>¿Qué ocurre en cada paso?</strong>
+      </p>
+      <ul>
+        <li><strong>Schedule</strong>: Inicia la Automation a la hora programada (02:00 AM).</li>
+        <li><strong>Step 1</strong>: Carga los datos de clientes nuevos en una Data Extension de staging.</li>
+        <li><strong>Step 2</strong>: La consulta SQL toma los datos de staging, evalúa las condiciones VIP y vuelca el resultado en la Data Extension final.</li>
+        <li><strong>Resultado</strong>: <code>Audience_VIP</code> queda disponible y actualizada para su consumo.</li>
+      </ul>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Un flujo típico combina una fuente de inicio, actividades de carga, actividades de consulta y una Data Extension de destino lista para la acción.
+      </div>
+
+      <!-- SECCIÓN 11 -->
+      <h2 id="sec-comparisons">11 · AUTOMATION STUDIO VS OTRAS HERRAMIENTAS</h2>
+      <p>
+        Al comenzar en Marketing Cloud Engagement es común comparar Automation Studio con otras herramientas:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border-dim);color:var(--text-primary);text-align:left;">
+                <th style="padding:0.6rem 0.8rem;">Criterio</th>
+                <th style="padding:0.6rem 0.8rem;">Automation Studio</th>
+                <th style="padding:0.6rem 0.8rem;">Journey Builder</th>
+              </tr>
+            </thead>
+            <tbody style="color:var(--text-secondary);">
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-orange);">Enfoque principal</td>
+                <td style="padding:0.6rem 0.8rem;">Automatiza procesos técnicos, movimientos y preparación de datos.</td>
+                <td style="padding:0.6rem 0.8rem;">Gestiona recorridos e interacciones de contactos a lo largo del tiempo.</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-yellow);">Procesamiento</td>
+                <td style="padding:0.6rem 0.8rem;">Orientado a tareas programadas y procesamiento por lotes (batch).</td>
+                <td style="padding:0.6rem 0.8rem;">Orientado al avance de contactos individuales a través de actividades y ramas.</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-green);">Relación</td>
+                <td style="padding:0.6rem 0.8rem;color:var(--neon-green);" colspan="2">
+                  Son herramientas complementarias: Automation Studio suele preparar los datos que Journey Builder utiliza como fuente de entrada.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem;color:var(--text-secondary);">
+        <strong>Supervisión de ejecuciones:</strong> Automation Studio permite revisar el estado y el historial de ejecución de las Automations desde la vista general (Overview). Los diferentes estados del ciclo de vida y el troubleshooting se estudiarán en un artículo específico.
+      </p>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        Automation Studio prepara los datos y automatiza procesos técnicos; Journey Builder gestiona la experiencia multicanal de los contactos.
+      </div>
+
+      <!-- SECCIÓN 12 -->
+      <h2 id="sec-best-practices">12 · BUENAS PRÁCTICAS INICIALES</h2>
+      <p>
+        Al diseñar tus primeras automatizaciones, es importante distinguir entre los requisitos técnicos de la plataforma y las buenas prácticas recomendadas:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <span style="color:var(--neon-pink);font-weight:bold;font-size:0.9rem;">🔒 REQUISITOS DE LA PLATAFORMA</span>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0.4rem 0 0 0;padding-left:1.2rem;">
+              <li>Toda actividad SQL Query requiere una Data Extension de destino existente con una acción de datos asignada (Append, Update u Overwrite).</li>
+              <li>Puedes incluir varias Verification Activities en un mismo Step, pero una Verification Activity no puede compartir ese Step con otros tipos de Activities.</li>
+            </ul>
+          </div>
+          <div style="border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <span style="color:var(--neon-green);font-weight:bold;font-size:0.9rem;">✨ BUENAS PRÁCTICAS RECOMENDADAS</span>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0.4rem 0 0 0;padding-left:1.2rem;">
+              <li><strong>Nomenclatura clara</strong>: Utiliza nombres descriptivos y prefijos consistentes para Automations y Activities (por ejemplo, <code>SYNC_Clientes_Diario_02AM</code>).</li>
+              <li><strong>Separar actividades dependientes</strong>: No coloques en el mismo Step una actividad que necesita datos generados por otra actividad.</li>
+              <li><strong>Probar antes de programar</strong>: Utiliza la opción de ejecución manual (Run Once) para verificar que las actividades funcionen antes de activar un Schedule en producción.</li>
+              <li><strong>Precaución con cambios en producción</strong>: Realiza cambios en Automations activas con cuidado y revisa su estado e historial después de modificar la configuración.</li>
+              <li><strong>Revisar resultados</strong>: Consulta el historial de ejecución (Activity Log / History) tras las primeras ejecuciones para confirmar conteos de filas y tiempos.</li>
+              <li><strong>Modularidad</strong>: Evita crear Automations excesivamente extensas si el proceso puede dividirse lógicamente en flujos independientes.</li>
+              <li><strong>Documentar el propósito</strong>: Incluye descripciones claras sobre la función de cada automatización para facilitar el mantenimiento en equipo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 EN POCAS PALABRAS</div>
+        El orden de los pasos, los nombres claros y las pruebas previas con Run Once son las bases de una automatización confiable.
+      </div>
+
+      <!-- SECCIÓN 13 -->
+      <h2 id="sec-use-cases">13 · CASOS DE USO REALES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: Sincronización Nocturna con Archivo Cifrado</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <strong>Problema:</strong> Una empresa deposita un archivo de clientes cifrado con PGP (<code>clientes_nuevos.csv.pgp</code>) en un almacenamiento seguro externo y requiere descifrarlo e incorporar sus registros en Marketing Cloud antes de las 08:00 AM.<br/>
+          <strong>Solución en Automation Studio:</strong> Un Schedule a las 03:00 AM activa un flujo de 3 pasos: (1) <em>File Transfer Activity</em> descifra el archivo cifrado hacia el Safehouse; (2) <em>Data Copy or Import</em> carga los registros descifrados en <code>Staging_Clientes</code>; (3) <em>SQL Query</em> actualiza los datos en la Data Extension principal.
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>CASO DE USO: Identificación Periódica de Contactos Inactivos</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <strong>Problema:</strong> Enviar repetidamente a contactos inactivos puede afectar negativamente el engagement y la estrategia de entregabilidad.<br/>
+          <strong>Solución en Automation Studio:</strong> Un flujo semanal los días domingo ejecuta una <em>SQL Query</em> que consulta registros de actividad en Data Views (como <code>_Open</code> o <code>_Sent</code>), identifica suscriptores sin interacción reciente y actualiza una Data Extension de exclusión para adaptar los envíos de la semana.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 14 -->
+      <h2 id="sec-quiz">14 · COMPRUEBA LO APRENDIDO</h2>
+      <p>
+        Evalúa tu comprensión respondiendo a estas 4 preguntas clave (haz clic en cada una para ver la explicación):
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:0.8rem;margin:1.5rem 0;">
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            1. ¿Cuál es la diferencia entre una Automation y una Activity?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            Una <strong>Automation</strong> es el proceso completo que define cuándo y cómo se ejecuta un flujo de trabajo. Una <strong>Activity</strong> es una tarea técnica individual y reutilizable (como una consulta SQL o una importación de datos) que se realiza dentro de un Step de esa Automation.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            2. ¿Qué función cumple un Step dentro de una Automation?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            Un <strong>Step</strong> es una etapa dentro de la Automation que agrupa una o más Activities. Los Steps se ejecutan secuencialmente en orden sucesivo, permitiendo estructurar el flujo de dependencias entre tareas.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            3. Si una SQL Query genera una Data Extension que después utiliza otra Activity, ¿deberían estar en el mismo Step o en Steps consecutivos?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <strong>En Steps consecutivos.</strong> Las actividades dentro de un mismo Step pueden ejecutarse de forma simultánea. Si una actividad necesita los datos generados por otra, deben separarse en Steps distintos para garantizar el orden de precedencia.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            4. ¿Qué diferencia conceptual existe entre File Transfer y Data Copy or Import?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <strong>File Transfer</strong> prepara o mueve el archivo físico (mover entre ubicaciones, descomprimir, cifrar o descifrar). <strong>Data Copy or Import</strong> trabaja con los datos para cargarlos o copiarlos dentro de las tablas de Marketing Cloud (un archivo CSV estándar no necesita obligatoriamente File Transfer antes de ser importado).
+          </div>
+        </details>
+
+      </div>
+
+      <!-- SECCIÓN 15 -->
+      <h2 id="sec-challenge">15 · DESAFÍO ARCADE</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISIÓN: Construye tu Primera Automation Conceptual</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          <strong>El Escenario:</strong> Cada mañana, un sistema externo deposita <code>clientes.zip</code> en el Enhanced FTP de tu cuenta. El archivo contiene <code>clientes.csv</code>. La Automation debe detectar su llegada, descomprimirlo, cargar los registros en <code>Staging_Clientes</code> y generar la Data Extension <code>Audience_Final</code> lista para la campaña del día.
+          <br/><br/>
+          <strong>Tu Reto:</strong> Ordena de forma lógica los siguientes 5 elementos en la estructura correcta de Starting Source, Steps y Resultado:
+        </p>
+
+        <div style="background:rgba(255,255,255,0.04);border:1px dashed var(--border-dim);padding:0.8rem;border-radius:var(--radius);font-family:var(--font-mono);font-size:0.82rem;color:var(--neon-yellow);margin-bottom:1.2rem;">
+          [A] Data Copy or Import (Carga clientes.csv en Staging_Clientes)<br/>
+          [B] File Transfer Activity (Descomprime clientes.zip)<br/>
+          [C] Starting Source: File Drop (Detecta la llegada de clientes.zip al Enhanced FTP)<br/>
+          [D] Data Extension Audience_Final (Resultado final)<br/>
+          [E] SQL Query Activity (Cruza Staging_Clientes con los datos necesarios y genera Audience_Final)
+        </div>
+
+        <details style="font-size:0.85rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;font-weight:bold;"> Ver solución y explicación</summary>
+          
+          <!-- DIAGRAMA D: SOLUCIÓN VISUAL DEL RETO (HTML/CSS) -->
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin-top:0.8rem;">
+            <div style="max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:0.35rem;">
+              
+              <!-- Starting Source -->
+              <div style="background:rgba(255,140,0,0.1);border:1.5px solid var(--neon-orange);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-orange);font-weight:bold;display:block;">STARTING SOURCE</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);font-weight:bold;">[C] Starting Source: File Drop (detecta 'clientes.zip' en Enhanced FTP)</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 1 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 1 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[B] File Transfer Activity: Manage File → Unzip (descomprime 'clientes.zip')</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 2 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 2 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[A] Data Copy or Import: carga 'clientes.csv' en 'Staging_Clientes'</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 3 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 3 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[E] SQL Query Activity: cruza 'Staging_Clientes' y genera 'Audience_Final'</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-green);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Final outcome -->
+              <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-green);font-weight:bold;display:block;">RESULTADO</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);font-weight:bold;">[D] Data Extension 'Audience_Final' generada</span>
+              </div>
+
+            </div>
+            
+            <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:1rem;line-height:1.5;">
+              <strong>Razón del orden (C → B → A → E → D):</strong> File Drop [C] es el Starting Source que detona el flujo al detectar <code>clientes.zip</code>; no es una Activity, por lo que no ocupa un Step. En el <strong>Step 1</strong>, <em>File Transfer Activity</em> [B] es indispensable para descomprimir el archivo ZIP y extraer <code>clientes.csv</code>. En el <strong>Step 2</strong>, <em>Data Copy or Import</em> [A] carga los registros de <code>clientes.csv</code> en <code>Staging_Clientes</code>. En el <strong>Step 3</strong>, <em>SQL Query Activity</em> [E] procesa y segmenta los datos para generar la audiencia final. Por último, la Data Extension <code>Audience_Final</code> [D] es el resultado listo para la campaña.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- SECCIÓN ROADMAP NO NUMERADA -->
+      <h2 id="sec-roadmap">🗺️ CONTINÚA APRENDIENDO AUTOMATION STUDIO</h2>
+      <p>
+        Este artículo representa el mapa conceptual inicial de Automation Studio. Los aspectos técnicos específicos se profundizarán progresivamente en los siguientes artículos de la serie:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.5rem;color:var(--neon-cyan);margin-bottom:0.8rem;">🗺️ HOJA DE RUTA DE AUTOMATION STUDIO EN ARCADE</div>
+        <ol style="margin:0;padding-left:1.2rem;color:var(--text-secondary);font-size:0.88rem;line-height:1.7;">
+          <li><strong>Crear tu primera Automation</strong>: Navegación del canvas y configuración inicial.</li>
+          <li><strong>Starting Sources: Schedule, File Drop y Trigger</strong>: Opciones avanzadas de disparo.</li>
+          <li><strong>SQL Query Activity</strong>: Acciones de datos (Append, Update, Overwrite) y estructura de consultas.</li>
+          <li><strong>Data Copy or Import</strong>: Carga de archivos externos y copia entre Data Extensions.</li>
+          <li><strong>File Transfer Activity</strong>: Operaciones de Safehouse, descompresión y llaves de cifrado.</li>
+          <li><strong>Data Extract Activity</strong>: Extracción de tracking y datos tabulares.</li>
+          <li><strong>Script Activity</strong>: Uso de Server-Side JavaScript para orquestación.</li>
+          <li><strong>Wait y Verification</strong>: Control de flujos y salvaguardas de calidad de datos.</li>
+          <li><strong>Monitoreo y Troubleshooting</strong>: Interpretación de estados y registros de error.</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         ENGLISH CONTENT (data-lang="en")
+         ────────────────────────────────────────── -->
+    <div data-lang="en">
+
+      <!-- Callout: Prerequisite / Scope -->
+      <div class="callout">
+        <div class="callout-label">📌 SCOPE OF THIS GUIDE</div>
+        This article focuses exclusively on <strong>Salesforce Marketing Cloud Engagement (SFMCE)</strong> and its native <strong>Automation Studio</strong> capabilities. We won't dive into complex SQL syntax, advanced SSJS scripts, or Data Cloud / MC Next architectures yet; this is <strong>Article 00</strong>: a high-level conceptual map designed to give you the right mental model before building your first automations.
+      </div>
+
+      <!-- What you will learn -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.5rem;color:var(--neon-green);margin-bottom:0.8rem;">🎯 WHAT YOU WILL LEARN IN THIS GUIDE</div>
+        <ul style="margin:0;padding-left:1.2rem;color:var(--text-secondary);line-height:1.6;font-size:0.92rem;">
+          <li><strong>What Automation Studio is</strong> according to official Salesforce documentation.</li>
+          <li><strong>The core hierarchy</strong>: the exact distinction between Automation, Step, and Activity.</li>
+          <li><strong>The three official Starting Sources</strong>: Schedule, File Drop, and Trigger, plus manual execution.</li>
+          <li><strong>Conceptual Activity families</strong>: Data, Queries, Messaging, and Flow Control.</li>
+          <li><strong>The difference between File Transfer and Data Copy or Import</strong> explained conceptually.</li>
+          <li><strong>Execution order</strong>: when activities run sequentially versus when they run concurrently.</li>
+          <li><strong>A complete end-to-end walkthrough</strong> and an interactive challenge to test your comprehension.</li>
+        </ul>
+      </div>
+
+      <!-- SECTION 01 EN -->
+      <h2 id="sec-what-is-en">01 · WHAT IS AUTOMATION STUDIO?</h2>
+      <p>
+        <strong>Automation Studio</strong> is a Salesforce Marketing Cloud Engagement application that enables you to automate marketing and data management processes using Activities organized within Automations.
+      </p>
+      <p>
+        Through this tool, you can transfer and prepare files, transform data using queries, manage data tables, and coordinate bulk sends or scheduled interactions. It is not limited to running SQL queries; it encompasses a broad set of tasks for moving, transforming, and administering data.
+      </p>
+
+      <div class="callout tip">
+        <div class="callout-label">🏭 THE AUTOMATED FACTORY ANALOGY</div>
+        To visualize how it operates, think of Automation Studio as <strong>an assembly line in an automated factory</strong>:
+        <br/><br/>
+        • The <strong>raw materials</strong> entering the line are incoming data records or files.<br/>
+        • Each <strong>workstation</strong> performs a specific task (clean, filter, package) → <strong>Activity</strong>.<br/>
+        • The workstations are arranged in <strong>sequential stages</strong> along the conveyor belt → <strong>Steps</strong>.<br/>
+        • The <strong>entire assembly line</strong> running from start to finish is your <strong>Automation</strong>.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Automation Studio enables you to chain and automate Marketing Cloud Engagement tasks within planned, structured workflows.
+      </div>
+
+      <!-- SECTION 02 EN -->
+      <h2 id="sec-what-for-en">02 · WHAT IS IT USED FOR IN BUSINESS?</h2>
+      <p>
+        In everyday enterprise operations, marketing teams must process, clean, and update large volumes of data before launching campaigns. Automation Studio handles the background technical tasks that keep the platform synchronized and data ready for activation.
+      </p>
+      <p>
+        Common enterprise use cases include:
+      </p>
+      <ul>
+        <li><strong>Importing or copying data</strong>: Ingesting daily customer or order files from secure storage, or copying records across Data Extensions.</li>
+        <li><strong>Preparing and segmenting audiences</strong>: Identifying high-value VIP customers, abandoned carts from 48 hours ago, or subscribers needing re-engagement.</li>
+        <li><strong>Transferring and protecting files</strong>: Moving files to and from the SFMC Safehouse, unzipping compressed files, or applying PGP decryption.</li>
+        <li><strong>Running custom logic</strong>: Executing Server-Side JavaScript (SSJS) in Script Activities to orchestrate API calls or validate business rules.</li>
+        <li><strong>Feeding Journey Builder</strong>: Preparing and refreshing the Data Extensions used to admit contacts into multichannel journeys.</li>
+        <li><strong>Extracting data</strong>: Exporting consolidated tables or tracking data (opens, clicks, bounces) for external analytics and audits.</li>
+      </ul>
+
+      <div style="background:var(--bg-elevated);border-left:4px solid var(--neon-cyan);padding:1rem 1.2rem;border-radius:0 var(--radius) var(--radius) 0;margin:1.2rem 0;">
+        <span style="color:var(--neon-cyan);font-weight:bold;display:block;margin-bottom:0.3rem;">🏢 Real Business Scenario:</span>
+        <span style="color:var(--text-secondary);font-size:0.9rem;">
+          Every night at 02:00 AM, a company receives a file with the previous day's new customer signups. Automation Studio detects it, imports it into a Data Extension, runs a query to classify customers by tier, and prepares the final audience for the morning welcome campaign.
+        </span>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Automation Studio autonomously executes technical backend processes and data movements to support marketing strategies.
+      </div>
+
+      <!-- SECTION 03 EN -->
+      <h2 id="sec-hierarchy-en">03 · AUTOMATION VS ACTIVITY VS STEP</h2>
+      <p>
+        Understanding the architecture of Automation Studio requires distinguishing three essential concepts:
+      </p>
+
+      <div style="overflow-x:auto;margin:1.5rem 0;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-dim);color:var(--text-primary);text-align:left;">
+              <th style="padding:0.6rem 0.8rem;">Concept</th>
+              <th style="padding:0.6rem 0.8rem;">SFMC Definition</th>
+              <th style="padding:0.6rem 0.8rem;">Factory Analogy</th>
+              <th style="padding:0.6rem 0.8rem;">Concrete Example</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-orange);">AUTOMATION</td>
+              <td style="padding:0.6rem 0.8rem;">The entire automated process, including its starting source and ordered steps.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-orange);">The entire assembly line</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Daily_Customer_Sync</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-yellow);">STEP</td>
+              <td style="padding:0.6rem 0.8rem;">A stage within an automation grouping one or more Activities for execution.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-yellow);">A workstation along the belt</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Step 1 (Ingest) → Step 2 (Transform)</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-green);">ACTIVITY</td>
+              <td style="padding:0.6rem 0.8rem;">A specific, reusable task that performs concrete work inside a Step.</td>
+              <td style="padding:0.6rem 0.8rem;color:var(--neon-green);">The specific tool or machine</td>
+              <td style="padding:0.6rem 0.8rem;"><code>Data Copy or Import (formerly Import File)</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        An Automation can contain multiple Steps ordered chronologically, and each Step can contain one or more Activities. Visually, this hierarchy is structured as follows:
+      </p>
+
+      <!-- DIAGRAM A EN: VISUAL HIERARCHY (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:1rem;text-align:center;">
+          🏭 AUTOMATION STUDIO CONCEPTUAL HIERARCHY
+        </div>
+        
+        <!-- Automation Container -->
+        <div style="background:rgba(255,140,0,0.06);border:1.5px solid var(--neon-orange);border-radius:var(--radius);padding:1.2rem;max-width:540px;margin:0 auto;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid rgba(255,140,0,0.25);padding-bottom:0.5rem;">
+            <span style="font-weight:bold;color:var(--neon-orange);font-size:0.92rem;">AUTOMATION: "Daily_Processing"</span>
+            <span style="font-size:0.75rem;background:rgba(255,140,0,0.15);color:var(--neon-orange);padding:0.2rem 0.5rem;border-radius:4px;">Full Workflow</span>
+          </div>
+
+          <!-- Step 1 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.6rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 1 · Ingestion Stage</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">📥</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: Data Copy or Import (formerly Import File)</span>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.6rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 2 · Transformation Stage</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">🗃️</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: SQL Query</span>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="background:var(--bg-surface);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem 1rem;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.3rem;">STEP 3 · Send Stage</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.03);padding:0.5rem;border-radius:4px;border:1px dashed var(--border-dim);">
+              <span style="font-size:1.1rem;">✉️</span>
+              <span style="font-size:0.86rem;color:var(--text-primary);font-weight:500;">Activity: Send Email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        An <strong>Automation</strong> is the complete workflow; a <strong>Step</strong> is a stage within it; and <strong>Activities</strong> are the discrete tasks making up each stage.
+      </div>
+
+      <!-- SECTION 04 EN -->
+      <h2 id="sec-starting-sources-en">04 · HOW DOES AN AUTOMATION START?</h2>
+      <p>
+        Every automation requires a trigger to determine how and when it starts. According to current official Salesforce documentation, there are <strong>three official Starting Sources</strong>:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-yellow);margin-bottom:0.5rem;">⏰ 1. SCHEDULE</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Starts an Automation at defined recurring intervals (e.g. daily at 02:00 AM, hourly, or every Monday).
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-green);">Example: Nightly audience calculations.</span>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:0.5rem;">📂 2. FILE DROP</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Starts an Automation when a file is uploaded to the Enhanced FTP according to defined criteria (such as a filename pattern or specific directory).
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-cyan);">Example: A partner uploads <code>customers.csv</code>.</span>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-pink);margin-bottom:0.5rem;">⚡ 3. TRIGGER</div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin:0 0 0.5rem 0;">
+            Starts an Automation when a file is uploaded to a supported external cloud location (such as Amazon S3, Microsoft Azure Blob Storage, or Google Cloud Storage) and a request is made to the Trigger API.
+          </p>
+          <span style="font-size:0.75rem;color:var(--neon-pink);">Example: File dropped in external bucket with Trigger API request.</span>
+        </div>
+      </div>
+
+      <!-- Subsection: Manual Execution -->
+      <h3 style="color:var(--text-primary);font-size:1.05rem;margin-top:1.5rem;">Manual Execution</h3>
+      <p>
+        In addition to the three scheduled and event-driven Starting Sources, Automation Studio provides on-demand manual execution options:
+      </p>
+      <ul>
+        <li><strong>Run Once</strong>: Allows you to manually start an entire Automation on demand from the Automation Studio interface, ideal for testing or ad-hoc runs.</li>
+        <li><strong>Advanced Run Once</strong>: Allows you to select only specific Steps or Activities for partial execution. Salesforce documents this capability specifically for <em>Scheduled Automations</em>.</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="callout-label">💡 PRO TIP: PROGRAMMATIC EXECUTION VIA API</div>
+        Automation Studio also provides REST and SOAP APIs documented on Salesforce Developers to start, pause, or manage Automations programmatically. This integration capability is distinct from the <strong>Trigger</strong> Starting Source explained above.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        There are three official Starting Sources (Schedule, File Drop, and Trigger). Options like Run Once represent manual on-demand execution mechanisms.
+      </div>
+
+      <!-- SECTION 05 EN -->
+      <h2 id="sec-activity-families-en">05 · MAIN FAMILIES OF ACTIVITIES</h2>
+      <p>
+        An <strong>Activity</strong> is the basic building block that performs discrete work inside an Automation. For educational purposes, in Marketing Cloud Arcade we group Activities into the following <strong>conceptual families</strong> (note that this is a pedagogical grouping rather than an official Salesforce taxonomy):
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1.2rem;">
+
+          <div>
+            <div style="color:var(--neon-green);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">1. Data Management and Files</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Activities dedicated to moving, staging, and loading tabular records.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Data Copy or Import (formerly Import File)</strong>: Imports data from external files and, in specific scenarios, copies data between Data Extensions.</li>
+              <li><strong>File Transfer Activity</strong>: Allows you to move, unzip, encrypt, or decrypt files based on configuration. For example, it can manage files in a configured location (Manage File) or move files from the Safehouse to an FTP location.</li>
+              <li><strong>Data Extract Activity</strong>: Extracts data from a Data Extension or generates files containing tracking data (opens, clicks, bounces) into the Safehouse.</li>
+              <li><strong>Filter Activity</strong>: Applies filtering conditions to a Data Extension to create a segmented subset.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-yellow);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">2. Queries and Code</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Analytical data transformations and programmatic logic.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>SQL Query Activity</strong>: Executes SQL queries to retrieve, combine, and transform records from Data Extensions or Data Views into a target Data Extension.</li>
+              <li><strong>Script Activity</strong>: Runs Server-Side JavaScript (SSJS) on the server for custom logic or programmatic integrations.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-orange);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">3. Messaging and Sends</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Bulk communication dispatches.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Send Email</strong>: Initiates email sends to a target audience prepared by upstream steps.</li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-cyan);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">4. Flow Control and Governance</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Timing control and data quality verification.
+            </p>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0;padding-left:1.2rem;">
+              <li><strong>Wait Activity</strong>: Pauses execution for a set duration or until a specific date and time.</li>
+              <li><strong>Verification Activity</strong>: Evaluates the record count of a target Data Extension. When the count meets configured conditions, it can stop the Automation, send an email notification, or do both.<br/><span style="font-size:0.8rem;color:var(--text-muted);display:block;margin-top:0.25rem;"><em>Beginner note:</em> Verification does not directly evaluate specific field values (such as <code>Status == 'Active'</code>). If you need to validate specific data conditions, you typically prepare those records using SQL first and then verify the resulting Data Extension record count.</span></li>
+            </ul>
+          </div>
+
+          <div style="border-top:1px solid var(--border-dim);padding-top:1rem;">
+            <div style="color:var(--neon-pink);font-weight:bold;font-size:0.95rem;margin-bottom:0.3rem;">5. Relationship with Journey Builder</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 0.4rem 0;">
+              Automation Studio can prepare data utilized subsequently by Journey Builder. Salesforce still documents <strong>Fire Event Activity</strong> for Contact Data Event scenarios, but warns that Contact Data Events will no longer be supported in an upcoming release (existing journeys continue functioning). For new implementations, consult current Journey Builder entry mechanisms like <strong>Data Extensions</strong> or <strong>Audiences</strong> depending on the scenario. The official Automation Studio Activities reference also includes <strong>Journey Entry: Audience</strong> for automations that update entry audiences.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">📌 ACTIVITY REUSABILITY</div>
+        Many configured Activities can be reused and appear across multiple Automations. However, specific exceptions exist: for example, <strong>Verification Activity</strong> is configured within a single Automation and cannot be reused across multiple Automations.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Activities are the discrete tasks of an Automation. Each type solves a specific need: transferring files, querying data, sending messages, or verifying quality.
+      </div>
+
+      <!-- SECTION 06 EN -->
+      <h2 id="sec-sql-role-en">06 · THE ROLE OF SQL QUERY ACTIVITY</h2>
+      <p>
+        <strong>SQL Query Activity</strong> is one of the most widely used Activities for retrieving, combining, filtering, and preparing data in Automation Studio.
+      </p>
+      <p>
+        Its primary purpose is to read records from one or more Data Extensions (or system Data Views), execute an SQL query to transform or merge them, and store the result in a target Data Extension.
+      </p>
+
+      <!-- DIAGRAM B EN: SQL QUERY ACTIVITY (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-yellow);margin-bottom:1rem;text-align:center;">
+          🗃️ DATA FLOW IN SQL QUERY ACTIVITY
+        </div>
+        
+        <div style="max-width:540px;margin:0 auto;">
+          <!-- Two sources -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.5rem;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.7rem;text-align:center;">
+              <span style="font-size:1.1rem;display:block;margin-bottom:0.2rem;">📋</span>
+              <span style="font-size:0.8rem;color:var(--text-primary);font-weight:bold;">DE: "Customers"</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.7rem;text-align:center;">
+              <span style="font-size:1.1rem;display:block;margin-bottom:0.2rem;">🛍️</span>
+              <span style="font-size:0.8rem;color:var(--text-primary);font-weight:bold;">DE: "Orders"</span>
+            </div>
+          </div>
+
+          <!-- Converging arrows -->
+          <div style="display:flex;justify-content:center;color:var(--neon-yellow);margin:0.2rem 0;">
+            <svg width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg>
+          </div>
+
+          <!-- SQL Query Card -->
+          <div style="background:rgba(255,230,0,0.08);border:1.5px solid var(--neon-yellow);border-radius:6px;padding:0.9rem;text-align:center;margin-bottom:0.5rem;">
+            <div style="font-size:0.82rem;color:var(--neon-yellow);font-weight:bold;margin-bottom:0.2rem;">SQL QUERY ACTIVITY</div>
+            <div style="font-size:0.82rem;color:var(--text-secondary);">Joins customers with orders and filters spend &gt; $500</div>
+          </div>
+
+          <!-- Down arrow -->
+          <div style="display:flex;justify-content:center;color:var(--neon-green);margin:0.2rem 0;">
+            <svg width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg>
+          </div>
+
+          <!-- Target DE -->
+          <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-green);font-weight:bold;text-transform:uppercase;">Target Data Extension</div>
+            <div style="font-size:0.9rem;color:var(--text-primary);font-weight:bold;">"VIP_Customers"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ SQL IS NOT AUTOMATION STUDIO</div>
+        It is essential to distinguish between the two: <strong>SQL</strong> is the query language, and <strong>SQL Query Activity</strong> is one of the many Activities that Automation Studio executes. We will master SQL queries in a dedicated upcoming article.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        SQL Query Activity executes an SQL query to read, transform, or prepare data stored in Marketing Cloud.
+      </div>
+
+      <!-- SECTION 07 EN -->
+      <h2 id="sec-transfer-vs-import-en">07 · FILE TRANSFER VS DATA COPY OR IMPORT</h2>
+      <p>
+        A frequent point of confusion among beginners is distinguishing between <strong>File Transfer Activity</strong> and <strong>Data Copy or Import</strong> (formerly known as <em>Import File</em>). While both are part of ingestion pipelines, their responsibilities are distinct and complementary:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-orange);margin-bottom:0.5rem;">🚚 FILE TRANSFER ACTIVITY</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.6rem;">
+            <strong>"Works with the physical file"</strong>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0;">
+            Moves, unzips, encrypts, or decrypts files depending on configured options (such as <em>Manage File</em> or <em>Move a File From Safehouse</em>). Manages the physical container or file object in storage.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;">
+          <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-green);margin-bottom:0.5rem;">📦 DATA COPY OR IMPORT</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.6rem;">
+            <strong>"Works with the records and data"</strong>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0;">
+            Imports records from an external file into a Data Extension or list, or copies data across Data Extensions. A standard CSV file does not strictly need to pass through File Transfer before being imported.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">📦 THE PACKAGE ANALOGY</div>
+        • <strong>File Transfer</strong> prepares or transports the package (moving, unzipping, or decrypting it).<br/>
+        • <strong>Data Copy or Import</strong> takes the data inside the package and loads or copies it into target structures.<br/><br/>
+        Conceptually, <em>File Transfer</em> manages the physical container, whereas <em>Data Copy or Import</em> processes the rows and records inside.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        File Transfer prepares or transports the package; Data Copy or Import takes data from the package and loads it into target tables.
+      </div>
+
+      <!-- SECTION 08 EN -->
+      <h2 id="sec-execution-order-en">08 · SEQUENTIAL STEPS & SIMULTANEOUS ACTIVITIES</h2>
+      <p>
+        Automation Studio allows you to organize activities sequentially or concurrently based on how they are arranged across Steps:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <span style="color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">1. STEPS execute sequentially</span>
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin:0.3rem 0 0 0;">
+              Step 1 executes first. Once its activities complete, the Automation continues to Step 2, and so on.
+            </p>
+          </div>
+          <div style="border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <span style="color:var(--neon-green);font-weight:bold;font-size:0.92rem;">2. Multiple ACTIVITIES in the same Step can execute simultaneously</span>
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin:0.3rem 0 0 0;">
+              If you place multiple activities in the same Step, Automation Studio will attempt to run them in parallel at the same time.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">⚠️ DEPENDENCY PRINCIPLE BETWEEN TASKS</div>
+        Order matters when one task depends on the output of another. If <strong>Activity B</strong> requires the data generated by <strong>Activity A</strong>, <strong>they must be placed in consecutive Steps</strong>, never in the same Step.
+        <br/><br/>
+        <em>Correct example:</em><br/>
+        • <strong>Step 1:</strong> SQL Query generates <code>Audience_Final</code>.<br/>
+        • <strong>Step 2:</strong> Send Email uses <code>Audience_Final</code>.
+        <br/><br/>
+        Analogy: <em>"You cannot pack a product before manufacturing it"</em>.
+      </div>
+
+      <p style="font-size:0.88rem;color:var(--text-secondary);">
+        <strong>Error behavior:</strong> When an Automation encounters errors in an Activity, execution can stop and subsequent Steps may not execute. Detailed behavior and resulting statuses should be consulted in <em>Automation History</em> and Automation Studio alerts.
+      </p>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        If an Activity depends on another Activity's result, the Step order matters: place them in consecutive Steps.
+      </div>
+
+      <!-- SECTION 09 EN -->
+      <h2 id="sec-data-extensions-en">09 · DATA EXTENSIONS: THE WORKBENCHES</h2>
+      <p>
+        Many Automations utilize <strong>Data Extensions (DE)</strong> as the source, destination, or staging area for data.
+      </p>
+      <p>
+        In automation design practice, three conceptual roles for Data Extensions are common:
+      </p>
+      <ul>
+        <li><strong>Staging (Intermediate area)</strong>: Receives raw data directly as imported from an external file.</li>
+        <li><strong>Transformation</strong>: Auxiliary tables for intermediate calculations or temporary joins.</li>
+        <li><strong>Target Audience</strong>: The clean, final dataset consumed by a message send or a Journey.</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="callout-label">🪑 THE WORKSHOP ANALOGY</div>
+        Data Extensions act as <strong>the workbenches or storage shelves</strong> where different Activities read, store, and pick up information throughout the process.
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Data Extensions are the storage structures where Activities read and persist processed data.
+      </div>
+
+      <!-- SECTION 10 EN -->
+      <h2 id="sec-full-example-en">10 · COMPLETE AUTOMATION WALKTHROUGH</h2>
+      <p>
+        Let's look at a straightforward end-to-end example: <strong>daily VIP customer audience preparation</strong>.
+      </p>
+
+      <!-- DIAGRAM C EN: COMPLETE WALKTHROUGH (HTML/CSS) -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.48rem;color:var(--neon-green);margin-bottom:1rem;text-align:center;">
+          🚀 COMPLETE WORKFLOW: DAILY VIP AUDIENCE
+        </div>
+        
+        <div style="max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:0.4rem;">
+          <!-- Trigger -->
+          <div style="background:rgba(255,230,0,0.08);border:1px solid var(--neon-yellow);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;">STARTING SOURCE · SCHEDULE</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Every day at 02:00 AM</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Step 1 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-orange);font-weight:bold;">STEP 1 · DATA COPY OR IMPORT</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Import new customer records into "Staging_Customers" DE</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Step 2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-yellow);font-weight:bold;">STEP 2 · SQL QUERY ACTIVITY</div>
+            <div style="font-size:0.85rem;color:var(--text-primary);">Execute query to identify and segment VIP customers</div>
+          </div>
+
+          <div style="display:flex;justify-content:center;color:var(--neon-cyan);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+          <!-- Outcome -->
+          <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.8rem;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--neon-green);font-weight:bold;">FINAL OUTCOME</div>
+            <div style="font-size:0.9rem;color:var(--text-primary);font-weight:bold;">DE "Audience_VIP" refreshed and ready for send</div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        <strong>What happens in each stage?</strong>
+      </p>
+      <ul>
+        <li><strong>Schedule</strong>: Starts the Automation at the planned time (02:00 AM).</li>
+        <li><strong>Step 1</strong>: Ingests new customer data into an intermediate staging Data Extension.</li>
+        <li><strong>Step 2</strong>: The SQL query joins staging data, evaluates VIP criteria, and writes output into the final audience DE.</li>
+        <li><strong>Outcome</strong>: <code>Audience_VIP</code> is refreshed and available for activation.</li>
+      </ul>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        A typical automation combines a starting source, ingestion activities, query activities, and a target Data Extension prepared for downstream action.
+      </div>
+
+      <!-- SECTION 11 EN -->
+      <h2 id="sec-comparisons-en">11 · AUTOMATION STUDIO VS OTHER TOOLS</h2>
+      <p>
+        When getting started in Marketing Cloud Engagement, it is helpful to contrast Automation Studio with other tools:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border-dim);color:var(--text-primary);text-align:left;">
+                <th style="padding:0.6rem 0.8rem;">Evaluation Criteria</th>
+                <th style="padding:0.6rem 0.8rem;">Automation Studio</th>
+                <th style="padding:0.6rem 0.8rem;">Journey Builder</th>
+              </tr>
+            </thead>
+            <tbody style="color:var(--text-secondary);">
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-orange);">Primary Focus</td>
+                <td style="padding:0.6rem 0.8rem;">Automates technical processes, data movement, and data preparation.</td>
+                <td style="padding:0.6rem 0.8rem;">Manages 1-to-1 customer interactions and lifecycle paths over time.</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-yellow);">Processing</td>
+                <td style="padding:0.6rem 0.8rem;">Oriented around scheduled tasks and batch processing.</td>
+                <td style="padding:0.6rem 0.8rem;">Oriented around individual contacts progressing through activities and splits.</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:0.6rem 0.8rem;font-weight:bold;color:var(--neon-green);">Relationship</td>
+                <td style="padding:0.6rem 0.8rem;color:var(--neon-green);" colspan="2">
+                  They are complementary partners: Automation Studio often prepares the data that Journey Builder uses as entry sources.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem;color:var(--text-secondary);">
+        <strong>Execution monitoring:</strong> Automation Studio allows you to inspect an Automation's status and run history from the Overview workspace. Specific lifecycle statuses and troubleshooting methods will be studied in a dedicated upcoming article.
+      </p>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Automation Studio prepares data and automates technical processes; Journey Builder orchestrates the multichannel customer experience.
+      </div>
+
+      <!-- SECTION 12 EN -->
+      <h2 id="sec-best-practices-en">12 · INITIAL BEST PRACTICES</h2>
+      <p>
+        When architecting your first automations, distinguish between platform requirements and recommended best practices:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <span style="color:var(--neon-pink);font-weight:bold;font-size:0.9rem;">🔒 PLATFORM REQUIREMENTS</span>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0.4rem 0 0 0;padding-left:1.2rem;">
+              <li>Every SQL Query Activity requires an existing target Data Extension with a designated data action (Append, Update, or Overwrite).</li>
+              <li>You can include multiple Verification Activities in the same Step, but a Verification Activity cannot share that Step with other activity types.</li>
+            </ul>
+          </div>
+          <div style="border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <span style="color:var(--neon-green);font-weight:bold;font-size:0.9rem;">✨ RECOMMENDED BEST PRACTICES</span>
+            <ul style="font-size:0.85rem;color:var(--text-secondary);margin:0.4rem 0 0 0;padding-left:1.2rem;">
+              <li><strong>Clear naming conventions</strong>: Use descriptive names and clear prefixes for Automations and Activities (e.g. <code>SYNC_Customers_Daily_02AM</code>).</li>
+              <li><strong>Separate dependent activities</strong>: Do not place an activity in the same Step as an activity that produces its required data.</li>
+              <li><strong>Test before scheduling</strong>: Use the manual execution option (Run Once) to verify activities succeed before enabling a production Schedule.</li>
+              <li><strong>Caution with active automations</strong>: Exercise caution when making changes to active Automations, and review their status and history after updating configurations.</li>
+              <li><strong>Review execution logs</strong>: Check the run history (Activity Log / History) after initial runs to verify row counts and timing.</li>
+              <li><strong>Modularity</strong>: Avoid creating excessively large Automations if the pipeline can be divided into clean, independent flows.</li>
+              <li><strong>Document purpose</strong>: Include concise descriptions explaining what each automation accomplishes to simplify team maintenance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip" style="margin-top:1.2rem;">
+        <div class="callout-label">💡 IN A NUTSHELL</div>
+        Step sequencing, clear naming, and pre-testing with Run Once form the bedrock of reliable automation architecture.
+      </div>
+
+      <!-- SECTION 13 EN -->
+      <h2 id="sec-use-cases-en">13 · REAL-WORLD USE CASES</h2>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Nightly Synchronization with Encrypted File</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <strong>Problem:</strong> A business exports a PGP-encrypted customer file (<code>new_customers.csv.pgp</code>) to secure external storage and needs records decrypted and loaded into Marketing Cloud before 08:00 AM.<br/>
+          <strong>Automation Studio Solution:</strong> A 03:00 AM Schedule triggers a 3-step pipeline: (1) <em>File Transfer Activity</em> decrypts the encrypted file into the Safehouse; (2) <em>Data Copy or Import</em> loads the decrypted records into <code>Staging_Customers</code>; (3) <em>SQL Query</em> updates the master Data Extension.
+        </p>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-box-header">
+          <span>✔️</span>
+          <span>USE CASE: Periodic Identification of Inactive Contacts</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text-secondary);margin:0">
+          <strong>Problem:</strong> Repeatedly emailing unengaged contacts can negatively affect overall engagement and deliverability strategies.<br/>
+          <strong>Automation Studio Solution:</strong> A weekly Sunday automation executes an <em>SQL Query</em> reading system Data Views (such as <code>_Open</code> or <code>_Sent</code>), identifies contacts without recent interaction, and populates an exclusion Data Extension to adjust upcoming campaign sends.
+        </p>
+      </div>
+
+      <!-- SECTION 14 EN -->
+      <h2 id="sec-quiz-en">14 · CHECK YOUR KNOWLEDGE</h2>
+      <p>
+        Check your comprehension by answering these 4 key questions (click each card to reveal the explanation):
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:0.8rem;margin:1.5rem 0;">
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            1. What is the difference between an Automation and an Activity?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            An <strong>Automation</strong> is the complete workflow defining how and when a process runs. An <strong>Activity</strong> is a discrete, reusable technical task (like an SQL Query or data import) executed within a Step of that Automation.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            2. What role does a Step play within an Automation?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            A <strong>Step</strong> is a stage within the Automation that groups one or more Activities. Steps execute sequentially one after another, structuring dependency order across tasks.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            3. If an SQL Query generates a Data Extension that another Activity requires, should they be in the same Step or consecutive Steps?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <strong>In consecutive Steps.</strong> Activities in the same Step can execute simultaneously. If one activity requires the output of another, they must be separated into different Steps to ensure precedence.
+          </div>
+        </details>
+
+        <details style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);font-weight:bold;font-size:0.92rem;">
+            4. What is the conceptual difference between File Transfer and Data Copy or Import?
+          </summary>
+          <div style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border-dim);padding-top:0.8rem;">
+            <strong>File Transfer</strong> prepares or moves the physical file (moving across storage locations, unzipping, encrypting, or decrypting). <strong>Data Copy or Import</strong> works with the data inside the file to insert or copy records into Marketing Cloud tables (a standard CSV does not strictly require File Transfer prior to ingestion).
+          </div>
+        </details>
+
+      </div>
+
+      <!-- SECTION 15 EN -->
+      <h2 id="sec-challenge-en">15 · ARCADE CHALLENGE</h2>
+
+      <div class="challenge-box">
+        <div class="challenge-box-header">
+          <span class="challenge-box-icon">🎮 </span>
+          <div>
+            <div class="challenge-box-title">MISSION: Build Your First Conceptual Automation</div>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          <strong>The Scenario:</strong> Every morning, an external system uploads a compressed file <code>customers.zip</code> to your Enhanced FTP. The archive contains <code>customers.csv</code>. The automation must detect its arrival, unzip it, load the records into <code>Staging_Customers</code>, and generate the <code>Audience_Final</code> Data Extension ready for the daily campaign.
+          <br/><br/>
+          <strong>Your Challenge:</strong> Place the following 5 building blocks in their logical sequence across Starting Source, Steps, and Outcome:
+        </p>
+
+        <div style="background:rgba(255,255,255,0.04);border:1px dashed var(--border-dim);padding:0.8rem;border-radius:var(--radius);font-family:var(--font-mono);font-size:0.82rem;color:var(--neon-yellow);margin-bottom:1.2rem;">
+          [A] Data Copy or Import (Loads customers.csv into Staging_Customers)<br/>
+          [B] File Transfer Activity (Unzips customers.zip)<br/>
+          [C] Starting Source: File Drop (Detects arrival of customers.zip on Enhanced FTP)<br/>
+          [D] Data Extension Audience_Final (Final outcome)<br/>
+          [E] SQL Query Activity (Cross-references Staging_Customers data and generates Audience_Final)
+        </div>
+
+        <details style="font-size:0.85rem;">
+          <summary style="cursor:pointer;color:var(--neon-yellow);margin-bottom:0.75rem;font-weight:bold;"> View solution and explanation</summary>
+          
+          <!-- DIAGRAM D EN: VISUAL CHALLENGE SOLUTION (HTML/CSS) -->
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin-top:0.8rem;">
+            <div style="max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:0.35rem;">
+              
+              <!-- Starting Source -->
+              <div style="background:rgba(255,140,0,0.1);border:1.5px solid var(--neon-orange);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-orange);font-weight:bold;display:block;">STARTING SOURCE</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);font-weight:bold;">[C] Starting Source: File Drop (detects 'customers.zip' on Enhanced FTP)</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 1 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 1 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[B] File Transfer Activity: Manage File → Unzip (unzips 'customers.zip')</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 2 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 2 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[A] Data Copy or Import: loads 'customers.csv' into 'Staging_Customers'</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-yellow);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Step 3 -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-dim);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-yellow);font-weight:bold;display:block;">STEP 3 · ACTIVITY</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);">[E] SQL Query Activity: joins 'Staging_Customers' and generates 'Audience_Final'</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;color:var(--neon-green);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="18"></line><polyline points="18 12 12 18 6 12"></polyline></svg></div>
+
+              <!-- Final outcome -->
+              <div style="background:rgba(0,255,136,0.08);border:1.5px solid var(--neon-green);border-radius:6px;padding:0.6rem 0.8rem;text-align:center;">
+                <span style="font-size:0.72rem;color:var(--neon-green);font-weight:bold;display:block;">FINAL OUTCOME</span>
+                <span style="font-size:0.85rem;color:var(--text-primary);font-weight:bold;">[D] Data Extension 'Audience_Final' ready</span>
+              </div>
+
+            </div>
+            
+            <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:1rem;line-height:1.5;">
+              <strong>Sequence rationale (C → B → A → E → D):</strong> File Drop [C] is the Starting Source triggering execution upon detecting <code>customers.zip</code>; it is not an Activity, so it does not occupy a Step. In the <strong>Step 1</strong>, <em>File Transfer Activity</em> [B] is essential to unzip the compressed file and extract <code>customers.csv</code>. In <strong>Step 2</strong>, <em>Data Copy or Import</em> [A] reads the extracted CSV and populates <code>Staging_Customers</code>. In <strong>Step 3</strong>, <em>SQL Query Activity</em> [E] processes and segments staging records to generate the final audience. Finally, Data Extension <code>Audience_Final</code> [D] is the resulting target table ready for the campaign.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- UNNUMBERED ROADMAP SECTION -->
+      <h2 id="sec-roadmap-en">🗺️ CONTINUE LEARNING AUTOMATION STUDIO</h2>
+      <p>
+        This article serves as the foundational roadmap for Automation Studio. Specific technical implementations will be explored progressively in the following guides:
+      </p>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.2rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-arcade);font-size:0.5rem;color:var(--neon-cyan);margin-bottom:0.8rem;">🗺️ AUTOMATION STUDIO LEARNING ROADMAP IN ARCADE</div>
+        <ol style="margin:0;padding-left:1.2rem;color:var(--text-secondary);font-size:0.88rem;line-height:1.7;">
+          <li><strong>Building Your First Automation</strong>: Canvas navigation and initial setup.</li>
+          <li><strong>Starting Sources: Schedule, File Drop, and Trigger</strong>: Advanced trigger configurations.</li>
+          <li><strong>SQL Query Activity</strong>: Data actions (Append, Update, Overwrite) and query structures.</li>
+          <li><strong>Data Copy or Import</strong>: External file ingestion and cross-DE copying.</li>
+          <li><strong>File Transfer Activity</strong>: Safehouse operations, unzipping, and encryption keys.</li>
+          <li><strong>Data Extract Activity</strong>: Tracking data and tabular exports.</li>
+          <li><strong>Script Activity</strong>: Using Server-Side JavaScript for process orchestration.</li>
+          <li><strong>Wait and Verification</strong>: Flow control and data quality safeguards.</li>
+          <li><strong>Monitoring & Troubleshooting</strong>: Deciphering statuses and error logs.</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <!-- ──────────────────────────────────────────
+         BOTTOM ARTICLE NAVIGATION (Prev / Next)
+         ────────────────────────────────────────── -->
+    <div class="article-nav">
+      <a class="article-nav-card" href="/sfmc-overview">
+        <div class="article-nav-label" data-lang="es">◀ Anterior</div>
+        <div class="article-nav-label" data-lang="en">◀ Previous</div>
+        <div class="article-nav-title" data-lang="es">¿Qué es Marketing Cloud Engagement?</div>
+        <div class="article-nav-title" data-lang="en">What is Marketing Cloud Engagement?</div>
+      </a>
+      <a class="article-nav-card next" href="/sql-dataviews">
+        <div class="article-nav-label" data-lang="es">Siguiente ▶ </div>
+        <div class="article-nav-label" data-lang="en">Next ▶ </div>
+        <div class="article-nav-title" data-lang="es">SQL: Introducción a Data Views</div>
+        <div class="article-nav-title" data-lang="en">SQL: Intro to SFMC Data Views</div>
+      </a>
+    </div>
+
+  </article>
+
+  <!-- ==================== STICKY RIGHT SIDEBAR ==================== -->
+  <aside class="article-sidebar">
+
+    <!-- 1. TOC (TABLE OF CONTENTS - BILINGUAL & EXACT MATCH) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📖 EN ESTE ARTÍCULO</div>
+      <div class="sidebar-card-title" data-lang="en">📖 IN THIS ARTICLE</div>
+      <ul class="toc-list">
+        <li><a href="#sec-what-is" data-lang="es">01 · ¿Qué es Automation Studio?</a><a href="#sec-what-is-en" data-lang="en">01 · What is Automation Studio?</a></li>
+        <li><a href="#sec-what-for" data-lang="es">02 · ¿Para qué sirve?</a><a href="#sec-what-for-en" data-lang="en">02 · What is it used for?</a></li>
+        <li><a href="#sec-hierarchy" data-lang="es">03 · Automation vs Activity vs Step</a><a href="#sec-hierarchy-en" data-lang="en">03 · Automation vs Activity vs Step</a></li>
+        <li><a href="#sec-starting-sources" data-lang="es">04 · ¿Cómo comienza una Automation?</a><a href="#sec-starting-sources-en" data-lang="en">04 · How does an Automation start?</a></li>
+        <li><a href="#sec-activity-families" data-lang="es">05 · Familias de Activities</a><a href="#sec-activity-families-en" data-lang="en">05 · Families of Activities</a></li>
+        <li><a href="#sec-sql-role" data-lang="es">06 · El rol de SQL Query Activity</a><a href="#sec-sql-role-en" data-lang="en">06 · Role of SQL Query Activity</a></li>
+        <li><a href="#sec-transfer-vs-import" data-lang="es">07 · File Transfer vs Data Copy or Import</a><a href="#sec-transfer-vs-import-en" data-lang="en">07 · File Transfer vs Data Copy or Import</a></li>
+        <li><a href="#sec-execution-order" data-lang="es">08 · Steps y Tareas simultáneas</a><a href="#sec-execution-order-en" data-lang="en">08 · Steps & Parallel Activities</a></li>
+        <li><a href="#sec-data-extensions" data-lang="es">09 · Data Extensions: Las mesas</a><a href="#sec-data-extensions-en" data-lang="en">09 · Data Extensions: Workbenches</a></li>
+        <li><a href="#sec-full-example" data-lang="es">10 · Ejemplo completo</a><a href="#sec-full-example-en" data-lang="en">10 · Complete Walkthrough</a></li>
+        <li><a href="#sec-comparisons" data-lang="es">11 · VS otras herramientas</a><a href="#sec-comparisons-en" data-lang="en">11 · VS Other SFMC Tools</a></li>
+        <li><a href="#sec-best-practices" data-lang="es">12 · Buenas prácticas iniciales</a><a href="#sec-best-practices-en" data-lang="en">12 · Initial Best Practices</a></li>
+        <li><a href="#sec-use-cases" data-lang="es">13 · Casos de Uso Reales</a><a href="#sec-use-cases-en" data-lang="en">13 · Real-World Use Cases</a></li>
+        <li><a href="#sec-quiz" data-lang="es">14 · Comprueba lo aprendido</a><a href="#sec-quiz-en" data-lang="en">14 · Check Your Knowledge</a></li>
+        <li><a href="#sec-challenge" data-lang="es">15 · Desafío Arcade</a><a href="#sec-challenge-en" data-lang="en">15 · Arcade Challenge</a></li>
+        <li><a href="#sec-roadmap" data-lang="es">🗺️ Continúa aprendiendo</a><a href="#sec-roadmap-en" data-lang="en">🗺️ Continue Learning</a></li>
+      </ul>
+    </div>
+
+    <!-- 2. CLICKABLE TAGS (AUTO-SYNC VIA update-articles-sidebar.cjs) -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">🏷️ TAGS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;">
+        <a href="/catalog?tag=automation" class="tag orange">#automation</a>
+        <a href="/catalog?tag=basics" class="tag">#basics</a>
+        <a href="/catalog?tag=activities" class="tag">#activities</a>
+        <a href="/catalog?tag=steps" class="tag">#steps</a>
+        <a href="/catalog?tag=workflow" class="tag">#workflow</a>
+      </div>
+    </div>
+
+    <!-- 3. RELATED ARTICLES -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">🔗 ARTÍCULOS RELACIONADOS</div>
+      <div class="sidebar-card-title" data-lang="en">🔗 RELATED ARTICLES</div>
+      <div class="related-articles-list">
+        <a href="/sfmc-overview" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🚀</span>
+          <span class="related-article-text">¿Qué es Marketing Cloud Engagement?</span>
+        </a>
+        <a href="/sfmc-overview" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🚀</span>
+          <span class="related-article-text">What is Marketing Cloud Engagement?</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Introducción a Data Views</span>
+        </a>
+        <a href="/sql-dataviews" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">📊</span>
+          <span class="related-article-text">SQL: Intro to SFMC Data Views</span>
+        </a>
+        <a href="/jb-api-entry" class="related-article-link" data-lang="es">
+          <span class="related-article-icon">🗺️</span>
+          <span class="related-article-text">Journey Builder: API Entry Event</span>
+        </a>
+        <a href="/jb-api-entry" class="related-article-link" data-lang="en">
+          <span class="related-article-icon">🗺️</span>
+          <span class="related-article-text">Journey Builder: API Entry Event</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. OFFICIAL DOCS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title" data-lang="es">📚 DOCS OFICIALES</div>
+      <div class="sidebar-card-title" data-lang="en">📚 OFFICIAL DOCS</div>
+      <div class="related-articles-list">
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_automation_studio.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Automation Studio <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://help.salesforce.com/s/articleView?id=sf.mc_as_automation_studio.htm&type=5" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/salesforce.svg" alt="Salesforce" /></span>
+          <span class="related-article-text">Salesforce Help: Automation Studio Overview <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="es">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Actividades de Automation Studio <span class="external-icon">↗</span></span>
+        </a>
+        <a href="https://trailhead.salesforce.com/content/learn/modules/automation-studio-activities" target="_blank" rel="noopener noreferrer" class="related-article-link" data-lang="en">
+          <span class="related-article-icon"><img src="/assets/img/icons/trailhead.png" alt="Trailhead" /></span>
+          <span class="related-article-text">Trailhead: Automation Studio Activities <span class="external-icon">↗</span></span>
+        </a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+</Layout>

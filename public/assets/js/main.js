@@ -118,7 +118,7 @@ const SearchManager = (() => {
     { title: 'SSJS: Introduction to SSJS in SFMC', title_es: 'Introducción a SSJS en SFMC', category: 'ssjs', level: 'beginner', url: '/ssjs-intro', id: 'ssjs-intro' },
     { title: 'SSJS: Advanced Logging & Debugging', title_es: 'SSJS: Logging y Debugging avanzado', category: 'ssjs', level: 'intermediate', url: '/ssjs-debug', id: 'ssjs-debug' },
     { title: 'Journey Builder: API Entry Event', title_es: 'Journey Builder: API Entry Event', category: 'journey', level: 'advanced', url: '/jb-api-entry', id: 'jb-api-entry' },
-    { title: 'Automation Studio: File Drop Pattern', title_es: 'Automation Studio: Patrón File Drop', category: 'automation', level: 'intermediate', url: '/auto-filedrop', id: 'auto-filedrop' },
+    { title: 'Introduction to Automation Studio: Fundamentals Guide', title_es: 'Introducción a Automation Studio: Guía de Fundamentos', category: 'automation', level: 'beginner', url: '/auto-intro', id: 'auto-intro' },
     { title: 'Cloud Pages: Login & Token Auth', title_es: 'Cloud Pages: Login y Autenticación Token', category: 'cloudpages', level: 'advanced', url: '/cp-auth', id: 'cp-auth' },
     { title: 'SQL: Subscriber Engagement Score', title_es: 'SQL: Score de Engagement de Suscriptores', category: 'sql', level: 'intermediate', url: '/sql-engagement', id: 'sql-engagement' },
     { title: 'SQL: Advanced JOINs in Query Activities', title_es: 'SQL: JOINs avanzados en Query Activities', category: 'sql', level: 'advanced', url: '/sql-joins', id: 'sql-joins' },
